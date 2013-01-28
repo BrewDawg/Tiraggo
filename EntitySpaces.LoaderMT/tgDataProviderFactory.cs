@@ -33,7 +33,7 @@ using Tiraggo.Interfaces;
 
 namespace Tiraggo.LoaderMT
 {
-    public class esDataProviderFactory : IDataProviderFactory
+    public class tgDataProviderFactory : IDataProviderFactory
     {
         /// <summary>
         /// Called by the tgProviderFactory to get the proper data provider to carry

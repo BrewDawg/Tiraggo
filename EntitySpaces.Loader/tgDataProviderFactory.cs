@@ -38,7 +38,7 @@ namespace Tiraggo.Loader
     /// <summary>
     /// Used to load the EntitySpaces data providers in a loosely coupled fashion.
     /// </summary>
-    public class esDataProviderFactory : IDataProviderFactory
+    public class tgDataProviderFactory : IDataProviderFactory
     {
         /// <summary>
         /// Loads and Caches the EntitySpaces DataProvider.
