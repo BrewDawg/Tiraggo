@@ -32,7 +32,7 @@ using System;
 namespace Tiraggo.Web
 {
     /// <summary>
-    /// Passed in as the argument to the esException event.
+    /// Passed in as the argument to the tgException event.
     /// </summary>
     public class esDataSourceExceptionEventArgs
     {
@@ -48,7 +48,7 @@ namespace Tiraggo.Web
         public bool ExceptionWasHandled;
 
         /// <summary>
-        /// The low level exception that trigger the esException event.
+        /// The low level exception that trigger the tgException event.
         /// </summary>
         public Exception TheException;
 

@@ -159,7 +159,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicQuery\esDynamicQuery.cs" />
+    <Compile Include="DynamicQuery\tgDynamicQuery.cs" />
     <Compile Include="esColumnMetadata.cs" />
     <Compile Include="esColumnMetadataCollection.cs" />
     <Compile Include="esEntitySavePacket.cs" />
@@ -171,12 +171,12 @@
     <Compile Include="esTracePacket.cs" />
     <Compile Include="esTransactionScope.cs" />
     <Compile Include="esTypeMap.cs" />
-    <Compile Include="Exceptions\esConcurrencyException.cs" />
+    <Compile Include="Exceptions\tgConcurrencyException.cs" />
     <Compile Include="esConfigSettings.cs" />
     <Compile Include="esConnection.cs" />
     <Compile Include="esDataRequest.cs" />
     <Compile Include="enums.cs" />
-    <Compile Include="Exceptions\esException.cs" />
+    <Compile Include="Exceptions\tgException.cs" />
     <Compile Include="ICommittable.cs" />
     <Compile Include="IConnectionNameService.cs" />
     <Compile Include="IDataProvider.cs" />

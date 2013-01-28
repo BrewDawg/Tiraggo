@@ -347,7 +347,7 @@ namespace Tiraggo.VistaDB4Provider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -364,7 +364,7 @@ namespace Tiraggo.VistaDB4Provider
             }
             catch (VistaDBException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -372,7 +372,7 @@ namespace Tiraggo.VistaDB4Provider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in VistaDBProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in VistaDBProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1110,7 +1110,7 @@ namespace Tiraggo.VistaDB4Provider
         {
             esEntitySavePacket pkt = request.CollectionSavePacket[0];
 
-            if (pkt.RowState == esDataRowState.Deleted)
+            if (pkt.RowState == tgDataRowState.Deleted)
             {
                 //============================================================================
                 // We do all our deletes at once, so if the first one is a delete they all are
@@ -1146,19 +1146,19 @@ namespace Tiraggo.VistaDB4Provider
 
                     foreach (esEntitySavePacket packet in request.CollectionSavePacket)
                     {
-                        if (packet.RowState != esDataRowState.Added && packet.RowState != esDataRowState.Modified) continue;
+                        if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
                         DataRow row = dataTable.NewRow();
                         dataTable.Rows.Add(row);
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, packet.ModifiedColumns);
                                 SetModifiedValues(request, packet, row);
                                 break;
 
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, packet.ModifiedColumns);
                                 SetOriginalValues(request, packet, row, false);
                                 SetModifiedValues(request, packet, row);
@@ -1319,7 +1319,7 @@ namespace Tiraggo.VistaDB4Provider
 
         static private DataTable SaveDynamicEntity(esDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1334,12 +1334,12 @@ namespace Tiraggo.VistaDB4Provider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket.ModifiedColumns);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket.ModifiedColumns);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1347,7 +1347,7 @@ namespace Tiraggo.VistaDB4Provider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request, null);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();
@@ -1404,7 +1404,7 @@ namespace Tiraggo.VistaDB4Provider
                     esTransactionScope.DeEnlist(cmd);
                 }
 
-                if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                 {
                     foreach (VistaDBParameter param in cmd.Parameters)
                     {

@@ -40,7 +40,7 @@ namespace Tiraggo.Interfaces
     /// Used internally by EntitySpaces in support of the DynamicQuery Prefetch logic. This is passed to each
     /// esPrefetchDelegate delegate 
     /// </summary>
-    public class esPrefetchParameters
+    public class tgPrefetchParameters
     {
         /// <summary>
         /// The Root query when the Prefetch path is complete
@@ -107,7 +107,7 @@ namespace Tiraggo.Interfaces
     /// A Prefetch delegate map entry used when building a Prefetch path
     /// </summary>
     /// <param name="data">Used to pass state to each esPrefetchDelegate delegate as the query is being created</param>
-    public delegate void esPrefetchDelegate(esPrefetchParameters data);
+    public delegate void esPrefetchDelegate(tgPrefetchParameters data);
 
     /// <summary>
     /// This provides the Dynamic Query mechanism used by your Business object (Employees),
@@ -609,7 +609,7 @@ namespace Tiraggo.Interfaces
                     prefetchMaps = new List<esPrefetchMap>();
                 }
 
-                esPrefetchParameters data = new esPrefetchParameters();
+                tgPrefetchParameters data = new tgPrefetchParameters();
 
                 // Create the query, we do so in reverse order
                 for (int i = maps.Length - 1; i >= 0; i--)
@@ -654,7 +654,7 @@ namespace Tiraggo.Interfaces
                     prefetchMaps = new List<esPrefetchMap>();
                 }
 
-                esPrefetchParameters data = new esPrefetchParameters();
+                tgPrefetchParameters data = new tgPrefetchParameters();
 
                 // Create the query, we do so in reverse order
                 for (int i = maps.Length - 1; i >= 0; i--)

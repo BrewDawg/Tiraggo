@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace Tiraggo.Web
 {
     /// <summary>
-    /// Used during the esException event to indicate where the exception was thrown.
+    /// Used during the tgException event to indicate where the exception was thrown.
     /// </summary>
     public enum esDataSourceEventType
     {

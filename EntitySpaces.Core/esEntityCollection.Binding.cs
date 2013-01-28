@@ -124,7 +124,7 @@ namespace Tiraggo.Core
 #endif
             item.Collection = this;
 
-            if (item.RowState == esDataRowState.Deleted)
+            if (item.RowState == tgDataRowState.Deleted)
             {
                 if (deletedEntities == null)
                 {
@@ -852,7 +852,7 @@ namespace Tiraggo.Core
 
             entity.Collection = this;
 
-            if (entity.RowState == esDataRowState.Deleted)
+            if (entity.RowState == tgDataRowState.Deleted)
             {
                 if (deletedEntities == null)
                 {
@@ -926,7 +926,7 @@ namespace Tiraggo.Core
 
             entities.Remove((T)entity);
 
-            if (entity.RowState != esDataRowState.Deleted && entity.RowState != esDataRowState.Added)
+            if (entity.RowState != tgDataRowState.Deleted && entity.RowState != tgDataRowState.Added)
             {
                 entity.MarkAsDeleted();
             }

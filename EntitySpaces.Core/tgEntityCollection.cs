@@ -123,7 +123,7 @@ namespace Tiraggo.Core
 
         internal override void AddEntityToDeletedList(tgEntity entity)
         {
-            if (entity.rowState == esDataRowState.Modified || entity.rowState == esDataRowState.Unchanged)
+            if (entity.rowState == tgDataRowState.Modified || entity.rowState == tgDataRowState.Unchanged)
             {
                 if (deletedEntities == null)
                 {
@@ -203,7 +203,7 @@ namespace Tiraggo.Core
         {
             foreach (T entity in this.entities)
             {
-                if (entity.rowState == esDataRowState.Deleted)
+                if (entity.rowState == tgDataRowState.Deleted)
                 {
                     if (deletedEntities == null)
                     {
@@ -306,10 +306,10 @@ namespace Tiraggo.Core
 
             foreach (T e in entities)
             {
-                if (e.RowState != esDataRowState.Added)
+                if (e.RowState != tgDataRowState.Added)
                 {
                     deletedEntities.Add(e);
-                    e.rowState = esDataRowState.Deleted;
+                    e.rowState = tgDataRowState.Deleted;
                 }
 
                 if (entitiesFilterBackup != null)
@@ -569,11 +569,11 @@ namespace Tiraggo.Core
                     {
                         switch (entity.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 return true;
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 return true;
-                            case esDataRowState.Deleted:
+                            case tgDataRowState.Deleted:
                                 return true;
                         }
                     }
@@ -703,7 +703,7 @@ namespace Tiraggo.Core
                     obj.currentValues = new esSmartDictionary(ordinals, values);
                     obj.originalValues = new esSmartDictionary(ordinals, values, true);
                     if (obj.m_modifiedColumns != null) obj.m_modifiedColumns = null;
-                    obj.rowState = esDataRowState.Unchanged;
+                    obj.rowState = tgDataRowState.Unchanged;
                 }
             }
             finally
@@ -776,7 +776,7 @@ namespace Tiraggo.Core
             obj.currentValues = new esSmartDictionary(ordinals, values);
             obj.originalValues = new esSmartDictionary(ordinals, values, true);
             if (obj.m_modifiedColumns != null) obj.m_modifiedColumns = null;
-            obj.rowState = esDataRowState.Unchanged;
+            obj.rowState = tgDataRowState.Unchanged;
 
             IEntity iEntity = obj as IEntity;
             obj.es.IsLazyLoadDisabled = true;
@@ -982,14 +982,14 @@ namespace Tiraggo.Core
             List<tgEntity> addedRows = new List<tgEntity>();
             foreach (T entity in entities)
             {
-                if(entity.rowState == esDataRowState.Added)
+                if(entity.rowState == tgDataRowState.Added)
                 {
                     // We're going to remove this in a moment
                     addedRows.Add(entity);
                 }
                 else
                 {
-                    if (entity.rowState == esDataRowState.Modified || entity.rowState == esDataRowState.Deleted)
+                    if (entity.rowState == tgDataRowState.Modified || entity.rowState == tgDataRowState.Deleted)
                     {
                         entity.RejectChanges();
                     }
@@ -1059,7 +1059,7 @@ namespace Tiraggo.Core
 
                             entity.PrepareSpecialFields();
 
-                            if (entity.es.RowState == esDataRowState.Added)
+                            if (entity.es.RowState == tgDataRowState.Added)
                             {
                                 esEntitySavePacket packet;
                                 packet.OriginalValues = entity.originalValues;
@@ -1112,7 +1112,7 @@ namespace Tiraggo.Core
         /// Called to save all of the modified entities in the collection. 
         /// </summary>
         /// <remarks>
-        /// The esSqlAccessType is determined by the current connections 'sqlAccessType'
+        /// The tgSqlAccessType is determined by the current connections 'sqlAccessType'
         /// as stored in the app/web config file.  The value is either DynamicSQL or StoredProcedure.
         /// </remarks>
         override public void Save()
@@ -1135,11 +1135,11 @@ namespace Tiraggo.Core
         /// Called to save all of the modified entities in the collection.
         /// </summary>
         /// <remarks>
-        /// The esSqlAccessType is determined by the current connections 'sqlAccessType'
+        /// The tgSqlAccessType is determined by the current connections 'sqlAccessType'
         /// as stored in the app/web config file.  The value is either DynamicSQL or StoredProcedure.
         /// </remarks>
         /// <param name="sqlAccessType">DynamicSQL or StoredProcedure</param>
-        virtual public void Save(esSqlAccessType sqlAccessType)
+        virtual public void Save(tgSqlAccessType sqlAccessType)
         {
             Save(sqlAccessType, false);
         }
@@ -1149,12 +1149,12 @@ namespace Tiraggo.Core
         /// Called to save all of the modified entities in the collection.
         /// </summary>
         /// <remarks>
-        /// The esSqlAccessType is determined by the current connections 'sqlAccessType'
+        /// The tgSqlAccessType is determined by the current connections 'sqlAccessType'
         /// as stored in the app/web config file.  The value is either DynamicSQL or StoredProcedure.
         /// </remarks>
         /// <param name="sqlAccessType">DynamicSQL or StoredProcedure</param>
         /// <param name="continueUpdateOnError">If true, continues updating when other records fail to update</param>
-        virtual public void Save(esSqlAccessType sqlAccessType, bool continueUpdateOnError)
+        virtual public void Save(tgSqlAccessType sqlAccessType, bool continueUpdateOnError)
         {
             if (entities.Count == 0 && deletedEntities == null) return;
 
@@ -1193,7 +1193,7 @@ namespace Tiraggo.Core
                             entity.CommitPreSaves();
                             entity.ApplyPreSaveKeys();
 
-                            if (entity.es.RowState == esDataRowState.Added || entity.es.RowState == esDataRowState.Modified)
+                            if (entity.es.RowState == tgDataRowState.Added || entity.es.RowState == tgDataRowState.Modified)
                             {
                                 esEntitySavePacket packet;
                                 packet.OriginalValues = entity.originalValues;
@@ -1310,13 +1310,13 @@ namespace Tiraggo.Core
         /// Loads all of the entities from the database.
         /// </summary>
         /// <remarks>
-        /// The esSqlAccessType is determined by the current connections 'sqlAccessType'
+        /// The tgSqlAccessType is determined by the current connections 'sqlAccessType'
         /// as stored in the app/web config file.  The value is either DynamicSQL or StoredProcedure.
         /// </remarks>
         /// <returns>True if at least one entity was loaded, otherwise false.</returns>
         public override bool LoadAll()
         {
-            if (this.es.Connection.SqlAccessType == esSqlAccessType.DynamicSQL)
+            if (this.es.Connection.SqlAccessType == tgSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
                 return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
@@ -1334,14 +1334,14 @@ namespace Tiraggo.Core
         /// EmployeesCollection collection = new EmployeesCollection;
         /// Employees entity = new Employees;
         /// 
-        /// collection.LoadAll(esSqlAccessType.StoredProcedure);
+        /// collection.LoadAll(tgSqlAccessType.StoredProcedure);
         /// </code>
         /// </example>
         /// <param name="sqlAccessType">Either DynamicSQL or StoredProcedure.</param>
         /// <returns>True if at least one entity was loaded, otherwise false.</returns>
-        public override bool LoadAll(esSqlAccessType sqlAccessType)
+        public override bool LoadAll(tgSqlAccessType sqlAccessType)
         {
-            if (sqlAccessType == esSqlAccessType.DynamicSQL)
+            if (sqlAccessType == tgSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
                 return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
@@ -1589,8 +1589,8 @@ namespace Tiraggo.Core
         /// Will eliminate all objects that have the state or state(s) that you pass in. If you want to
         /// Prune all unmodified objects then PruneGraph() with no parameters, it's faster.
         /// </summary>
-        /// <param name="statesToPrune">The states you wish to prune, can be many such as PruneGraph(esDataRowState.Modified | esDataRowState.Deleted)</param>
-        public void PruneGraph(esDataRowState statesToPrune)
+        /// <param name="statesToPrune">The states you wish to prune, can be many such as PruneGraph(tgDataRowState.Modified | tgDataRowState.Deleted)</param>
+        public void PruneGraph(tgDataRowState statesToPrune)
         {
             tgVisitor.Visit(this, PruneGraphWithStateEnterCallback, PruneGraphWithStatExitCallback, statesToPrune);
         }
@@ -1663,12 +1663,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (MatchesState(p.Node.Entity.es.RowState, (esDataRowState)p.UserState))
+                    if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (MatchesState(p.Node.Entity.es.RowState, (esDataRowState)p.UserState))
+                else if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -1678,7 +1678,7 @@ namespace Tiraggo.Core
             {
                 p.Node.UserState = new List<tgEntity>();
 
-                if (MatchesState(esDataRowState.Deleted, (esDataRowState)p.UserState))
+                if (MatchesState(tgDataRowState.Deleted, (tgDataRowState)p.UserState))
                 {
                     p.Node.Collection.ClearDeletedEntries();
                 }
@@ -1686,7 +1686,7 @@ namespace Tiraggo.Core
                 bool canSetToNull = true;
                 foreach (tgEntity entity in p.Node.Collection)
                 {
-                    if (!MatchesState(entity.es.RowState, (esDataRowState)p.UserState))
+                    if (!MatchesState(entity.es.RowState, (tgDataRowState)p.UserState))
                     {
                         canSetToNull = false;
                         break;
@@ -1724,7 +1724,7 @@ namespace Tiraggo.Core
             return true;
         }
 
-        static private bool MatchesState(esDataRowState theState, esDataRowState statesToPrune)
+        static private bool MatchesState(tgDataRowState theState, tgDataRowState statesToPrune)
         {
             return (theState == (statesToPrune & theState)) ? true : false;
         }

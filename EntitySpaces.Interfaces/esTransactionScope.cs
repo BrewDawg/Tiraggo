@@ -72,7 +72,7 @@ namespace Tiraggo.Interfaces
     public class esTransactionScope : IDisposable
     {
         /// <summary>
-        /// The default constructor, this transactions <see cref="esTransactionScopeOption"/> will be
+        /// The default constructor, this transactions <see cref="tgTransactionScopeOption"/> will be
         /// set to Required. The IsolationLevel is set to Unspecified.
         /// <code>
         /// using (esTransactionScope scope = new esTransactionScope())
@@ -84,7 +84,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
          public esTransactionScope()
         {
-            this.option = esTransactionScopeOption.Required;
+            this.option = tgTransactionScopeOption.Required;
             this.level  = esTransactionScope.IsolationLevel;
 
             CommonInit(this);
@@ -93,20 +93,20 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Use this constructor to control the esTransactionScopeOption as it applies
+        /// Use this constructor to control the tgTransactionScopeOption as it applies
         /// to this transaction.
         /// <code>
-        /// using (esTransactionScope scope = new esTransactionScope(esTransactionScopeOption.RequiresNew))
+        /// using (esTransactionScope scope = new esTransactionScope(tgTransactionScopeOption.RequiresNew))
         /// {
         ///		// Do your work here
         ///		scope.Complete();
         /// }
         /// </code>
         /// </summary>
-        /// <param name="option">See <see cref="esTransactionScopeOption"/></param>
-        public esTransactionScope(esTransactionScopeOption option)
+        /// <param name="option">See <see cref="tgTransactionScopeOption"/></param>
+        public esTransactionScope(tgTransactionScopeOption option)
         {
-            if (option == esTransactionScopeOption.None) throw new ArgumentException("'None' cannot be passed");
+            if (option == tgTransactionScopeOption.None) throw new ArgumentException("'None' cannot be passed");
 
             this.option = option;
             this.level  = esTransactionScope.IsolationLevel;
@@ -117,20 +117,20 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Use this constructor to control the esTransactionScopeOption as it applies
+        /// Use this constructor to control the tgTransactionScopeOption as it applies
         /// to this transaction.
         /// <code>
         /// using (esTransactionScope scope = new 
-        ///   esTransactionScope(esTransactionScopeOption.RequiresNew, IsolationLevel.ReadCommitted))
+        ///   esTransactionScope(tgTransactionScopeOption.RequiresNew, IsolationLevel.ReadCommitted))
         /// {
         ///		// Do your work here
         ///		scope.Complete();
         /// }
         /// </code>
         /// </summary>
-        /// <param name="option">See <see cref="esTransactionScopeOption"/></param>
+        /// <param name="option">See <see cref="tgTransactionScopeOption"/></param>
         /// <param name="level">See IsolationLevel in the System.Data namespace</param>
-        public esTransactionScope(esTransactionScopeOption option, IsolationLevel level)
+        public esTransactionScope(tgTransactionScopeOption option, IsolationLevel level)
         {
             this.option = option;
             this.level  = level;
@@ -148,7 +148,7 @@ namespace Tiraggo.Interfaces
         {
             this.root.count--;
 
-            if (this.root == this && this.root.count == 0 && this.option != esTransactionScopeOption.Suppress)
+            if (this.root == this && this.root.count == 0 && this.option != tgTransactionScopeOption.Suppress)
             {
                 foreach (Transaction tx in this.root.transactions.Values)
                 {
@@ -270,7 +270,7 @@ namespace Tiraggo.Interfaces
         private bool hasRolledBack;
         private int count;
         private esTransactionScope root;
-        private esTransactionScopeOption option;
+        private tgTransactionScopeOption option;
         private IsolationLevel level;
 
         #region "static"
@@ -283,16 +283,16 @@ namespace Tiraggo.Interfaces
         public delegate IDbConnection CreateIDbConnectionDelegate();
 
         /// <summary>
-        /// This can be used to get the esTransactionScopeOption from the current esTransactionScope (remember transactions can be nested).
-        /// If there is no on-going transaction then esTransactionScopeOption.None is returned.
+        /// This can be used to get the tgTransactionScopeOption from the current esTransactionScope (remember transactions can be nested).
+        /// If there is no on-going transaction then tgTransactionScopeOption.None is returned.
         /// </summary>
         /// <returns></returns>
-        static public esTransactionScopeOption GetCurrentTransactionScopeOption()
+        static public tgTransactionScopeOption GetCurrentTransactionScopeOption()
         {
             esTransactionScope currentTx = GetCurrentTx();
 
             if (currentTx == null) 
-                return esTransactionScopeOption.None;
+                return tgTransactionScopeOption.None;
             else
                 return currentTx.option;
         }
@@ -307,7 +307,7 @@ namespace Tiraggo.Interfaces
         {
             esTransactionScope currentTx = GetCurrentTx();
 
-            if (currentTx == null || currentTx.option == esTransactionScopeOption.Suppress)
+            if (currentTx == null || currentTx.option == tgTransactionScopeOption.Suppress)
             {
                 cmd.Connection = creator();
                 cmd.Connection.ConnectionString = connectionString;
@@ -358,7 +358,7 @@ namespace Tiraggo.Interfaces
         static public void DeEnlist(IDbCommand cmd)
         {
             esTransactionScope current = GetCurrentTx();
-            if (current == null || current.option == esTransactionScopeOption.Suppress)
+            if (current == null || current.option == tgTransactionScopeOption.Suppress)
             {
                 cmd.Connection.Close();
             }
@@ -411,14 +411,14 @@ namespace Tiraggo.Interfaces
             }
 
             // If this transaction is required we need to set it's root
-            if (tx.option == esTransactionScopeOption.Required)
+            if (tx.option == tgTransactionScopeOption.Required)
             {
                 foreach (esTransactionScope esTrans in stack)
                 {
                     // The root can be either a Requires or RequiresNew, and a root always points to
                     // itself, therefore, as long as it's not a Suppress and it's pointing to itself
                     // then we know this the next root up on the stack
-                    if (esTrans.option != esTransactionScopeOption.Suppress && esTrans == esTrans.root)
+                    if (esTrans.option != tgTransactionScopeOption.Suppress && esTrans == esTrans.root)
                     {
                         tx.root = esTrans;
                         break;

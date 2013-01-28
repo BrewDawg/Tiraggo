@@ -281,7 +281,7 @@ namespace Tiraggo.Npgsql2Provider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -298,7 +298,7 @@ namespace Tiraggo.Npgsql2Provider
             }
             catch (NpgsqlException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -306,7 +306,7 @@ namespace Tiraggo.Npgsql2Provider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in SqlClientProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in SqlClientProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1075,7 +1075,7 @@ namespace Tiraggo.Npgsql2Provider
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 if (cmdInsert == null)
                                 {
                                     cmdInsert = Shared.BuildStoredProcInsertCommand(request, packet);
@@ -1083,7 +1083,7 @@ namespace Tiraggo.Npgsql2Provider
                                 }
                                 cmd = cmdInsert;
                                 break;
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 if (cmdUpdate == null)
                                 {
                                     cmdUpdate = Shared.BuildStoredProcUpdateCommand(request, packet);
@@ -1091,7 +1091,7 @@ namespace Tiraggo.Npgsql2Provider
                                 }
                                 cmd = cmdUpdate;
                                 break;
-                            case esDataRowState.Deleted:
+                            case tgDataRowState.Deleted:
                                 if (cmdDelete == null)
                                 {
                                     cmdDelete = Shared.BuildStoredProcDeleteCommand(request, packet);
@@ -1100,7 +1100,7 @@ namespace Tiraggo.Npgsql2Provider
                                 cmd = cmdDelete;
                                 break;
 
-                            case esDataRowState.Unchanged:
+                            case tgDataRowState.Unchanged:
                                 continue;
                         }
 
@@ -1165,7 +1165,7 @@ namespace Tiraggo.Npgsql2Provider
 
                             if (count < 1)
                             {
-                                throw new esConcurrencyException("Update failed to update any records");
+                                throw new tgConcurrencyException("Update failed to update any records");
                             }
                         }
                         catch (Exception ex)
@@ -1182,7 +1182,7 @@ namespace Tiraggo.Npgsql2Provider
 
                         #region Postprocess Parameters
 
-                        if (!exception && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                        if (!exception && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                         {
                             foreach (NpgsqlParameter param in cmd.Parameters)
                             {
@@ -1219,19 +1219,19 @@ namespace Tiraggo.Npgsql2Provider
 
             switch (request.EntitySavePacket.RowState)
             {
-                case esDataRowState.Added:
+                case tgDataRowState.Added:
                     cmd = Shared.BuildStoredProcInsertCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Modified:
+                case tgDataRowState.Modified:
                     cmd = Shared.BuildStoredProcUpdateCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Deleted:
+                case tgDataRowState.Deleted:
                     cmd = Shared.BuildStoredProcDeleteCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Unchanged:
+                case tgDataRowState.Unchanged:
                     return null;
             }
 
@@ -1267,7 +1267,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 if (count < 1)
                 {
-                    throw new esConcurrencyException("Update failed to update any records");
+                    throw new tgConcurrencyException("Update failed to update any records");
                 }
             }
             finally
@@ -1276,7 +1276,7 @@ namespace Tiraggo.Npgsql2Provider
                 cmd.Dispose();
             }
 
-            if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+            if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
             {
                 foreach (NpgsqlParameter param in cmd.Parameters)
                 {
@@ -1310,19 +1310,19 @@ namespace Tiraggo.Npgsql2Provider
 
                     switch (packet.RowState)
                     {
-                        case esDataRowState.Added:
+                        case tgDataRowState.Added:
                             cmd = Shared.BuildDynamicInsertCommand(request, packet);
                             break;
 
-                        case esDataRowState.Modified:
+                        case tgDataRowState.Modified:
                             cmd = Shared.BuildDynamicUpdateCommand(request, packet);
                             break;
 
-                        case esDataRowState.Deleted:
+                        case tgDataRowState.Deleted:
                             cmd = Shared.BuildDynamicDeleteCommand(request, packet);
                             break;
 
-                        case esDataRowState.Unchanged:
+                        case tgDataRowState.Unchanged:
                             continue;
                     }
 
@@ -1358,7 +1358,7 @@ namespace Tiraggo.Npgsql2Provider
 
                         if (count < 1)
                         {
-                            throw new esConcurrencyException("Update failed to update any records");
+                            throw new tgConcurrencyException("Update failed to update any records");
                         }
                     }
                     catch (Exception ex)
@@ -1378,7 +1378,7 @@ namespace Tiraggo.Npgsql2Provider
                         cmd.Dispose();
                     }
 
-                    if (!exception && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                    if (!exception && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                     {
                         foreach (NpgsqlParameter param in cmd.Parameters)
                         {
@@ -1406,15 +1406,15 @@ namespace Tiraggo.Npgsql2Provider
 
             switch (request.EntitySavePacket.RowState)
             {
-                case esDataRowState.Added:
+                case tgDataRowState.Added:
                     cmd = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Modified:
+                case tgDataRowState.Modified:
                     cmd = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Deleted:
+                case tgDataRowState.Deleted:
                     cmd = Shared.BuildDynamicDeleteCommand(request, request.EntitySavePacket);
                     break;
             }
@@ -1452,7 +1452,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 if (count < 1)
                 {
-                    throw new esConcurrencyException("Update failed to update any records");
+                    throw new tgConcurrencyException("Update failed to update any records");
                 }
             }
             finally
@@ -1461,7 +1461,7 @@ namespace Tiraggo.Npgsql2Provider
                 cmd.Dispose();
             }
 
-            if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+            if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
             {
                 foreach (NpgsqlParameter param in cmd.Parameters)
                 {

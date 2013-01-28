@@ -175,13 +175,13 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Maps to the "sqlAccessType" in the EntitySpaces configuration section. See <see cref="esSqlAccessType"/>
+        /// Maps to the "sqlAccessType" in the EntitySpaces configuration section. See <see cref="tgSqlAccessType"/>
         /// </summary>
-        public esSqlAccessType SqlAccessType
+        public tgSqlAccessType SqlAccessType
         {
             get
             {
-                if (this.sqlAccessType == esSqlAccessType.Unassigned)
+                if (this.sqlAccessType == tgSqlAccessType.Unassigned)
                     return esConfigSettings.DefaultConnection.SqlAccessType;
                 else
                     return this.sqlAccessType;
@@ -313,6 +313,6 @@ namespace Tiraggo.Interfaces
         [NonSerialized]
         private int? commandTimeout;
         [NonSerialized]
-        private esSqlAccessType sqlAccessType;
+        private tgSqlAccessType sqlAccessType;
     }
 }

@@ -214,7 +214,7 @@ namespace Tiraggo.Core
             return false;
         }
 
-        public virtual bool LoadAll(esSqlAccessType sqlAccessType)
+        public virtual bool LoadAll(tgSqlAccessType sqlAccessType)
         {
             return false;
         }

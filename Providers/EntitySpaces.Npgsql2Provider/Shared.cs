@@ -634,9 +634,9 @@ namespace Tiraggo.Npgsql2Provider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(NpgsqlException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(NpgsqlException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
             return ce;
         }
 

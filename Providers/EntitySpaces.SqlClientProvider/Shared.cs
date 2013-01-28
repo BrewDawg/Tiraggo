@@ -773,9 +773,9 @@ namespace Tiraggo.SqlClientProvider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(SqlException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(SqlException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex.Errors != null)
             {
@@ -783,7 +783,7 @@ namespace Tiraggo.SqlClientProvider
                 {
                     if (err.Number == 532)
                     {
-                        ce = new esConcurrencyException(err.Message, ex);
+                        ce = new tgConcurrencyException(err.Message, ex);
                         ce.Source = err.Source;
                         break;
                     }

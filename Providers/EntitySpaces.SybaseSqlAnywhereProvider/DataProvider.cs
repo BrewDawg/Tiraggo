@@ -347,7 +347,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -364,7 +364,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             }
             catch (SAException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -372,7 +372,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in SybaseSqlAnywhereProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in SybaseSqlAnywhereProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1136,13 +1136,13 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         SetModifiedValues(request, packet, row);
                         dataTable.Rows.Add(row);
                         if (request.ContinueUpdateOnError) rowMapping[row] = packet;
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         SetOriginalValues(request, packet, row, false);
                         SetModifiedValues(request, packet, row);
                         dataTable.Rows.Add(row);
@@ -1151,7 +1151,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                         if (request.ContinueUpdateOnError) rowMapping[row] = packet;
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         SetOriginalValues(request, packet, row, true);
                         dataTable.Rows.Add(row);
                         row.AcceptChanges();
@@ -1234,7 +1234,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
         static private DataTable SaveStoredProcEntity(esDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1249,12 +1249,12 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildStoredProcInsertCommand(request);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildStoredProcUpdateCommand(request);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1262,7 +1262,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildStoredProcDeleteCommand(request);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();
@@ -1330,7 +1330,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
         {
             esEntitySavePacket pkt = request.CollectionSavePacket[0];
 
-            if (pkt.RowState == esDataRowState.Deleted)
+            if (pkt.RowState == tgDataRowState.Deleted)
             {
                 //============================================================================
                 // We do all our deletes at once, so if the first one is a delete they all are
@@ -1366,19 +1366,19 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
                     foreach (esEntitySavePacket packet in request.CollectionSavePacket)
                     {
-                        if (packet.RowState != esDataRowState.Added && packet.RowState != esDataRowState.Modified) continue;
+                        if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
                         DataRow row = dataTable.NewRow();
                         dataTable.Rows.Add(row);
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, packet.ModifiedColumns);
                                 SetModifiedValues(request, packet, row);
                                 break;
 
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, packet.ModifiedColumns);
                                 SetOriginalValues(request, packet, row, false);
                                 SetModifiedValues(request, packet, row);
@@ -1522,7 +1522,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
         static private DataTable SaveDynamicEntity(esDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1537,12 +1537,12 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket.ModifiedColumns);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket.ModifiedColumns);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1550,7 +1550,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request, request.EntitySavePacket);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();

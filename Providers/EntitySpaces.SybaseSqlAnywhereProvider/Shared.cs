@@ -610,9 +610,9 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(SAException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(SAException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex.Errors != null)
             {
@@ -620,7 +620,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                 {
                     if (err.NativeError == 532)
                     {
-                        ce = new esConcurrencyException(err.Message, ex);
+                        ce = new tgConcurrencyException(err.Message, ex);
                         ce.Source = err.Source;
                         break;
                     }

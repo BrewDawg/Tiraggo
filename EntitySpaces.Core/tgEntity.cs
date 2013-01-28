@@ -96,7 +96,7 @@ namespace Tiraggo.Core
     {
         public tgEntity()
         {
-            rowState = esDataRowState.Added;
+            rowState = tgDataRowState.Added;
             currentValues.FirstAccess += new esSmartDictionary.esSmartDictionaryFirstAccessEventHandler(CurrentValues_OnFirstAccess);
         }
 
@@ -649,7 +649,7 @@ namespace Tiraggo.Core
         /// <summary>
         /// Indicates whether the entity is added, deleted, or modified
         /// </summary>
-        public esDataRowState RowState
+        public tgDataRowState RowState
         {
             get { return rowState; }
             set { rowState = value; }
@@ -1026,9 +1026,9 @@ namespace Tiraggo.Core
         /// <seealso cref="SetColumn"/>
         public object GetColumn(string columnName)
         {
-            if (currentValues == null || currentValues.Count == 0 || !currentValues.ContainsKey(columnName) || rowState == esDataRowState.Deleted)
+            if (currentValues == null || currentValues.Count == 0 || !currentValues.ContainsKey(columnName) || rowState == tgDataRowState.Deleted)
             {
-                if (rowState == esDataRowState.Added && !applyDefaultsCalled)
+                if (rowState == tgDataRowState.Added && !applyDefaultsCalled)
                 {
                     applyDefaultsCalled = true;
                     ApplyDefaults();
@@ -1883,7 +1883,7 @@ namespace Tiraggo.Core
         {
             bool changed = true;
 
-            if (rowState == esDataRowState.Deleted) throw new Exception("Cannot modifiy deleted records");
+            if (rowState == tgDataRowState.Deleted) throw new Exception("Cannot modifiy deleted records");
 
             try
             {
@@ -1895,7 +1895,7 @@ namespace Tiraggo.Core
 
                 if (currentValues.Count == 0)
                 {
-                    if (rowState == esDataRowState.Added && !applyDefaultsCalled)
+                    if (rowState == tgDataRowState.Added && !applyDefaultsCalled)
                     {
                         applyDefaultsCalled = true;
                         ApplyDefaults();
@@ -1907,9 +1907,9 @@ namespace Tiraggo.Core
                     currentValues[columnName] = data;
                     changed = true;
 
-                    if (rowState == esDataRowState.Unchanged)
+                    if (rowState == tgDataRowState.Unchanged)
                     {
-                        rowState = esDataRowState.Modified;
+                        rowState = tgDataRowState.Modified;
                     }
                 }
                 else
@@ -1929,7 +1929,7 @@ namespace Tiraggo.Core
                     }
 
                     // Note that we grab this before we make the change
-                    esDataRowState state = rowState;
+                    tgDataRowState state = rowState;
 
                     if (data == null && isNull)
                     {
@@ -1985,7 +1985,7 @@ namespace Tiraggo.Core
         {
             bool changed = true;
 
-            if (rowState == esDataRowState.Deleted) throw new Exception("Cannot modifiy deleted records");
+            if (rowState == tgDataRowState.Deleted) throw new Exception("Cannot modifiy deleted records");
 
             try
             {
@@ -1997,7 +1997,7 @@ namespace Tiraggo.Core
 
                 if (currentValues.Count == 0)
                 {
-                    if (rowState == esDataRowState.Added && !applyDefaultsCalled)
+                    if (rowState == tgDataRowState.Added && !applyDefaultsCalled)
                     {
                         applyDefaultsCalled = true;
                         ApplyDefaults();
@@ -2009,9 +2009,9 @@ namespace Tiraggo.Core
                     currentValues[columnName] = data;
                     changed = true;
 
-                    if (rowState == esDataRowState.Unchanged)
+                    if (rowState == tgDataRowState.Unchanged)
                     {
-                        rowState = esDataRowState.Modified;
+                        rowState = tgDataRowState.Modified;
                     }
                 }
                 else
@@ -2020,7 +2020,7 @@ namespace Tiraggo.Core
                     bool isNull = (o == DBNull.Value || o == null);
 
                     // Note that we grab this before we make the change
-                    esDataRowState state = rowState;
+                    tgDataRowState state = rowState;
 
                     if (data == null && isNull)
                     {
@@ -2071,7 +2071,7 @@ namespace Tiraggo.Core
         {
             if (entity.currentValues == null || entity.currentValues.Count == 0)
             {
-                if (entity.rowState == esDataRowState.Added && !entity.applyDefaultsCalled)
+                if (entity.rowState == tgDataRowState.Added && !entity.applyDefaultsCalled)
                 {
                     entity.applyDefaultsCalled = true;
                     entity.ApplyDefaults();
@@ -2090,7 +2090,7 @@ namespace Tiraggo.Core
         {
             if (entity.currentValues == null || entity.currentValues.Count == 0)
             {
-                if (entity.rowState == esDataRowState.Added && !entity.applyDefaultsCalled)
+                if (entity.rowState == tgDataRowState.Added && !entity.applyDefaultsCalled)
                 {
                     entity.applyDefaultsCalled = true;
                     entity.ApplyDefaults();
@@ -2158,9 +2158,9 @@ namespace Tiraggo.Core
             {
                 m_modifiedColumns.Add(columnName);
 
-                if (rowState != esDataRowState.Added)
+                if (rowState != tgDataRowState.Added)
                 {
-                    rowState = esDataRowState.Modified;
+                    rowState = tgDataRowState.Modified;
                 }
             }
         }
@@ -2201,7 +2201,7 @@ namespace Tiraggo.Core
         /// Do not call this with DataRowState.Deleted. Use entity.MarkAsDeleted() instead.
         /// </remarks>
         /// <param name="state">The DataRowState enumeration to which the DataRow of the entity is set.</param>
-        public void MarkAllColumnsAsDirty(esDataRowState state)
+        public void MarkAllColumnsAsDirty(tgDataRowState state)
         {
             (this as IEntity).RowState = state;
 
@@ -2216,7 +2216,7 @@ namespace Tiraggo.Core
         /// </summary>
         virtual public void MarkAsDeleted()
         {
-            if (rowState == esDataRowState.Deleted) return;
+            if (rowState == tgDataRowState.Deleted) return;
 
             if (collection != null)
             {
@@ -2226,13 +2226,13 @@ namespace Tiraggo.Core
                     list.Remove(this);
                 }
 
-                if (this.RowState != esDataRowState.Added)
+                if (this.RowState != tgDataRowState.Added)
                 {
                     collection.AddEntityToDeletedList(this);
                 }
             }
 
-            if (this.RowState == esDataRowState.Added)
+            if (this.RowState == tgDataRowState.Added)
             {
                 try
                 {
@@ -2246,11 +2246,11 @@ namespace Tiraggo.Core
                 }
                 catch { }
 
-                rowState = esDataRowState.Unchanged;
+                rowState = tgDataRowState.Unchanged;
             }
             else
             {
-                rowState = esDataRowState.Deleted;
+                rowState = tgDataRowState.Deleted;
             }
         }
 
@@ -2263,16 +2263,16 @@ namespace Tiraggo.Core
         /// </summary>
         virtual public void AcceptChanges()
         {
-            if (rowState == esDataRowState.Deleted)
+            if (rowState == tgDataRowState.Deleted)
             {
                 currentValues = originalValues = null;
                 m_modifiedColumns = null;
-                rowState = esDataRowState.Invalid;
+                rowState = tgDataRowState.Invalid;
             }
             else
             {
                 originalValues = new esSmartDictionary(currentValues);
-                rowState = esDataRowState.Unchanged;
+                rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
         }
@@ -2284,16 +2284,16 @@ namespace Tiraggo.Core
         /// <seealso cref="AcceptChanges"/>
         virtual public void RejectChanges()
         {
-            if (rowState == esDataRowState.Added)
+            if (rowState == tgDataRowState.Added)
             {
                 currentValues = new esSmartDictionary(currentValues.Count);
-                rowState = esDataRowState.Unchanged;
+                rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
             else
             {
                 currentValues = new esSmartDictionary(originalValues);
-                rowState = esDataRowState.Unchanged;
+                rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
         }
@@ -2338,22 +2338,22 @@ namespace Tiraggo.Core
         /// Employees entity = new Employees();
         /// entity.FirstName = this.txtFirstName.Text;
         /// entity.LastName = this.txtLastName.Text;
-        /// entity.Save(esSqlAccessType.StoredProcedure);
+        /// entity.Save(tgSqlAccessType.StoredProcedure);
         /// </code>
         /// </example>
-        /// <param name="sqlAccessType">See <see cref="esSqlAccessType"/>.</param>
-        virtual public void Save(esSqlAccessType sqlAccessType)
+        /// <param name="sqlAccessType">See <see cref="tgSqlAccessType"/>.</param>
+        virtual public void Save(tgSqlAccessType sqlAccessType)
         {
             if (!NeedsTransactionDuringSave())
             {
                 // Save modified or added rows only
-                if (rowState == esDataRowState.Modified || rowState == esDataRowState.Added)
+                if (rowState == tgDataRowState.Modified || rowState == tgDataRowState.Added)
                 {
                     this.SaveToProvider(sqlAccessType);
                 }
 
                 // Save my deleted records on the way back up
-                if (rowState == esDataRowState.Deleted)
+                if (rowState == tgDataRowState.Deleted)
                 {
                     this.SaveToProvider(sqlAccessType);
                 }
@@ -2362,9 +2362,9 @@ namespace Tiraggo.Core
             }
             else
             {
-                esTransactionScopeOption txOption =
-                    esTransactionScope.GetCurrentTransactionScopeOption() == esTransactionScopeOption.Suppress ?
-                    esTransactionScopeOption.Suppress : esTransactionScopeOption.Required;
+                tgTransactionScopeOption txOption =
+                    esTransactionScope.GetCurrentTransactionScopeOption() == tgTransactionScopeOption.Suppress ?
+                    tgTransactionScopeOption.Suppress : tgTransactionScopeOption.Required;
 
                 using (esTransactionScope scope = new esTransactionScope(txOption))
                 {
@@ -2373,7 +2373,7 @@ namespace Tiraggo.Core
                     this.ApplyPreSaveKeys();
 
                     // 2) Save me ...  (modified or added rows only)
-                    if (rowState == esDataRowState.Modified || rowState == esDataRowState.Added)
+                    if (rowState == tgDataRowState.Modified || rowState == tgDataRowState.Added)
                     {
                         this.SaveToProvider(sqlAccessType);
                     }
@@ -2385,7 +2385,7 @@ namespace Tiraggo.Core
                     this.CommitPostOneSaves();
 
                     // 4) Save my deleted records on the way back up
-                    if (rowState == esDataRowState.Deleted)
+                    if (rowState == tgDataRowState.Deleted)
                     {
                         this.SaveToProvider(sqlAccessType);
                     }
@@ -2429,14 +2429,14 @@ namespace Tiraggo.Core
         /// </summary>
         /// <param name="sqlAccessType"></param>
         /// <seealso cref="Save"/>
-        virtual protected void SaveToProvider(esSqlAccessType sqlAccessType)
+        virtual protected void SaveToProvider(tgSqlAccessType sqlAccessType)
         {
             esDataRequest request = CreateRequest();
 
             #region Auditing fields
             esColumnMetadataCollection cols = this.Meta.Columns;
 
-            if (rowState == esDataRowState.Added)
+            if (rowState == tgDataRowState.Added)
             {
                 if (cols.DateAdded != null && cols.DateAdded.Type == DateType.ClientSide)
                 {
@@ -2458,7 +2458,7 @@ namespace Tiraggo.Core
                     this.SetColumn(cols.ModifiedBy.ColumnName, ModifiedByEventHandler(), false);
                 }
             }
-            else if (rowState == esDataRowState.Modified)
+            else if (rowState == tgDataRowState.Modified)
             {
                 if (cols.DateModified != null && cols.DateModified.Type == DateType.ClientSide)
                 {
@@ -2497,7 +2497,7 @@ namespace Tiraggo.Core
         {
             esColumnMetadataCollection cols = this.Meta.Columns;
 
-            if (rowState == esDataRowState.Added)
+            if (rowState == tgDataRowState.Added)
             {
                 if (cols.DateAdded != null && cols.DateAdded.Type == DateType.ClientSide)
                 {
@@ -2519,7 +2519,7 @@ namespace Tiraggo.Core
                     this.SetColumn(cols.ModifiedBy.ColumnName, ModifiedByEventHandler(), false);
                 }
             }
-            else if (rowState == esDataRowState.Modified)
+            else if (rowState == tgDataRowState.Modified)
             {
                 if (cols.DateModified != null && cols.DateModified.Type == DateType.ClientSide)
                 {
@@ -2705,7 +2705,7 @@ namespace Tiraggo.Core
                 currentValues = new esSmartDictionary(ordinals, values);
                 originalValues = new esSmartDictionary(ordinals, values, true);
                 if (m_modifiedColumns != null) m_modifiedColumns = null;
-                rowState = esDataRowState.Unchanged;
+                rowState = tgDataRowState.Unchanged;
 
                 found = true;
             }
@@ -3405,8 +3405,8 @@ namespace Tiraggo.Core
         /// Will eliminate all objects that have the state or state(s) that you pass in. If you want to
         /// Prune all unmodified objects then PruneGraph() with no parameters, it's faster.
         /// </summary>
-        /// <param name="statesToPrune">The states you wish to prune, can be many such as PruneGraph(esDataRowState.Modified | esDataRowState.Deleted)</param>
-        public void PruneGraph(esDataRowState statesToPrune)
+        /// <param name="statesToPrune">The states you wish to prune, can be many such as PruneGraph(tgDataRowState.Modified | tgDataRowState.Deleted)</param>
+        public void PruneGraph(tgDataRowState statesToPrune)
         {
             tgVisitor.Visit(this, PruneGraphWithStateEnterCallback, PruneGraphWithStatExitCallback, statesToPrune);
         }
@@ -3479,12 +3479,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (MatchesState(p.Node.Entity.es.RowState, (esDataRowState)p.UserState))
+                    if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (MatchesState(p.Node.Entity.es.RowState, (esDataRowState)p.UserState))
+                else if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -3494,7 +3494,7 @@ namespace Tiraggo.Core
             {
                 p.Node.UserState = new List<tgEntity>();
 
-                if (MatchesState(esDataRowState.Deleted, (esDataRowState)p.UserState))
+                if (MatchesState(tgDataRowState.Deleted, (tgDataRowState)p.UserState))
                 {
                     p.Node.Collection.ClearDeletedEntries();
                 }
@@ -3502,7 +3502,7 @@ namespace Tiraggo.Core
                 bool canSetToNull = true;
                 foreach (tgEntity entity in p.Node.Collection)
                 {
-                    if (!MatchesState(entity.es.RowState, (esDataRowState)p.UserState))
+                    if (!MatchesState(entity.es.RowState, (tgDataRowState)p.UserState))
                     {
                         canSetToNull = false;
                         break;
@@ -3540,7 +3540,7 @@ namespace Tiraggo.Core
             return true;
         }
 
-        static private bool MatchesState(esDataRowState theState, esDataRowState statesToPrune)
+        static private bool MatchesState(tgDataRowState theState, tgDataRowState statesToPrune)
         {
             return (theState == (statesToPrune & theState)) ? true : false;
         }
@@ -3595,7 +3595,7 @@ namespace Tiraggo.Core
             isInEditMode = false;
 
             currentValues = proposedValues;
-            originalRowState = esDataRowState.Invalid;
+            originalRowState = tgDataRowState.Invalid;
             proposedValues = backupValues = null;
             originalModifiedColumns = null;
         }
@@ -3765,7 +3765,7 @@ namespace Tiraggo.Core
         {
             get
             {
-                if ((currentValues.Count > 0 && es.RowState != esDataRowState.Deleted) || collection != null)
+                if ((currentValues.Count > 0 && es.RowState != tgDataRowState.Deleted) || collection != null)
                     return true;
                 else
                     return false;
@@ -3783,13 +3783,13 @@ namespace Tiraggo.Core
             {
                 switch (rowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         return true;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         return true;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         return true;
                 }
 
@@ -3837,46 +3837,46 @@ namespace Tiraggo.Core
         }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Modified
+        /// Returns true of the RowState is tgDataRowState.Modified
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         bool IEntity.IsModified
         {
             get
             {
-                return rowState == esDataRowState.Modified;
+                return rowState == tgDataRowState.Modified;
              }
         }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Added
+        /// Returns true of the RowState is tgDataRowState.Added
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         bool IEntity.IsAdded
         {
             get
             {
-                return rowState == esDataRowState.Added;
+                return rowState == tgDataRowState.Added;
             }
         }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Deleted
+        /// Returns true of the RowState is tgDataRowState.Deleted
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         bool IEntity.IsDeleted
         {
             get
             {
-                return rowState == esDataRowState.Deleted;
+                return rowState == tgDataRowState.Deleted;
             }
         }
 
         /// <summary>
-        /// See the ADO.NET esDataRowState enum for more information. 
+        /// See the ADO.NET tgDataRowState enum for more information. 
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        esDataRowState IEntity.RowState
+        tgDataRowState IEntity.RowState
         {
             get
             {
@@ -3887,18 +3887,18 @@ namespace Tiraggo.Core
             {
                 switch (value)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         rowState = value;
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         throw new Exception("Call instead esEntity.MarkAsDeleted()");
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         rowState = value;
                         break;
 
-                    case esDataRowState.Unchanged:
+                    case tgDataRowState.Unchanged:
                         throw new Exception("Call instead AcceptChanges()");
                 }
             }
@@ -4400,7 +4400,7 @@ namespace Tiraggo.Core
         private esConnection connection;
 
         [NonSerialized]
-        private esDataRowState originalRowState;
+        private tgDataRowState originalRowState;
 
         [NonSerialized]
         private List<string> originalModifiedColumns;
@@ -4433,7 +4433,7 @@ namespace Tiraggo.Core
 
         internal esSmartDictionary currentValues = new esSmartDictionary();
 
-        internal esDataRowState rowState = esDataRowState.Unchanged;
+        internal tgDataRowState rowState = tgDataRowState.Unchanged;
 
         #endregion
 
@@ -4455,7 +4455,7 @@ namespace Tiraggo.Core
 
         [XmlIgnore]
         [DataMember(Name = "RowState", EmitDefaultValue = false)]
-        private esDataRowState TempRowState
+        private tgDataRowState TempRowState
         {
             get { return es.RowState; }
             set { tempRowState = value; }
@@ -4463,7 +4463,7 @@ namespace Tiraggo.Core
 
         [NonSerialized]
         [IgnoreDataMember]
-        private esDataRowState tempRowState;
+        private tgDataRowState tempRowState;
 
         [XmlIgnore]
         [DataMember(Name = "ModifiedColumns", EmitDefaultValue=false)]

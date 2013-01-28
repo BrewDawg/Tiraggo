@@ -511,9 +511,9 @@ namespace Tiraggo.VistaDB4Provider
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(VistaDBException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(VistaDBException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
             return ce;
         }
 

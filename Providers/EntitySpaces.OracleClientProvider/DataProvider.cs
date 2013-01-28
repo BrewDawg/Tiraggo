@@ -267,7 +267,7 @@ namespace Tiraggo.OracleClientProvider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -284,7 +284,7 @@ namespace Tiraggo.OracleClientProvider
             }
             catch (OracleException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -292,7 +292,7 @@ namespace Tiraggo.OracleClientProvider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in OracleClientProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in OracleClientProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1034,7 +1034,7 @@ namespace Tiraggo.OracleClientProvider
                         #region Setup Commands
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 if (cmdInsert == null)
                                 {
                                     cmdInsert = Shared.BuildStoredProcInsertCommand(request, packet);
@@ -1042,7 +1042,7 @@ namespace Tiraggo.OracleClientProvider
                                 }
                                 cmd = cmdInsert;
                                 break;
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 if (cmdUpdate == null)
                                 {
                                     cmdUpdate = Shared.BuildStoredProcUpdateCommand(request, packet);
@@ -1050,7 +1050,7 @@ namespace Tiraggo.OracleClientProvider
                                 }
                                 cmd = cmdUpdate;
                                 break;
-                            case esDataRowState.Deleted:
+                            case tgDataRowState.Deleted:
                                 if (cmdDelete == null)
                                 {
                                     cmdDelete = Shared.BuildStoredProcDeleteCommand(request, packet);
@@ -1059,7 +1059,7 @@ namespace Tiraggo.OracleClientProvider
                                 cmd = cmdDelete;
                                 break;
 
-                            case esDataRowState.Unchanged:
+                            case tgDataRowState.Unchanged:
                                 continue;
                         }
                         #endregion
@@ -1117,7 +1117,7 @@ namespace Tiraggo.OracleClientProvider
 
                             if (count < 1)
                             {
-                                throw new esConcurrencyException("Update failed to update any records");
+                                throw new tgConcurrencyException("Update failed to update any records");
                             }
                         }
                         catch (Exception ex)
@@ -1132,7 +1132,7 @@ namespace Tiraggo.OracleClientProvider
                         #endregion
 
                         #region Postprocess Commands
-                        if (packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                        if (packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                         {
                             foreach (OracleParameter param in cmd.Parameters)
                             {
@@ -1168,19 +1168,19 @@ namespace Tiraggo.OracleClientProvider
 
             switch (request.EntitySavePacket.RowState)
             {
-                case esDataRowState.Added:
+                case tgDataRowState.Added:
                     cmd = Shared.BuildStoredProcInsertCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Modified:
+                case tgDataRowState.Modified:
                     cmd = Shared.BuildStoredProcUpdateCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Deleted:
+                case tgDataRowState.Deleted:
                     cmd = Shared.BuildStoredProcDeleteCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Unchanged:
+                case tgDataRowState.Unchanged:
                     return null;
             }
 
@@ -1213,7 +1213,7 @@ namespace Tiraggo.OracleClientProvider
 
                 if (count < 1)
                 {
-                    throw new esConcurrencyException("Update failed to update any records");
+                    throw new tgConcurrencyException("Update failed to update any records");
                 }
             }
             finally
@@ -1222,7 +1222,7 @@ namespace Tiraggo.OracleClientProvider
                 cmd.Dispose();
             }
 
-            if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+            if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
             {
                 foreach (OracleParameter param in cmd.Parameters)
                 {
@@ -1256,19 +1256,19 @@ namespace Tiraggo.OracleClientProvider
 
                     switch (packet.RowState)
                     {
-                        case esDataRowState.Added:
+                        case tgDataRowState.Added:
                             cmd = Shared.BuildDynamicInsertCommand(request, packet);
                             break;
 
-                        case esDataRowState.Modified:
+                        case tgDataRowState.Modified:
                             cmd = Shared.BuildDynamicUpdateCommand(request, packet);
                             break;
 
-                        case esDataRowState.Deleted:
+                        case tgDataRowState.Deleted:
                             cmd = Shared.BuildDynamicDeleteCommand(request, packet);
                             break;
 
-                        case esDataRowState.Unchanged:
+                        case tgDataRowState.Unchanged:
                             continue;
                     }
 
@@ -1301,7 +1301,7 @@ namespace Tiraggo.OracleClientProvider
 
                         if (count < 1)
                         {
-                            throw new esConcurrencyException("Update failed to update any records");
+                            throw new tgConcurrencyException("Update failed to update any records");
                         }
                     }
                     catch (Exception ex)
@@ -1321,7 +1321,7 @@ namespace Tiraggo.OracleClientProvider
                         cmd.Dispose();
                     }
 
-                    if (!exception && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                    if (!exception && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                     {
                         foreach (OracleParameter param in cmd.Parameters)
                         {
@@ -1349,15 +1349,15 @@ namespace Tiraggo.OracleClientProvider
 
             switch (request.EntitySavePacket.RowState)
             {
-                case esDataRowState.Added:
+                case tgDataRowState.Added:
                     cmd = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Modified:
+                case tgDataRowState.Modified:
                     cmd = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket);
                     break;
 
-                case esDataRowState.Deleted:
+                case tgDataRowState.Deleted:
                     cmd = Shared.BuildDynamicDeleteCommand(request, request.EntitySavePacket);
                     break;
             }
@@ -1391,7 +1391,7 @@ namespace Tiraggo.OracleClientProvider
 
                 if (count < 1)
                 {
-                    throw new esConcurrencyException("Update failed to update any records");
+                    throw new tgConcurrencyException("Update failed to update any records");
                 }
             }
             finally
@@ -1400,7 +1400,7 @@ namespace Tiraggo.OracleClientProvider
                 cmd.Dispose();
             }
 
-            if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+            if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
             {
                 foreach (OracleParameter param in cmd.Parameters)
                 {

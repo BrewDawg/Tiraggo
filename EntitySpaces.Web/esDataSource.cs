@@ -90,7 +90,7 @@ namespace Tiraggo.Web
         public delegate void esDataSourceCreateEntityEventHandler(object sender, esDataSourceCreateEntityEventArgs e);
 
         /// <summary>
-        /// Delegate used to invoke the <see cref="esException"/> event.
+        /// Delegate used to invoke the <see cref="tgException"/> event.
         /// </summary>
         /// <param name="sender">The esDataSourceView</param>
         /// <param name="e">The event arguments</param>
@@ -408,7 +408,7 @@ namespace Tiraggo.Web
         }
 
         [esWebDescription("esDataSource_Exception"), Category("Exception")]
-        public event esDataSourceExceptionEventHandler esException
+        public event esDataSourceExceptionEventHandler tgException
         {
             add
             {

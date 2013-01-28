@@ -682,13 +682,13 @@ namespace Tiraggo.OracleClientProvider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(OracleException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(OracleException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex.Code == 20101)
             {
-                ce = new esConcurrencyException(ex.Message, ex);
+                ce = new tgConcurrencyException(ex.Message, ex);
                 ce.Source = ex.Source;
             }
 

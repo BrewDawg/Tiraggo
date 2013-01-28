@@ -475,9 +475,9 @@ namespace Tiraggo.MSAccessProvider
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(OleDbException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(OleDbException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex.Errors != null)
             {
@@ -485,7 +485,7 @@ namespace Tiraggo.MSAccessProvider
                 {
                     if (err.NativeError == 532)
                     {
-                        ce = new esConcurrencyException(err.Message, ex);
+                        ce = new tgConcurrencyException(err.Message, ex);
                         ce.Source = err.Source;
                         break;
                     }

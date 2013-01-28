@@ -38,7 +38,7 @@ namespace Tiraggo.Interfaces
         public esSmartDictionary CurrentValues;
         public esSmartDictionary OriginalValues;
         public List<string> ModifiedColumns;
-        public esDataRowState RowState;
+        public tgDataRowState RowState;
         public object Entity;
     }
 }

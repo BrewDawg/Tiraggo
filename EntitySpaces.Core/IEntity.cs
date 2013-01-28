@@ -154,24 +154,24 @@ namespace Tiraggo.Core
         bool IsGraphDirty { get; }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Modified
+        /// Returns true of the RowState is tgDataRowState.Modified
         /// </summary>
         bool IsModified { get; }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Added
+        /// Returns true of the RowState is tgDataRowState.Added
         /// </summary>
         bool IsAdded { get; }
 
         /// <summary>
-        /// Returns true of the RowState is esDataRowState.Deleted
+        /// Returns true of the RowState is tgDataRowState.Deleted
         /// </summary>
         bool IsDeleted { get; }
 
         /// <summary>
-        /// See the ADO.NET esDataRowState enum for more information. 
+        /// See the ADO.NET tgDataRowState enum for more information. 
         /// </summary>
-        esDataRowState RowState { get; set; }
+        tgDataRowState RowState { get; set; }
 
         /// <summary>
         /// See the ADO.NET DataRow.RowError for more information.

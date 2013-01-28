@@ -401,9 +401,9 @@ namespace Tiraggo.SqlServerCe4Provider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(SqlCeException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(SqlCeException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex.Errors != null)
             {
@@ -411,7 +411,7 @@ namespace Tiraggo.SqlServerCe4Provider
                 {
                     if (err.NativeError == 532)
                     {
-                        ce = new esConcurrencyException(err.Message, ex);
+                        ce = new tgConcurrencyException(err.Message, ex);
                         break;
                     }
                 }

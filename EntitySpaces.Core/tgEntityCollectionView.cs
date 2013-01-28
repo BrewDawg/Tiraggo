@@ -459,7 +459,7 @@ namespace Tiraggo.Core
 
             //IBindingList i = entities as IBindingList;
             //T o = (T)i.AddNew();
-            //o.rowState = esDataRowState.Added;
+            //o.rowState = tgDataRowState.Added;
             //o.Collection = collection;
 
             if (entitiesFilterBackup != null)

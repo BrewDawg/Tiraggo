@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,30 +35,30 @@ using System.Text;
 namespace Tiraggo.Interfaces
 {
     /// <summary>
-    /// This is thrown whenever a concurrency (write collision) exception occurs.
+    /// Acts as a base class for EntitySpaces exceptions. EntitySpaces itself throws very few exceptions however.
+    /// See <see cref="tgConcurrencyException"/>
     /// </summary>
-    /// <remarks>
-    /// This can occur in two situations. The first being when a call
-    /// to delete, insert, or update on a row results in zero rows being
-    /// changed. The second occurs when EntitySpaces recognizes that
-    /// an overwrite was about to take place. EntitySpaces can detect
-    /// overwrites using the SQL "timestamp" data type and in other
-    /// databases systems as well.
-    /// </remarks>
-    [Serializable] 
-    public class esConcurrencyException : esException
+    public class tgException : Exception
     {
-        public esConcurrencyException(string message)
-            : base(message)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="message">The text of the exception.</param>
+        public tgException(string message) :
+            base(message)
         {
 
         }
 
-        public esConcurrencyException(string message, Exception innerException)	:
+        /// <summary>
+        /// Alternate Connstructor
+        /// </summary>
+        /// <param name="message">The text of the exception.</param>
+        /// <param name="innerException">The exception we are wrapping</param>
+        public tgException(string message, Exception innerException) :
             base(message, innerException)
         {
 
         }
-
     }
 }

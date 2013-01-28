@@ -108,7 +108,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// Whether to use Stored Procedures or Dynamic SQL
         /// </summary>
-        public esSqlAccessType SqlAccessType;
+        public tgSqlAccessType SqlAccessType;
 
         /// <summary>
         /// The DataTable containing only the changed rows to commit

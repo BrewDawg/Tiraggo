@@ -346,7 +346,7 @@ namespace Tiraggo.SQLiteProvider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -363,7 +363,7 @@ namespace Tiraggo.SQLiteProvider
             }
             catch (SQLiteException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -371,7 +371,7 @@ namespace Tiraggo.SQLiteProvider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in SQLiteProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in SQLiteProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1114,7 +1114,7 @@ namespace Tiraggo.SQLiteProvider
         {
             esEntitySavePacket pkt = request.CollectionSavePacket[0];
 
-            if (pkt.RowState == esDataRowState.Deleted)
+            if (pkt.RowState == tgDataRowState.Deleted)
             {
                 //============================================================================
                 // We do all our deletes at once, so if the first one is a delete they all are
@@ -1150,19 +1150,19 @@ namespace Tiraggo.SQLiteProvider
 
                     foreach (esEntitySavePacket packet in request.CollectionSavePacket)
                     {
-                        if (packet.RowState != esDataRowState.Added && packet.RowState != esDataRowState.Modified) continue;
+                        if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
                         DataRow row = dataTable.NewRow();
                         dataTable.Rows.Add(row);
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, packet);
                                 SetModifiedValues(request, packet, row);
                                 break;
 
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, packet);
                                 SetOriginalValues(request, packet, row, false);
                                 SetModifiedValues(request, packet, row);
@@ -1218,7 +1218,7 @@ namespace Tiraggo.SQLiteProvider
                             dataTable.Rows.Clear();
                         }
 
-                        if (!row.HasErrors && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                        if (!row.HasErrors && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                         {
                             foreach (SQLiteParameter param in cmd.Parameters)
                             {
@@ -1322,7 +1322,7 @@ namespace Tiraggo.SQLiteProvider
 
         static private DataTable SaveDynamicEntity(esDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1337,12 +1337,12 @@ namespace Tiraggo.SQLiteProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1350,7 +1350,7 @@ namespace Tiraggo.SQLiteProvider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();
@@ -1406,7 +1406,7 @@ namespace Tiraggo.SQLiteProvider
                     esTransactionScope.DeEnlist(cmd);
                 }
 
-                if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                 {
                     foreach (SQLiteParameter param in cmd.Parameters)
                     {

@@ -93,7 +93,7 @@ namespace Tiraggo.Core
                     IEnumerator e = this as IEnumerator;
                     tgEntity obj = e.Current as tgEntity;
 
-                    if (obj.rowState != esDataRowState.Deleted)
+                    if (obj.rowState != tgDataRowState.Deleted)
                     {
                         moved = true;
                         break;

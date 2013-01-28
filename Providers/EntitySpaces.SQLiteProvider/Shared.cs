@@ -423,9 +423,9 @@ namespace Tiraggo.SQLiteProvider
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(SQLiteException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(SQLiteException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
             return ce;
         }
 

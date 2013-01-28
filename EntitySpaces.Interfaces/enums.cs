@@ -36,7 +36,7 @@ namespace Tiraggo.Interfaces
     /// <summary>
     /// Provides additional options for creating a transaction scope
     /// </summary>
-    public enum esTransactionScopeOption
+    public enum tgTransactionScopeOption
     {
         /// <summary>
         /// This setting of 'None' is returned by esTransactionScope.GetCurrentTransactionScopeOption()
@@ -64,7 +64,7 @@ namespace Tiraggo.Interfaces
     /// <summary>
     /// Sql access type, dynamic or stored procedures
     /// </summary>
-    public enum esSqlAccessType
+    public enum tgSqlAccessType
     {
         /// <summary>
         /// Unassigned
@@ -82,8 +82,8 @@ namespace Tiraggo.Interfaces
 
     [Flags]
     [XmlType(IncludeInSchema = false, Namespace="")]
-    [DataContract(Namespace= "www.entityspaces.net")]
-    public enum esDataRowState
+    [DataContract(Namespace= "www.tiraggo.com")]
+    public enum tgDataRowState
     {
         [EnumMember]
         Invalid = 0,

@@ -548,15 +548,15 @@ namespace Tiraggo.MySqlClientProvider
             return name;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(MySqlException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(MySqlException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
 
             if (ex != null)
             {
                 if (ex.Number == 532)
                 {
-                    ce = new esConcurrencyException(ex.Message, ex);
+                    ce = new tgConcurrencyException(ex.Message, ex);
                     ce.Source = ex.Source;
                 }
             }

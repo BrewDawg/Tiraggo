@@ -331,7 +331,7 @@ namespace Tiraggo.MSAccessProvider
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -348,7 +348,7 @@ namespace Tiraggo.MSAccessProvider
             }
             catch (OleDbException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                 {
                     response.Exception = es;
@@ -360,7 +360,7 @@ namespace Tiraggo.MSAccessProvider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in MSAccessProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in MSAccessProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
@@ -1057,7 +1057,7 @@ namespace Tiraggo.MSAccessProvider
         {
             esEntitySavePacket pkt = request.CollectionSavePacket[0];
 
-            if (pkt.RowState == esDataRowState.Deleted)
+            if (pkt.RowState == tgDataRowState.Deleted)
             {
                 //============================================================================
                 // We do all our deletes at once, so if the first one is a delete they all are
@@ -1093,19 +1093,19 @@ namespace Tiraggo.MSAccessProvider
 
                     foreach (esEntitySavePacket packet in request.CollectionSavePacket)
                     {
-                        if (packet.RowState != esDataRowState.Added && packet.RowState != esDataRowState.Modified) continue;
+                        if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
                         DataRow row = dataTable.NewRow();
                         dataTable.Rows.Add(row);
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, packet);
                                 SetModifiedValues(request, packet, row);
                                 break;
 
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, packet);
                                 SetOriginalValues(request, packet, row, false);
                                 SetModifiedValues(request, packet, row);
@@ -1158,7 +1158,7 @@ namespace Tiraggo.MSAccessProvider
                             dataTable.Rows.Clear();
                         }
 
-                        if (!row.HasErrors && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                        if (!row.HasErrors && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                         {
                             foreach (OleDbParameter param in cmd.Parameters)
                             {
@@ -1256,7 +1256,7 @@ namespace Tiraggo.MSAccessProvider
 
         static private DataTable SaveDynamicEntity(esDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1271,12 +1271,12 @@ namespace Tiraggo.MSAccessProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1284,7 +1284,7 @@ namespace Tiraggo.MSAccessProvider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request, null);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();
@@ -1338,7 +1338,7 @@ namespace Tiraggo.MSAccessProvider
                     esTransactionScope.DeEnlist(cmd);
                 }
 
-                if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                 {
                     foreach (OleDbParameter param in cmd.Parameters)
                     {

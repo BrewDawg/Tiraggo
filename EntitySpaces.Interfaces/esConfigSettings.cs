@@ -358,15 +358,15 @@ namespace Tiraggo.Interfaces
         /// <code>
         /// Employees emp = new Employees();
         ///	emp.es.Connection.Name = "Oracle";
-        /// emp.LoadByPrimaryKey(esSqlAccessType.StoredProcedure, 1);
+        /// emp.LoadByPrimaryKey(tgSqlAccessType.StoredProcedure, 1);
         /// emp.FirstName = "Joe";
-        /// emp.Save(esSqlAccessType.DynamicSQL);
+        /// emp.Save(tgSqlAccessType.DynamicSQL);
         /// </code>
         /// </remarks>
         [ConfigurationProperty("sqlAccessType", IsRequired = true)]
-        public esSqlAccessType SqlAccessType
+        public tgSqlAccessType SqlAccessType
         {
-            get { return (esSqlAccessType)this["sqlAccessType"]; }
+            get { return (tgSqlAccessType)this["sqlAccessType"]; }
             set { this["sqlAccessType"] = value; }
         }
 
@@ -733,17 +733,17 @@ namespace Tiraggo.Interfaces
         /// <code>
         /// Employees emp = new Employees();
         ///	emp.es.Connection.Name = "Oracle";
-        /// emp.LoadByPrimaryKey(esSqlAccessType.StoredProcedure, 1);
+        /// emp.LoadByPrimaryKey(tgSqlAccessType.StoredProcedure, 1);
         /// emp.FirstName = "Joe";
-        /// emp.Save(esSqlAccessType.DynamicSQL);
+        /// emp.Save(tgSqlAccessType.DynamicSQL);
         /// </code>
         /// </remarks>
-        public esSqlAccessType SqlAccessType
+        public tgSqlAccessType SqlAccessType
         {
             get { return _esSqlAccessType;  }
             set { _esSqlAccessType = value; }
         }
-        private esSqlAccessType _esSqlAccessType;
+        private tgSqlAccessType _esSqlAccessType;
 
         /// <summary>
         /// This is normally created as "esDefault" and should only be explicitly
