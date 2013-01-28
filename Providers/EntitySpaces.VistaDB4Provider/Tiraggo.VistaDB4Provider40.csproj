@@ -1,26 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</ProjectGuid>
+    <ProjectGuid>{6C9AB015-3E08-473E-87C4-11F1CBC38823}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntitySpaces.DynamicQuery</RootNamespace>
-    <AssemblyName>EntitySpaces.DynamicQuery</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Tiraggo.VistaDB4Provider</RootNamespace>
+    <AssemblyName>Tiraggo.VistaDB4Provider</AssemblyName>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <AssemblyOriginatorKeyFile>..\..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <PublishUrl>http://localhost/EntitySpaces.DynamicQuery/</PublishUrl>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/EntitySpaces.VistaDB4Provider/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -41,31 +40,29 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug40\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug40\EntitySpaces.DynamicQuery.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release40\</OutputPath>
-    <DefineConstants>TRACE;LINQ WCF</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LINQ WCF</DefineConstants>
-    <DocumentationFile>bin\Debug35\EntitySpaces.DynamicQuery.XML</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\x64_40\Release\</OutputPath>
-    <DefineConstants>TRACE;LINQ WCF</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -74,8 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LINQ WCF</DefineConstants>
-    <DocumentationFile>bin\Debug40\EntitySpaces.DynamicQuery.XML</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -84,44 +80,30 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;LINQ WCF</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="VistaDB.4, Version=4.1.0.0, Culture=neutral, PublicKeyToken=dfc935afe2125461, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="enums.cs" />
-    <Compile Include="tgCasts.cs" />
-    <Compile Include="tgColumnItem.cs" />
-    <Compile Include="tgDataContractSerializer.cs" />
-    <Compile Include="tgDynamicQuerySerializable.cs" />
-    <Compile Include="tgExpressionOrComparison.cs" />
-    <Compile Include="tgExtraPropertyBinder.cs" />
-    <Compile Include="tgMathmaticalExpression.cs" />
-    <Compile Include="tgGroupByItem.cs" />
-    <Compile Include="tgJoinItem.cs" />
-    <Compile Include="tgOrderByItem.cs" />
-    <Compile Include="tgQueryItem.cs" />
-    <Compile Include="tgQuerySubOperator.cs" />
-    <Compile Include="tgExpression.cs" />
-    <Compile Include="tgComparison.cs" />
-    <Compile Include="tgSetOperation.cs" />
-    <Compile Include="tgCase.cs" />
-    <Compile Include="IDynamicQuerySerializableInternal.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="Delimiters.cs" />
+    <Compile Include="EmptyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryBuilder.cs" />
+    <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -140,12 +122,15 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\EntitySpaces.DynamicQuery\Tiraggo.DynamicQuery40.csproj">
+      <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
+      <Name>Tiraggo.DynamicQuery40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntitySpaces.Interfaces\Tiraggo.Interfaces40.csproj">
+      <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
+      <Name>Tiraggo.Interfaces40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

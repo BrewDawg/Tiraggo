@@ -161,17 +161,17 @@
     <None Include="Resources\newlogo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitySpaces.Core\EntitySpaces.Core40.csproj">
+    <ProjectReference Include="..\EntitySpaces.Core\Tiraggo.Core40.csproj">
       <Project>{81B80C15-74F7-480A-B3C1-D8792785B357}</Project>
-      <Name>EntitySpaces.Core40</Name>
+      <Name>Tiraggo.Core40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery40.csproj">
+    <ProjectReference Include="..\EntitySpaces.DynamicQuery\Tiraggo.DynamicQuery40.csproj">
       <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
-      <Name>EntitySpaces.DynamicQuery40</Name>
+      <Name>Tiraggo.DynamicQuery40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntitySpaces.Interfaces\EntitySpaces.Interfaces40.csproj">
+    <ProjectReference Include="..\EntitySpaces.Interfaces\Tiraggo.Interfaces40.csproj">
       <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
-      <Name>EntitySpaces.Interfaces40</Name>
+      <Name>Tiraggo.Interfaces40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

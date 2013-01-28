@@ -1,45 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Core40", "EntitySpaces.Core\EntitySpaces.Core40.csproj", "{81B80C15-74F7-480A-B3C1-D8792785B357}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Core40", "EntitySpaces.Core\Tiraggo.Core40.csproj", "{81B80C15-74F7-480A-B3C1-D8792785B357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Interfaces40", "EntitySpaces.Interfaces\EntitySpaces.Interfaces40.csproj", "{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Interfaces40", "EntitySpaces.Interfaces\Tiraggo.Interfaces40.csproj", "{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SqlClientProvider40", "Providers\EntitySpaces.SqlClientProvider\EntitySpaces.SqlClientProvider40.csproj", "{96219C55-952F-4CCC-BF91-D91CA5EE5D56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.SqlClientProvider40", "Providers\EntitySpaces.SqlClientProvider\Tiraggo.SqlClientProvider40.csproj", "{96219C55-952F-4CCC-BF91-D91CA5EE5D56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Web40", "EntitySpaces.Web\EntitySpaces.Web40.csproj", "{AD966F44-99BB-4DB5-A7D4-48576CA74D28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Loader40", "EntitySpaces.Loader\Tiraggo.Loader40.csproj", "{7DFF20D6-C320-4920-AE92-4F096D8DFE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Web.Design40", "EntitySpaces.Web.Design\EntitySpaces.Web.Design40.csproj", "{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.LoaderMT40", "EntitySpaces.LoaderMT\Tiraggo.LoaderMT40.csproj", "{646DE25E-4951-4174-B8E2-16E6D6D5008A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Loader40", "EntitySpaces.Loader\EntitySpaces.Loader40.csproj", "{7DFF20D6-C320-4920-AE92-4F096D8DFE61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.DebuggerVisualizer40", "EntitySpaces.DebuggerVisualizer\Tiraggo.DebuggerVisualizer40.csproj", "{A82A0BF9-2C70-4396-BD4B-9F287B0B347D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.LoaderMT40", "EntitySpaces.LoaderMT\EntitySpaces.LoaderMT40.csproj", "{646DE25E-4951-4174-B8E2-16E6D6D5008A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.DynamicQuery40", "EntitySpaces.DynamicQuery\Tiraggo.DynamicQuery40.csproj", "{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.DebuggerVisualizer40", "EntitySpaces.DebuggerVisualizer\EntitySpaces.DebuggerVisualizer40.csproj", "{A82A0BF9-2C70-4396-BD4B-9F287B0B347D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Npgsql2Provider40", "Providers\EntitySpaces.Npgsql2Provider\Tiraggo.Npgsql2Provider40.csproj", "{3A2AA5B3-FC88-4D72-9772-C3C5183998DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.DynamicQuery40", "EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery40.csproj", "{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.OracleClientProvider40", "Providers\EntitySpaces.OracleClientProvider\Tiraggo.OracleClientProvider40.csproj", "{B5F79307-BF9E-4C3C-9F3B-2D841E825658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Npgsql2Provider40", "Providers\EntitySpaces.Npgsql2Provider\EntitySpaces.Npgsql2Provider40.csproj", "{3A2AA5B3-FC88-4D72-9772-C3C5183998DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.SybaseSqlAnywhereProvider40", "Providers\EntitySpaces.SybaseSqlAnywhereProvider\Tiraggo.SybaseSqlAnywhereProvider40.csproj", "{6FD3D08A-4B3E-416D-ABBB-F0772222F7BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.OracleClientProvider40", "Providers\EntitySpaces.OracleClientProvider\EntitySpaces.OracleClientProvider40.csproj", "{B5F79307-BF9E-4C3C-9F3B-2D841E825658}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.VistaDB4Provider40", "Providers\EntitySpaces.VistaDB4Provider\Tiraggo.VistaDB4Provider40.csproj", "{6C9AB015-3E08-473E-87C4-11F1CBC38823}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SybaseSqlAnywhereProvider40", "Providers\EntitySpaces.SybaseSqlAnywhereProvider\EntitySpaces.SybaseSqlAnywhereProvider40.csproj", "{6FD3D08A-4B3E-416D-ABBB-F0772222F7BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.MySqlClientProvider40", "Providers\EntitySpaces.MySqlClientProvider\Tiraggo.MySqlClientProvider40.csproj", "{FA7C329C-870C-4EEA-B5AC-E8BAFF590623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.VistaDB4Provider40", "Providers\EntitySpaces.VistaDB4Provider\EntitySpaces.VistaDB4Provider40.csproj", "{6C9AB015-3E08-473E-87C4-11F1CBC38823}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.MSAccessProvider40", "Providers\EntitySpaces.MSAccessProvider\Tiraggo.MSAccessProvider40.csproj", "{D39C62AC-C3BE-433F-95DB-6175703B092E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.MySqlClientProvider40", "Providers\EntitySpaces.MySqlClientProvider\EntitySpaces.MySqlClientProvider40.csproj", "{FA7C329C-870C-4EEA-B5AC-E8BAFF590623}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.SqlServerCeProvider40", "Providers\EntitySpaces.SqlServerCeProvider\Tiraggo.SqlServerCeProvider40.csproj", "{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.MSAccessProvider40", "Providers\EntitySpaces.MSAccessProvider\EntitySpaces.MSAccessProvider40.csproj", "{D39C62AC-C3BE-433F-95DB-6175703B092E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.SQLiteProvider40", "Providers\EntitySpaces.SQLiteProvider\Tiraggo.SQLiteProvider40.csproj", "{EAFE3E67-8249-4944-9EEB-4107011F8292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SqlServerCeProvider40", "Providers\EntitySpaces.SqlServerCeProvider\EntitySpaces.SqlServerCeProvider40.csproj", "{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.SqlServerCe4Provider_40", "Providers\EntitySpaces.SqlServerCe4Provider\Tiraggo.SqlServerCe4Provider_40.csproj", "{1CBE5BA4-CDE7-404F-9323-66399BCBC0B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SQLiteProvider40", "Providers\EntitySpaces.SQLiteProvider\EntitySpaces.SQLiteProvider40.csproj", "{EAFE3E67-8249-4944-9EEB-4107011F8292}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Profiler40", "EntitySpaces.Profiler\Tiraggo.Profiler40.csproj", "{35549F3C-9CFF-484E-8452-6D2498F9F9B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SqlServerCe4Provider_40", "Providers\EntitySpaces.SqlServerCe4Provider\EntitySpaces.SqlServerCe4Provider_40.csproj", "{1CBE5BA4-CDE7-404F-9323-66399BCBC0B8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Profiler40", "EntitySpaces.Profiler\EntitySpaces.Profiler40.csproj", "{35549F3C-9CFF-484E-8452-6D2498F9F9B2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.js40", "EntitySpaces.js\EntitySpaces.js40.csproj", "{E4142BA3-5BB3-4EB6-BB1F-FA6742C2A787}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.js40", "EntitySpaces.js\Tiraggo.js40.csproj", "{E4142BA3-5BB3-4EB6-BB1F-FA6742C2A787}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDMessaging40", "XDMessaging\XDMessaging40.csproj", "{EFAAE69D-F65D-4247-81AA-440E18C3336F}"
 EndProject
@@ -131,46 +127,6 @@ Global
 		{96219C55-952F-4CCC-BF91-D91CA5EE5D56}.Release|x64.Build.0 = Release|x64
 		{96219C55-952F-4CCC-BF91-D91CA5EE5D56}.Release|x86.ActiveCfg = Release|x86
 		{96219C55-952F-4CCC-BF91-D91CA5EE5D56}.Release|x86.Build.0 = Release|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|x64.ActiveCfg = Debug|x64
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|x64.Build.0 = Debug|x64
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|x86.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Debug|x86.Build.0 = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugDavidTests|Any CPU.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugDavidTests|x64.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugDavidTests|x86.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugDavidTests|x86.Build.0 = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugMikeTests|Any CPU.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugMikeTests|x64.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugMikeTests|x86.ActiveCfg = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.DebugMikeTests|x86.Build.0 = Debug|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|x64.ActiveCfg = Release|x64
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|x64.Build.0 = Release|x64
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|x86.ActiveCfg = Release|x86
-		{AD966F44-99BB-4DB5-A7D4-48576CA74D28}.Release|x86.Build.0 = Release|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|x64.ActiveCfg = Debug|x64
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|x64.Build.0 = Debug|x64
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|x86.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Debug|x86.Build.0 = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugDavidTests|Any CPU.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugDavidTests|x64.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugDavidTests|x86.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugDavidTests|x86.Build.0 = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugMikeTests|Any CPU.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugMikeTests|x64.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugMikeTests|x86.ActiveCfg = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.DebugMikeTests|x86.Build.0 = Debug|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|x64.ActiveCfg = Release|x64
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|x64.Build.0 = Release|x64
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|x86.ActiveCfg = Release|x86
-		{35DA7C80-CE5F-424C-A5C4-D9A2FB5023B3}.Release|x86.Build.0 = Release|x86
 		{7DFF20D6-C320-4920-AE92-4F096D8DFE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DFF20D6-C320-4920-AE92-4F096D8DFE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DFF20D6-C320-4920-AE92-4F096D8DFE61}.Debug|x64.ActiveCfg = Debug|x64

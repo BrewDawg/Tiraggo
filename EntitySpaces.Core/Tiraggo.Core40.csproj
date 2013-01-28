@@ -5,22 +5,22 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}</ProjectGuid>
+    <ProjectGuid>{81B80C15-74F7-480A-B3C1-D8792785B357}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntitySpaces.SqlServerCeProvider</RootNamespace>
-    <AssemblyName>EntitySpaces.SqlServerCeProvider</AssemblyName>
+    <RootNamespace>Tiraggo.Core</RootNamespace>
+    <AssemblyName>Tiraggo.Core</AssemblyName>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>http://localhost/EntitySpaces.SqlServerCeProvider/</PublishUrl>
+    <PublishUrl>http://localhost/EntitySpaces.Core/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -40,49 +40,106 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug40\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LINQ</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug40\Tiraggo.Core.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release40\</OutputPath>
-    <DefineConstants>TRACE;LINQ</DefineConstants>
+    <DefineConstants>LINQ</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugDavidTests|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Tiraggo.Core.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMikeTests|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Tiraggo.Core.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;LINQ</DefineConstants>
+    <DocumentationFile>bin\Debug\EntitySpaces.Core.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\x64_40\Release\</OutputPath>
-    <DefineConstants>TRACE;LINQ</DefineConstants>
+    <DefineConstants>LINQ</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugDavidTests|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\DebugDavidTests\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\EntitySpaces.Core.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMikeTests|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\DebugMikeTests\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\EntitySpaces.Core.XML</DocumentationFile>
+    <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LINQ</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;LINQ WebBinding</DefineConstants>
+    <DocumentationFile>bin\Debug40\EntitySpaces.Core.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;LINQ</DefineConstants>
+    <DefineConstants>TRACE;LINQ WebBinding</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugDavidTests|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\DebugDavidTests\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\EntitySpaces.Core.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugMikeTests|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\DebugMikeTests\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\EntitySpaces.Core.XML</DocumentationFile>
+    <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
@@ -95,19 +152,34 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>Driver\System.Data.SqlServerCe.dll</HintPath>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache.cs" />
-    <Compile Include="DataProvider.cs" />
-    <Compile Include="Delimiters.cs" />
-    <Compile Include="EmptyClass.cs" />
+    <Compile Include="tgCollectionWCFPacket.cs" />
+    <Compile Include="tgEntity.cs" />
+    <Compile Include="esEntityCollection.Binding.cs">
+      <DependentUpon>tgEntityCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="tgEntityCollection.cs" />
+    <Compile Include="tgEntityCollectionBase.cs" />
+    <Compile Include="tgEntityCollectionEnumeratorGeneric.cs" />
+    <Compile Include="tgEntityCollectionView.cs" />
+    <Compile Include="tgEntityComparer.cs" />
+    <Compile Include="tgEntityDebuggerView.cs" />
+    <Compile Include="tgHierarchicalPropertyAttribute.cs" />
+    <Compile Include="tgMetadata.cs" />
+    <Compile Include="tgPropertyDescriptor.cs" />
+    <Compile Include="tgUpdateViewEventHandler.cs" />
+    <Compile Include="tgExtendedPropertyAttribute.cs" />
+    <Compile Include="tgUtility.cs" />
+    <Compile Include="tgUtilityEntity.cs" />
+    <Compile Include="tgVisitor.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="IEntityCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryBuilder.cs" />
-    <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -137,21 +209,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery40.csproj">
+    <ProjectReference Include="..\EntitySpaces.DynamicQuery\Tiraggo.DynamicQuery40.csproj">
       <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
-      <Name>EntitySpaces.DynamicQuery40</Name>
+      <Name>Tiraggo.DynamicQuery40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\EntitySpaces.Interfaces\EntitySpaces.Interfaces40.csproj">
+    <ProjectReference Include="..\EntitySpaces.Interfaces\Tiraggo.Interfaces40.csproj">
       <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
-      <Name>EntitySpaces.Interfaces40</Name>
+      <Name>Tiraggo.Interfaces40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

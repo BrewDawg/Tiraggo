@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A82A0BF9-2C70-4396-BD4B-9F287B0B347D}</ProjectGuid>
+    <ProjectGuid>{6FD3D08A-4B3E-416D-ABBB-F0772222F7BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntitySpaces.DebuggerVisualizer</RootNamespace>
-    <AssemblyName>EntitySpaces.DebuggerVisualizer</AssemblyName>
+    <RootNamespace>Tiraggo.SybaseSqlAnywhereProvider</RootNamespace>
+    <AssemblyName>Tiraggo.SybaseSqlAnywhereProvider</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\StrongNameKey\EntitySpaces.snk</AssemblyOriginatorKeyFile>
+    <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <PublishUrl>http://localhost/EntitySpaces.DebuggerVisualizer/</PublishUrl>
+    <PublishUrl>http://localhost/EntitySpaces.SybaseSqlAnywhereProvider/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -87,47 +87,24 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="iAnywhere.Data.SQLAnywhere, Version=11.0.0.14902, Culture=neutral, PublicKeyToken=f222fc4333e0d400, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="esVisualizer.cs" />
-    <Compile Include="esVisualizerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="esVisualizerForm.Designer.cs">
-      <DependentUpon>esVisualizerForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Cache.cs" />
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="Delimiters.cs" />
+    <Compile Include="EmptyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="esVisualizerForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>esVisualizerForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EntitySpaces.Core\EntitySpaces.Core40.csproj">
-      <Project>{81B80C15-74F7-480A-B3C1-D8792785B357}</Project>
-      <Name>EntitySpaces.Core40</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery40.csproj">
-      <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
-      <Name>EntitySpaces.DynamicQuery40</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EntitySpaces.Interfaces\EntitySpaces.Interfaces40.csproj">
-      <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
-      <Name>EntitySpaces.Interfaces40</Name>
-    </ProjectReference>
+    <Compile Include="QueryBuilder.cs" />
+    <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -146,7 +123,17 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\EntitySpaces.DynamicQuery\Tiraggo.DynamicQuery40.csproj">
+      <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
+      <Name>Tiraggo.DynamicQuery40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntitySpaces.Interfaces\Tiraggo.Interfaces40.csproj">
+      <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
+      <Name>Tiraggo.Interfaces40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
