@@ -40,7 +40,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 {
     class Shared
     {
-        static public SACommand BuildDynamicInsertCommand(esDataRequest request, List<string> modifiedColumns)
+        static public SACommand BuildDynamicInsertCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -58,8 +58,8 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             SACommand cmd = new SACommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -184,7 +184,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public SACommand BuildDynamicUpdateCommand(esDataRequest request, List<string> modifiedColumns)
+        static public SACommand BuildDynamicUpdateCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -204,8 +204,8 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             SACommand cmd = new SACommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -326,7 +326,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public SACommand BuildDynamicDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SACommand BuildDynamicDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SAParameter> types = Cache.GetParameters(request);
 
@@ -338,7 +338,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -356,7 +356,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public SACommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public SACommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             Dictionary<string, SAParameter> types = Cache.GetParameters(request);
 
@@ -368,7 +368,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.HasDefault &&
                     (col.Default.ToLower().Contains("newid") || col.Default.ToLower().Contains("newsequentialid")))
@@ -389,7 +389,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public SACommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public SACommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             Dictionary<string, SAParameter> types = Cache.GetParameters(request);
 
@@ -401,7 +401,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed || col.IsConcurrency || col.IsEntitySpacesConcurrency)
                 {
@@ -414,7 +414,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public SACommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public SACommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             Dictionary<string, SAParameter> types = Cache.GetParameters(request);
 
@@ -426,7 +426,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
             SAParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -447,13 +447,13 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(SACommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(SACommand cmd, tgDataRequest request)
         {
             Dictionary<string, SAParameter> types = Cache.GetParameters(request);
 
             SAParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -526,11 +526,11 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return (insert || update || delete) ? true : false;
         }
 
-        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
+        static public string CreateFullName(tgDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -557,7 +557,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -584,7 +584,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return name;
         }
 
-        static public string CreateFullSPName(esDataRequest request, string spName)
+        static public string CreateFullSPName(tgDataRequest request, string spName)
         {
             string name = String.Empty;
 
@@ -630,7 +630,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             return ce;
         }
 
-        static public void AddParameters(SACommand cmd, esDataRequest request)
+        static public void AddParameters(SACommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -682,13 +682,13 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             }
         }
 
-        static public void GatherReturnParameters(SACommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(SACommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

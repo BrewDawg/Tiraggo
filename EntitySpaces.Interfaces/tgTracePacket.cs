@@ -35,7 +35,7 @@ using System.Runtime.Serialization;
 
 namespace Tiraggo.Interfaces
 {
-    public class esTracePacket
+    public class tgTracePacket
     {
         private string traceChannel;
         private string applicationName;
@@ -45,7 +45,7 @@ namespace Tiraggo.Interfaces
         private int? threadId;
         private string stackTrace;
         private string sql;
-        private esParameters sqlParameters = new esParameters();
+        private tgParameters sqlParameters = new tgParameters();
 
         public string TraceChannel
         {
@@ -95,7 +95,7 @@ namespace Tiraggo.Interfaces
             set { sql = value; }
         }
 
-        public esParameters SqlParameters
+        public tgParameters SqlParameters
         {
             get { return sqlParameters; }
             set { sqlParameters = value; }

@@ -68,7 +68,7 @@ namespace Tiraggo.VistaDB4Provider
             {
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, esEntitySavePacket packet, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, tgEntitySavePacket packet, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -133,7 +133,7 @@ namespace Tiraggo.VistaDB4Provider
                 stopwatch = Stopwatch.StartNew();
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -180,7 +180,7 @@ namespace Tiraggo.VistaDB4Provider
 
             public string Syntax { get; set; }
 
-            public esDataRequest Request { get; set; }
+            public tgDataRequest Request { get; set; }
 
             public int ThreadId { get; set; }
 
@@ -271,7 +271,7 @@ namespace Tiraggo.VistaDB4Provider
         #endregion Profiling Logic
 
         /// <summary>
-        /// This method acts as a delegate for esTransactionScope
+        /// This method acts as a delegate for tgTransactionScope
         /// </summary>
         /// <returns></returns>
         static private IDbConnection CreateIDbConnectionDelegate()
@@ -292,9 +292,9 @@ namespace Tiraggo.VistaDB4Provider
 
         #region IDataProvider Members
 
-        esDataResponse IDataProvider.esLoadDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esLoadDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -312,14 +312,14 @@ namespace Tiraggo.VistaDB4Provider
 
                     case tgQueryType.DynamicQuery:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         VistaDBCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
                     case tgQueryType.DynamicQueryParseOnly:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         VistaDBCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
@@ -341,9 +341,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.esSaveDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esSaveDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -379,9 +379,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteNonQuery(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteNonQuery(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -410,7 +410,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -439,7 +439,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -456,9 +456,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteReader(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteReader(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -526,9 +526,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteScalar(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteScalar(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -561,7 +561,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -590,7 +590,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -607,9 +607,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataSet(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataSet(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -637,9 +637,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -669,9 +669,9 @@ namespace Tiraggo.VistaDB4Provider
 
         #endregion IDataProvider Members
 
-        static private esDataResponse LoadDataSetFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -690,7 +690,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -719,7 +719,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -741,9 +741,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        static private esDataResponse LoadDataSetFromText(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -760,7 +760,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -789,7 +789,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 };
 
                 response.DataSet = dataSet;
@@ -811,9 +811,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -831,7 +831,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -860,7 +860,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -882,9 +882,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromText(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -902,7 +902,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -931,7 +931,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -948,9 +948,9 @@ namespace Tiraggo.VistaDB4Provider
             return response;
         }
 
-        static private esDataResponse LoadManyToMany(esDataRequest request)
+        static private tgDataResponse LoadManyToMany(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             VistaDBCommand cmd = null;
 
             try
@@ -990,7 +990,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -1019,7 +1019,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1037,7 +1037,7 @@ namespace Tiraggo.VistaDB4Provider
         }
 
         // This is used only to execute the Dynamic Query API
-        static private void LoadDataTableFromDynamicQuery(esDataRequest request, esDataResponse response, VistaDBCommand cmd)
+        static private void LoadDataTableFromDynamicQuery(tgDataRequest request, tgDataResponse response, VistaDBCommand cmd)
         {
             try
             {
@@ -1052,7 +1052,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -1081,7 +1081,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1096,19 +1096,19 @@ namespace Tiraggo.VistaDB4Provider
             }
         }
 
-        static private DataTable SaveStoredProcCollection(esDataRequest request)
+        static private DataTable SaveStoredProcCollection(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedure Support Not Implemented");
         }
 
-        static private DataTable SaveStoredProcEntity(esDataRequest request)
+        static private DataTable SaveStoredProcEntity(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedure Support Not Implemented");
         }
 
-        static private DataTable SaveDynamicCollection(esDataRequest request)
+        static private DataTable SaveDynamicCollection(tgDataRequest request)
         {
-            esEntitySavePacket pkt = request.CollectionSavePacket[0];
+            tgEntitySavePacket pkt = request.CollectionSavePacket[0];
 
             if (pkt.RowState == tgDataRowState.Deleted)
             {
@@ -1126,11 +1126,11 @@ namespace Tiraggo.VistaDB4Provider
             }
         }
 
-        static private DataTable SaveDynamicCollection_InsertsUpdates(esDataRequest request)
+        static private DataTable SaveDynamicCollection_InsertsUpdates(tgDataRequest request)
         {
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (VistaDBDataAdapter da = new VistaDBDataAdapter())
                 {
@@ -1144,7 +1144,7 @@ namespace Tiraggo.VistaDB4Provider
                         da.RowUpdated += new VistaDBRowUpdatedEventHandler(OnRowUpdated);
                     }
 
-                    foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                    foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                     {
                         if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
@@ -1167,7 +1167,7 @@ namespace Tiraggo.VistaDB4Provider
                                 break;
                         }
 
-                        request.Properties["esDataRequest"] = request;
+                        request.Properties["tgDataRequest"] = request;
                         request.Properties["esEntityData"] = packet;
                         dataTable.ExtendedProperties["props"] = request.Properties;
 
@@ -1176,7 +1176,7 @@ namespace Tiraggo.VistaDB4Provider
 
                         try
                         {
-                            esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                            tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                             #region Profiling
 
@@ -1210,7 +1210,7 @@ namespace Tiraggo.VistaDB4Provider
                         }
                         finally
                         {
-                            esTransactionScope.DeEnlist(cmd);
+                            tgTransactionScope.DeEnlist(cmd);
                             dataTable.Rows.Clear();
                         }
 
@@ -1239,13 +1239,13 @@ namespace Tiraggo.VistaDB4Provider
             return dataTable;
         }
 
-        static private DataTable SaveDynamicCollection_Deletes(esDataRequest request)
+        static private DataTable SaveDynamicCollection_Deletes(tgDataRequest request)
         {
             VistaDBCommand cmd = null;
 
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (VistaDBDataAdapter da = new VistaDBDataAdapter())
                 {
@@ -1255,12 +1255,12 @@ namespace Tiraggo.VistaDB4Provider
                     try
                     {
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request, request.CollectionSavePacket[0].ModifiedColumns);
-                        esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                        tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                         DataRow[] singleRow = new DataRow[1];
 
                         // Delete each record
-                        foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                        foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                         {
                             DataRow row = dataTable.NewRow();
                             dataTable.Rows.Add(row);
@@ -1306,7 +1306,7 @@ namespace Tiraggo.VistaDB4Provider
                     }
                     finally
                     {
-                        esTransactionScope.DeEnlist(cmd);
+                        tgTransactionScope.DeEnlist(cmd);
                         cmd.Dispose();
                     }
                 }
@@ -1317,7 +1317,7 @@ namespace Tiraggo.VistaDB4Provider
             return request.Table;
         }
 
-        static private DataTable SaveDynamicEntity(esDataRequest request)
+        static private DataTable SaveDynamicEntity(tgDataRequest request)
         {
             bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
@@ -1357,7 +1357,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 if (!needToDelete && request.Properties != null)
                 {
-                    request.Properties["esDataRequest"] = request;
+                    request.Properties["tgDataRequest"] = request;
                     request.Properties["esEntityData"] = request.EntitySavePacket;
                     dataTable.ExtendedProperties["props"] = request.Properties;
                 }
@@ -1372,7 +1372,7 @@ namespace Tiraggo.VistaDB4Provider
                         da.RowUpdated += new VistaDBRowUpdatedEventHandler(OnRowUpdated);
                     }
 
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -1401,7 +1401,7 @@ namespace Tiraggo.VistaDB4Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
@@ -1425,15 +1425,15 @@ namespace Tiraggo.VistaDB4Provider
             return dataTable;
         }
 
-        static private DataTable CreateDataTable(esDataRequest request)
+        static private DataTable CreateDataTable(tgDataRequest request)
         {
             DataTable dataTable = new DataTable();
             DataColumnCollection dataColumns = dataTable.Columns;
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             if (request.SelectedColumns == null)
             {
-                esColumnMetadata col;
+                tgColumnMetadata col;
                 for (int i = 0; i < cols.Count; i++)
                 {
                     col = cols[i];
@@ -1451,9 +1451,9 @@ namespace Tiraggo.VistaDB4Provider
             return dataTable;
         }
 
-        private static void SetOriginalValues(esDataRequest request, esEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
+        private static void SetOriginalValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
         {
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (primaryKeysAndConcurrencyOnly &&
                     (!col.IsInPrimaryKey && !col.IsConcurrency && !col.IsEntitySpacesConcurrency)) continue;
@@ -1467,7 +1467,7 @@ namespace Tiraggo.VistaDB4Provider
             }
         }
 
-        private static void SetModifiedValues(esDataRequest request, esEntitySavePacket packet, DataRow row)
+        private static void SetModifiedValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row)
         {
             foreach (string column in packet.ModifiedColumns)
             {
@@ -1490,8 +1490,8 @@ namespace Tiraggo.VistaDB4Provider
 
                 if (e.Status == UpdateStatus.Continue && (e.StatementType == StatementType.Insert || e.StatementType == StatementType.Update))
                 {
-                    esDataRequest request = props["esDataRequest"] as esDataRequest;
-                    esEntitySavePacket packet = (esEntitySavePacket)props["esEntityData"];
+                    tgDataRequest request = props["tgDataRequest"] as tgDataRequest;
+                    tgEntitySavePacket packet = (tgEntitySavePacket)props["esEntityData"];
                     string source = props["Source"] as string;
 
                     if (e.StatementType == StatementType.Insert)

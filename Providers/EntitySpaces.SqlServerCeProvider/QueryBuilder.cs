@@ -39,7 +39,7 @@ namespace Tiraggo.SqlServerCeProvider
 {
     class QueryBuilder
     {
-        public static SqlCeCommand PrepareCommand(esDataRequest request)
+        public static SqlCeCommand PrepareCommand(tgDataRequest request)
         {
             StandardProviderParameters std = new StandardProviderParameters();
             std.cmd = new SqlCeCommand();
@@ -239,7 +239,7 @@ namespace Tiraggo.SqlServerCeProvider
 
                     IDynamicQuerySerializableInternal iSubQuery = joinData.Query as IDynamicQuerySerializableInternal;
 
-                    sql += Shared.CreateFullName((esProviderSpecificMetadata)iSubQuery.ProviderMetadata);
+                    sql += Shared.CreateFullName((tgProviderSpecificMetadata)iSubQuery.ProviderMetadata);
 
                     sql += " " + iSubQuery.JoinAlias + " ON ";
 
@@ -299,7 +299,7 @@ namespace Tiraggo.SqlServerCeProvider
                     if (comparisonData.Column.Query != null)
                     {
                         IDynamicQuerySerializableInternal iLocalQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                        types = Cache.GetParameters(iLocalQuery.DataID, (esProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (esColumnMetadataCollection)iLocalQuery.Columns);
+                        types = Cache.GetParameters(iLocalQuery.DataID, (tgProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (tgColumnMetadataCollection)iLocalQuery.Columns);
                     }
 
                     if (comparisonData.IsLiteral)
@@ -324,7 +324,7 @@ namespace Tiraggo.SqlServerCeProvider
                             if (comparisonData.Column.Name != null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
                             }
                             else
@@ -511,7 +511,7 @@ namespace Tiraggo.SqlServerCeProvider
                             if (comparisonData.ComparisonColumn2.Name == null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
 
                                 sql += " AND " + compareTo;

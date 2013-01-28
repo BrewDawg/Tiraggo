@@ -36,19 +36,19 @@ namespace Tiraggo.Interfaces
     /// </summary>
     /// <example>
     /// This code was taken from EmployeeMetadata class generated from Microsoft SQL's Northwind database.
-    /// Notice the use of the esTypeMap class.
+    /// Notice the use of the tgTypeMap class.
     /// <code>
-    /// private esProviderSpecificMetadata esDefault(string mapName)
+    /// private tgProviderSpecificMetadata esDefault(string mapName)
     /// {
     /// 	if(!_providerMetadataMaps.ContainsKey(mapName))
     /// 	{
-    /// 		esProviderSpecificMetadata meta = new esProviderSpecificMetadata();
+    /// 		tgProviderSpecificMetadata meta = new tgProviderSpecificMetadata();
     /// 		
-    /// 		meta.AddTypeMap("EmployeeID", new esTypeMap("int", "System.Int32"));
-    /// 		meta.AddTypeMap("LastName", new esTypeMap("varchar", "System.String"));
-    /// 		meta.AddTypeMap("FirstName", new esTypeMap("varchar", "System.String"));
-    /// 		meta.AddTypeMap("Supervisor", new esTypeMap("int", "System.Int32"));
-    /// 		meta.AddTypeMap("Age", new esTypeMap("int", "System.Int32"));			
+    /// 		meta.AddTypeMap("EmployeeID", new tgTypeMap("int", "System.Int32"));
+    /// 		meta.AddTypeMap("LastName", new tgTypeMap("varchar", "System.String"));
+    /// 		meta.AddTypeMap("FirstName", new tgTypeMap("varchar", "System.String"));
+    /// 		meta.AddTypeMap("Supervisor", new tgTypeMap("int", "System.Int32"));
+    /// 		meta.AddTypeMap("Age", new tgTypeMap("int", "System.Int32"));			
     /// 		
     /// 		this._providerMetadataMaps["esDefault"] = meta;
     /// 	}
@@ -58,19 +58,19 @@ namespace Tiraggo.Interfaces
     /// </code>
     /// </example>
     [Serializable]
-    public class esTypeMap
+    public class tgTypeMap
     {
         /// <summary>
         /// Null constructor, never used
         /// </summary>
-        public esTypeMap() { }
+        public tgTypeMap() { }
 
         /// <summary>
         /// This constructor is used by the generated metadata map classes
         /// </summary>
         /// <param name="nativeType"></param>
         /// <param name="systemType"></param>
-        public esTypeMap(string nativeType, string systemType)
+        public tgTypeMap(string nativeType, string systemType)
         {
             this.nativeType = nativeType;
             this.systemType = systemType;

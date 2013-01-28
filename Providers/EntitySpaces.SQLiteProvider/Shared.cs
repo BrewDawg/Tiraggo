@@ -39,7 +39,7 @@ namespace Tiraggo.SQLiteProvider
 {
     class Shared
     {
-        static public SQLiteCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SQLiteCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -57,8 +57,8 @@ namespace Tiraggo.SQLiteProvider
             SQLiteCommand cmd = new SQLiteCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -183,7 +183,7 @@ namespace Tiraggo.SQLiteProvider
             return cmd;
         }
 
-        static public SQLiteCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SQLiteCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -202,8 +202,8 @@ namespace Tiraggo.SQLiteProvider
             SQLiteCommand cmd = new SQLiteCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -315,7 +315,7 @@ namespace Tiraggo.SQLiteProvider
             return cmd;
         }
 
-        static public SQLiteCommand BuildDynamicDeleteCommand(esDataRequest request)
+        static public SQLiteCommand BuildDynamicDeleteCommand(tgDataRequest request)
         {
             Dictionary<string, SQLiteParameter> types = Cache.GetParameters(request);
 
@@ -327,7 +327,7 @@ namespace Tiraggo.SQLiteProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -345,28 +345,28 @@ namespace Tiraggo.SQLiteProvider
             return cmd;
         }
 
-        static public SQLiteCommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public SQLiteCommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public SQLiteCommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public SQLiteCommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public SQLiteCommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public SQLiteCommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public void PopulateStoredProcParameters(SQLiteCommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(SQLiteCommand cmd, tgDataRequest request)
         {
             Dictionary<string, SQLiteParameter> types = Cache.GetParameters(request);
 
             SQLiteParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -390,7 +390,7 @@ namespace Tiraggo.SQLiteProvider
         static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -404,7 +404,7 @@ namespace Tiraggo.SQLiteProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -418,7 +418,7 @@ namespace Tiraggo.SQLiteProvider
             return name;
         }
 
-        static public string CreateFullName(esProviderSpecificMetadata providerMetadata)
+        static public string CreateFullName(tgProviderSpecificMetadata providerMetadata)
         {
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
@@ -429,7 +429,7 @@ namespace Tiraggo.SQLiteProvider
             return ce;
         }
 
-        static public void AddParameters(SQLiteCommand cmd, esDataRequest request)
+        static public void AddParameters(SQLiteCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -479,13 +479,13 @@ namespace Tiraggo.SQLiteProvider
             }
         }
 
-        static public void GatherReturnParameters(SQLiteCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(SQLiteCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

@@ -70,7 +70,7 @@ namespace Tiraggo.Interfaces
     ///	&lt;/EntitySpaces&gt;
     /// </code>
     /// </remarks>
-    public class esConnection
+    public class tgConnection
     {
         static private IConnectionNameService connectionService = null;
 
@@ -89,16 +89,16 @@ namespace Tiraggo.Interfaces
         /// This nested class is used to extract the information from the EntitySpaces configuration section
         /// of a connection in order to invoke the provider. 
         /// </summary>
-        public esProviderSignature ProviderSignature
+        public tgProviderSignature ProviderSignature
         {
             get
             {
                 if (this.providerSignature == null)
                 {
-                    this.providerSignature = new esProviderSignature();
-                    this.providerSignature.DataProviderName = esConfigSettings.DefaultConnection.Provider;
-                    this.providerSignature.DataProviderClass = esConfigSettings.DefaultConnection.ProviderClass;
-                    this.providerSignature.DatabaseVersion = esConfigSettings.DefaultConnection.DatabaseVersion;
+                    this.providerSignature = new tgProviderSignature();
+                    this.providerSignature.DataProviderName = tgConfigSettings.DefaultConnection.Provider;
+                    this.providerSignature.DataProviderClass = tgConfigSettings.DefaultConnection.ProviderClass;
+                    this.providerSignature.DatabaseVersion = tgConfigSettings.DefaultConnection.DatabaseVersion;
                 }
                 return this.providerSignature;
             }
@@ -115,7 +115,7 @@ namespace Tiraggo.Interfaces
                 string cnString = String.Empty;
 
                 if (this.connectionString == null)
-                    cnString = esConfigSettings.DefaultConnection.ConnectionString;
+                    cnString = tgConfigSettings.DefaultConnection.ConnectionString;
                 else
                 {
                     cnString = this.connectionString;
@@ -133,7 +133,7 @@ namespace Tiraggo.Interfaces
                             this.connectionString = cnString =
                                 System.Configuration.ConfigurationManager.ConnectionStrings[name].ConnectionString;
 
-                            esConfigSettings.DefaultConnection.ConnectionString = cnString;
+                            tgConfigSettings.DefaultConnection.ConnectionString = cnString;
 
                         }
 
@@ -159,9 +159,9 @@ namespace Tiraggo.Interfaces
 
                 if (this.providerMetadataKey == null)
                 {
-                    if (esConfigSettings.DefaultConnection != null)
+                    if (tgConfigSettings.DefaultConnection != null)
                     {
-                        key = esConfigSettings.DefaultConnection.ProviderMetadataKey;
+                        key = tgConfigSettings.DefaultConnection.ProviderMetadataKey;
                     }
                 }
                 else
@@ -182,7 +182,7 @@ namespace Tiraggo.Interfaces
             get
             {
                 if (this.sqlAccessType == tgSqlAccessType.Unassigned)
-                    return esConfigSettings.DefaultConnection.SqlAccessType;
+                    return tgConfigSettings.DefaultConnection.SqlAccessType;
                 else
                     return this.sqlAccessType;
             }
@@ -196,8 +196,8 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (this.databaseVersion == null && esConfigSettings.DefaultConnection != null)
-                    return esConfigSettings.DefaultConnection.DatabaseVersion;
+                if (this.databaseVersion == null && tgConfigSettings.DefaultConnection != null)
+                    return tgConfigSettings.DefaultConnection.DatabaseVersion;
                 else
                     return this.databaseVersion;
             }
@@ -211,8 +211,8 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (this.commandTimeout == null && esConfigSettings.DefaultConnection != null)
-                    return esConfigSettings.DefaultConnection.CommandTimeout;
+                if (this.commandTimeout == null && tgConfigSettings.DefaultConnection != null)
+                    return tgConfigSettings.DefaultConnection.CommandTimeout;
                 else
                     return this.commandTimeout;
             }
@@ -226,8 +226,8 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (this.schema == null && esConfigSettings.DefaultConnection != null)
-                    return esConfigSettings.DefaultConnection.Schema;
+                if (this.schema == null && tgConfigSettings.DefaultConnection != null)
+                    return tgConfigSettings.DefaultConnection.Schema;
                 else
                     return this.schema;
             }
@@ -241,8 +241,8 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (this.catalog == null && esConfigSettings.DefaultConnection != null)
-                    return esConfigSettings.DefaultConnection.Catalog;
+                if (this.catalog == null && tgConfigSettings.DefaultConnection != null)
+                    return tgConfigSettings.DefaultConnection.Catalog;
                 else
                     return this.catalog;
             }
@@ -265,19 +265,19 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (this.name == null && esConfigSettings.DefaultConnection != null)
-                    return esConfigSettings.DefaultConnection.Name;
+                if (this.name == null && tgConfigSettings.DefaultConnection != null)
+                    return tgConfigSettings.DefaultConnection.Name;
                 else
                     return this.name;
             }
             set 
             {
-                foreach(esConnectionElement conn in esConfigSettings.ConnectionInfo.Connections)
+                foreach(esConnectionElement conn in tgConfigSettings.ConnectionInfo.Connections)
                 {
                     if (conn.Name == value)
                     {
                         this.name = value;
-                        this.providerSignature = new esProviderSignature();
+                        this.providerSignature = new tgProviderSignature();
                         this.providerSignature.DataProviderName = conn.Provider;
                         this.providerSignature.DataProviderClass = conn.ProviderClass;
                         this.providerSignature.DatabaseVersion = conn.DatabaseVersion;
@@ -302,7 +302,7 @@ namespace Tiraggo.Interfaces
         private bool converted = false;
 
         [NonSerialized]
-        private esProviderSignature providerSignature;
+        private tgProviderSignature providerSignature;
 
         [NonSerialized]
         private string connectionString;

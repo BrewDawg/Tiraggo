@@ -59,7 +59,7 @@ namespace Tiraggo.Profiler
 
         public static bool BeginProfiling(string dataProvider, string channel)
         {
-            IDataProvider provider = esProviderFactory.Factory.GetDataProvider(dataProvider, "DataProvider");
+            IDataProvider provider = tgProviderFactory.Factory.GetDataProvider(dataProvider, "DataProvider");
 
             if (provider != null)
             {
@@ -83,7 +83,7 @@ namespace Tiraggo.Profiler
             // note IXDBroadcast does not implement IDisposable
             broadcast = null;
 
-            IDataProvider provider = esProviderFactory.Factory.GetDataProvider(dataProvider, "DataProvider");
+            IDataProvider provider = tgProviderFactory.Factory.GetDataProvider(dataProvider, "DataProvider");
 
             if (provider != null)
             {

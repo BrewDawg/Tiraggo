@@ -39,13 +39,13 @@ namespace Tiraggo.VistaDB4Provider
 {
     class Cache
     {
-        static public Dictionary<string, VistaDBParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, VistaDBParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, VistaDBParameter> GetParameters(Guid dataID,
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -55,9 +55,9 @@ namespace Tiraggo.VistaDB4Provider
                     Dictionary<string, VistaDBParameter> types = new Dictionary<string, VistaDBParameter>();
 
                     VistaDBParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

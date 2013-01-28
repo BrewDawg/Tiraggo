@@ -35,16 +35,16 @@ using System.Text;
 namespace Tiraggo.Interfaces
 {
     [Serializable]
-    public class esSmartDictionary
+    public class tgSmartDictionary
     {
         #region Constructors
 
-        public esSmartDictionary()
+        public tgSmartDictionary()
         {
 
         }
 
-        public esSmartDictionary(int capacity)
+        public tgSmartDictionary(int capacity)
         {
             ordinals = new Dictionary<string, int>(capacity);
             currentValues = new object[capacity];
@@ -55,7 +55,7 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        public esSmartDictionary(esSmartDictionary smartDictionary)
+        public tgSmartDictionary(tgSmartDictionary smartDictionary)
         {
             if (smartDictionary.ordinals != null)
             {
@@ -77,7 +77,7 @@ namespace Tiraggo.Interfaces
             onFirstAccess = smartDictionary.onFirstAccess;
         }
 
-        public esSmartDictionary(DataColumnCollection columns, object[] values)
+        public tgSmartDictionary(DataColumnCollection columns, object[] values)
         {
             if (ordinals == null)
             {
@@ -92,13 +92,13 @@ namespace Tiraggo.Interfaces
             currentValues = values;
         }
 
-        public esSmartDictionary(Dictionary<string, int> ordinals, object[] values)
+        public tgSmartDictionary(Dictionary<string, int> ordinals, object[] values)
         {
             this.ordinals = ordinals;
             currentValues = values;
         }
 
-        public esSmartDictionary(Dictionary<string, int> ordinals, object[] values, bool cloneValues)
+        public tgSmartDictionary(Dictionary<string, int> ordinals, object[] values, bool cloneValues)
         {
             this.ordinals = ordinals;
 
@@ -120,7 +120,7 @@ namespace Tiraggo.Interfaces
 
         #region Capacity Event Handler
 
-        public delegate void esSmartDictionaryFirstAccessEventHandler(esSmartDictionary smartDictionary);
+        public delegate void esSmartDictionaryFirstAccessEventHandler(tgSmartDictionary smartDictionary);
 
         public virtual event esSmartDictionaryFirstAccessEventHandler FirstAccess
         {

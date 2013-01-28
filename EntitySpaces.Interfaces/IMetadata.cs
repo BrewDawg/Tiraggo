@@ -50,12 +50,12 @@ namespace Tiraggo.Interfaces
         /// The columns collection and their data mappings for the type of database currently
         /// being accessed.
         /// </summary>
-        esColumnMetadataCollection Columns { get; }
+        tgColumnMetadataCollection Columns { get; }
         /// <summary>
-        /// Database specific meta data, such as <see cref="esTypeMap"/> and other Metadata class properties.
+        /// Database specific meta data, such as <see cref="tgTypeMap"/> and other Metadata class properties.
         /// </summary>
         /// <param name="key">This is driven by the 'providerMetadataKey' in the app.config or web.config file on the EntitySpaces connection section.</param>
         /// <returns>The provider specific metadata</returns>
-        esProviderSpecificMetadata GetProviderMetadata(string key);
+        tgProviderSpecificMetadata GetProviderMetadata(string key);
     }
 }

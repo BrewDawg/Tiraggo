@@ -40,7 +40,7 @@ namespace Tiraggo.Interfaces
     /// code generation.
     /// </summary>
     /// <remarks>
-    /// This collection contains one <see cref="esColumnMetadata"/> for each column in 
+    /// This collection contains one <see cref="tgColumnMetadata"/> for each column in 
     /// the table or view. This data is used by EntitySpaces data providers to create dynamic
     /// sql and by EntitySpaces during databinding.
     /// <code>
@@ -48,7 +48,7 @@ namespace Tiraggo.Interfaces
     ///	{
     ///		public void CheckoutTheMetadata()
     ///		{
-    ///			foreach(esColumnMetadata esCol in this.Meta.Columns)
+    ///			foreach(tgColumnMetadata esCol in this.Meta.Columns)
     ///			{
     ///				Console.WriteLine(esCol.IsInPrimaryKey.ToString());
     ///			}
@@ -57,14 +57,14 @@ namespace Tiraggo.Interfaces
     /// </code>
     /// </remarks>
     [Serializable] 
-    public partial class esColumnMetadataCollection : IEnumerable 
+    public partial class tgColumnMetadataCollection : IEnumerable 
     {
-        public esColumnMetadataCollection() 
+        public tgColumnMetadataCollection() 
         {
      
         }
 
-        public bool IsSpecialColumn(esColumnMetadata col)
+        public bool IsSpecialColumn(tgColumnMetadata col)
         {
             if (DateAdded != null && DateAdded.IsEnabled && DateAdded.ColumnName == col.Name) return true;
             if (DateModified != null && DateModified.IsEnabled && DateModified.ColumnName == col.Name) return true;
@@ -75,7 +75,7 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// The number of <see cref="esColumnMetadata"/> objects in the collection.
+        /// The number of <see cref="tgColumnMetadata"/> objects in the collection.
         /// </summary>
         public System.Int32 Count
         {
@@ -93,7 +93,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        public List<esColumnMetadata> PrimaryKeys
+        public List<tgColumnMetadata> PrimaryKeys
         {
             get
             {
@@ -108,11 +108,11 @@ namespace Tiraggo.Interfaces
         /// to be the physical name of the column as in the table or view, for example, 
         /// Employees.ColumnNames.LastName</param>
         /// <returns></returns>
-        public esColumnMetadata this[System.String columnName]
+        public tgColumnMetadata this[System.String columnName]
         {
             get
             {
-                esColumnMetadata col = null;
+                tgColumnMetadata col = null;
 
                 if (this.hashByColumnName.ContainsKey(columnName))
                 {
@@ -128,7 +128,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="ordinal"></param>
         /// <returns></returns>
-        public esColumnMetadata this[System.Int32 ordinal]
+        public tgColumnMetadata this[System.Int32 ordinal]
         {
             get { return this.list[ordinal]; }
         }
@@ -136,8 +136,8 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// Used internally by Tiraggo. This should never be called by user code
         /// </summary>
-        /// <param name="column">The new esColumnMetadata to add to the array</param>
-        public void Add(esColumnMetadata column)
+        /// <param name="column">The new tgColumnMetadata to add to the array</param>
+        public void Add(tgColumnMetadata column)
         {
             list.Add(column);
             hashByColumnName[column.Name] = column;
@@ -155,14 +155,14 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Searches for an esColumnMetadata by the propery name. This method is the same as
+        /// Searches for an tgColumnMetadata by the propery name. This method is the same as
         /// using the indexer.
         /// </summary>
         /// <param name="columnName">The high level PropertyName, for example, Employees.ColumnNames.LastName</param>
-        /// <returns>The esColumnMetadata or null if not found.</returns>
-        public esColumnMetadata FindByColumnName(string columnName)
+        /// <returns>The tgColumnMetadata or null if not found.</returns>
+        public tgColumnMetadata FindByColumnName(string columnName)
         {
-            esColumnMetadata col = null;
+            tgColumnMetadata col = null;
 
             if (this.hashByColumnName.ContainsKey(columnName))
             {
@@ -173,13 +173,13 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Searches for an esColumnMetadata by the propery name.
+        /// Searches for an tgColumnMetadata by the propery name.
         /// </summary>
         /// <param name="propertyName">The high level PropertyName, for example, Employees.PropertyNames.LastName</param>
-        /// <returns>The esColumnMetadata or null if not found.</returns>
-        public esColumnMetadata FindByPropertyName(string propertyName)
+        /// <returns>The tgColumnMetadata or null if not found.</returns>
+        public tgColumnMetadata FindByPropertyName(string propertyName)
         {
-            esColumnMetadata col = null;
+            tgColumnMetadata col = null;
 
             if (this.hashByPropertyName.ContainsKey(propertyName))
             {
@@ -203,16 +203,16 @@ namespace Tiraggo.Interfaces
         #endregion
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private List<esColumnMetadata> list = new List<esColumnMetadata>();
+        private List<tgColumnMetadata> list = new List<tgColumnMetadata>();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private List<esColumnMetadata> primaryKeys = new List<esColumnMetadata>();
+        private List<tgColumnMetadata> primaryKeys = new List<tgColumnMetadata>();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Dictionary<System.String, esColumnMetadata> hashByColumnName = new Dictionary<string, esColumnMetadata>(StringComparer.OrdinalIgnoreCase);
+        private Dictionary<System.String, tgColumnMetadata> hashByColumnName = new Dictionary<string, tgColumnMetadata>(StringComparer.OrdinalIgnoreCase);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Dictionary<System.String, esColumnMetadata> hashByPropertyName = new Dictionary<string, esColumnMetadata>();
+        private Dictionary<System.String, tgColumnMetadata> hashByPropertyName = new Dictionary<string, tgColumnMetadata>();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private bool thereAreDefaults;

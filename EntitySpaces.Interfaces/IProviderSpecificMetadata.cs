@@ -42,17 +42,17 @@ namespace Tiraggo.Interfaces
         string this[System.String key] { get; set; }
 
         /// <summary>
-        /// Used by the generated metadata classes. See <see cref="esTypeMap"/>
+        /// Used by the generated metadata classes. See <see cref="tgTypeMap"/>
         /// </summary>
         /// <param name="columnName">The name of the database column</param>
         /// <param name="typeMap">The raw database column and its appropriate .NET data type</param>
-        void      AddTypeMap(string columnName, esTypeMap typeMap);
+        void      AddTypeMap(string columnName, tgTypeMap typeMap);
         /// <summary>
         /// This is used by the EntitySpaces providers to get the appropriate data mappings for a given column
         /// </summary>
         /// <param name="columnName">The name of the database column</param>
         /// <returns>The column mapping</returns>
-        esTypeMap GetTypeMap(string columnName);
+        tgTypeMap GetTypeMap(string columnName);
 
         /// <summary>
         /// The name of the catalog (or database) can be null.

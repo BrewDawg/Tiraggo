@@ -35,9 +35,9 @@ namespace Tiraggo.Interfaces
     /// <summary>
     /// Returned by the EntitySpaces DataProvider in response to a request. 
     /// </summary>
-    /// <seealso cref="esDataRequest"/>
+    /// <seealso cref="tgDataRequest"/>
     [Serializable] 
-    public class esDataResponse
+    public class tgDataResponse
     {
         /// <summary>
         /// The DataTable containing the data. Depending on the type of command
@@ -46,17 +46,17 @@ namespace Tiraggo.Interfaces
         public DataTable Table;
 
         /// <summary>
-        /// Valid when esDataProvider.FillDataSet was called.
+        /// Valid when tgDataProvider.FillDataSet was called.
         /// </summary>
         public DataSet DataSet;
 
         /// <summary>
-        /// Valid when esDataProvider.ExecuteReader was called.
+        /// Valid when tgDataProvider.ExecuteReader was called.
         /// </summary>
         public IDataReader DataReader;
 
         /// <summary>
-        /// Valid when esDataProvider.ExecuteScalar was called.
+        /// Valid when tgDataProvider.ExecuteScalar was called.
         /// </summary>
         public object Scalar;
 
@@ -85,7 +85,7 @@ namespace Tiraggo.Interfaces
         /// The parameters need to carry out the command. May also contain output
         /// parameters.
         /// </summary>
-        public esParameters Parameters;
+        public tgParameters Parameters;
 
         /// <summary>
         /// True if the <see cref="Exception"/> property is non-null.

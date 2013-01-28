@@ -39,13 +39,13 @@ namespace Tiraggo.SqlServerCe4Provider
 {
     class Cache
     {
-        static public Dictionary<string, SqlCeParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, SqlCeParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, SqlCeParameter> GetParameters(Guid dataID,
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -55,9 +55,9 @@ namespace Tiraggo.SqlServerCe4Provider
                     Dictionary<string, SqlCeParameter> types = new Dictionary<string, SqlCeParameter>();
 
                     SqlCeParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

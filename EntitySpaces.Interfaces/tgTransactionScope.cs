@@ -39,14 +39,14 @@ namespace Tiraggo.Interfaces
     /// This is the EntitySpaces ADO.NET connection based transaction class that mimics the System.Transactions.TransactionScope class.
     /// </summary>
     /// <remarks>
-    /// EntitySpaces supports two transactions models, connection based via this class (esTransactionScope) and the 
+    /// EntitySpaces supports two transactions models, connection based via this class (tgTransactionScope) and the 
     /// new System.Transactions.TransactionScope. Some databases such as Microsoft Access don't support the new System.Transactions.TransactionScope
     /// class. And still there are other cases where the System.Transactions.TransactionScope class cannot be used as is the case with a lot
     /// of hosting companies. Thus EntitySpaces provides a very nice ADO.NET connection based transaction handler.
     /// 
     /// The Syntax should be as follows:
     /// <code>
-    /// using (esTransactionScope scope = new esTransactionScope())
+    /// using (tgTransactionScope scope = new tgTransactionScope())
     /// {
     ///	    // Logic here ...
     /// 
@@ -54,9 +54,9 @@ namespace Tiraggo.Interfaces
     /// }
     /// </code>
     /// Note that if an exception is thrown scope.Complete will not be called, and the transaction upon leaving the using statement
-    /// will be rolled back. You indicate whether you want the provider to use the esTransactionScope or the System.Transactions.TransactionScope
+    /// will be rolled back. You indicate whether you want the provider to use the tgTransactionScope or the System.Transactions.TransactionScope
     /// class in your .config file. Notice in the config file setting below that providerClass="DataProvider". This indicates that you want to use
-    /// the esTransactionScope class, use providerClass="DataProviderEnterprise" to use System.Transactions.TransactionScope.
+    /// the tgTransactionScope class, use providerClass="DataProviderEnterprise" to use System.Transactions.TransactionScope.
     /// <code>
     ///    &lt;add name="SQL" 
     ///       providerMetadataKey="esDefault" 
@@ -69,23 +69,23 @@ namespace Tiraggo.Interfaces
     /// 
     /// 
     /// </remarks>
-    public class esTransactionScope : IDisposable
+    public class tgTransactionScope : IDisposable
     {
         /// <summary>
         /// The default constructor, this transactions <see cref="tgTransactionScopeOption"/> will be
         /// set to Required. The IsolationLevel is set to Unspecified.
         /// <code>
-        /// using (esTransactionScope scope = new esTransactionScope())
+        /// using (tgTransactionScope scope = new tgTransactionScope())
         /// {
         ///		// Do your work here
         ///		scope.Complete();
         /// }
         /// </code>
         /// </summary>
-         public esTransactionScope()
+         public tgTransactionScope()
         {
             this.option = tgTransactionScopeOption.Required;
-            this.level  = esTransactionScope.IsolationLevel;
+            this.level  = tgTransactionScope.IsolationLevel;
 
             CommonInit(this);
 
@@ -96,7 +96,7 @@ namespace Tiraggo.Interfaces
         /// Use this constructor to control the tgTransactionScopeOption as it applies
         /// to this transaction.
         /// <code>
-        /// using (esTransactionScope scope = new esTransactionScope(tgTransactionScopeOption.RequiresNew))
+        /// using (tgTransactionScope scope = new tgTransactionScope(tgTransactionScopeOption.RequiresNew))
         /// {
         ///		// Do your work here
         ///		scope.Complete();
@@ -104,12 +104,12 @@ namespace Tiraggo.Interfaces
         /// </code>
         /// </summary>
         /// <param name="option">See <see cref="tgTransactionScopeOption"/></param>
-        public esTransactionScope(tgTransactionScopeOption option)
+        public tgTransactionScope(tgTransactionScopeOption option)
         {
             if (option == tgTransactionScopeOption.None) throw new ArgumentException("'None' cannot be passed");
 
             this.option = option;
-            this.level  = esTransactionScope.IsolationLevel;
+            this.level  = tgTransactionScope.IsolationLevel;
 
             CommonInit(this);
 
@@ -120,8 +120,8 @@ namespace Tiraggo.Interfaces
         /// Use this constructor to control the tgTransactionScopeOption as it applies
         /// to this transaction.
         /// <code>
-        /// using (esTransactionScope scope = new 
-        ///   esTransactionScope(tgTransactionScopeOption.RequiresNew, IsolationLevel.ReadCommitted))
+        /// using (tgTransactionScope scope = new 
+        ///   tgTransactionScope(tgTransactionScopeOption.RequiresNew, IsolationLevel.ReadCommitted))
         /// {
         ///		// Do your work here
         ///		scope.Complete();
@@ -130,7 +130,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="option">See <see cref="tgTransactionScopeOption"/></param>
         /// <param name="level">See IsolationLevel in the System.Data namespace</param>
-        public esTransactionScope(tgTransactionScopeOption option, IsolationLevel level)
+        public tgTransactionScope(tgTransactionScopeOption option, IsolationLevel level)
         {
             this.option = option;
             this.level  = level;
@@ -208,7 +208,7 @@ namespace Tiraggo.Interfaces
                     this.commitList = null;
                 }
 
-                Stack<esTransactionScope> stack = (Stack<esTransactionScope>)Thread.GetData(txSlot);
+                Stack<tgTransactionScope> stack = (Stack<tgTransactionScope>)Thread.GetData(txSlot);
                 stack.Pop();
             }
         }
@@ -269,27 +269,27 @@ namespace Tiraggo.Interfaces
         private List<ICommittable> commitList;
         private bool hasRolledBack;
         private int count;
-        private esTransactionScope root;
+        private tgTransactionScope root;
         private tgTransactionScopeOption option;
         private IsolationLevel level;
 
         #region "static"
 
         /// <summary>
-        /// EntitySpaces providers register this callback so that the esTransactionScope class can ask it to create the proper
+        /// EntitySpaces providers register this callback so that the tgTransactionScope class can ask it to create the proper
         /// type of connection, ie, SqlConnection, OracleConnection, OleDbConnection and so on ...
         /// </summary>
         /// <returns></returns>
         public delegate IDbConnection CreateIDbConnectionDelegate();
 
         /// <summary>
-        /// This can be used to get the tgTransactionScopeOption from the current esTransactionScope (remember transactions can be nested).
+        /// This can be used to get the tgTransactionScopeOption from the current tgTransactionScope (remember transactions can be nested).
         /// If there is no on-going transaction then tgTransactionScopeOption.None is returned.
         /// </summary>
         /// <returns></returns>
         static public tgTransactionScopeOption GetCurrentTransactionScopeOption()
         {
-            esTransactionScope currentTx = GetCurrentTx();
+            tgTransactionScope currentTx = GetCurrentTx();
 
             if (currentTx == null) 
                 return tgTransactionScopeOption.None;
@@ -305,7 +305,7 @@ namespace Tiraggo.Interfaces
         /// <param name="creator">The delegate previously registered by the provider</param>
         static public void Enlist(IDbCommand cmd, string connectionString, CreateIDbConnectionDelegate creator)
         {
-            esTransactionScope currentTx = GetCurrentTx();
+            tgTransactionScope currentTx = GetCurrentTx();
 
             if (currentTx == null || currentTx.option == tgTransactionScopeOption.Suppress)
             {
@@ -357,7 +357,7 @@ namespace Tiraggo.Interfaces
         /// <param name="cmd">The command to enlist into a transaction</param>
         static public void DeEnlist(IDbCommand cmd)
         {
-            esTransactionScope current = GetCurrentTx();
+            tgTransactionScope current = GetCurrentTx();
             if (current == null || current.option == tgTransactionScopeOption.Suppress)
             {
                 cmd.Connection.Close();
@@ -371,7 +371,7 @@ namespace Tiraggo.Interfaces
         /// <returns>True if successful</returns>
         static public bool AddForCommit(ICommittable commit)
         {
-            esTransactionScope current = GetCurrentTx();
+            tgTransactionScope current = GetCurrentTx();
             if (current != null)
             {
                 if (current.commitList == null)
@@ -394,26 +394,26 @@ namespace Tiraggo.Interfaces
         /// This is the common constructor logic, tx is "this" from the constructor
         /// </summary>
         /// <param name="tx"></param>
-        static protected void CommonInit(esTransactionScope tx)
+        static protected void CommonInit(tgTransactionScope tx)
         {
-            Stack<esTransactionScope> stack;
+            Stack<tgTransactionScope> stack;
 
             // See if our stack is already created (there is only one per thread)
             object obj = Thread.GetData(txSlot);
             if (obj == null)
             {
-                stack = new Stack<esTransactionScope>();
+                stack = new Stack<tgTransactionScope>();
                 Thread.SetData(txSlot, stack);
             }
             else
             {
-                stack = (Stack<esTransactionScope>)obj;
+                stack = (Stack<tgTransactionScope>)obj;
             }
 
             // If this transaction is required we need to set it's root
             if (tx.option == tgTransactionScopeOption.Required)
             {
-                foreach (esTransactionScope esTrans in stack)
+                foreach (tgTransactionScope esTrans in stack)
                 {
                     // The root can be either a Requires or RequiresNew, and a root always points to
                     // itself, therefore, as long as it's not a Suppress and it's pointing to itself
@@ -440,14 +440,14 @@ namespace Tiraggo.Interfaces
         /// Internal method.
         /// </summary>
         /// <returns></returns>
-        static private esTransactionScope GetCurrentTx()
+        static private tgTransactionScope GetCurrentTx()
         {
-            esTransactionScope tx = null;
+            tgTransactionScope tx = null;
 
             object o = Thread.GetData(txSlot);
             if(o != null)
             {
-                Stack<esTransactionScope> stack = o as Stack<esTransactionScope>;
+                Stack<tgTransactionScope> stack = o as Stack<tgTransactionScope>;
                 if (stack.Count > 0)
                 {
                     tx = stack.Peek();

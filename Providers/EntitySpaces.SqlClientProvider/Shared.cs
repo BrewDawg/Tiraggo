@@ -39,7 +39,7 @@ namespace Tiraggo.SqlClientProvider
 {
     class Shared
     {
-        static public SqlCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string into = String.Empty;
             string values = String.Empty;
@@ -65,7 +65,7 @@ namespace Tiraggo.SqlClientProvider
 
             string sql = "SET NOCOUNT OFF";
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 string colName = col.Name;
 
@@ -174,7 +174,7 @@ namespace Tiraggo.SqlClientProvider
                 }
             }
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             #region Special Column Logic
             if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
@@ -228,7 +228,7 @@ namespace Tiraggo.SqlClientProvider
 
             if (computed.Length > 0)
             {
-                foreach (esColumnMetadata col in request.Columns)
+                foreach (tgColumnMetadata col in request.Columns)
                 {
                     if (col.IsInPrimaryKey)
                     {
@@ -296,7 +296,7 @@ namespace Tiraggo.SqlClientProvider
             comma = ", ";
         }
 
-        static public SqlCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
@@ -320,7 +320,7 @@ namespace Tiraggo.SqlClientProvider
 
             foreach (string colName in modifiedColumns)
             {
-                esColumnMetadata col = request.Columns[colName];
+                tgColumnMetadata col = request.Columns[colName];
 
                 if (col == null) continue;
 
@@ -338,7 +338,7 @@ namespace Tiraggo.SqlClientProvider
                 }
             }
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -401,7 +401,7 @@ namespace Tiraggo.SqlClientProvider
                 }
             }
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             if (cols.DateModified != null && cols.DateModified.IsServerSide)
             {
@@ -452,7 +452,7 @@ namespace Tiraggo.SqlClientProvider
             return cmd;
         }
 
-        static public SqlCommand BuildDynamicDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildDynamicDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
@@ -466,7 +466,7 @@ namespace Tiraggo.SqlClientProvider
             string concur = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -501,7 +501,7 @@ namespace Tiraggo.SqlClientProvider
             return cmd;
         }
 
-        static public SqlCommand BuildStoredProcInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildStoredProcInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
@@ -513,9 +513,9 @@ namespace Tiraggo.SqlClientProvider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
-            foreach (esColumnMetadata col in cols)
+            foreach (tgColumnMetadata col in cols)
             {
                 if (col.HasDefault &&
                     (col.Default.ToLower().Contains("newid") || col.Default.ToLower().Contains("newsequentialid")))
@@ -574,7 +574,7 @@ namespace Tiraggo.SqlClientProvider
             return cmd;
         }
 
-        static public SqlCommand BuildStoredProcUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildStoredProcUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
@@ -586,9 +586,9 @@ namespace Tiraggo.SqlClientProvider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
-            foreach (esColumnMetadata col in cols)
+            foreach (tgColumnMetadata col in cols)
             {
                 if (col.IsComputed || col.IsEntitySpacesConcurrency)
                 {
@@ -618,7 +618,7 @@ namespace Tiraggo.SqlClientProvider
             return cmd;
         }
 
-        static public SqlCommand BuildStoredProcDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCommand BuildStoredProcDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
@@ -630,7 +630,7 @@ namespace Tiraggo.SqlClientProvider
 
             SqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -651,13 +651,13 @@ namespace Tiraggo.SqlClientProvider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(SqlCommand cmd, esDataRequest request, esEntitySavePacket packet)
+        static public void PopulateStoredProcParameters(SqlCommand cmd, tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, SqlParameter> types = Cache.GetParameters(request);
 
             SqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -687,11 +687,11 @@ namespace Tiraggo.SqlClientProvider
             return param.Clone() as SqlParameter;
         }
 
-        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
+        static public string CreateFullName(tgDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -719,7 +719,7 @@ namespace Tiraggo.SqlClientProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -747,7 +747,7 @@ namespace Tiraggo.SqlClientProvider
             return name;
         }
 
-        static public string CreateFullSPName(esDataRequest request, string spName)
+        static public string CreateFullSPName(tgDataRequest request, string spName)
         {
             string name = String.Empty;
 
@@ -793,7 +793,7 @@ namespace Tiraggo.SqlClientProvider
             return ce;
         }
 
-        static public void AddParameters(SqlCommand cmd, esDataRequest request)
+        static public void AddParameters(SqlCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -855,13 +855,13 @@ namespace Tiraggo.SqlClientProvider
             }
         }
 
-        static public void GatherReturnParameters(SqlCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(SqlCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

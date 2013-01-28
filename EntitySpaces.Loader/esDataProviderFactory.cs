@@ -45,7 +45,7 @@ namespace Tiraggo.Loader
         /// </summary>
         /// <remarks>
         /// The providerClass parameter determines whether or not distributed transactions are used or
-        /// if ADO.NET connection based transactions are used. When "DataProvider" is used the <see cref="esTransactionScope"/>
+        /// if ADO.NET connection based transactions are used. When "DataProvider" is used the <see cref="tgTransactionScope"/>
         /// class is used to enforce transactions. When "DataProviderEnterprise" is used then <see cref="TransactionScope"/>
         /// is used
         /// </remarks>

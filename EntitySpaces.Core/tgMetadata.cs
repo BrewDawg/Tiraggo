@@ -39,18 +39,18 @@ namespace Tiraggo.Core
     /// </summary>
     public class tgMetadata
     {
-        protected esColumnMetadataCollection m_columns = null;
+        protected tgColumnMetadataCollection m_columns = null;
         protected Guid m_dataID = Guid.NewGuid();
 
-        protected Dictionary<string, esProviderSpecificMetadata> m_providerMetadataMaps =
-            new Dictionary<string, esProviderSpecificMetadata>();
+        protected Dictionary<string, tgProviderSpecificMetadata> m_providerMetadataMaps =
+            new Dictionary<string, tgProviderSpecificMetadata>();
 
         /// <summary>
         /// Used to eliminate the need for Reflection so EntitySpaces can run under
         /// medium trust
         /// </summary>
         /// <param name="mapName">The name of the 'providerMetadataKey' from the config file</param>
-        /// <returns>A delegate that can be called to get the esProviderSpecificMetadata matching the 'providerMetadataKey'</returns>
-        protected delegate esProviderSpecificMetadata MapToMeta(string mapName);
+        /// <returns>A delegate that can be called to get the tgProviderSpecificMetadata matching the 'providerMetadataKey'</returns>
+        protected delegate tgProviderSpecificMetadata MapToMeta(string mapName);
     }
 }

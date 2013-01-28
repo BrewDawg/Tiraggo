@@ -149,7 +149,7 @@ namespace Tiraggo.Web.Design
             }
         }
 
-        public esColumnMetadataCollection GetColumns(tgEntityCollectionBase collection)
+        public tgColumnMetadataCollection GetColumns(tgEntityCollectionBase collection)
         {
             collection.EnableHierarchicalBinding = false;
 
@@ -167,12 +167,12 @@ namespace Tiraggo.Web.Design
 
             MethodInfo get_Meta = collection.GetType().GetMethod("get_Meta", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             IMetadata meta = get_Meta.Invoke(collection, null) as IMetadata;
-            esColumnMetadataCollection esColumns =  meta.Columns;
+            tgColumnMetadataCollection esColumns =  meta.Columns;
 
-            esColumnMetadataCollection esCollection = new esColumnMetadataCollection();
+            tgColumnMetadataCollection esCollection = new tgColumnMetadataCollection();
             try
             {
-                foreach (esColumnMetadata col in esColumns)
+                foreach (tgColumnMetadata col in esColumns)
                 {
                     esCollection.Add(col);
                 }
@@ -190,7 +190,7 @@ namespace Tiraggo.Web.Design
                         {
                             if (prop.Attributes.Contains(att))
                             {
-                                esColumnMetadata col = new esColumnMetadata(prop.Name, 1000, prop.PropertyType);
+                                tgColumnMetadata col = new tgColumnMetadata(prop.Name, 1000, prop.PropertyType);
                                 col.PropertyName = prop.Name;
                                 esCollection.Add(col);
                             }

@@ -41,7 +41,7 @@ namespace Tiraggo.VistaDB4Provider
 {
     class Shared
     {
-        static public VistaDBCommand BuildDynamicInsertCommand(esDataRequest request, List<string> modifiedColumns)
+        static public VistaDBCommand BuildDynamicInsertCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -60,8 +60,8 @@ namespace Tiraggo.VistaDB4Provider
             VistaDBCommand cmd = new VistaDBCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -208,7 +208,7 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public VistaDBCommand BuildDynamicUpdateCommand(esDataRequest request, List<string> modifiedColumns)
+        static public VistaDBCommand BuildDynamicUpdateCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -228,8 +228,8 @@ namespace Tiraggo.VistaDB4Provider
             VistaDBCommand cmd = new VistaDBCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -343,7 +343,7 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public VistaDBCommand BuildDynamicDeleteCommand(esDataRequest request, List<string> modifiedColumns)
+        static public VistaDBCommand BuildDynamicDeleteCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             Dictionary<string, VistaDBParameter> types = Cache.GetParameters(request);
 
@@ -355,7 +355,7 @@ namespace Tiraggo.VistaDB4Provider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency || col.IsConcurrency)
                 {
@@ -373,7 +373,7 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public VistaDBCommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public VistaDBCommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             VistaDBCommand cmd = new VistaDBCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -383,7 +383,7 @@ namespace Tiraggo.VistaDB4Provider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.HasDefault && col.Default.ToLower() == "GUID()")
                 {
@@ -400,7 +400,7 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public VistaDBCommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public VistaDBCommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             VistaDBCommand cmd = new VistaDBCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -410,7 +410,7 @@ namespace Tiraggo.VistaDB4Provider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed)
                 {
@@ -422,7 +422,7 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public VistaDBCommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public VistaDBCommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             VistaDBCommand cmd = new VistaDBCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -434,7 +434,7 @@ namespace Tiraggo.VistaDB4Provider
 
             VistaDBParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -448,13 +448,13 @@ namespace Tiraggo.VistaDB4Provider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(VistaDBCommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(VistaDBCommand cmd, tgDataRequest request)
         {
             Dictionary<string, VistaDBParameter> types = Cache.GetParameters(request);
 
             VistaDBParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -478,7 +478,7 @@ namespace Tiraggo.VistaDB4Provider
         static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -492,7 +492,7 @@ namespace Tiraggo.VistaDB4Provider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -506,7 +506,7 @@ namespace Tiraggo.VistaDB4Provider
             return name;
         }
 
-        static public string CreateFullName(esProviderSpecificMetadata providerMetadata)
+        static public string CreateFullName(tgProviderSpecificMetadata providerMetadata)
         {
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
@@ -517,7 +517,7 @@ namespace Tiraggo.VistaDB4Provider
             return ce;
         }
 
-        static public void AddParameters(VistaDBCommand cmd, esDataRequest request)
+        static public void AddParameters(VistaDBCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -567,13 +567,13 @@ namespace Tiraggo.VistaDB4Provider
             }
         }
 
-        static public void GatherReturnParameters(VistaDBCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(VistaDBCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

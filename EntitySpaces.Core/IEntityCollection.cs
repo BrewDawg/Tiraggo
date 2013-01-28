@@ -53,10 +53,10 @@ namespace Tiraggo.Core
     public interface IEntityCollection
     {
         /// <summary>
-        /// Get or Set the current esEntity's connection information. See <see cref="esConnection"/>
+        /// Get or Set the current esEntity's connection information. See <see cref="tgConnection"/>
         /// </summary>
-        /// <seealso cref="esConnection"/>
-        esConnection Connection { get; set; }
+        /// <seealso cref="tgConnection"/>
+        tgConnection Connection { get; set; }
 
         /// <summary>
         /// The name of the DBMS catalog (or database). This catalog can be driven by the connection

@@ -54,10 +54,10 @@ namespace Tiraggo.Core
     public interface IEntity
     {
         /// <summary>
-        /// Get or Set the current esEntity's connection information. See <see cref="esConnection"/>
+        /// Get or Set the current esEntity's connection information. See <see cref="tgConnection"/>
         /// </summary>
-        /// <seealso cref="esConnection"/>
-        esConnection Connection { get; set; }
+        /// <seealso cref="tgConnection"/>
+        tgConnection Connection { get; set; }
 
         /// <summary>
         /// The esEntity class keeps a list of modified columns in order to update only those 

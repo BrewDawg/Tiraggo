@@ -66,7 +66,7 @@ namespace Tiraggo.js
 
             foreach (string column in columns)
             {
-                esColumnMetadata esCol = entity.es.Meta.Columns.FindByColumnName(column);
+                tgColumnMetadata esCol = entity.es.Meta.Columns.FindByColumnName(column);
 
                 jsColumn c = new jsColumn();
 

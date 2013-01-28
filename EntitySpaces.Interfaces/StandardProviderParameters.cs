@@ -37,7 +37,7 @@ namespace Tiraggo.Interfaces
 {
     public class StandardProviderParameters
     {
-        public esDataRequest request;
+        public tgDataRequest request;
         public IDbCommand cmd;
         public int pindex;
 

@@ -174,7 +174,7 @@ namespace Tiraggo.Interfaces
         /// Read-only metadata for the entity.
         /// </summary>
         /// <remarks>
-        /// The sample below loops through the <see cref="esColumnMetadataCollection"/> in provided
+        /// The sample below loops through the <see cref="tgColumnMetadataCollection"/> in provided
         /// by the <see cref="IMetadata"/> interface. There is a lot of useful information here, in fact,
         /// there is enough information for EntitySpaces to build all of the dynamic sql required during
         /// operations that use dynamic sql.
@@ -183,7 +183,7 @@ namespace Tiraggo.Interfaces
         /// {
         /// 	public void CustomMethod()
         /// 	{
-        /// 		foreach(esColumnMetadata col in this.Meta.Columns)
+        /// 		foreach(tgColumnMetadata col in this.Meta.Columns)
         /// 		{
         /// 			if(col.IsInPrimaryKey)
         /// 			{
@@ -194,9 +194,9 @@ namespace Tiraggo.Interfaces
         /// }
         /// </code>
         /// </remarks>
-        /// <seealso cref="esColumnMetadata"/>
-        /// <seealso cref="esColumnMetadataCollection"/>
-        /// <seealso cref="esProviderSpecificMetadata"/>
+        /// <seealso cref="tgColumnMetadata"/>
+        /// <seealso cref="tgColumnMetadataCollection"/>
+        /// <seealso cref="tgProviderSpecificMetadata"/>
         virtual protected IMetadata Meta { get { return null; } }
 
         /// <summary>
@@ -224,11 +224,11 @@ namespace Tiraggo.Interfaces
 
             if (theQuery != null)
             {
-                esConnection conn = theQuery.es2.Connection;
+                tgConnection conn = theQuery.es2.Connection;
 
                 if (iQuery.ProviderMetadata == null)
                 {
-                    esProviderSpecificMetadata providerMetadata = theQuery.Meta.GetProviderMetadata(conn.ProviderMetadataKey);
+                    tgProviderSpecificMetadata providerMetadata = theQuery.Meta.GetProviderMetadata(conn.ProviderMetadataKey);
                     iQuery.DataID = theQuery.Meta.DataID;
                     iQuery.Columns = theQuery.Meta.Columns;
                     iQuery.ProviderMetadata = providerMetadata;
@@ -242,7 +242,7 @@ namespace Tiraggo.Interfaces
             // until serialized back to the server
             if (iQuery.SelectAll)
             {
-                foreach (esColumnMetadata col in (esColumnMetadataCollection)iQuery.Columns)
+                foreach (tgColumnMetadata col in (tgColumnMetadataCollection)iQuery.Columns)
                 {
                     tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                     query.Select(item);
@@ -254,7 +254,7 @@ namespace Tiraggo.Interfaces
 
                 if (columns != null)
                 {
-                    foreach (esColumnMetadata col in (esColumnMetadataCollection)iQuery.Columns)
+                    foreach (tgColumnMetadata col in (tgColumnMetadataCollection)iQuery.Columns)
                     {
                         bool found = false;
 
@@ -310,15 +310,15 @@ namespace Tiraggo.Interfaces
         public QueryLoadedDelegate OnLoadDelegate;
 
         /// <summary>
-        /// This initializes the esDataRequest for the query.
+        /// This initializes the tgDataRequest for the query.
         /// </summary>
         /// <param name="request">The request to populate.</param>
-        protected void PopulateRequest(esDataRequest request)
+        protected void PopulateRequest(tgDataRequest request)
         {
             IMetadata meta = this.Meta;
 
-            esConnection conn = this.es2.Connection;
-            esProviderSpecificMetadata providerMetadata = meta.GetProviderMetadata(conn.ProviderMetadataKey);
+            tgConnection conn = this.es2.Connection;
+            tgProviderSpecificMetadata providerMetadata = meta.GetProviderMetadata(conn.ProviderMetadataKey);
 
             IDynamicQuerySerializableInternal iQuery = this as IDynamicQuerySerializableInternal;
 
@@ -364,7 +364,7 @@ namespace Tiraggo.Interfaces
         {
             if (this.m_selectAll)
             {
-                foreach (esColumnMetadata col in this.Meta.Columns)
+                foreach (tgColumnMetadata col in this.Meta.Columns)
                 {
                     tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                     this.Select(item);
@@ -414,11 +414,11 @@ namespace Tiraggo.Interfaces
 
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
 
             table = response.Table;
 
@@ -472,12 +472,12 @@ namespace Tiraggo.Interfaces
         {
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
             request.QueryType = tgQueryType.DynamicQueryParseOnly;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
 
             return response.LastQuery;
         }
@@ -492,11 +492,11 @@ namespace Tiraggo.Interfaces
 
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
 
             table = response.Table;
 
@@ -512,11 +512,11 @@ namespace Tiraggo.Interfaces
         {
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteReader(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteReader(request, this.es2.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -529,11 +529,11 @@ namespace Tiraggo.Interfaces
         {
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -546,11 +546,11 @@ namespace Tiraggo.Interfaces
         {
             FixupSerializedQueries();
 
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             this.PopulateRequest(request);
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
 
             return (T)response.Scalar;
         }
@@ -691,7 +691,7 @@ namespace Tiraggo.Interfaces
         /// <returns></returns>
         override public tgDynamicQuerySerializable SelectAllExcept(params tgQueryItem[] columns)
         {
-            foreach (esColumnMetadata col in this.Meta.Columns)
+            foreach (tgColumnMetadata col in this.Meta.Columns)
             {
                 bool found = false;
 
@@ -720,7 +720,7 @@ namespace Tiraggo.Interfaces
         /// <returns></returns>
         override public tgDynamicQuerySerializable SelectAll()
         {
-            foreach (esColumnMetadata col in this.Meta.Columns)
+            foreach (tgColumnMetadata col in this.Meta.Columns)
             {
                 tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                 this.Select(item);
@@ -829,19 +829,19 @@ namespace Tiraggo.Interfaces
             }
 
             /// <summary>
-            /// esConnection Connection.
+            /// tgConnection Connection.
             /// </summary>
-            public esConnection Connection
+            public tgConnection Connection
             {
                 get
                 {
                     if (this.dynamicQuery.connection == null)
                     {
-                        this.dynamicQuery.connection = new esConnection();
+                        this.dynamicQuery.connection = new tgConnection();
 
-                        if (esConnection.ConnectionService != null)
+                        if (tgConnection.ConnectionService != null)
                         {
-                            this.dynamicQuery.connection.Name = esConnection.ConnectionService.GetName();
+                            this.dynamicQuery.connection.Name = tgConnection.ConnectionService.GetName();
                         }
                         else
                         {
@@ -892,7 +892,7 @@ namespace Tiraggo.Interfaces
         /// This property is in "es2" because the client side queries cannot have connections
         /// </summary>
         [NonSerialized]
-        private esConnection connection;
+        private tgConnection connection;
 
         /// <summary>
         /// Holds the information for each Prefetch property to be loaded

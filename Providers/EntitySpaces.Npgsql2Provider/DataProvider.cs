@@ -67,7 +67,7 @@ namespace Tiraggo.Npgsql2Provider
             {
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -114,7 +114,7 @@ namespace Tiraggo.Npgsql2Provider
 
             public string Syntax { get; set; }
 
-            public esDataRequest Request { get; set; }
+            public tgDataRequest Request { get; set; }
 
             public int ThreadId { get; set; }
 
@@ -205,7 +205,7 @@ namespace Tiraggo.Npgsql2Provider
         #endregion Profiling Logic
 
         /// <summary>
-        /// This method acts as a delegate for esTransactionScope
+        /// This method acts as a delegate for tgTransactionScope
         /// </summary>
         /// <returns></returns>
         static private IDbConnection CreateIDbConnectionDelegate()
@@ -226,9 +226,9 @@ namespace Tiraggo.Npgsql2Provider
 
         #region IDataProvider Members
 
-        esDataResponse IDataProvider.esLoadDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esLoadDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -246,14 +246,14 @@ namespace Tiraggo.Npgsql2Provider
 
                     case tgQueryType.DynamicQuery:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         NpgsqlCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
                     case tgQueryType.DynamicQueryParseOnly:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         NpgsqlCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
@@ -275,9 +275,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.esSaveDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esSaveDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -313,9 +313,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteNonQuery(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteNonQuery(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -344,7 +344,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -373,7 +373,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -390,9 +390,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteReader(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteReader(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -460,9 +460,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteScalar(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteScalar(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -495,7 +495,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -524,7 +524,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -541,9 +541,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataSet(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataSet(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -571,9 +571,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -603,9 +603,9 @@ namespace Tiraggo.Npgsql2Provider
 
         #endregion IDataProvider Members
 
-        static private esDataResponse LoadDataSetFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -624,7 +624,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -653,7 +653,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -675,9 +675,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        static private esDataResponse LoadDataSetFromText(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -694,7 +694,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -723,7 +723,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -745,9 +745,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -765,7 +765,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -794,7 +794,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -816,9 +816,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromText(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -836,7 +836,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -865,7 +865,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -887,9 +887,9 @@ namespace Tiraggo.Npgsql2Provider
             return response;
         }
 
-        static private esDataResponse LoadManyToMany(esDataRequest request)
+        static private tgDataResponse LoadManyToMany(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             NpgsqlCommand cmd = null;
 
             try
@@ -945,7 +945,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -974,7 +974,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -992,7 +992,7 @@ namespace Tiraggo.Npgsql2Provider
         }
 
         // This is used only to execute the Dynamic Query API
-        static private void LoadDataTableFromDynamicQuery(esDataRequest request, esDataResponse response, NpgsqlCommand cmd)
+        static private void LoadDataTableFromDynamicQuery(tgDataRequest request, tgDataResponse response, NpgsqlCommand cmd)
         {
             try
             {
@@ -1007,7 +1007,7 @@ namespace Tiraggo.Npgsql2Provider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
@@ -1036,7 +1036,7 @@ namespace Tiraggo.Npgsql2Provider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1051,7 +1051,7 @@ namespace Tiraggo.Npgsql2Provider
             }
         }
 
-        static private DataTable SaveStoredProcCollection(esDataRequest request)
+        static private DataTable SaveStoredProcCollection(tgDataRequest request)
         {
             if (request.CollectionSavePacket == null) return null;
 
@@ -1061,12 +1061,12 @@ namespace Tiraggo.Npgsql2Provider
 
             try
             {
-                using (esTransactionScope scope = new esTransactionScope())
+                using (tgTransactionScope scope = new tgTransactionScope())
                 {
                     NpgsqlCommand cmd = null;
                     bool exception = false;
 
-                    foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                    foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                     {
                         cmd = null;
                         exception = false;
@@ -1079,7 +1079,7 @@ namespace Tiraggo.Npgsql2Provider
                                 if (cmdInsert == null)
                                 {
                                     cmdInsert = Shared.BuildStoredProcInsertCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdInsert, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdInsert, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdInsert;
                                 break;
@@ -1087,7 +1087,7 @@ namespace Tiraggo.Npgsql2Provider
                                 if (cmdUpdate == null)
                                 {
                                     cmdUpdate = Shared.BuildStoredProcUpdateCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdUpdate, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdUpdate, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdUpdate;
                                 break;
@@ -1095,7 +1095,7 @@ namespace Tiraggo.Npgsql2Provider
                                 if (cmdDelete == null)
                                 {
                                     cmdDelete = Shared.BuildStoredProcDeleteCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdDelete, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdDelete, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdDelete;
                                 break;
@@ -1205,15 +1205,15 @@ namespace Tiraggo.Npgsql2Provider
             }
             finally
             {
-                if (cmdInsert != null) esTransactionScope.DeEnlist(cmdInsert);
-                if (cmdUpdate != null) esTransactionScope.DeEnlist(cmdUpdate);
-                if (cmdDelete != null) esTransactionScope.DeEnlist(cmdDelete);
+                if (cmdInsert != null) tgTransactionScope.DeEnlist(cmdInsert);
+                if (cmdUpdate != null) tgTransactionScope.DeEnlist(cmdUpdate);
+                if (cmdDelete != null) tgTransactionScope.DeEnlist(cmdDelete);
             }
 
             return null;
         }
 
-        static private DataTable SaveStoredProcEntity(esDataRequest request)
+        static private DataTable SaveStoredProcEntity(tgDataRequest request)
         {
             NpgsqlCommand cmd = null;
 
@@ -1237,7 +1237,7 @@ namespace Tiraggo.Npgsql2Provider
 
             try
             {
-                esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
                 int count = 0;
 
                 #region Profiling
@@ -1272,7 +1272,7 @@ namespace Tiraggo.Npgsql2Provider
             }
             finally
             {
-                esTransactionScope.DeEnlist(cmd);
+                tgTransactionScope.DeEnlist(cmd);
                 cmd.Dispose();
             }
 
@@ -1294,16 +1294,16 @@ namespace Tiraggo.Npgsql2Provider
             return null;
         }
 
-        static private DataTable SaveDynamicCollection(esDataRequest request)
+        static private DataTable SaveDynamicCollection(tgDataRequest request)
         {
             if (request.CollectionSavePacket == null) return null;
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 NpgsqlCommand cmd = null;
                 bool exception = false;
 
-                foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                 {
                     exception = false;
                     cmd = null;
@@ -1328,7 +1328,7 @@ namespace Tiraggo.Npgsql2Provider
 
                     try
                     {
-                        esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                        tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
                         int count;
 
                         #region Profiling
@@ -1374,7 +1374,7 @@ namespace Tiraggo.Npgsql2Provider
                     }
                     finally
                     {
-                        esTransactionScope.DeEnlist(cmd);
+                        tgTransactionScope.DeEnlist(cmd);
                         cmd.Dispose();
                     }
 
@@ -1400,7 +1400,7 @@ namespace Tiraggo.Npgsql2Provider
             return null;
         }
 
-        static private DataTable SaveDynamicEntity(esDataRequest request)
+        static private DataTable SaveDynamicEntity(tgDataRequest request)
         {
             NpgsqlCommand cmd = null;
 
@@ -1421,7 +1421,7 @@ namespace Tiraggo.Npgsql2Provider
 
             try
             {
-                esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                 int count = 0;
 
@@ -1457,7 +1457,7 @@ namespace Tiraggo.Npgsql2Provider
             }
             finally
             {
-                esTransactionScope.DeEnlist(cmd);
+                tgTransactionScope.DeEnlist(cmd);
                 cmd.Dispose();
             }
 

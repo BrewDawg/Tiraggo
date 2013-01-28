@@ -38,13 +38,13 @@ namespace Tiraggo.MySqlClientProvider
 {
     class Cache
     {
-        static public Dictionary<string, MySqlParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, MySqlParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, MySqlParameter> GetParameters(Guid dataID,
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -54,9 +54,9 @@ namespace Tiraggo.MySqlClientProvider
                     Dictionary<string, MySqlParameter> types = new Dictionary<string, MySqlParameter>();
 
                     MySqlParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

@@ -324,7 +324,7 @@ namespace Tiraggo.Core
             bool weHaveData = false;
             int lastOrdinal = 0;
 
-            esColumnMetadataCollection esMetaCols = entity.es.Meta.Columns;
+            tgColumnMetadataCollection esMetaCols = entity.es.Meta.Columns;
 
             tgEntityCollectionBase theBaseCollection = baseCollection != null ? baseCollection : entity.Collection;
 
@@ -347,7 +347,7 @@ namespace Tiraggo.Core
 
             //------------------------------------------------------------
             // First we deal with Properties from the DataTable.Columns
-            // or from the esColumnMetadataCollection.
+            // or from the tgColumnMetadataCollection.
             //------------------------------------------------------------
             ArrayList collNested = new ArrayList();
             SortedList<int, PropertyDescriptor> coll = new SortedList<int, PropertyDescriptor>();
@@ -366,7 +366,7 @@ namespace Tiraggo.Core
 
                     if (column == "ESRN") continue;
 
-                    esColumnMetadata esCol = entity.es.Meta.Columns.FindByColumnName(column);
+                    tgColumnMetadata esCol = entity.es.Meta.Columns.FindByColumnName(column);
 
                     if (esCol != null)
                     {
@@ -407,7 +407,7 @@ namespace Tiraggo.Core
             }
             else
             {
-                foreach (esColumnMetadata esCol in esMetaCols)
+                foreach (tgColumnMetadata esCol in esMetaCols)
                 {
                     coll.Add(lastOrdinal++, props[esCol.PropertyName]);
                 }
@@ -502,7 +502,7 @@ namespace Tiraggo.Core
 
                 if (theBaseCollection.extraColumnMetadata != null)
                 {
-                    foreach (KeyValuePair<string, esColumnMetadata> extraColumn in theBaseCollection.extraColumnMetadata)
+                    foreach (KeyValuePair<string, tgColumnMetadata> extraColumn in theBaseCollection.extraColumnMetadata)
                     {
                         list.Add(extraColumn.Value.Ordinal, extraColumn.Key);
                     }

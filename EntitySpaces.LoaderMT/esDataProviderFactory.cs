@@ -36,7 +36,7 @@ namespace Tiraggo.LoaderMT
     public class esDataProviderFactory : IDataProviderFactory
     {
         /// <summary>
-        /// Called by the esProviderFactory to get the proper data provider to carry
+        /// Called by the tgProviderFactory to get the proper data provider to carry
         /// out a particular request agains the database
         /// </summary>
         /// <param name="providerName">This is the "provider" element from an EntitySpaces connection entry</param>

@@ -66,7 +66,7 @@ namespace Tiraggo.OracleClientProvider
 
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -111,7 +111,7 @@ namespace Tiraggo.OracleClientProvider
 
             public long PacketOrder { get; set; }
             public string Syntax { get; set; }
-            public esDataRequest Request { get; set; }
+            public tgDataRequest Request { get; set; }
             public int ThreadId { get; set; }
             public string Action { get; set; }
             public string CallStack { get; set; }
@@ -190,7 +190,7 @@ namespace Tiraggo.OracleClientProvider
         #endregion
 
         /// <summary>
-        /// This method acts as a delegate for esTransactionScope
+        /// This method acts as a delegate for tgTransactionScope
         /// </summary>
         /// <returns></returns>
         static private IDbConnection CreateIDbConnectionDelegate()
@@ -211,9 +211,9 @@ namespace Tiraggo.OracleClientProvider
 
         #region IDataProvider Members
 
-        esDataResponse IDataProvider.esLoadDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esLoadDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -231,14 +231,14 @@ namespace Tiraggo.OracleClientProvider
 
                     case tgQueryType.DynamicQuery:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         OracleCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
                     case tgQueryType.DynamicQueryParseOnly:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         OracleCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
@@ -261,9 +261,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.esSaveDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esSaveDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -299,9 +299,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteNonQuery(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteNonQuery(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -330,7 +330,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -356,7 +356,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -373,9 +373,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteReader(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteReader(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -444,9 +444,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteScalar(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteScalar(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -479,7 +479,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -505,7 +505,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -522,9 +522,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataSet(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataSet(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -552,9 +552,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -584,9 +584,9 @@ namespace Tiraggo.OracleClientProvider
 
         #endregion
 
-        static private esDataResponse LoadDataSetFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -609,7 +609,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -635,7 +635,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -658,9 +658,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        static private esDataResponse LoadDataSetFromText(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -678,7 +678,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -704,7 +704,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -727,9 +727,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -751,7 +751,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -777,7 +777,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -800,9 +800,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromText(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -820,7 +820,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -846,7 +846,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -869,9 +869,9 @@ namespace Tiraggo.OracleClientProvider
             return response;
         }
 
-        static private esDataResponse LoadManyToMany(esDataRequest request)
+        static private tgDataResponse LoadManyToMany(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OracleCommand cmd = null;
 
             try
@@ -909,7 +909,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -935,7 +935,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -954,7 +954,7 @@ namespace Tiraggo.OracleClientProvider
         }
 
         // This is used only to execute the Dynamic Query API
-        static private void LoadDataTableFromDynamicQuery(esDataRequest request, esDataResponse response, OracleCommand cmd)
+        static private void LoadDataTableFromDynamicQuery(tgDataRequest request, tgDataResponse response, OracleCommand cmd)
         {
             try
             {
@@ -969,7 +969,7 @@ namespace Tiraggo.OracleClientProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -995,7 +995,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1011,7 +1011,7 @@ namespace Tiraggo.OracleClientProvider
             }
         }
 
-        static private DataTable SaveStoredProcCollection(esDataRequest request)
+        static private DataTable SaveStoredProcCollection(tgDataRequest request)
         {
             if (request.CollectionSavePacket == null) return null;
 
@@ -1021,12 +1021,12 @@ namespace Tiraggo.OracleClientProvider
 
             try
             {
-                using (esTransactionScope scope = new esTransactionScope())
+                using (tgTransactionScope scope = new tgTransactionScope())
                 {
                     OracleCommand cmd = null;
                     bool exception = false;
 
-                    foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                    foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                     {
                         cmd = null;
                         exception = false;
@@ -1038,7 +1038,7 @@ namespace Tiraggo.OracleClientProvider
                                 if (cmdInsert == null)
                                 {
                                     cmdInsert = Shared.BuildStoredProcInsertCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdInsert, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdInsert, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdInsert;
                                 break;
@@ -1046,7 +1046,7 @@ namespace Tiraggo.OracleClientProvider
                                 if (cmdUpdate == null)
                                 {
                                     cmdUpdate = Shared.BuildStoredProcUpdateCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdUpdate, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdUpdate, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdUpdate;
                                 break;
@@ -1054,7 +1054,7 @@ namespace Tiraggo.OracleClientProvider
                                 if (cmdDelete == null)
                                 {
                                     cmdDelete = Shared.BuildStoredProcDeleteCommand(request, packet);
-                                    esTransactionScope.Enlist(cmdDelete, request.ConnectionString, CreateIDbConnectionDelegate);
+                                    tgTransactionScope.Enlist(cmdDelete, request.ConnectionString, CreateIDbConnectionDelegate);
                                 }
                                 cmd = cmdDelete;
                                 break;
@@ -1154,15 +1154,15 @@ namespace Tiraggo.OracleClientProvider
             }
             finally
             {
-                if (cmdInsert != null) esTransactionScope.DeEnlist(cmdInsert);
-                if (cmdUpdate != null) esTransactionScope.DeEnlist(cmdUpdate);
-                if (cmdDelete != null) esTransactionScope.DeEnlist(cmdDelete);
+                if (cmdInsert != null) tgTransactionScope.DeEnlist(cmdInsert);
+                if (cmdUpdate != null) tgTransactionScope.DeEnlist(cmdUpdate);
+                if (cmdDelete != null) tgTransactionScope.DeEnlist(cmdDelete);
             }
 
             return null;
         }
 
-        static private DataTable SaveStoredProcEntity(esDataRequest request)
+        static private DataTable SaveStoredProcEntity(tgDataRequest request)
         {
             OracleCommand cmd = null;
 
@@ -1186,7 +1186,7 @@ namespace Tiraggo.OracleClientProvider
 
             try
             {
-                esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
                 int count = 0;
 
                 #region Profiling
@@ -1218,7 +1218,7 @@ namespace Tiraggo.OracleClientProvider
             }
             finally
             {
-                esTransactionScope.DeEnlist(cmd);
+                tgTransactionScope.DeEnlist(cmd);
                 cmd.Dispose();
             }
 
@@ -1240,16 +1240,16 @@ namespace Tiraggo.OracleClientProvider
             return null;
         }
 
-        static private DataTable SaveDynamicCollection(esDataRequest request)
+        static private DataTable SaveDynamicCollection(tgDataRequest request)
         {
             if (request.CollectionSavePacket == null) return null;
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 OracleCommand cmd = null;
                 bool exception = false;
 
-                foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                 {
                     exception = false;
                     cmd = null;
@@ -1274,7 +1274,7 @@ namespace Tiraggo.OracleClientProvider
 
                     try
                     {
-                        esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                        tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
                         int count;
 
                         #region Profiling
@@ -1317,7 +1317,7 @@ namespace Tiraggo.OracleClientProvider
                     }
                     finally
                     {
-                        esTransactionScope.DeEnlist(cmd);
+                        tgTransactionScope.DeEnlist(cmd);
                         cmd.Dispose();
                     }
 
@@ -1343,7 +1343,7 @@ namespace Tiraggo.OracleClientProvider
             return null;
         }
 
-        static private DataTable SaveDynamicEntity(esDataRequest request)
+        static private DataTable SaveDynamicEntity(tgDataRequest request)
         {
             OracleCommand cmd = null;
 
@@ -1364,7 +1364,7 @@ namespace Tiraggo.OracleClientProvider
 
             try
             {
-                esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
                 int count = 0;
 
                 #region Profiling
@@ -1396,7 +1396,7 @@ namespace Tiraggo.OracleClientProvider
             }
             finally
             {
-                esTransactionScope.DeEnlist(cmd);
+                tgTransactionScope.DeEnlist(cmd);
                 cmd.Dispose();
             }
 

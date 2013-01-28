@@ -38,13 +38,13 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 {
     class Cache
     {
-        static public Dictionary<string, SAParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, SAParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, SAParameter> GetParameters(Guid dataID, 
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -54,9 +54,9 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                     Dictionary<string, SAParameter> types = new Dictionary<string, SAParameter>();
 
                     SAParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

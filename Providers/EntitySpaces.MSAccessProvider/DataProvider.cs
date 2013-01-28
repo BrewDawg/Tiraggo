@@ -66,7 +66,7 @@ namespace Tiraggo.MSAccessProvider
 
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, esEntitySavePacket packet, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, tgEntitySavePacket packet, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -131,7 +131,7 @@ namespace Tiraggo.MSAccessProvider
                 stopwatch = Stopwatch.StartNew();
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, string action, string callStack)
+            public esTraceArguments(tgDataRequest request, IDbCommand cmd, string action, string callStack)
             {
                 PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
 
@@ -176,7 +176,7 @@ namespace Tiraggo.MSAccessProvider
 
             public long PacketOrder { get; set; }
             public string Syntax { get; set; }
-            public esDataRequest Request { get; set; }
+            public tgDataRequest Request { get; set; }
             public int ThreadId { get; set; }
             public string Action { get; set; }
             public string CallStack { get; set; }
@@ -255,7 +255,7 @@ namespace Tiraggo.MSAccessProvider
         #endregion
 
         /// <summary>
-        /// This method acts as a delegate for esTransactionScope
+        /// This method acts as a delegate for tgTransactionScope
         /// </summary>
         /// <returns></returns>
         static private IDbConnection CreateIDbConnectionDelegate()
@@ -276,9 +276,9 @@ namespace Tiraggo.MSAccessProvider
 
         #region IDataProvider Members
 
-        esDataResponse IDataProvider.esLoadDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esLoadDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -296,14 +296,14 @@ namespace Tiraggo.MSAccessProvider
 
                     case tgQueryType.DynamicQuery:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         OleDbCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
                     case tgQueryType.DynamicQueryParseOnly:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         OleDbCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
@@ -325,9 +325,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.esSaveDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esSaveDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -367,9 +367,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteNonQuery(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteNonQuery(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OleDbCommand cmd = null;
 
             try
@@ -397,7 +397,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -423,7 +423,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
             }
             catch (Exception ex)
@@ -436,9 +436,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteReader(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteReader(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OleDbCommand cmd = null;
 
             try
@@ -503,9 +503,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteScalar(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteScalar(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             OleDbCommand cmd = null;
 
             try
@@ -537,7 +537,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -563,7 +563,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
             }
             catch (Exception ex)
@@ -576,9 +576,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataSet(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataSet(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -606,9 +606,9 @@ namespace Tiraggo.MSAccessProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
@@ -638,7 +638,7 @@ namespace Tiraggo.MSAccessProvider
 
         #endregion
 
-        static private DataSet LoadDataSetFromStoredProcedure(esDataRequest request)
+        static private DataSet LoadDataSetFromStoredProcedure(tgDataRequest request)
         {
             DataSet dataSet = null;
             OleDbCommand cmd = null;
@@ -665,7 +665,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -691,7 +691,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
             }
             catch (Exception)
@@ -707,7 +707,7 @@ namespace Tiraggo.MSAccessProvider
             return dataSet;
         }
 
-        static private DataSet LoadDataSetFromText(esDataRequest request)
+        static private DataSet LoadDataSetFromText(tgDataRequest request)
         {
             DataSet dataSet = null;
             OleDbCommand cmd = null;
@@ -727,7 +727,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -753,7 +753,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
             }
             catch (Exception)
@@ -769,7 +769,7 @@ namespace Tiraggo.MSAccessProvider
             return dataSet;
         }
 
-        static private DataTable LoadManyToMany(esDataRequest request)
+        static private DataTable LoadManyToMany(tgDataRequest request)
         {
             DataTable dataTable = null;
             OleDbCommand cmd = null;
@@ -809,7 +809,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -835,7 +835,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
             }
             catch (Exception)
@@ -851,7 +851,7 @@ namespace Tiraggo.MSAccessProvider
             return dataTable;
         }
 
-        static private DataTable LoadDataTableFromStoredProcedure(esDataRequest request)
+        static private DataTable LoadDataTableFromStoredProcedure(tgDataRequest request)
         {
             DataTable dataTable = null;
             OleDbCommand cmd = null;
@@ -878,7 +878,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -904,7 +904,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
             }
             catch (Exception)
@@ -920,7 +920,7 @@ namespace Tiraggo.MSAccessProvider
             return dataTable;
         }
 
-        static private DataTable LoadDataTableFromText(esDataRequest request)
+        static private DataTable LoadDataTableFromText(tgDataRequest request)
         {
             DataTable dataTable = null;
             OleDbCommand cmd = null;
@@ -940,7 +940,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -966,7 +966,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
             }
             catch (Exception)
@@ -984,7 +984,7 @@ namespace Tiraggo.MSAccessProvider
 
         
         // This is used only to execute the Dynamic Query API
-        static private void LoadDataTableFromDynamicQuery(esDataRequest request, esDataResponse response, OleDbCommand cmd)
+        static private void LoadDataTableFromDynamicQuery(tgDataRequest request, tgDataResponse response, OleDbCommand cmd)
         {
             DataTable dataTable = null;
 
@@ -1001,7 +1001,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -1027,7 +1027,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1043,19 +1043,19 @@ namespace Tiraggo.MSAccessProvider
             }
         }
 
-        static private DataTable SaveStoredProcCollection(esDataRequest request)
+        static private DataTable SaveStoredProcCollection(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedures not supported");
         }
 
-        static private DataTable SaveStoredProcEntity(esDataRequest request)
+        static private DataTable SaveStoredProcEntity(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedures not supported");
         }
 
-        static private DataTable SaveDynamicCollection(esDataRequest request)
+        static private DataTable SaveDynamicCollection(tgDataRequest request)
         {
-            esEntitySavePacket pkt = request.CollectionSavePacket[0];
+            tgEntitySavePacket pkt = request.CollectionSavePacket[0];
 
             if (pkt.RowState == tgDataRowState.Deleted)
             {
@@ -1073,11 +1073,11 @@ namespace Tiraggo.MSAccessProvider
             }
         }
 
-        static private DataTable SaveDynamicCollection_InsertsUpdates(esDataRequest request)
+        static private DataTable SaveDynamicCollection_InsertsUpdates(tgDataRequest request)
         {
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (OleDbDataAdapter da = new OleDbDataAdapter())
                 {
@@ -1091,7 +1091,7 @@ namespace Tiraggo.MSAccessProvider
                         da.RowUpdated += new OleDbRowUpdatedEventHandler(OnRowUpdated);
                     }
 
-                    foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                    foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                     {
                         if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
@@ -1114,7 +1114,7 @@ namespace Tiraggo.MSAccessProvider
                                 break;
                         }
 
-                        request.Properties["esDataRequest"] = request;
+                        request.Properties["tgDataRequest"] = request;
                         request.Properties["esEntityData"] = packet;
                         dataTable.ExtendedProperties["props"] = request.Properties;
 
@@ -1123,7 +1123,7 @@ namespace Tiraggo.MSAccessProvider
 
                         try
                         {
-                            esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                            tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                             #region Profiling
                             if (sTraceHandler != null)
@@ -1154,7 +1154,7 @@ namespace Tiraggo.MSAccessProvider
                         }
                         finally
                         {
-                            esTransactionScope.DeEnlist(cmd);
+                            tgTransactionScope.DeEnlist(cmd);
                             dataTable.Rows.Clear();
                         }
 
@@ -1181,13 +1181,13 @@ namespace Tiraggo.MSAccessProvider
             return dataTable;
         }
 
-        static private DataTable SaveDynamicCollection_Deletes(esDataRequest request)
+        static private DataTable SaveDynamicCollection_Deletes(tgDataRequest request)
         {
             OleDbCommand cmd = null;
 
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (OleDbDataAdapter da = new OleDbDataAdapter())
                 {
@@ -1197,12 +1197,12 @@ namespace Tiraggo.MSAccessProvider
                     try
                     {
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request, request.CollectionSavePacket[0].ModifiedColumns);
-                        esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                        tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                         DataRow[] singleRow = new DataRow[1];
 
                         // Delete each record
-                        foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                        foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                         {
                             DataRow row = dataTable.NewRow();
                             dataTable.Rows.Add(row);
@@ -1245,7 +1245,7 @@ namespace Tiraggo.MSAccessProvider
                     }
                     finally
                     {
-                        esTransactionScope.DeEnlist(cmd);
+                        tgTransactionScope.DeEnlist(cmd);
                     }
                 }
                 scope.Complete();
@@ -1254,7 +1254,7 @@ namespace Tiraggo.MSAccessProvider
             return request.Table;
         }
 
-        static private DataTable SaveDynamicEntity(esDataRequest request)
+        static private DataTable SaveDynamicEntity(tgDataRequest request)
         {
             bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
@@ -1294,7 +1294,7 @@ namespace Tiraggo.MSAccessProvider
 
                 if (!needToDelete && request.Properties != null)
                 {
-                    request.Properties["esDataRequest"] = request;
+                    request.Properties["tgDataRequest"] = request;
                     request.Properties["esEntityData"] = request.EntitySavePacket;
                     dataTable.ExtendedProperties["props"] = request.Properties;
                 }
@@ -1309,7 +1309,7 @@ namespace Tiraggo.MSAccessProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
                     if (sTraceHandler != null)
@@ -1335,7 +1335,7 @@ namespace Tiraggo.MSAccessProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
@@ -1357,15 +1357,15 @@ namespace Tiraggo.MSAccessProvider
             return dataTable;
         }
 
-        static private DataTable CreateDataTable(esDataRequest request)
+        static private DataTable CreateDataTable(tgDataRequest request)
         {
             DataTable dataTable = new DataTable();
             DataColumnCollection dataColumns = dataTable.Columns;
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             if (request.SelectedColumns == null)
             {
-                esColumnMetadata col;
+                tgColumnMetadata col;
                 for (int i = 0; i < cols.Count; i++)
                 {
                     col = cols[i];
@@ -1383,9 +1383,9 @@ namespace Tiraggo.MSAccessProvider
             return dataTable;
         }
 
-        static void SetOriginalValues(esDataRequest request, esEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
+        static void SetOriginalValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
         {
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (primaryKeysAndConcurrencyOnly &&
                     (!col.IsInPrimaryKey && !col.IsConcurrency && !col.IsEntitySpacesConcurrency)) continue;
@@ -1399,7 +1399,7 @@ namespace Tiraggo.MSAccessProvider
             }
         }
 
-        static void SetModifiedValues(esDataRequest request, esEntitySavePacket packet, DataRow row)
+        static void SetModifiedValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row)
         {
             foreach (string column in packet.ModifiedColumns)
             {
@@ -1423,8 +1423,8 @@ namespace Tiraggo.MSAccessProvider
 
                 if (e.Status == UpdateStatus.Continue && (e.StatementType == StatementType.Insert || e.StatementType == StatementType.Update))
                 {
-                    esDataRequest request = props["esDataRequest"] as esDataRequest;
-                    esEntitySavePacket packet = (esEntitySavePacket)props["esEntityData"];
+                    tgDataRequest request = props["tgDataRequest"] as tgDataRequest;
+                    tgEntitySavePacket packet = (tgEntitySavePacket)props["esEntityData"];
 
                     if (e.StatementType == StatementType.Insert)
                     {
@@ -1581,11 +1581,11 @@ namespace Tiraggo.MSAccessProvider
 
                 if (e.StatementType == StatementType.Insert)
                 {
-                    esEntitySavePacket packet = (esEntitySavePacket)props["esEntityData"];
+                    tgEntitySavePacket packet = (tgEntitySavePacket)props["esEntityData"];
 
                     if (e.Row.Table.ExtendedProperties.Contains("AutoInc"))
                     {
-                        esDataRequest request = props["esDataRequest"] as esDataRequest;
+                        tgDataRequest request = props["tgDataRequest"] as tgDataRequest;
                         string autoInc = props["AutoInc"] as string;
 
                         OleDbCommand cmd = new OleDbCommand();
@@ -1635,7 +1635,7 @@ namespace Tiraggo.MSAccessProvider
                 {
                     if (props.Contains("EntitySpacesConcurrency"))
                     {
-                        esEntitySavePacket packet = (esEntitySavePacket)props["esEntityData"];
+                        tgEntitySavePacket packet = (tgEntitySavePacket)props["esEntityData"];
 
                         string colName = props["EntitySpacesConcurrency"] as string;
                         object o = e.Row[colName];
@@ -1657,7 +1657,7 @@ namespace Tiraggo.MSAccessProvider
             catch { }
         }
 
-        static private void AddParameters(OleDbCommand cmd, esDataRequest request)
+        static private void AddParameters(OleDbCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {

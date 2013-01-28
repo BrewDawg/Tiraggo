@@ -97,7 +97,7 @@ namespace Tiraggo.Core
         public tgEntity()
         {
             rowState = tgDataRowState.Added;
-            currentValues.FirstAccess += new esSmartDictionary.esSmartDictionaryFirstAccessEventHandler(CurrentValues_OnFirstAccess);
+            currentValues.FirstAccess += new tgSmartDictionary.esSmartDictionaryFirstAccessEventHandler(CurrentValues_OnFirstAccess);
         }
 
         /// <summary>
@@ -106,11 +106,11 @@ namespace Tiraggo.Core
         /// </summary>
         static public bool ConvertEmptyStringToNull = false;
 
-        private void CurrentValues_OnFirstAccess(esSmartDictionary smartDictionary)
+        private void CurrentValues_OnFirstAccess(tgSmartDictionary smartDictionary)
         {
             smartDictionary.Allocate(es.Meta.Columns.Count);
 
-            foreach (esColumnMetadata col in es.Meta.Columns)
+            foreach (tgColumnMetadata col in es.Meta.Columns)
             {
                 currentValues.SetOrdinal(col.Name, col.Ordinal);
             }
@@ -249,10 +249,10 @@ namespace Tiraggo.Core
         /// Creates parameters for sql passed in with the {0} {1} {2} syntax
         /// </summary>
         /// <param name="parameters">A variable length array of object values to be turned into parameters</param>
-        /// <returns>An esParameters Collection</returns>
-        static private esParameters PackageParameters(params object[] parameters)
+        /// <returns>An tgParameters Collection</returns>
+        static private tgParameters PackageParameters(params object[] parameters)
         {
-            esParameters esParams = null;
+            tgParameters esParams = null;
 
             int i = 0;
             string sIndex = String.Empty;
@@ -260,7 +260,7 @@ namespace Tiraggo.Core
 
             if (parameters != null)
             {
-                esParams = new esParameters();
+                esParams = new tgParameters();
 
                 foreach (object o in parameters)
                 {
@@ -279,14 +279,14 @@ namespace Tiraggo.Core
         /// one of the EntitySpaces' DataProviders. This method wraps up most of the common logic
         /// required to make the actual call. 
         /// </summary>
-        /// <returns>esDataRequest</returns>
-        /// <seealso cref="esDataRequest"/><seealso cref="esDataProvider"/><seealso cref="IDataProvider"/>
-        protected esDataRequest CreateRequest()
+        /// <returns>tgDataRequest</returns>
+        /// <seealso cref="tgDataRequest"/><seealso cref="tgDataProvider"/><seealso cref="IDataProvider"/>
+        protected tgDataRequest CreateRequest()
         {
-            esDataRequest request = new esDataRequest();
+            tgDataRequest request = new tgDataRequest();
             request.Caller = this;
 
-            esConnection conn = this.es.Connection;
+            tgConnection conn = this.es.Connection;
 
             request.ConnectionString = conn.ConnectionString;
             request.CommandTimeout = conn.CommandTimeout;
@@ -301,13 +301,13 @@ namespace Tiraggo.Core
         }
 
         /// <summary>
-        /// Returns the esProviderSpecificMetadata for this Entity based on the 
+        /// Returns the tgProviderSpecificMetadata for this Entity based on the 
         /// providerMetadataKey from the connections configuration values
         /// </summary>
         /// <returns></returns>
-        private esProviderSpecificMetadata GetProviderMetadata()
+        private tgProviderSpecificMetadata GetProviderMetadata()
         {
-            // We're on our own, use our own esProviderSpecificMetadata
+            // We're on our own, use our own tgProviderSpecificMetadata
             string key = this.es.Connection.ProviderMetadataKey;
             return this.Meta.GetProviderMetadata(key);
         }
@@ -322,12 +322,12 @@ namespace Tiraggo.Core
         {
             T entity = new T();
 
-            entity.currentValues = new esSmartDictionary(currentValues);
+            entity.currentValues = new tgSmartDictionary(currentValues);
             entity.rowState = rowState;
 
             if (originalValues != null)
             {
-                entity.originalValues = new esSmartDictionary(originalValues);
+                entity.originalValues = new tgSmartDictionary(originalValues);
             }
 
             if (m_modifiedColumns != null)
@@ -378,7 +378,7 @@ namespace Tiraggo.Core
         /// Read-only metadata for the entity.
         /// </summary>
         /// <remarks>
-        /// The sample below loops through the <see cref="esColumnMetadataCollection"/> provided
+        /// The sample below loops through the <see cref="tgColumnMetadataCollection"/> provided
         /// by the <see cref="IMetadata"/> interface. There is a lot of useful information here, in fact,
         /// there is enough information for EntitySpaces to build all of the dynamic sql required during
         /// operations that use dynamic sql.
@@ -387,7 +387,7 @@ namespace Tiraggo.Core
         /// {
         /// 	public void CustomMethod()
         /// 	{
-        /// 		foreach(esColumnMetadata col in this.Meta.Columns)
+        /// 		foreach(tgColumnMetadata col in this.Meta.Columns)
         /// 		{
         /// 			if(col.IsInPrimaryKey)
         /// 			{
@@ -398,9 +398,9 @@ namespace Tiraggo.Core
         /// }
         /// </code>
         /// </remarks>
-        /// <seealso cref="esColumnMetadata"/>
-        /// <seealso cref="esColumnMetadataCollection"/>
-        /// <seealso cref="esProviderSpecificMetadata"/>
+        /// <seealso cref="tgColumnMetadata"/>
+        /// <seealso cref="tgColumnMetadataCollection"/>
+        /// <seealso cref="tgProviderSpecificMetadata"/>
         virtual protected IMetadata Meta
         {
             get { return null; }
@@ -533,7 +533,7 @@ namespace Tiraggo.Core
 
             if (this.currentValues != null)
             {
-                esColumnMetadataCollection cols = this.es.Meta.Columns;
+                tgColumnMetadataCollection cols = this.es.Meta.Columns;
 
                 foreach (string column in this.currentValues.Keys)
                 {
@@ -681,7 +681,7 @@ namespace Tiraggo.Core
         /// <param name="esColumn">The esColumn - will be null for extra properties</param>
         /// <param name="propertyName">The column name, will always be valid</param>
         /// <returns></returns>
-        virtual public int OnSort(tgEntity other, esColumnMetadata esColumn, string propertyName)
+        virtual public int OnSort(tgEntity other, tgColumnMetadata esColumn, string propertyName)
         {
             tgSystemType esType = tgSystemType.Unassigned;
 
@@ -931,7 +931,7 @@ namespace Tiraggo.Core
         {
             if (this.originalValues == null)
             {
-                this.originalValues = new esSmartDictionary();
+                this.originalValues = new tgSmartDictionary();
             }
             
             originalValues[columnName] = value;
@@ -1889,7 +1889,7 @@ namespace Tiraggo.Core
             {
                 if (currentValues == null)
                 {
-                    currentValues = new esSmartDictionary();
+                    currentValues = new tgSmartDictionary();
                     CurrentValues_OnFirstAccess(currentValues);
                 }
 
@@ -1991,7 +1991,7 @@ namespace Tiraggo.Core
             {
                 if (currentValues == null)
                 {
-                    currentValues = new esSmartDictionary();
+                    currentValues = new tgSmartDictionary();
                     CurrentValues_OnFirstAccess(currentValues);
                 }
 
@@ -2205,7 +2205,7 @@ namespace Tiraggo.Core
         {
             (this as IEntity).RowState = state;
 
-            foreach (esColumnMetadata meta in this.Meta.Columns)
+            foreach (tgColumnMetadata meta in this.Meta.Columns)
             {
                 MarkFieldAsModified(meta.Name);
             }
@@ -2236,7 +2236,7 @@ namespace Tiraggo.Core
             {
                 try
                 {
-                    foreach (esColumnMetadata esCol in this.Meta.Columns)
+                    foreach (tgColumnMetadata esCol in this.Meta.Columns)
                     {
                         if (!esCol.IsInPrimaryKey)
                         {
@@ -2271,7 +2271,7 @@ namespace Tiraggo.Core
             }
             else
             {
-                originalValues = new esSmartDictionary(currentValues);
+                originalValues = new tgSmartDictionary(currentValues);
                 rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
@@ -2286,13 +2286,13 @@ namespace Tiraggo.Core
         {
             if (rowState == tgDataRowState.Added)
             {
-                currentValues = new esSmartDictionary(currentValues.Count);
+                currentValues = new tgSmartDictionary(currentValues.Count);
                 rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
             else
             {
-                currentValues = new esSmartDictionary(originalValues);
+                currentValues = new tgSmartDictionary(originalValues);
                 rowState = tgDataRowState.Unchanged;
                 m_modifiedColumns = null;
             }
@@ -2363,10 +2363,10 @@ namespace Tiraggo.Core
             else
             {
                 tgTransactionScopeOption txOption =
-                    esTransactionScope.GetCurrentTransactionScopeOption() == tgTransactionScopeOption.Suppress ?
+                    tgTransactionScope.GetCurrentTransactionScopeOption() == tgTransactionScopeOption.Suppress ?
                     tgTransactionScopeOption.Suppress : tgTransactionScopeOption.Required;
 
-                using (esTransactionScope scope = new esTransactionScope(txOption))
+                using (tgTransactionScope scope = new tgTransactionScope(txOption))
                 {
                     // 1) Commit the PreSaves
                     this.CommitPreSaves();
@@ -2431,10 +2431,10 @@ namespace Tiraggo.Core
         /// <seealso cref="Save"/>
         virtual protected void SaveToProvider(tgSqlAccessType sqlAccessType)
         {
-            esDataRequest request = CreateRequest();
+            tgDataRequest request = CreateRequest();
 
             #region Auditing fields
-            esColumnMetadataCollection cols = this.Meta.Columns;
+            tgColumnMetadataCollection cols = this.Meta.Columns;
 
             if (rowState == tgDataRowState.Added)
             {
@@ -2481,8 +2481,8 @@ namespace Tiraggo.Core
             request.Columns = Meta.Columns;
             request.SqlAccessType = sqlAccessType;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.esSaveDataTable(request, es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.esSaveDataTable(request, es.Connection.ProviderSignature);
 
             if (response.IsException)
             {
@@ -2495,7 +2495,7 @@ namespace Tiraggo.Core
 
         internal void PrepareSpecialFields()
         {
-            esColumnMetadataCollection cols = this.Meta.Columns;
+            tgColumnMetadataCollection cols = this.Meta.Columns;
 
             if (rowState == tgDataRowState.Added)
             {
@@ -2567,7 +2567,7 @@ namespace Tiraggo.Core
         /// <returns>True if a record was loaded.</returns>
         protected bool Load(tgQueryType queryType, string query)
         {
-            return Load(queryType, query, null as esParameters);
+            return Load(queryType, query, null as tgParameters);
         }
 
         /// <summary>
@@ -2596,7 +2596,7 @@ namespace Tiraggo.Core
         /// data providers will do this for you.</param>
         /// <returns>True if a record was loaded.</returns>
         /// <seealso cref="tgQueryType"/>
-        /// <seealso cref="esParameters"/>
+        /// <seealso cref="tgParameters"/>
         protected bool Load(tgQueryType queryType, string query, params object[] parameters)
         {
             return Load(queryType, query, PackageParameters(parameters));
@@ -2615,7 +2615,7 @@ namespace Tiraggo.Core
         /// {
         ///     public bool CustomLoad()
         ///     {
-        ///         esParameters esParams = new esParameters();   
+        ///         tgParameters esParams = new tgParameters();   
         ///         esParams.Add("FirstName", "Joe");   
         ///         esParams.Add("LastName", "Smith");   
         ///         esParams.Add("Salary", 27.53);   
@@ -2627,22 +2627,22 @@ namespace Tiraggo.Core
         /// </example>
         /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
-        /// <param name="parms">A list of parameters. See <see cref="esParameters"/>.</param>
+        /// <param name="parms">A list of parameters. See <see cref="tgParameters"/>.</param>
         /// <returns>True if a record was loaded.</returns>
         /// <seealso cref="tgQueryType"/>
-        /// <seealso cref="esParameters"/>/// 
-        protected bool Load(tgQueryType queryType, string query, esParameters parms)
+        /// <seealso cref="tgParameters"/>/// 
+        protected bool Load(tgQueryType queryType, string query, tgParameters parms)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parms;
             request.QueryText = query;
             request.QueryType = queryType;
 
-            esConnection conn = this.es.Connection;
+            tgConnection conn = this.es.Connection;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.esLoadDataTable(request, conn.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.esLoadDataTable(request, conn.ProviderSignature);
 
             return this.PopulateEntity(response.Table);
         }
@@ -2674,8 +2674,8 @@ namespace Tiraggo.Core
 
             if (count == 1)
             {
-                esColumnMetadataCollection esCols = Meta.Columns;
-                esColumnMetadata esCol;
+                tgColumnMetadataCollection esCols = Meta.Columns;
+                tgColumnMetadata esCol;
                 string columnName;
                 selectedColumns = new Dictionary<string, int>();
 
@@ -2702,8 +2702,8 @@ namespace Tiraggo.Core
 
                 object[] values = row.ItemArray;
 
-                currentValues = new esSmartDictionary(ordinals, values);
-                originalValues = new esSmartDictionary(ordinals, values, true);
+                currentValues = new tgSmartDictionary(ordinals, values);
+                originalValues = new tgSmartDictionary(ordinals, values, true);
                 if (m_modifiedColumns != null) m_modifiedColumns = null;
                 rowState = tgDataRowState.Unchanged;
 
@@ -2748,7 +2748,7 @@ namespace Tiraggo.Core
         /// <seealso cref="tgQueryType"/>
         protected int ExecuteNonQuery(tgQueryType queryType, string query)
         {
-            return ExecuteNonQuery(queryType, query, null as esParameters);
+            return ExecuteNonQuery(queryType, query, null as tgParameters);
         }
 
         /// <summary>
@@ -2800,7 +2800,7 @@ namespace Tiraggo.Core
         ///     public int CustomUpdate(string newName)
         ///     {
         ///			string sqlText = String.Empty;
-        ///			esParameters esParams = new esParameters();
+        ///			tgParameters esParams = new tgParameters();
         ///			esParams.Add("FirstName", newName);
         ///			esParams.Add("LastName", "Doe");
         ///			esParams.Add("Salary", 27.53);
@@ -2817,18 +2817,18 @@ namespace Tiraggo.Core
         /// </example>
         /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
-        /// <param name="parms">A list of parameters. See <see cref="esParameters"/>.</param>
+        /// <param name="parms">A list of parameters. See <see cref="tgParameters"/>.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected int ExecuteNonQuery(tgQueryType queryType, string query, esParameters parms)
+        protected int ExecuteNonQuery(tgQueryType queryType, string query, tgParameters parms)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parms;
             request.QueryText = query;
             request.QueryType = queryType;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -2856,7 +2856,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteNonQuery.</returns>
         protected int ExecuteNonQuery(string schema, string storedProcedure)
         {
-            return ExecuteNonQuery(schema, storedProcedure, null as esParameters);
+            return ExecuteNonQuery(schema, storedProcedure, null as tgParameters);
         }
 
         /// <summary>
@@ -2899,7 +2899,7 @@ namespace Tiraggo.Core
         /// {
         ///     public int CustomUpdate(string newName)
         ///     {
-        ///			esParameters esParams = new esParameters();
+        ///			tgParameters esParams = new tgParameters();
         ///			esParams.Add("FirstName", newName);
         ///			esParams.Add("LastName", "Doe");
         ///			esParams.Add("Salary", 27.53);
@@ -2911,19 +2911,19 @@ namespace Tiraggo.Core
         /// </example>
         /// <param name="schema">See <see cref="IEntity.Schema"/>.</param>
         /// <param name="storedProcedure">The name of a stored procedure.</param>
-        /// <param name="parameters">A list of parameters. See <see cref="esParameters"/>.</param>
+        /// <param name="parameters">A list of parameters. See <see cref="tgParameters"/>.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected int ExecuteNonQuery(string schema, string storedProcedure, esParameters parameters)
+        protected int ExecuteNonQuery(string schema, string storedProcedure, tgParameters parameters)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
             request.QueryType = tgQueryType.StoredProcedure;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -2945,7 +2945,7 @@ namespace Tiraggo.Core
         /// <returns>The IDataReader</returns>
         protected IDataReader ExecuteReader(tgQueryType queryType, string query)
         {
-            return ExecuteReader(queryType, query, null as esParameters);
+            return ExecuteReader(queryType, query, null as tgParameters);
         }
 
         /// <summary>
@@ -2984,7 +2984,7 @@ namespace Tiraggo.Core
         /// 		// use @, or :, or ? or any type of prefix, the EntitySpaces DataProvider
         /// 		// knows what kind of prefix to use thereby allowing you to write database
         /// 		// independent code even when accessing custom stored procedures.
-        /// 		esParameters esParams = new esParameters();			
+        /// 		tgParameters esParams = new tgParameters();			
         /// 		esParams.Add("LastName", "Doe");
         /// 			
         /// 		return this.ExecuteReader(tgQueryType.StoredProcedure, "proc_GetByLastName", esParams);
@@ -2993,16 +2993,16 @@ namespace Tiraggo.Core
         /// </code> 
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected IDataReader ExecuteReader(tgQueryType queryType, string query, esParameters parms)
+        protected IDataReader ExecuteReader(tgQueryType queryType, string query, tgParameters parms)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parms;
             request.QueryText = query;
             request.QueryType = queryType;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -3021,7 +3021,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteReader.</returns>
         protected IDataReader ExecuteReader(string schema, string storedProcedure)
         {
-            return ExecuteReader(schema, storedProcedure, null as esParameters);
+            return ExecuteReader(schema, storedProcedure, null as tgParameters);
         }
 
         /// <summary>
@@ -3053,17 +3053,17 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected IDataReader ExecuteReader(string schema, string storedProcedure, esParameters parameters)
+        protected IDataReader ExecuteReader(string schema, string storedProcedure, tgParameters parameters)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
             request.QueryType = tgQueryType.StoredProcedure;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -3086,7 +3086,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteScalar.</returns>
         protected object ExecuteScalar(tgQueryType queryType, string query)
         {
-            return ExecuteScalar(queryType, query, null as esParameters);
+            return ExecuteScalar(queryType, query, null as tgParameters);
         }
 
         /// <summary>
@@ -3118,16 +3118,16 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected object ExecuteScalar(tgQueryType queryType, string query, esParameters parms)
+        protected object ExecuteScalar(tgQueryType queryType, string query, tgParameters parms)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parms;
             request.QueryText = query;
             request.QueryType = queryType;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -3146,7 +3146,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteScalar.</returns>
         protected object ExecuteScalar(string schema, string storedProcedure)
         {
-            return ExecuteScalar(schema, storedProcedure, null as esParameters);
+            return ExecuteScalar(schema, storedProcedure, null as tgParameters);
         }
 
         /// <summary>
@@ -3178,17 +3178,17 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected object ExecuteScalar(string schema, string storedProcedure, esParameters parameters)
+        protected object ExecuteScalar(string schema, string storedProcedure, tgParameters parameters)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
             request.QueryType = tgQueryType.StoredProcedure;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -3211,7 +3211,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteScalar.</returns>
         protected T ExecuteScalar<T>(tgQueryType queryType, string query)
         {
-            return (T)ExecuteScalar<T>(queryType, query, null as esParameters);
+            return (T)ExecuteScalar<T>(queryType, query, null as tgParameters);
         }
 
         /// <summary>
@@ -3243,16 +3243,16 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected T ExecuteScalar<T>(tgQueryType queryType, string query, esParameters parms)
+        protected T ExecuteScalar<T>(tgQueryType queryType, string query, tgParameters parms)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parms;
             request.QueryText = query;
             request.QueryType = queryType;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -3276,7 +3276,7 @@ namespace Tiraggo.Core
         /// <returns>The result of ExecuteScalar.</returns>
         protected T ExecuteScalar<T>(string schema, string storedProcedure)
         {
-            return (T)ExecuteScalar<T>(schema, storedProcedure, null as esParameters);
+            return (T)ExecuteScalar<T>(schema, storedProcedure, null as tgParameters);
         }
 
         /// <summary>
@@ -3308,17 +3308,17 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected T ExecuteScalar<T>(string schema, string storedProcedure, esParameters parameters)
+        protected T ExecuteScalar<T>(string schema, string storedProcedure, tgParameters parameters)
         {
-            esDataRequest request = this.CreateRequest();
+            tgDataRequest request = this.CreateRequest();
 
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
             request.QueryType = tgQueryType.StoredProcedure;
 
-            esDataProvider provider = new esDataProvider();
-            esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataProvider provider = new tgDataProvider();
+            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -3562,7 +3562,7 @@ namespace Tiraggo.Core
             isInEditMode = true;
 
             backupValues = currentValues;
-            currentValues = proposedValues = new esSmartDictionary(currentValues);
+            currentValues = proposedValues = new tgSmartDictionary(currentValues);
 
             originalRowState = rowState;
             originalModifiedColumns = m_modifiedColumns;
@@ -3609,17 +3609,17 @@ namespace Tiraggo.Core
         /// setup via the configless methods.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        esConnection IEntity.Connection
+        tgConnection IEntity.Connection
         {
             get
             {
                 if (this.connection == null)
                 {
-                    this.connection = new esConnection();
+                    this.connection = new tgConnection();
 
-                    if (esConnection.ConnectionService != null)
+                    if (tgConnection.ConnectionService != null)
                     {
-                        this.connection.Name = esConnection.ConnectionService.GetName();
+                        this.connection.Name = tgConnection.ConnectionService.GetName();
                     }
                     else
                     {
@@ -4040,8 +4040,8 @@ namespace Tiraggo.Core
         #region Hierarchical Support
 
         /// <summary>
-        /// True if an esTransactionScope is needed during Save due to hierarchical properties of this entity being dirty.
-        /// EntitySpaces will automatically create the esTransactionScope transaction if true.
+        /// True if an tgTransactionScope is needed during Save due to hierarchical properties of this entity being dirty.
+        /// EntitySpaces will automatically create the tgTransactionScope transaction if true.
         /// </summary>
         /// <returns></returns>
         private bool NeedsTransactionDuringSave()
@@ -4277,7 +4277,7 @@ namespace Tiraggo.Core
                 string result = string.Empty;
 
                 // First let's assume this is the property name
-                esColumnMetadata columnMeta = this.Meta.Columns.FindByPropertyName(columnName);
+                tgColumnMetadata columnMeta = this.Meta.Columns.FindByPropertyName(columnName);
 
                 if (columnMeta == null)
                 {
@@ -4310,7 +4310,7 @@ namespace Tiraggo.Core
         /// <param name="entity"></param>
         /// <param name="metadata"></param> 
         /// <returns></returns>
-        virtual public string Validate(string columnName, tgEntity entity, esColumnMetadata metadata)
+        virtual public string Validate(string columnName, tgEntity entity, tgColumnMetadata metadata)
         {
             return string.Empty;
         }
@@ -4326,7 +4326,7 @@ namespace Tiraggo.Core
         /// <param name="entity"></param>
         /// <param name="metadata"></param> 
         /// <returns></returns>
-        public delegate string ValidateDelegate(string columnName, tgEntity entity, esColumnMetadata metadata);
+        public delegate string ValidateDelegate(string columnName, tgEntity entity, tgColumnMetadata metadata);
 
         /// <summary>
         /// Used to provide validation.
@@ -4397,7 +4397,7 @@ namespace Tiraggo.Core
         private bool isInEditMode;
 
         [NonSerialized]
-        private esConnection connection;
+        private tgConnection connection;
 
         [NonSerialized]
         private tgDataRowState originalRowState;
@@ -4406,10 +4406,10 @@ namespace Tiraggo.Core
         private List<string> originalModifiedColumns;
 
         [NonSerialized]
-        private esSmartDictionary proposedValues;
+        private tgSmartDictionary proposedValues;
 
         [NonSerialized]
-        private esSmartDictionary backupValues;
+        private tgSmartDictionary backupValues;
 
         [NonSerialized]
         private Dictionary<string, int> selectedColumns;
@@ -4429,9 +4429,9 @@ namespace Tiraggo.Core
         /// </summary>
         internal List<string> m_modifiedColumns;
 
-        internal esSmartDictionary originalValues;
+        internal tgSmartDictionary originalValues;
 
-        internal esSmartDictionary currentValues = new esSmartDictionary();
+        internal tgSmartDictionary currentValues = new tgSmartDictionary();
 
         internal tgDataRowState rowState = tgDataRowState.Unchanged;
 
@@ -4449,7 +4449,7 @@ namespace Tiraggo.Core
 
             if (originalValues == null)
             {
-                originalValues = new esSmartDictionary(currentValues);
+                originalValues = new tgSmartDictionary(currentValues);
             }
         }
 

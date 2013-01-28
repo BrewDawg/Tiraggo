@@ -39,9 +39,9 @@ namespace Tiraggo.Interfaces
     public enum tgTransactionScopeOption
     {
         /// <summary>
-        /// This setting of 'None' is returned by esTransactionScope.GetCurrentTransactionScopeOption()
-        /// if there is no ongoing esTransactionScope. The value of 'None' can never be passed to the
-        /// constructor of the esTransactionScope class.
+        /// This setting of 'None' is returned by tgTransactionScope.GetCurrentTransactionScopeOption()
+        /// if there is no ongoing tgTransactionScope. The value of 'None' can never be passed to the
+        /// constructor of the tgTransactionScope class.
         /// </summary>
         None = 0,
         /// <summary>

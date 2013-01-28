@@ -38,12 +38,12 @@ namespace Tiraggo.Interfaces
     /// </summary>
     /// <remarks>
     /// This interface helps to de-couple an EntitySpaces application from the actual provider such as
-    /// SqlClientProvider, OracleClientProvider and so on. The providers take an esDataRequest as the 
-    /// input and return an esDataResponse. EntitySpaces developers don't have to worry about loading providers, 
-    /// instead, you access these methods through the <see cref="esDataProvider"/> which will carry out the
+    /// SqlClientProvider, OracleClientProvider and so on. The providers take an tgDataRequest as the 
+    /// input and return an tgDataResponse. EntitySpaces developers don't have to worry about loading providers, 
+    /// instead, you access these methods through the <see cref="tgDataProvider"/> which will carry out the
     /// call.
     /// </remarks>
-    /// <seealso cref="esDataProvider"/>
+    /// <seealso cref="tgDataProvider"/>
     public interface IDataProvider
     {
         /// <summary>
@@ -63,19 +63,19 @@ namespace Tiraggo.Interfaces
 
         /// <summary>
         /// Used to populate an esEntity or an tgEntityCollection with data. Whatever type of query is
-        /// in the esDataRequest must return a resultset (DataTable) in order to the properly load
+        /// in the tgDataRequest must return a resultset (DataTable) in order to the properly load
         /// the EntitySpaces object.
         /// </summary>
         /// <param name="request"></param>
-        /// <returns>Any exception thrown by the provider will be in the returned esDataResponse</returns>
-        esDataResponse esLoadDataTable(esDataRequest request);
+        /// <returns>Any exception thrown by the provider will be in the returned tgDataResponse</returns>
+        tgDataResponse esLoadDataTable(tgDataRequest request);
 
         /// <summary>
         /// This method is used to save an esEntity or tgEntityCollection to the database.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        esDataResponse esSaveDataTable(esDataRequest request);
+        tgDataResponse esSaveDataTable(tgDataRequest request);
 
         /// <summary>
         /// This method can be used to execute any query which does not return a result set. See 
@@ -84,32 +84,32 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        esDataResponse ExecuteNonQuery(esDataRequest request);
+        tgDataResponse ExecuteNonQuery(tgDataRequest request);
 
         /// <summary>
-        /// This method is used to return an IDataReader which will be found in the returned esDataResponse.
+        /// This method is used to return an IDataReader which will be found in the returned tgDataResponse.
         /// See the help for the ADO.NET SqlCommand.ExecuteReader method. This method utlimately maps to the 
         /// the low level ADO.NET data provider's Command.ExecuteReader method.
         /// </summary>
         /// <param name="request"></param>
-        /// <returns>See the esDataResponse.DataReader property</returns>
-        esDataResponse ExecuteReader(esDataRequest request);
+        /// <returns>See the tgDataResponse.DataReader property</returns>
+        tgDataResponse ExecuteReader(tgDataRequest request);
 
         /// <summary>
         /// This method is used to return a single value from the database. 
         /// See the help for the ADO.NET SqlCommand.ExecuteScalar method. This method utlimately maps to the 
         /// the low level ADO.NET data provider's Command.ExecuteScalar method.
         /// </summary>
-        /// <param name="request">See the esDataResponse.Scalar property</param>
+        /// <param name="request">See the tgDataResponse.Scalar property</param>
         /// <returns></returns>
-        esDataResponse ExecuteScalar(esDataRequest request);
+        tgDataResponse ExecuteScalar(tgDataRequest request);
 
         /// <summary>
         /// This method can be used to execute a query that returns multiple resultsets.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        esDataResponse FillDataSet(esDataRequest request);
+        tgDataResponse FillDataSet(tgDataRequest request);
 
         /// <summary>
         /// This method can be used to return a DataTable. The returned DataTable is not used to 
@@ -118,6 +118,6 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        esDataResponse FillDataTable(esDataRequest request);
+        tgDataResponse FillDataTable(tgDataRequest request);
     }
 }

@@ -259,30 +259,30 @@ namespace Tiraggo.Core
         }
 
 
-        private esProviderSpecificMetadata GetProviderMetadata()
+        private tgProviderSpecificMetadata GetProviderMetadata()
         {
-            // We're on our own, use our own esProviderSpecificMetadata
+            // We're on our own, use our own tgProviderSpecificMetadata
             string key = this.es.Connection.ProviderMetadataKey;
             return this.Meta.GetProviderMetadata(key);
         }
 
 
         [NonSerialized]
-        private esConnection connection;
+        private tgConnection connection;
 
         #region IEntityCollection Members
 
-        esConnection IEntityCollection.Connection
+        tgConnection IEntityCollection.Connection
         {
             get
             {
                 if (this.connection == null)
                 {
-                    this.connection = new esConnection();
+                    this.connection = new tgConnection();
 
-                    if (esConnection.ConnectionService != null)
+                    if (tgConnection.ConnectionService != null)
                     {
-                        this.connection.Name = esConnection.ConnectionService.GetName();
+                        this.connection.Name = tgConnection.ConnectionService.GetName();
                     }
                     else
                     {
@@ -453,7 +453,7 @@ namespace Tiraggo.Core
         internal Dictionary<string, int> selectedColumns;
 
         [NonSerialized]
-        internal Dictionary<string, esColumnMetadata> extraColumnMetadata;
+        internal Dictionary<string, tgColumnMetadata> extraColumnMetadata;
 
         [NonSerialized]
         internal bool _isLazyLoadDisabled;

@@ -41,7 +41,7 @@ namespace Tiraggo.Npgsql2Provider
 {
     class Shared
     {
-        static public NpgsqlCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -59,8 +59,8 @@ namespace Tiraggo.Npgsql2Provider
             NpgsqlCommand cmd = new NpgsqlCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -201,7 +201,7 @@ namespace Tiraggo.Npgsql2Provider
                 defaults += defaultComma + cols.AddedBy.ColumnName;
                 defaultComma = ",";
 
-                esColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
+                tgColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
 
                 if (col.CharacterMaxLength > 0)
                 {
@@ -222,7 +222,7 @@ namespace Tiraggo.Npgsql2Provider
                 defaults += defaultComma + cols.ModifiedBy.ColumnName;
                 defaultComma = ",";
 
-                esColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
+                tgColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
 
                 if (col.CharacterMaxLength > 0)
                 {
@@ -256,7 +256,7 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public NpgsqlCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string where = String.Empty;
             string conncur = String.Empty;
@@ -275,8 +275,8 @@ namespace Tiraggo.Npgsql2Provider
             NpgsqlCommand cmd = new NpgsqlCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -369,7 +369,7 @@ namespace Tiraggo.Npgsql2Provider
                 defaults += defaultsComma + cols.ModifiedBy.ColumnName;
                 defaultsComma = ",";
 
-                esColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
+                tgColumnMetadata col = request.Columns[cols.ModifiedBy.ColumnName];
 
                 if (col.CharacterMaxLength > 0)
                 {
@@ -394,7 +394,7 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public NpgsqlCommand BuildDynamicDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildDynamicDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, NpgsqlParameter> types = Cache.GetParameters(request);
 
@@ -406,7 +406,7 @@ namespace Tiraggo.Npgsql2Provider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -425,7 +425,7 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public NpgsqlCommand BuildStoredProcInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildStoredProcInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, NpgsqlParameter> types = Cache.GetParameters(request);
 
@@ -437,7 +437,7 @@ namespace Tiraggo.Npgsql2Provider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.HasDefault && col.Default.ToLower().Contains("newid"))
                 {
@@ -456,7 +456,7 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public NpgsqlCommand BuildStoredProcUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildStoredProcUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, NpgsqlParameter> types = Cache.GetParameters(request);
 
@@ -468,7 +468,7 @@ namespace Tiraggo.Npgsql2Provider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed)
                 {
@@ -481,7 +481,7 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public NpgsqlCommand BuildStoredProcDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public NpgsqlCommand BuildStoredProcDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, NpgsqlParameter> types = Cache.GetParameters(request);
 
@@ -493,7 +493,7 @@ namespace Tiraggo.Npgsql2Provider
 
             NpgsqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -514,13 +514,13 @@ namespace Tiraggo.Npgsql2Provider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(NpgsqlCommand cmd, esDataRequest request, esEntitySavePacket packet)
+        static public void PopulateStoredProcParameters(NpgsqlCommand cmd, tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, NpgsqlParameter> types = Cache.GetParameters(request);
 
             NpgsqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -550,11 +550,11 @@ namespace Tiraggo.Npgsql2Provider
             return param.Clone() as NpgsqlParameter;
         }
 
-        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
+        static public string CreateFullName(tgDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -581,7 +581,7 @@ namespace Tiraggo.Npgsql2Provider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -608,7 +608,7 @@ namespace Tiraggo.Npgsql2Provider
             return name;
         }
 
-        static public string CreateFullSPName(esDataRequest request, string spName)
+        static public string CreateFullSPName(tgDataRequest request, string spName)
         {
             string name = String.Empty;
 
@@ -640,7 +640,7 @@ namespace Tiraggo.Npgsql2Provider
             return ce;
         }
 
-        static public void AddParameters(NpgsqlCommand cmd, esDataRequest request)
+        static public void AddParameters(NpgsqlCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -692,13 +692,13 @@ namespace Tiraggo.Npgsql2Provider
             }
         }
 
-        static public void GatherReturnParameters(NpgsqlCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(NpgsqlCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

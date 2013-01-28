@@ -37,13 +37,13 @@ namespace Tiraggo.OracleClientProvider
 {
     class Cache
     {
-        static public Dictionary<string, OracleParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, OracleParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, OracleParameter> GetParameters(Guid dataID,
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -53,9 +53,9 @@ namespace Tiraggo.OracleClientProvider
                     Dictionary<string, OracleParameter> types = new Dictionary<string, OracleParameter>();
 
                     OracleParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

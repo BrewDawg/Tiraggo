@@ -59,9 +59,9 @@ namespace Tiraggo.Interfaces
     /// 
 
     #if (!MonoTouch)
-    public sealed class esConfigSettings : ConfigurationSection
+    public sealed class tgConfigSettings : ConfigurationSection
     {
-        private esConfigSettings()
+        private tgConfigSettings()
         {
 
         }
@@ -71,17 +71,17 @@ namespace Tiraggo.Interfaces
             return false;
         }
 
-        static public esConfigSettings ConnectionInfo
+        static public tgConfigSettings ConnectionInfo
         {
             get
             {
-                if (esConfigSettings.connectionInfo == null)
+                if (tgConfigSettings.connectionInfo == null)
                 {
-                    connectionInfo = (esConfigSettings)System.Configuration.ConfigurationManager.GetSection("EntitySpaces/connectionInfo");
+                    connectionInfo = (tgConfigSettings)System.Configuration.ConfigurationManager.GetSection("EntitySpaces/connectionInfo");
 
                     if(connectionInfo == null)
                     {
-                        connectionInfo = new esConfigSettings();
+                        connectionInfo = new tgConfigSettings();
                     }
 
                 }
@@ -101,20 +101,20 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (esConfigSettings.defaultConnection == null)
+                if (tgConfigSettings.defaultConnection == null)
                 {
-                    esConfigSettings ConnectionInfoSettings = esConfigSettings.ConnectionInfo;
+                    tgConfigSettings ConnectionInfoSettings = tgConfigSettings.ConnectionInfo;
                     foreach (esConnectionElement connection in ConnectionInfoSettings.Connections)
                     {
                         if (connection.Name == ConnectionInfoSettings.Default)
                         {
-                            esConfigSettings.defaultConnection = connection;
+                            tgConfigSettings.defaultConnection = connection;
                             break;
                         }
                     }
                 }
 
-                return esConfigSettings.defaultConnection;
+                return tgConfigSettings.defaultConnection;
             }
         }
 
@@ -140,7 +140,7 @@ namespace Tiraggo.Interfaces
                 if (curDefault != value)
                 {
                     this["default"] = value;
-                    esConfigSettings.defaultConnection = null;
+                    tgConfigSettings.defaultConnection = null;
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace Tiraggo.Interfaces
         /// The example below demonstrates how to loop through all of the Connection information stored
         /// in the EntitySpaces configuration section.
         /// <code>
-        /// esConfigSettings ConnectionInfoSettings = esConfigSettings.ConnectionInfo;
+        /// tgConfigSettings ConnectionInfoSettings = tgConfigSettings.ConnectionInfo;
         /// foreach (esConnectionElement connection in ConnectionInfoSettings.Connections)
         /// {
         ///		Console.WriteLine(connection.ConnectionString);
@@ -171,7 +171,7 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        static private esConfigSettings connectionInfo;
+        static private tgConfigSettings connectionInfo;
         static private esConnectionElement defaultConnection;
     }
 
@@ -181,7 +181,7 @@ namespace Tiraggo.Interfaces
     /// EntitySpaces configuration section. See the .NET Framework class
     /// <see cref="ConfigurationElementCollection"/>
     /// </summary>
-    /// <seealso cref="esConfigSettings"/>
+    /// <seealso cref="tgConfigSettings"/>
     /// <seealso cref="esConnectionElement"/>
     /// <seealso cref="ConfigurationElementCollection"/>
     public class esConnectionsCollection : ConfigurationElementCollection
@@ -338,7 +338,7 @@ namespace Tiraggo.Interfaces
         /// Either "DataProvider" or "DataProviderEnterprise"
         /// </summary>
         /// <remarks>
-        /// When using "DataProvider" the esTransactionScope class is used internally by
+        /// When using "DataProvider" the tgTransactionScope class is used internally by
         /// EntitySpaces and uses ADO.NET connection based transactions. When "DataProviderEnterprise"
         /// is used the TransactionScope classes is used thereby using true distributed transactions.
         /// </remarks>
@@ -476,14 +476,14 @@ namespace Tiraggo.Interfaces
         private string connectionString = String.Empty;
     }
     #else
-    public sealed class esConfigSettings 
+    public sealed class tgConfigSettings 
     {
-        private esConfigSettings()
+        private tgConfigSettings()
         {
 
         }
 
-        static public esConfigSettings ConnectionInfo
+        static public tgConfigSettings ConnectionInfo
         {
             get
             {
@@ -503,20 +503,20 @@ namespace Tiraggo.Interfaces
         {
             get
             {
-                if (esConfigSettings.defaultConnection == null)
+                if (tgConfigSettings.defaultConnection == null)
                 {
-                    esConfigSettings ConnectionInfoSettings = esConfigSettings.ConnectionInfo;
+                    tgConfigSettings ConnectionInfoSettings = tgConfigSettings.ConnectionInfo;
                     foreach (esConnectionElement connection in ConnectionInfoSettings.Connections)
                     {
                         if (connection.Name == ConnectionInfoSettings.Default)
                         {
-                            esConfigSettings.defaultConnection = connection;
+                            tgConfigSettings.defaultConnection = connection;
                             break;
                         }
                     }
                 }
 
-                return esConfigSettings.defaultConnection;
+                return tgConfigSettings.defaultConnection;
             }
         }
 
@@ -538,7 +538,7 @@ namespace Tiraggo.Interfaces
             set 
             { 
                 _default = value;
-                esConfigSettings.defaultConnection = null;
+                tgConfigSettings.defaultConnection = null;
             }
         }
         private string _default = String.Empty;
@@ -550,7 +550,7 @@ namespace Tiraggo.Interfaces
         /// The example below demonstrates how to loop through all of the Connection information stored
         /// in the EntitySpaces configuration section.
         /// <code>
-        /// esConfigSettings ConnectionInfoSettings = esConfigSettings.ConnectionInfo;
+        /// tgConfigSettings ConnectionInfoSettings = tgConfigSettings.ConnectionInfo;
         /// foreach (esConnectionElement connection in ConnectionInfoSettings.Connections)
         /// {
         ///		Console.WriteLine(connection.ConnectionString);
@@ -567,7 +567,7 @@ namespace Tiraggo.Interfaces
 
         private esConnectionsCollection connections = new esConnectionsCollection();
 
-        static private esConfigSettings connectionInfo = new esConfigSettings();
+        static private tgConfigSettings connectionInfo = new tgConfigSettings();
         static private esConnectionElement defaultConnection;
     }
 
@@ -577,7 +577,7 @@ namespace Tiraggo.Interfaces
     /// EntitySpaces configuration section. See the .NET Framework class
     /// <see cref="ConfigurationElementCollection"/>
     /// </summary>
-    /// <seealso cref="esConfigSettings"/>
+    /// <seealso cref="tgConfigSettings"/>
     /// <seealso cref="esConnectionElement"/>
     /// <seealso cref="ConfigurationElementCollection"/>
     public class esConnectionsCollection : IEnumerable
@@ -713,7 +713,7 @@ namespace Tiraggo.Interfaces
         /// Either "DataProvider" or "DataProviderEnterprise"
         /// </summary>
         /// <remarks>
-        /// When using "DataProvider" the esTransactionScope class is used internally by
+        /// When using "DataProvider" the tgTransactionScope class is used internally by
         /// EntitySpaces and uses ADO.NET connection based transactions. When "DataProviderEnterprise"
         /// is used the TransactionScope classes is used thereby using true distributed transactions.
         /// </remarks>

@@ -47,7 +47,7 @@ namespace Tiraggo.Web.Design
         private esReflectionHelper helper;
         private Dictionary<string, tgEntityCollectionBase> collections = new Dictionary<string, tgEntityCollectionBase>();
 
-        public esColumnMetadataCollection esColumnCollection;
+        public tgColumnMetadataCollection esColumnCollection;
         public string esCollectionName;
         public List<string> SelectedColumns;
 
@@ -148,7 +148,7 @@ namespace Tiraggo.Web.Design
                 string collectionName = this.lboxCollections.SelectedItem.ToString();
                 this.esColumnCollection = helper.GetColumns(this.collections[collectionName]);
 
-                foreach (esColumnMetadata col in this.esColumnCollection)
+                foreach (tgColumnMetadata col in this.esColumnCollection)
                 {
                     this.chkColumns.Items.Add(col.PropertyName);
                 }

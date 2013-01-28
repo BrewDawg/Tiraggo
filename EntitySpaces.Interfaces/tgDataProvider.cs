@@ -35,7 +35,7 @@ namespace Tiraggo.Interfaces
     /// This class is used by EntitySpaces to issue loosely coupled calls to the actual EntitySpaces
     /// data provider as defined in the web.config or app.config file. 
     /// </summary>
-    public class esDataProvider 
+    public class tgDataProvider 
     {
         /// <summary>
         /// Used to populate an esEntity or tgEntityCollection with data.
@@ -43,10 +43,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse esLoadDataTable(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse esLoadDataTable(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).esLoadDataTable(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).esLoadDataTable(request);
             if(request.DynamicQuery != null)
             {
                 request.DynamicQuery.es.LastQuery = response.LastQuery;
@@ -66,10 +66,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse esSaveDataTable(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse esSaveDataTable(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).esSaveDataTable(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).esSaveDataTable(request);
 
             // NOTE: New to 1.6.0. We do not rethrow the exception here, we do rethrow it in 
             // tgEntityCollection.SaveToProviderInsertsUpdates after we assign the errors to the proper rows.
@@ -83,10 +83,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse ExecuteNonQuery(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse ExecuteNonQuery(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteNonQuery(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteNonQuery(request);
 
             if (response.IsException)
             {
@@ -108,10 +108,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse ExecuteReader(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse ExecuteReader(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteReader(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteReader(request);
 
             if (response.IsException)
             {
@@ -127,10 +127,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse ExecuteScalar(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse ExecuteScalar(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteScalar(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).ExecuteScalar(request);
 
             if (response.IsException)
             {
@@ -147,10 +147,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse FillDataSet(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse FillDataSet(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).FillDataSet(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).FillDataSet(request);
 
             if (response.IsException)
             {
@@ -167,10 +167,10 @@ namespace Tiraggo.Interfaces
         /// <param name="request">Contains all of the information necessary to issue and carry out the request</param>
         /// <param name="sig">Contains the required information to locate the EntitySpaces DataProvider</param>
         /// <returns></returns>
-        public esDataResponse FillDataTable(esDataRequest request, esProviderSignature sig)
+        public tgDataResponse FillDataTable(tgDataRequest request, tgProviderSignature sig)
         {
             request.DatabaseVersion = sig.DatabaseVersion;
-            esDataResponse response = esProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).FillDataTable(request);
+            tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).FillDataTable(request);
 
             if (response.IsException)
             {

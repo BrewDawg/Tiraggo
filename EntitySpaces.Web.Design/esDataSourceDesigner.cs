@@ -110,7 +110,7 @@ namespace Tiraggo.Web.Design
 
             try
             {
-                wiz.esColumnCollection = this.DesignerState["esColumnCollection"] as esColumnMetadataCollection;
+                wiz.esColumnCollection = this.DesignerState["esColumnCollection"] as tgColumnMetadataCollection;
                 wiz.esCollectionName = this.DesignerState["esCollectionName"] as string;
                 wiz.SelectedColumns = this.DesignerState["SelectedColumns"] as List<string>;
             }

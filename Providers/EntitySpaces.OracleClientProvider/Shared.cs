@@ -39,7 +39,7 @@ namespace Tiraggo.OracleClientProvider
 {
     class Shared
     {
-        static public OracleCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
@@ -59,7 +59,7 @@ namespace Tiraggo.OracleClientProvider
 
             OracleParameter p = null;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsAutoIncrement)
                 {
@@ -109,7 +109,7 @@ namespace Tiraggo.OracleClientProvider
                 }
             }
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             #region Special Column Logic
             if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
@@ -165,7 +165,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 foreach (string colName in modifiedColumns)
                 {
-                    esColumnMetadata col = request.Columns[colName];
+                    tgColumnMetadata col = request.Columns[colName];
                     if (col != null && !col.IsAutoIncrement)
                     {
                         p = types[colName];
@@ -192,7 +192,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 string where = String.Empty;
 
-                foreach (esColumnMetadata col in request.Columns)
+                foreach (tgColumnMetadata col in request.Columns)
                 {
                     if (col.IsInPrimaryKey)
                     {
@@ -256,7 +256,7 @@ namespace Tiraggo.OracleClientProvider
 
         //END ;
 
-        static public OracleCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
@@ -270,7 +270,7 @@ namespace Tiraggo.OracleClientProvider
 
             List<string> modifiedColumns = packet.ModifiedColumns;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsEntitySpacesConcurrency)
                 {
@@ -285,7 +285,7 @@ namespace Tiraggo.OracleClientProvider
             OracleParameter p = null;
             sql += " BEGIN ";
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             if (cols.DateModified != null && cols.DateModified.IsServerSide)
             {
@@ -321,7 +321,7 @@ namespace Tiraggo.OracleClientProvider
 
             foreach (string colName in modifiedColumns)
             {
-                esColumnMetadata col = request.Columns[colName];
+                tgColumnMetadata col = request.Columns[colName];
 
                 if (col != null && !col.IsInPrimaryKey && !col.IsEntitySpacesConcurrency)
                 {
@@ -336,7 +336,7 @@ namespace Tiraggo.OracleClientProvider
                 }
             }
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -404,7 +404,7 @@ namespace Tiraggo.OracleClientProvider
             return cmd;
         }
 
-        static public OracleCommand BuildDynamicDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildDynamicDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
@@ -422,7 +422,7 @@ namespace Tiraggo.OracleClientProvider
             string comma = String.Empty;
 
             comma = String.Empty;
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -454,7 +454,7 @@ namespace Tiraggo.OracleClientProvider
             return cmd;
         }
 
-        static public OracleCommand BuildStoredProcInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildStoredProcInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
@@ -466,10 +466,10 @@ namespace Tiraggo.OracleClientProvider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
             OracleParameter p = null;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed || col.IsAutoIncrement || col.IsEntitySpacesConcurrency)
                 {
@@ -511,7 +511,7 @@ namespace Tiraggo.OracleClientProvider
             return cmd;
         }
 
-        static public OracleCommand BuildStoredProcUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildStoredProcUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
@@ -523,10 +523,10 @@ namespace Tiraggo.OracleClientProvider
 
             PopulateStoredProcParameters(cmd, request, packet);
 
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
             OracleParameter p = null;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed || col.IsEntitySpacesConcurrency)
                 {
@@ -555,7 +555,7 @@ namespace Tiraggo.OracleClientProvider
             return cmd;
         }
 
-        static public OracleCommand BuildStoredProcDeleteCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OracleCommand BuildStoredProcDeleteCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             OracleCommand cmd = new OracleCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -567,7 +567,7 @@ namespace Tiraggo.OracleClientProvider
 
             OracleParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -582,13 +582,13 @@ namespace Tiraggo.OracleClientProvider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(OracleCommand cmd, esDataRequest request, esEntitySavePacket packet)
+        static public void PopulateStoredProcParameters(OracleCommand cmd, tgDataRequest request, tgEntitySavePacket packet)
         {
             Dictionary<string, OracleParameter> types = Cache.GetParameters(request);
 
             OracleParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -618,11 +618,11 @@ namespace Tiraggo.OracleClientProvider
             return param.Clone() as OracleParameter;
         }
 
-        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
+        static public string CreateFullName(tgDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -643,7 +643,7 @@ namespace Tiraggo.OracleClientProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -664,7 +664,7 @@ namespace Tiraggo.OracleClientProvider
             return name;
         }
 
-        static public string CreateFullSPName(esDataRequest request, string spName)
+        static public string CreateFullSPName(tgDataRequest request, string spName)
         {
             string name = String.Empty;
 
@@ -695,7 +695,7 @@ namespace Tiraggo.OracleClientProvider
             return ce;
         }
 
-        static public void AddParameters(OracleCommand cmd, esDataRequest request)
+        static public void AddParameters(OracleCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -753,7 +753,7 @@ namespace Tiraggo.OracleClientProvider
             }
         }
 
-        static public void GatherReturnParameters(OracleCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(OracleCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
@@ -762,7 +762,7 @@ namespace Tiraggo.OracleClientProvider
                     string paramPrefix = request.QueryType == tgQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
                     paramPrefix = request.ProviderMetadata.spLoadByPrimaryKey == request.QueryText ? "p" : paramPrefix;
 
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

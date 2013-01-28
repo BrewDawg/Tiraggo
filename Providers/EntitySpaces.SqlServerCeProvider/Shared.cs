@@ -39,7 +39,7 @@ namespace Tiraggo.SqlServerCeProvider
 {
     class Shared
     {
-        static public SqlCeCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCeCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -58,8 +58,8 @@ namespace Tiraggo.SqlServerCeProvider
             SqlCeCommand cmd = new SqlCeCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -167,7 +167,7 @@ namespace Tiraggo.SqlServerCeProvider
 
             if (into.Length == 0)
             {
-                foreach (esColumnMetadata col in request.Columns)
+                foreach (tgColumnMetadata col in request.Columns)
                 {
                     if (!col.IsAutoIncrement && !col.IsComputed && !col.IsConcurrency)
                     {
@@ -190,7 +190,7 @@ namespace Tiraggo.SqlServerCeProvider
             return cmd;
         }
 
-        static public SqlCeCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqlCeCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -210,8 +210,8 @@ namespace Tiraggo.SqlServerCeProvider
             SqlCeCommand cmd = new SqlCeCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -319,7 +319,7 @@ namespace Tiraggo.SqlServerCeProvider
             return cmd;
         }
 
-        static public SqlCeCommand BuildDynamicDeleteCommand(esDataRequest request, List<string> modifiedColumns)
+        static public SqlCeCommand BuildDynamicDeleteCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             Dictionary<string, SqlCeParameter> types = Cache.GetParameters(request);
 
@@ -331,7 +331,7 @@ namespace Tiraggo.SqlServerCeProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -358,7 +358,7 @@ namespace Tiraggo.SqlServerCeProvider
         static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -372,7 +372,7 @@ namespace Tiraggo.SqlServerCeProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -386,7 +386,7 @@ namespace Tiraggo.SqlServerCeProvider
             return name;
         }
 
-        static public string CreateFullName(esProviderSpecificMetadata providerMetadata)
+        static public string CreateFullName(tgProviderSpecificMetadata providerMetadata)
         {
             string name = String.Empty;
 
@@ -416,7 +416,7 @@ namespace Tiraggo.SqlServerCeProvider
             return ce;
         }
 
-        static public void AddParameters(SqlCeCommand cmd, esDataRequest request)
+        static public void AddParameters(SqlCeCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && -1 != request.QueryText.IndexOf("{0}"))
             {
@@ -468,13 +468,13 @@ namespace Tiraggo.SqlServerCeProvider
             }
         }
 
-        static public void GatherReturnParameters(SqlCeCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(SqlCeCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

@@ -34,16 +34,16 @@ namespace Tiraggo.Interfaces
 {
     /// <summary>
     /// This class houses the specific meta data for a given database type. When doing multi-database
-    /// development with EntitySpaces a given class will have a different esProviderSpecificMetadata
+    /// development with EntitySpaces a given class will have a different tgProviderSpecificMetadata
     /// for each database. 
     /// </summary>
     [Serializable] 
-    public class esProviderSpecificMetadata : IProviderSpecificMetadata
+    public class tgProviderSpecificMetadata : IProviderSpecificMetadata
     {
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esProviderSpecificMetadata()
+        public tgProviderSpecificMetadata()
         {
 
         }
@@ -61,12 +61,12 @@ namespace Tiraggo.Interfaces
             set { extData[key] = value; }
         }
 
-        public void AddTypeMap(string columnName, esTypeMap typeMap)
+        public void AddTypeMap(string columnName, tgTypeMap typeMap)
         {
             types[columnName] = typeMap;
         }
 
-        public esTypeMap GetTypeMap(string columnName)
+        public tgTypeMap GetTypeMap(string columnName)
         {
             if (types.ContainsKey(columnName))
                 return types[columnName];
@@ -140,7 +140,7 @@ namespace Tiraggo.Interfaces
         private string sp_LoadAll;
         private string sp_LoadByPrimaryKey;
 
-        private Dictionary<string, esTypeMap> types = new Dictionary<string, esTypeMap>();
+        private Dictionary<string, tgTypeMap> types = new Dictionary<string, tgTypeMap>();
         private Dictionary<string, string> extData = new Dictionary<string, string>();
     }
 }

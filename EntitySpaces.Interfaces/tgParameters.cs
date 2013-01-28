@@ -48,7 +48,7 @@ namespace Tiraggo.Interfaces
     /// {
     ///		public string GetFullName(int employeeID)
     ///		{
-    ///			esParameters parms = new esParameters();
+    ///			tgParameters parms = new tgParameters();
     ///
     ///			parms.Add("EmployeeID", employeeID);
     ///			parms.Add("FullName", esParameterDirection.Output, DbType.String, 40);
@@ -59,12 +59,12 @@ namespace Tiraggo.Interfaces
     ///		}
     ///}
     /// </code>
-    /// <seealso cref="esParameter"/>, <seealso cref="esDataProvider"/>, <seealso cref="IDataProvider"/>
+    /// <seealso cref="esParameter"/>, <seealso cref="tgDataProvider"/>, <seealso cref="IDataProvider"/>
     /// </example> 
     [Serializable] 
-    public class esParameters : IEnumerable 
+    public class tgParameters : IEnumerable 
     {
-        public esParameters()
+        public tgParameters()
         {
 
         }
@@ -179,7 +179,7 @@ namespace Tiraggo.Interfaces
         /// Used Internally to merge parameters returned by the provider back into the original collection.
         /// </summary>
         /// <param name="parms"></param>
-        internal void Merge(esParameters parms)
+        internal void Merge(tgParameters parms)
         {
             foreach(esParameter esParam in parms)
             {
@@ -208,10 +208,10 @@ namespace Tiraggo.Interfaces
     /// Represents a parameter typically passed into a stored procedure.
     /// </summary>
     /// <remarks>
-    /// Normally you don't directly create esParameter objects, instead you call the Add method on the esParameters Collection.
+    /// Normally you don't directly create esParameter objects, instead you call the Add method on the tgParameters Collection.
     /// It is important not to add prefixes to the parameter names such as @, ?, : as the providers will do this.
     /// </remarks>
-    /// <seealso cref="esParameters"/>
+    /// <seealso cref="tgParameters"/>
     [Serializable] 
     public class esParameter
     {

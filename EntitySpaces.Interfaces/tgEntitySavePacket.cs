@@ -1,4 +1,4 @@
-/*  New BSD License
+﻿/*  New BSD License
 -------------------------------------------------------------------------------
 Copyright (c) 2006-2012, EntitySpaces, LLC
 All rights reserved.
@@ -27,31 +27,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
+using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace Tiraggo.Interfaces
 {
-    /// <summary>
-    /// Used by the <see cref="esConnection"/> class. This returns the signature necessary to invoke a
-    /// command on an EntitySpaces DataProvider. Returned by the "ProviderSignature" property on the 
-    /// <see cref="esConnection"/> class.
-    /// </summary>
-    public class esProviderSignature
+    public struct tgEntitySavePacket
     {
-        /// <summary>
-        /// Maps to the "provider" element in the EntitySpaces configuration section of the configuration
-        /// file. 
-        /// </summary>
-        public string DataProviderName;
-
-        /// <summary>
-        /// Maps to the "providerClass" element in the EntitySpaces configuration section of the configuration
-        /// file. 
-        /// </summary>
-        public string DataProviderClass;
-
-        /// <summary>
-        /// Optional. Maps to the "databaseVersion" element in the EntitySpaces configuration section of the configuration
-        /// file. 
-        /// </summary>
-        public string DatabaseVersion;
+        public tgSmartDictionary CurrentValues;
+        public tgSmartDictionary OriginalValues;
+        public List<string> ModifiedColumns;
+        public tgDataRowState RowState;
+        public object Entity;
     }
 }

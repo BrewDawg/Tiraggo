@@ -27,49 +27,31 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
-using System;
-
 namespace Tiraggo.Interfaces
 {
     /// <summary>
-    /// Used to decouple the EntitySpaces DataProviders from your application. 
+    /// Used by the <see cref="tgConnection"/> class. This returns the signature necessary to invoke a
+    /// command on an EntitySpaces DataProvider. Returned by the "ProviderSignature" property on the 
+    /// <see cref="tgConnection"/> class.
     /// </summary>
-    /// <remarks>
-    /// Reflection is used only once to load and cache the provider. The information for 
-    /// the provider comes for the EntitySpaces configuration section of the config file, 
-    /// specifically the "provider" element. See the <see cref="esConnection"/> class for
-    /// more information.
-    /// </remarks>
-    sealed public class esProviderFactory
+    public class tgProviderSignature
     {
         /// <summary>
-        /// Loads and Caches the EntitySpaces DataProvider.
+        /// Maps to the "provider" element in the EntitySpaces configuration section of the configuration
+        /// file. 
         /// </summary>
-        /// <remarks>
-        /// The providerClass parameter determines whether or not distributed transactions are used or
-        /// if ADO.NET connection based transactions are used. When "DataProvider" is used the <see cref="esTransactionScope"/>
-        /// class is used to enforce transactions. When "DataProviderEnterprise" is used then the Microsoft TransactionScope
-        /// class is used
-        /// </remarks>
-        /// <param name="providerName">The name of the EntitySpaces DataProvider, for example, "Tiraggo.SqlClientProvider"</param>
-        /// <param name="providerClass">The class to use, either "DataProvider" or "DataProviderEnterprise"</param>
-        /// <returns>The approprate data provider such as "Tiraggo.SqlClientProvider"</returns>
-        static public IDataProvider GetDataProvider(string providerName, string providerClass)
-        {
-            IDataProvider provider = null;
+        public string DataProviderName;
 
-            if (Factory != null)
-            {
-                provider = Factory.GetDataProvider(providerName, providerClass);
-            }
-            else
-            {
-                throw new Exception("No Loader Assigned");
-            }
+        /// <summary>
+        /// Maps to the "providerClass" element in the EntitySpaces configuration section of the configuration
+        /// file. 
+        /// </summary>
+        public string DataProviderClass;
 
-            return provider;
-        }
-
-        static public IDataProviderFactory Factory = null;
+        /// <summary>
+        /// Optional. Maps to the "databaseVersion" element in the EntitySpaces configuration section of the configuration
+        /// file. 
+        /// </summary>
+        public string DatabaseVersion;
     }
 }

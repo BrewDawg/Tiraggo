@@ -38,13 +38,13 @@ namespace Tiraggo.SqlClientProvider
 {
     class Cache
     {
-        static public Dictionary<string, SqlParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, SqlParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, SqlParameter> GetParameters(Guid dataID, 
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -54,9 +54,9 @@ namespace Tiraggo.SqlClientProvider
                     Dictionary<string, SqlParameter> types = new Dictionary<string, SqlParameter>();
 
                     SqlParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;
@@ -110,7 +110,7 @@ namespace Tiraggo.SqlClientProvider
             return parameterCache[dataID];
         }
 
-        static private void SetUdtTypeNameToAvoidMonoError(SqlParameter param, esTypeMap typeMap)
+        static private void SetUdtTypeNameToAvoidMonoError(SqlParameter param, tgTypeMap typeMap)
         {
             param.UdtTypeName = typeMap.NativeType;
         }

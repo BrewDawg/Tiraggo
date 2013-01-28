@@ -27,19 +27,49 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
+using System;
+
 namespace Tiraggo.Interfaces
 {
     /// <summary>
-    /// Used by EntitySpaces to abstract the Loader and LoaderMT classes. See <see cref="tgProviderFactory"/>
+    /// Used to decouple the EntitySpaces DataProviders from your application. 
     /// </summary>
-    public interface IDataProviderFactory
+    /// <remarks>
+    /// Reflection is used only once to load and cache the provider. The information for 
+    /// the provider comes for the EntitySpaces configuration section of the config file, 
+    /// specifically the "provider" element. See the <see cref="tgConnection"/> class for
+    /// more information.
+    /// </remarks>
+    sealed public class tgProviderFactory
     {
         /// <summary>
-        /// This abstracts the fetching of the appropriate EntitySpaces data provider.
+        /// Loads and Caches the EntitySpaces DataProvider.
         /// </summary>
+        /// <remarks>
+        /// The providerClass parameter determines whether or not distributed transactions are used or
+        /// if ADO.NET connection based transactions are used. When "DataProvider" is used the <see cref="tgTransactionScope"/>
+        /// class is used to enforce transactions. When "DataProviderEnterprise" is used then the Microsoft TransactionScope
+        /// class is used
+        /// </remarks>
         /// <param name="providerName">The name of the EntitySpaces DataProvider, for example, "Tiraggo.SqlClientProvider"</param>
         /// <param name="providerClass">The class to use, either "DataProvider" or "DataProviderEnterprise"</param>
-        /// <returns>The appropriate EntitySpaces data provider such as "Tiraggo.SqlClientProvider"</returns>
-        IDataProvider GetDataProvider(string providerName, string providerClass);
+        /// <returns>The approprate data provider such as "Tiraggo.SqlClientProvider"</returns>
+        static public IDataProvider GetDataProvider(string providerName, string providerClass)
+        {
+            IDataProvider provider = null;
+
+            if (Factory != null)
+            {
+                provider = Factory.GetDataProvider(providerName, providerClass);
+            }
+            else
+            {
+                throw new Exception("No Loader Assigned");
+            }
+
+            return provider;
+        }
+
+        static public IDataProviderFactory Factory = null;
     }
 }

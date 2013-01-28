@@ -34,10 +34,10 @@ using Tiraggo.DynamicQuery;
 namespace Tiraggo.Interfaces
 {
     /// <summary>
-    /// This class is contained in an <see cref="esColumnMetadataCollection"/> and used to store
+    /// This class is contained in an <see cref="tgColumnMetadataCollection"/> and used to store
     /// the onboard metadata in the generated Metadata class. For example, for a table named Employee
     /// a class named EmployeeMetadata will be generated. The Metadata class contains an 
-    /// esColumnMetadataCollection containing an esColumnMetadata for each column in the table.<br></br>
+    /// tgColumnMetadataCollection containing an tgColumnMetadata for each column in the table.<br></br>
     /// The EntitySpaces data provider use this information to build dynamic sql statements. This
     /// data can be very useful and you have full access to the this onboard metadata as a protected
     /// method as shown below:
@@ -49,7 +49,7 @@ namespace Tiraggo.Interfaces
     ///	{
     ///		public void CheckoutTheMetadata()
     ///		{
-    ///			foreach(esColumnMetadata esCol in this.Meta.Columns)
+    ///			foreach(tgColumnMetadata esCol in this.Meta.Columns)
     ///			{
     ///				Console.WriteLine(esCol.IsInPrimaryKey.ToString());
     ///			}
@@ -58,12 +58,12 @@ namespace Tiraggo.Interfaces
     /// </code>
     /// </remarks>
     [Serializable] 
-    public class esColumnMetadata
+    public class tgColumnMetadata
     {
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esColumnMetadata() { }
+        public tgColumnMetadata() { }
 
         /// <summary>
         /// The Constructor
@@ -71,7 +71,7 @@ namespace Tiraggo.Interfaces
         /// <param name="name">Physical Column Name</param>
         /// <param name="ordinal">The Orderinal position in the Table or View</param>
         /// <param name="type">The .NET Data Type of the Column</param>
-        public esColumnMetadata(string name, int ordinal, Type type)
+        public tgColumnMetadata(string name, int ordinal, Type type)
         {
             this.name = name;
             this.Ordinal = ordinal;
@@ -85,7 +85,7 @@ namespace Tiraggo.Interfaces
         /// <param name="ordinal">The Orderinal position in the Table or View</param>
         /// <param name="type">The .NET Data Type of the Column</param>
         /// <param name="esType">The EntitySpaces data type</param>
-        public esColumnMetadata(string name, int ordinal, Type type, tgSystemType esType)
+        public tgColumnMetadata(string name, int ordinal, Type type, tgSystemType esType)
         {
             this.name = name;
             this.Ordinal = ordinal;

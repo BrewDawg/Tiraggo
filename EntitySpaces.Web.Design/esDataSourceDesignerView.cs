@@ -40,7 +40,7 @@ namespace Tiraggo.Web.Design
     {
         private esDataSourceDesigner owner;
 
-        internal esColumnMetadataCollection esColumnCollection;
+        internal tgColumnMetadataCollection esColumnCollection;
         internal string esCollectionName;
         internal List<string> SelectedColumns;
 
@@ -58,7 +58,7 @@ namespace Tiraggo.Web.Design
                 DataTable table = new DataTable();
                 foreach (string columnName in this.SelectedColumns)
                 {
-                    esColumnMetadata col = this.esColumnCollection.FindByPropertyName(columnName);
+                    tgColumnMetadata col = this.esColumnCollection.FindByPropertyName(columnName);
 
                     if (!col.IsConcurrency)
                     {
@@ -119,7 +119,7 @@ namespace Tiraggo.Web.Design
 
                     foreach (string columnName in this.SelectedColumns)
                     {
-                        esColumnMetadata col = this.esColumnCollection.FindByPropertyName(columnName);
+                        tgColumnMetadata col = this.esColumnCollection.FindByPropertyName(columnName);
 
                         if (!col.IsConcurrency)
                         {
@@ -144,8 +144,8 @@ namespace Tiraggo.Web.Design
 
                     ArrayList list = new ArrayList();
 
-                    esColumnMetadataCollection esCols = this.esColumnCollection;
-                    esColumnMetadata esCol;
+                    tgColumnMetadataCollection esCols = this.esColumnCollection;
+                    tgColumnMetadata esCol;
 
                     DataColumnCollection cols = table.Columns;
                     for (int i = 0; i < esCols.Count; i++)

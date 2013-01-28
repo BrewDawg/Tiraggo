@@ -73,7 +73,7 @@ namespace Tiraggo.Core
             return coll.ExecuteNonQuery(queryType, query, parameters);
         }
 
-        public int ExecuteNonQuery(tgQueryType queryType, string query, esParameters parms)
+        public int ExecuteNonQuery(tgQueryType queryType, string query, tgParameters parms)
         {
             return coll.ExecuteNonQuery(queryType, query, parms);
         }
@@ -88,12 +88,12 @@ namespace Tiraggo.Core
             return coll.ExecuteNonQuery(schema, storedProcedure, parameters);
         }
 
-        public int ExecuteNonQuery(string schema, string storedProcedure, esParameters parms)
+        public int ExecuteNonQuery(string schema, string storedProcedure, tgParameters parms)
         {
             return coll.ExecuteNonQuery(schema, storedProcedure, parms);
         }
 
-        public int ExecuteNonQuery(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public int ExecuteNonQuery(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return coll.ExecuteNonQuery(catalog, schema, storedProcedure,parameters);
         }
@@ -112,7 +112,7 @@ namespace Tiraggo.Core
             return coll.ExecuteReader(queryType, query, parameters);
         }
 
-        public IDataReader ExecuteReader(tgQueryType queryType, string query, esParameters parms)
+        public IDataReader ExecuteReader(tgQueryType queryType, string query, tgParameters parms)
         {
             return coll.ExecuteReader(queryType, query, parms);
         }
@@ -127,12 +127,12 @@ namespace Tiraggo.Core
             return coll.ExecuteReader(schema, storedProcedure, parameters);
         }
 
-        public IDataReader ExecuteReader(string schema, string storedProcedure, esParameters parms)
+        public IDataReader ExecuteReader(string schema, string storedProcedure, tgParameters parms)
         {
             return coll.ExecuteReader(schema, storedProcedure, parms);
         }
 
-        public IDataReader ExecuteReader(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public IDataReader ExecuteReader(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return coll.ExecuteReader(catalog, schema, storedProcedure, parameters);
         }
@@ -151,7 +151,7 @@ namespace Tiraggo.Core
             return coll.ExecuteScalar(queryType, query, parameters);
         }
 
-        public object ExecuteScalar(tgQueryType queryType, string query, esParameters parms)
+        public object ExecuteScalar(tgQueryType queryType, string query, tgParameters parms)
         {
             return coll.ExecuteScalar(queryType, query, parms);
         }
@@ -166,12 +166,12 @@ namespace Tiraggo.Core
             return coll.ExecuteScalar(schema, storedProcedure, parameters);
         }
 
-        public object ExecuteScalar(string schema, string storedProcedure, esParameters parms)
+        public object ExecuteScalar(string schema, string storedProcedure, tgParameters parms)
         {
             return coll.ExecuteScalar(schema, storedProcedure, parms);
         }
 
-        public object ExecuteScalar(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public object ExecuteScalar(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return coll.ExecuteScalar(catalog, schema, storedProcedure, parameters);
         }
@@ -188,7 +188,7 @@ namespace Tiraggo.Core
             return (T)coll.ExecuteScalar<T>(queryType, query, parameters);
         }
 
-        public T ExecuteScalar<T>(tgQueryType queryType, string query, esParameters parms)
+        public T ExecuteScalar<T>(tgQueryType queryType, string query, tgParameters parms)
         {
             return (T)coll.ExecuteScalar<T>(queryType, query, parms);
         }
@@ -203,12 +203,12 @@ namespace Tiraggo.Core
             return (T)coll.ExecuteScalar<T>(schema, storedProcedure, parameters);
         }
 
-        public T ExecuteScalar<T>(string schema, string storedProcedure, esParameters parms)
+        public T ExecuteScalar<T>(string schema, string storedProcedure, tgParameters parms)
         {
             return (T)coll.ExecuteScalar<T>(schema, storedProcedure, parms);
         }
 
-        public T ExecuteScalar<T>(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public T ExecuteScalar<T>(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return (T)coll.ExecuteScalar<T>(catalog, schema, storedProcedure, parameters);
         }
@@ -229,7 +229,7 @@ namespace Tiraggo.Core
             return coll.FillDataTable(queryType, query, parameters);
         }
 
-        public DataTable FillDataTable(tgQueryType queryType, string query, esParameters parms)
+        public DataTable FillDataTable(tgQueryType queryType, string query, tgParameters parms)
         {
             return coll.FillDataTable(queryType, query, parms);
         }
@@ -244,12 +244,12 @@ namespace Tiraggo.Core
             return coll.FillDataTable(schema, storedProcedure, parameters);
         }
 
-        public DataTable FillDataTable(string schema, string storedProcedure, esParameters parms)
+        public DataTable FillDataTable(string schema, string storedProcedure, tgParameters parms)
         {
             return coll.FillDataTable(schema, storedProcedure, parms);
         }
 
-        public DataTable FillDataTable(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public DataTable FillDataTable(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return coll.FillDataTable(catalog, schema, storedProcedure, parameters);
         }
@@ -268,7 +268,7 @@ namespace Tiraggo.Core
             return coll.FillDataSet(queryType, query, parameters);
         }
 
-        public DataSet FillDataSet(tgQueryType queryType, string query, esParameters parms)
+        public DataSet FillDataSet(tgQueryType queryType, string query, tgParameters parms)
         {
             return coll.FillDataSet(queryType, query, parms);
         }
@@ -283,12 +283,12 @@ namespace Tiraggo.Core
             return coll.FillDataSet(schema, storedProcedure, parameters);
         }
 
-        public DataSet FillDataSet(string schema, string storedProcedure, esParameters parms)
+        public DataSet FillDataSet(string schema, string storedProcedure, tgParameters parms)
         {
             return coll.FillDataSet(schema, storedProcedure, parms);
         }
 
-        public DataSet FillDataSet(string catalog, string schema, string storedProcedure, esParameters parameters)
+        public DataSet FillDataSet(string catalog, string schema, string storedProcedure, tgParameters parameters)
         {
             return coll.FillDataSet(catalog, schema, storedProcedure, parameters);
         }
@@ -297,7 +297,7 @@ namespace Tiraggo.Core
 
         #region Virtual Methods
 
-        virtual public esProviderSpecificMetadata GetProviderMetadata(string mapName)
+        virtual public tgProviderSpecificMetadata GetProviderMetadata(string mapName)
         {
             esProv.Schema = this.es.Connection.Schema;
             esProv.Catalog = this.es.Connection.Catalog;
@@ -316,7 +316,7 @@ namespace Tiraggo.Core
             get { return false; }
         }
 
-        virtual public esColumnMetadataCollection Columns
+        virtual public tgColumnMetadataCollection Columns
         {
             get { return null; }
         }
@@ -358,12 +358,12 @@ namespace Tiraggo.Core
                 {
                     get { return esUtil.MultiProviderMode; }
                 }
-                public esColumnMetadataCollection Columns
+                public tgColumnMetadataCollection Columns
                 {
                     get { return esUtil.Columns; }
                 }
 
-                public esProviderSpecificMetadata GetProviderMetadata(string mapName)
+                public tgProviderSpecificMetadata GetProviderMetadata(string mapName)
                 {
                     return esUtil.GetProviderMetadata(mapName);
                 }
@@ -378,6 +378,6 @@ namespace Tiraggo.Core
         #endregion
 
         protected Guid dataID = Guid.NewGuid();
-        protected esProviderSpecificMetadata esProv = new esProviderSpecificMetadata();
+        protected tgProviderSpecificMetadata esProv = new tgProviderSpecificMetadata();
     }
 }

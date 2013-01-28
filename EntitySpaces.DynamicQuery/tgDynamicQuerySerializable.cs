@@ -1364,19 +1364,19 @@ namespace Tiraggo.DynamicQuery
             }
 
             /// <summary>
-            /// esConnection Connection.
+            /// tgConnection Connection.
             /// </summary>
-            //public esConnection Connection
+            //public tgConnection Connection
             //{
             //    get
             //    {
             //        if (this.dynamicQuery.connection == null)
             //        {
-            //            this.dynamicQuery.connection = new esConnection();
+            //            this.dynamicQuery.connection = new tgConnection();
 
-            //            if (esConnection.ConnectionService != null)
+            //            if (tgConnection.ConnectionService != null)
             //            {
-            //                this.dynamicQuery.connection.Name = esConnection.ConnectionService.GetName();
+            //                this.dynamicQuery.connection.Name = tgConnection.ConnectionService.GetName();
             //            }
             //            else
             //            {

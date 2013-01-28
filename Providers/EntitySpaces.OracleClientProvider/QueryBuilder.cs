@@ -39,7 +39,7 @@ namespace Tiraggo.OracleClientProvider
 {
     class QueryBuilder
     {
-        public static OracleCommand PrepareCommand(esDataRequest request)
+        public static OracleCommand PrepareCommand(tgDataRequest request)
         {
             StandardProviderParameters std = new StandardProviderParameters();
             std.cmd = new OracleCommand();
@@ -315,7 +315,7 @@ namespace Tiraggo.OracleClientProvider
                     if (comparisonData.Column.Query != null)
                     {
                         IDynamicQuerySerializableInternal iLocalQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                        types = Cache.GetParameters(iLocalQuery.DataID, (esProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (esColumnMetadataCollection)iLocalQuery.Columns);
+                        types = Cache.GetParameters(iLocalQuery.DataID, (tgProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (tgColumnMetadataCollection)iLocalQuery.Columns);
                     }
 
                     if (comparisonData.IsLiteral)
@@ -340,7 +340,7 @@ namespace Tiraggo.OracleClientProvider
                             if (comparisonData.Column.Name != null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
                             }
                             else
@@ -533,7 +533,7 @@ namespace Tiraggo.OracleClientProvider
                             if (comparisonData.ComparisonColumn2.Name == null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
 
                                 sql += " AND " + compareTo;

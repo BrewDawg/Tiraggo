@@ -31,13 +31,13 @@ namespace Tiraggo.Interfaces
 {
     /// <summary>
     /// This interface is implemented by both esEntity and tgEntityCollection so that
-    /// the esTransactionScope class can ask that they put themselves in committed
+    /// the tgTransactionScope class can ask that they put themselves in committed
     /// state which basically means calling AcceptChanges(). 
     /// </summary>
     public interface ICommittable
     {
         /// <summary>
-        /// Called by esTransactionScope during the final Complete() call
+        /// Called by tgTransactionScope during the final Complete() call
         /// </summary>
         /// <returns>true if successful</returns>
         bool Commit();

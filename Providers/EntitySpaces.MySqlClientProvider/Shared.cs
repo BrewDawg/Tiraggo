@@ -40,7 +40,7 @@ namespace Tiraggo.MySqlClientProvider
 {
     class Shared
     {
-        static public MySqlCommand BuildDynamicInsertCommand(esDataRequest request, List<string> modifiedColumns)
+        static public MySqlCommand BuildDynamicInsertCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -59,8 +59,8 @@ namespace Tiraggo.MySqlClientProvider
             MySqlCommand cmd = new MySqlCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -190,7 +190,7 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public MySqlCommand BuildDynamicUpdateCommand(esDataRequest request, List<string> modifiedColumns)
+        static public MySqlCommand BuildDynamicUpdateCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -210,8 +210,8 @@ namespace Tiraggo.MySqlClientProvider
             MySqlCommand cmd = new MySqlCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
@@ -325,7 +325,7 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public MySqlCommand BuildDynamicDeleteCommand(esDataRequest request, List<string> modifiedColumns)
+        static public MySqlCommand BuildDynamicDeleteCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             Dictionary<string, MySqlParameter> types = Cache.GetParameters(request);
 
@@ -337,7 +337,7 @@ namespace Tiraggo.MySqlClientProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -355,7 +355,7 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public MySqlCommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public MySqlCommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             MySqlCommand cmd = new MySqlCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -365,7 +365,7 @@ namespace Tiraggo.MySqlClientProvider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed || col.IsAutoIncrement || col.IsEntitySpacesConcurrency)
                 {
@@ -377,7 +377,7 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public MySqlCommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public MySqlCommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             MySqlCommand cmd = new MySqlCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -387,7 +387,7 @@ namespace Tiraggo.MySqlClientProvider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed || col.IsEntitySpacesConcurrency)
                 {
@@ -400,7 +400,7 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public MySqlCommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public MySqlCommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             MySqlCommand cmd = new MySqlCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -412,7 +412,7 @@ namespace Tiraggo.MySqlClientProvider
 
             MySqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -427,13 +427,13 @@ namespace Tiraggo.MySqlClientProvider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(MySqlCommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(MySqlCommand cmd, tgDataRequest request)
         {
             Dictionary<string, MySqlParameter> types = Cache.GetParameters(request);
 
             MySqlParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -501,11 +501,11 @@ namespace Tiraggo.MySqlClientProvider
             return (insert || update || delete) ? true : false;
         }
 
-        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
+        static public string CreateFullName(tgDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -527,7 +527,7 @@ namespace Tiraggo.MySqlClientProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -564,7 +564,7 @@ namespace Tiraggo.MySqlClientProvider
             return ce;
         }
 
-        static public void AddParameters(MySqlCommand cmd, esDataRequest request)
+        static public void AddParameters(MySqlCommand cmd, tgDataRequest request)
         {
             if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
@@ -617,7 +617,7 @@ namespace Tiraggo.MySqlClientProvider
             }
         }
 
-        static public void GatherReturnParameters(MySqlCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(MySqlCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
@@ -625,7 +625,7 @@ namespace Tiraggo.MySqlClientProvider
                 {
                     string paramPrefix = request.ProviderMetadata.spLoadByPrimaryKey == cmd.CommandText ? Delimiters.Param + "p" : Delimiters.Param;
 
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
                     foreach (esParameter esParam in request.Parameters)
                     {

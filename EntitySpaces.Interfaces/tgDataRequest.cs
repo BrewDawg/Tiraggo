@@ -39,7 +39,7 @@ namespace Tiraggo.Interfaces
     /// Sent to the EntitySpaces DataProviders to carry out commands.
     /// </summary>
     [Serializable] 
-    public class esDataRequest
+    public class tgDataRequest
     {
         #region Error Handling
 
@@ -48,7 +48,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="packet">The esEntityPacket in error</param>
         /// <param name="ex">The exception that was thrown</param>
-        public delegate void OnErrorHandler(esEntitySavePacket packet, string error);
+        public delegate void OnErrorHandler(tgEntitySavePacket packet, string error);
 
         /// <summary>
         /// The OnError event handler, used interally by EntitySpaces
@@ -60,7 +60,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="packet">The esEntityPacket in error</param>
         /// <param name="ex">The exception that was thrown</param>
-        public void FireOnError(esEntitySavePacket packet, string error)
+        public void FireOnError(tgEntitySavePacket packet, string error)
         {
             OnErrorHandler handler = OnError;
 
@@ -118,12 +118,12 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// Used when a single entity is being saved
         /// </summary>
-        public esEntitySavePacket EntitySavePacket;
+        public tgEntitySavePacket EntitySavePacket;
 
         /// <summary>
         /// Used when saving a collection
         /// </summary>
-        public List<esEntitySavePacket> CollectionSavePacket;
+        public List<tgEntitySavePacket> CollectionSavePacket;
 
         /// <summary>
         /// Set to true by tgEntityCollection.SaveAndDiscard() so it doesn't bother returning
@@ -149,7 +149,7 @@ namespace Tiraggo.Interfaces
         /// tack on decorators such as @ or ? on the front of your parameters, the EntitySpaces
         /// DataProviders do that for you so you can write provider independent queries.
         /// </summary>
-        public esParameters Parameters;
+        public tgParameters Parameters;
 
         /// <summary>
         /// Automatically populated whenver you use the EntitySpaces dynamic query mechanism.
@@ -165,7 +165,7 @@ namespace Tiraggo.Interfaces
         /// These are the columns from the generated Metadata class. These columns contain
         /// enough metadata to generate the dynamic sql.
         /// </summary>
-        public esColumnMetadataCollection Columns;
+        public tgColumnMetadataCollection Columns;
 
         /// <summary>
         /// A List of Lists, each nested list contains the modified columns for each
@@ -181,7 +181,7 @@ namespace Tiraggo.Interfaces
         /// different databases and yet the esEntity and tgEntityCollection objects are
         /// oblivious to that fact.
         /// </summary>
-        public esProviderSpecificMetadata ProviderMetadata;
+        public tgProviderSpecificMetadata ProviderMetadata;
 
         /// <summary>
         /// Transient data using during the SQL insert/update/delete process

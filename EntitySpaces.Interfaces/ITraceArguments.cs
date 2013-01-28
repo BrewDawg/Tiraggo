@@ -41,7 +41,7 @@ namespace Tiraggo.Interfaces
     {
         long PacketOrder { get; set; }
         string Syntax { get; set; }
-        esDataRequest Request { get; set; }
+        tgDataRequest Request { get; set; }
         int ThreadId { get; set; }
         string Action { get; set; }
         string CallStack { get; set; }

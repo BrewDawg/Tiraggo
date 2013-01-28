@@ -534,7 +534,7 @@ namespace Tiraggo.Web
                 {
                     foreach (esDataSourceSortItem sortItem in e.SortItems)
                     {
-                        esColumnMetadata col = e.Collection.es.Meta.Columns.FindByPropertyName(sortItem.Property);
+                        tgColumnMetadata col = e.Collection.es.Meta.Columns.FindByPropertyName(sortItem.Property);
                         if(col != null)
                         {
                             query.OrderBy(col.Name, sortItem.Direction);
@@ -549,10 +549,10 @@ namespace Tiraggo.Web
                 {
                     if (this.AutoPaging)
                     {
-                        List<esColumnMetadata> pks = e.Collection.es.Meta.Columns.PrimaryKeys;
+                        List<tgColumnMetadata> pks = e.Collection.es.Meta.Columns.PrimaryKeys;
                         if (pks != null)
                         {
-                            foreach (esColumnMetadata pk in pks)
+                            foreach (tgColumnMetadata pk in pks)
                             {
                                 query.OrderBy(pk.Name, tgOrderByDirection.Ascending);
                             }

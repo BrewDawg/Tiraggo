@@ -39,7 +39,7 @@ namespace Tiraggo.MSAccessProvider
 {
     class Shared
     {
-        static public OleDbCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OleDbCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -58,8 +58,8 @@ namespace Tiraggo.MSAccessProvider
             OleDbCommand cmd = new OleDbCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -181,7 +181,7 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public OleDbCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public OleDbCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -202,8 +202,8 @@ namespace Tiraggo.MSAccessProvider
             OleDbCommand cmd = new OleDbCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -322,7 +322,7 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public OleDbCommand BuildDynamicDeleteCommand(esDataRequest request, List<string> modifiedColumns)
+        static public OleDbCommand BuildDynamicDeleteCommand(tgDataRequest request, List<string> modifiedColumns)
         {
             Dictionary<string, OleDbParameter> types = Cache.GetParameters(request);
 
@@ -334,7 +334,7 @@ namespace Tiraggo.MSAccessProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -352,7 +352,7 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public OleDbCommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public OleDbCommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             OleDbCommand cmd = new OleDbCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -365,7 +365,7 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public OleDbCommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public OleDbCommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             OleDbCommand cmd = new OleDbCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -375,7 +375,7 @@ namespace Tiraggo.MSAccessProvider
 
             PopulateStoredProcParameters(cmd, request);
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsComputed)
                 {
@@ -387,7 +387,7 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public OleDbCommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public OleDbCommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             OleDbCommand cmd = new OleDbCommand();
             if(request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
@@ -399,7 +399,7 @@ namespace Tiraggo.MSAccessProvider
 
             OleDbParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey)
                 {
@@ -413,13 +413,13 @@ namespace Tiraggo.MSAccessProvider
             return cmd;
         }
 
-        static public void PopulateStoredProcParameters(OleDbCommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(OleDbCommand cmd, tgDataRequest request)
         {
             Dictionary<string, OleDbParameter> types = Cache.GetParameters(request);
 
             OleDbParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -442,7 +442,7 @@ namespace Tiraggo.MSAccessProvider
         static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
@@ -456,7 +456,7 @@ namespace Tiraggo.MSAccessProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
@@ -470,7 +470,7 @@ namespace Tiraggo.MSAccessProvider
             return name;
         }
 
-        static public string CreateFullName(esProviderSpecificMetadata providerMetadata)
+        static public string CreateFullName(tgProviderSpecificMetadata providerMetadata)
         {
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
