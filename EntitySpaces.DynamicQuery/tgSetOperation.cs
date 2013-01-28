@@ -62,6 +62,6 @@ namespace Tiraggo.DynamicQuery
         /// The Set Type, Union/Unionall/Intersect/Except
         /// </summary>
         [DataMember(Name = "Type", EmitDefaultValue = false)]
-        public esSetOperationType SetOperationType;
+        public tgSetOperationType SetOperationType;
     }
 }

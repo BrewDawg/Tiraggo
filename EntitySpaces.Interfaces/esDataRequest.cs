@@ -133,12 +133,12 @@ namespace Tiraggo.Interfaces
 
         // Query Data
         /// <summary>
-        /// The form of the query itself, see <see cref="esQueryType"/>
+        /// The form of the query itself, see <see cref="tgQueryType"/>
         /// </summary>
-        public esQueryType QueryType;
+        public tgQueryType QueryType;
 
         /// <summary>
-        /// Depending on what the value of <see cref="esQueryType"/> is, this could
+        /// Depending on what the value of <see cref="tgQueryType"/> is, this could
         /// be the actual name of a stored procedure, DBMS function, raw text, or 
         /// whatever else is possible.
         /// </summary>

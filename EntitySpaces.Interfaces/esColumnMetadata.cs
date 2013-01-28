@@ -85,7 +85,7 @@ namespace Tiraggo.Interfaces
         /// <param name="ordinal">The Orderinal position in the Table or View</param>
         /// <param name="type">The .NET Data Type of the Column</param>
         /// <param name="esType">The EntitySpaces data type</param>
-        public esColumnMetadata(string name, int ordinal, Type type, esSystemType esType)
+        public esColumnMetadata(string name, int ordinal, Type type, tgSystemType esType)
         {
             this.name = name;
             this.Ordinal = ordinal;
@@ -157,10 +157,10 @@ namespace Tiraggo.Interfaces
         public Type Type;
 
         /// <summary>
-        /// The esSystemType enum, can be useful if you need to perform a switch
+        /// The tgSystemType enum, can be useful if you need to perform a switch
         /// statement on the Type.
         /// </summary>
-        public esSystemType esType;
+        public tgSystemType esType;
 
         /// <summary>
         /// True if <see cref="Default"/> has a value.

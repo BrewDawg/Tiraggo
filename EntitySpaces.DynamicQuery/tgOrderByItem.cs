@@ -61,7 +61,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// The tgOrderByItem class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
-        /// See <see cref="esOrderByDirection"/> Enumeration.
+        /// See <see cref="tgOrderByDirection"/> Enumeration.
         /// </summary>
         /// <param name="query">The associated DynamicQuery</param>
         public tgOrderByItem()
@@ -83,11 +83,11 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// esOrderByDirection Direction.
-        /// See <see cref="esOrderByDirection"/> Enumeration.
+        /// tgOrderByDirection Direction.
+        /// See <see cref="tgOrderByDirection"/> Enumeration.
         /// </summary>
         [DataMember(Name = "Direction", EmitDefaultValue = false)]
-        public esOrderByDirection Direction;
+        public tgOrderByDirection Direction;
 
         /// <summary>
         /// The Expression for the OrderBy statement

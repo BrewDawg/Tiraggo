@@ -91,7 +91,7 @@ namespace Tiraggo.DynamicQuery
         /// The type of the suboperator
         /// </summary>
         [DataMember(Name = "SubOperator", Order=1, EmitDefaultValue = false)]
-        public esQuerySubOperatorType SubOperator;
+        public tgQuerySubOperatorType SubOperator;
 
         /// <summary>
         /// Any parameters that this SubOperator may need. For instance Substring requires

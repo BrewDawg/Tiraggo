@@ -284,31 +284,31 @@ namespace Tiraggo.MSAccessProvider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response.Table = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response.Table = LoadDataTableFromText(request);
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
 
                         response = new esDataResponse();
                         OleDbCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
-                    case esQueryType.DynamicQueryParseOnly:
+                    case tgQueryType.DynamicQueryParseOnly:
 
                         response = new esDataResponse();
                         OleDbCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
 
-                    case esQueryType.ManyToMany:
+                    case tgQueryType.ManyToMany:
 
                         response.Table = LoadManyToMany(request);
                         break;
@@ -382,15 +382,15 @@ namespace Tiraggo.MSAccessProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         break;
                 }
@@ -451,19 +451,19 @@ namespace Tiraggo.MSAccessProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
@@ -518,19 +518,19 @@ namespace Tiraggo.MSAccessProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
@@ -584,12 +584,12 @@ namespace Tiraggo.MSAccessProvider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response.DataSet = LoadDataSetFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response.DataSet = LoadDataSetFromText(request);
                         break;
@@ -614,12 +614,12 @@ namespace Tiraggo.MSAccessProvider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response.Table = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response.Table = LoadDataTableFromText(request);
                         break;
@@ -1659,7 +1659,7 @@ namespace Tiraggo.MSAccessProvider
 
         static private void AddParameters(OleDbCommand cmd, esDataRequest request)
         {
-            if (request.QueryType == esQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
+            if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
                 int i = 0;
                 string token = String.Empty;

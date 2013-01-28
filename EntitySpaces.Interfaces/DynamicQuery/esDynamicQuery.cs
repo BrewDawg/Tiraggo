@@ -338,7 +338,7 @@ namespace Tiraggo.Interfaces
 
             request.ConnectionString = conn.ConnectionString;
             request.CommandTimeout = conn.CommandTimeout;
-            request.QueryType = esQueryType.DynamicQuery;
+            request.QueryType = tgQueryType.DynamicQuery;
             request.DynamicQuery = this;
             request.DataID = meta.DataID;
             request.ProviderMetadata = providerMetadata;
@@ -402,7 +402,7 @@ namespace Tiraggo.Interfaces
         /// The default conjunction is AND.
         /// You can change the default conjunction this way:
         /// <code>
-        /// emps.Query.es.DefaultConjunction = esConjunction.Or;
+        /// emps.Query.es.DefaultConjunction = tgConjunction.Or;
         /// </code>
         /// </remarks>
         /// <returns>True if at least one record was loaded</returns>
@@ -464,7 +464,7 @@ namespace Tiraggo.Interfaces
         /// The default conjunction is AND.
         /// You can change the default conjunction this way:
         /// <code>
-        /// emps.Query.es.DefaultConjunction = esConjunction.Or;
+        /// emps.Query.es.DefaultConjunction = tgConjunction.Or;
         /// </code>
         /// </remarks>
         /// <returns>The SQL Syntax, the same as query.es.LastQuery when a query is executed.</returns>
@@ -474,7 +474,7 @@ namespace Tiraggo.Interfaces
 
             esDataRequest request = new esDataRequest();
             this.PopulateRequest(request);
-            request.QueryType = esQueryType.DynamicQueryParseOnly;
+            request.QueryType = tgQueryType.DynamicQueryParseOnly;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
@@ -732,11 +732,11 @@ namespace Tiraggo.Interfaces
         #endregion
 
         #region Helper Routine
-        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(tgConjunction conj, params object[] theItems)
         {
             List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new tgComparison(esParenthesis.Open));
+            items.Add(new tgComparison(tgParenthesis.Open));
 
             bool first = true;
 
@@ -776,7 +776,7 @@ namespace Tiraggo.Interfaces
                 }
             }
 
-            items.Add(new tgComparison(esParenthesis.Close));
+            items.Add(new tgComparison(tgParenthesis.Close));
 
             return items;
         }

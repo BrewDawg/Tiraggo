@@ -431,7 +431,7 @@ namespace Tiraggo.SQLiteProvider
 
         static public void AddParameters(SQLiteCommand cmd, esDataRequest request)
         {
-            if (request.QueryType == esQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
+            if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
                 int i = 0;
                 string token = String.Empty;

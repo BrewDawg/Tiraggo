@@ -300,31 +300,31 @@ namespace Tiraggo.VistaDB4Provider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataTableFromText(request);
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
 
                         response = new esDataResponse();
                         VistaDBCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
-                    case esQueryType.DynamicQueryParseOnly:
+                    case tgQueryType.DynamicQueryParseOnly:
 
                         response = new esDataResponse();
                         VistaDBCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
 
-                    case esQueryType.ManyToMany:
+                    case tgQueryType.ManyToMany:
 
                         response = LoadManyToMany(request);
                         break;
@@ -392,17 +392,17 @@ namespace Tiraggo.VistaDB4Provider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
@@ -469,22 +469,22 @@ namespace Tiraggo.VistaDB4Provider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
@@ -539,22 +539,22 @@ namespace Tiraggo.VistaDB4Provider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
@@ -615,12 +615,12 @@ namespace Tiraggo.VistaDB4Provider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataSetFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataSetFromText(request);
                         break;
@@ -645,12 +645,12 @@ namespace Tiraggo.VistaDB4Provider
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataTableFromText(request);
                         break;

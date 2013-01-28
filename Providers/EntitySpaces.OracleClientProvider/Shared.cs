@@ -697,7 +697,7 @@ namespace Tiraggo.OracleClientProvider
 
         static public void AddParameters(OracleCommand cmd, esDataRequest request)
         {
-            if (request.QueryType == esQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
+            if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
                 int i = 0;
                 string token = String.Empty;
@@ -720,7 +720,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 OracleParameter param;
 
-                string paramPrefix = request.QueryType == esQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
+                string paramPrefix = request.QueryType == tgQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
                 paramPrefix = request.ProviderMetadata.spLoadByPrimaryKey == request.QueryText ? "p" : paramPrefix;
 
                 foreach (esParameter esParam in request.Parameters)
@@ -759,7 +759,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    string paramPrefix = request.QueryType == esQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
+                    string paramPrefix = request.QueryType == tgQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
                     paramPrefix = request.ProviderMetadata.spLoadByPrimaryKey == request.QueryText ? "p" : paramPrefix;
 
                     response.Parameters = new esParameters();

@@ -79,7 +79,7 @@ namespace Tiraggo.DynamicQuery
         internal tgBoolean(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Boolean);
+            item.Cast(tgCastType.Boolean);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Tiraggo.DynamicQuery
         internal tgByte(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Byte);
+            item.Cast(tgCastType.Byte);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace Tiraggo.DynamicQuery
         internal tgChar(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Char);
+            item.Cast(tgCastType.Char);
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace Tiraggo.DynamicQuery
         internal tgDateTime(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.DateTime);
+            item.Cast(tgCastType.DateTime);
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace Tiraggo.DynamicQuery
         internal tgDecimal(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Decimal);
+            item.Cast(tgCastType.Decimal);
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace Tiraggo.DynamicQuery
         internal tgDouble(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Double);
+            item.Cast(tgCastType.Double);
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace Tiraggo.DynamicQuery
         internal tgGuid(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Guid);
+            item.Cast(tgCastType.Guid);
         }
 
         /// <summary>
@@ -443,7 +443,7 @@ namespace Tiraggo.DynamicQuery
         internal tgInt16(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Int16);
+            item.Cast(tgCastType.Int16);
         }
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Tiraggo.DynamicQuery
         internal tgInt32(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Int32);
+            item.Cast(tgCastType.Int32);
         }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace Tiraggo.DynamicQuery
         internal tgInt64(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Int64);
+            item.Cast(tgCastType.Int64);
         }
 
         /// <summary>
@@ -599,7 +599,7 @@ namespace Tiraggo.DynamicQuery
         internal tgSingle(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.Single);
+            item.Cast(tgCastType.Single);
         }
 
         /// <summary>
@@ -649,7 +649,7 @@ namespace Tiraggo.DynamicQuery
         internal tgString(tgQueryItem item)
         {
             base.item = item;
-            item.Cast(esCastType.String);
+            item.Cast(tgCastType.String);
         }
 
         /// <summary>

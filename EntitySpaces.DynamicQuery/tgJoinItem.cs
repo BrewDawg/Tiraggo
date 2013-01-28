@@ -115,11 +115,11 @@ namespace Tiraggo.DynamicQuery
         }
 
         #region ProcessWhereItems
-        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(tgConjunction conj, params object[] theItems)
         {
             List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new tgComparison(esParenthesis.Open));
+            items.Add(new tgComparison(tgParenthesis.Open));
 
             bool first = true;
 
@@ -159,7 +159,7 @@ namespace Tiraggo.DynamicQuery
                 }
             }
 
-            items.Add(new tgComparison(esParenthesis.Close));
+            items.Add(new tgComparison(tgParenthesis.Close));
 
             return items;
         }
@@ -184,7 +184,7 @@ namespace Tiraggo.DynamicQuery
             /// The join type, InnerJoin, LeftJoin, ...
             /// </summary>
             [DataMember(Name = "JoinType", EmitDefaultValue = false)]
-            public esJoinType JoinType;
+            public tgJoinType JoinType;
 
             /// <summary>
             /// The where conditions for the subquery

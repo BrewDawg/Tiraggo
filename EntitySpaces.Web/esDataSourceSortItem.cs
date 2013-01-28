@@ -46,6 +46,6 @@ namespace Tiraggo.Web
         /// <summary>
         /// The requested sort direction.
         /// </summary>
-        public esOrderByDirection Direction;
+        public tgOrderByDirection Direction;
     }
 }

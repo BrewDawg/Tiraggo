@@ -237,16 +237,16 @@ namespace Tiraggo.OracleClientProvider
 
                     switch (joinData.JoinType)
                     {
-                        case esJoinType.InnerJoin:
+                        case tgJoinType.InnerJoin:
                             sql += " INNER JOIN ";
                             break;
-                        case esJoinType.LeftJoin:
+                        case tgJoinType.LeftJoin:
                             sql += " LEFT JOIN ";
                             break;
-                        case esJoinType.RightJoin:
+                        case tgJoinType.RightJoin:
                             sql += " RIGHT JOIN ";
                             break;
-                        case esJoinType.FullJoin:
+                        case tgJoinType.FullJoin:
                             sql += " FULL JOIN ";
                             break;
                     }
@@ -291,7 +291,7 @@ namespace Tiraggo.OracleClientProvider
 
                     if (comparisonData.IsParenthesis)
                     {
-                        if (comparisonData.Parenthesis == esParenthesis.Open)
+                        if (comparisonData.Parenthesis == tgParenthesis.Open)
                             sql += "(";
                         else
                             sql += ")";
@@ -303,10 +303,10 @@ namespace Tiraggo.OracleClientProvider
                     {
                         switch (comparisonData.Conjunction)
                         {
-                            case esConjunction.And: sql += " AND "; break;
-                            case esConjunction.Or: sql += " OR "; break;
-                            case esConjunction.AndNot: sql += " AND NOT "; break;
-                            case esConjunction.OrNot: sql += " OR NOT "; break;
+                            case tgConjunction.And: sql += " AND "; break;
+                            case tgConjunction.Or: sql += " OR "; break;
+                            case tgConjunction.AndNot: sql += " AND NOT "; break;
+                            case tgConjunction.OrNot: sql += " OR NOT "; break;
                         }
                         continue;
                     }
@@ -363,54 +363,54 @@ namespace Tiraggo.OracleClientProvider
 
                     switch (comparisonData.Operand)
                     {
-                        case esComparisonOperand.Exists:
+                        case tgComparisonOperand.Exists:
                             sql += " EXISTS" + compareTo;
                             break;
-                        case esComparisonOperand.NotExists:
+                        case tgComparisonOperand.NotExists:
                             sql += " NOT EXISTS" + compareTo;
                             break;
 
                         //-----------------------------------------------------------
                         // Comparison operators, left side vs right side
                         //-----------------------------------------------------------
-                        case esComparisonOperand.Equal:
+                        case tgComparisonOperand.Equal:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " = " + compareTo;
                             else
                                 sql += compareTo + " = " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.NotEqual:
+                        case tgComparisonOperand.NotEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " <> " + compareTo;
                             else
                                 sql += compareTo + " <> " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.GreaterThan:
+                        case tgComparisonOperand.GreaterThan:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " > " + compareTo;
                             else
                                 sql += compareTo + " > " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.LessThan:
+                        case tgComparisonOperand.LessThan:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " < " + compareTo;
                             else
                                 sql += compareTo + " < " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.LessThanOrEqual:
+                        case tgComparisonOperand.LessThanOrEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " <= " + compareTo;
                             else
                                 sql += compareTo + " <= " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.GreaterThanOrEqual:
+                        case tgComparisonOperand.GreaterThanOrEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " >= " + compareTo;
                             else
                                 sql += compareTo + " >= " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
 
-                        case esComparisonOperand.Like:
+                        case tgComparisonOperand.Like:
                             string esc = comparisonData.LikeEscape.ToString();
                             if (String.IsNullOrEmpty(esc) || esc == "\0")
                             {
@@ -424,7 +424,7 @@ namespace Tiraggo.OracleClientProvider
                                 needsStringParameter = true;
                             }
                             break;
-                        case esComparisonOperand.NotLike:
+                        case tgComparisonOperand.NotLike:
                             esc = comparisonData.LikeEscape.ToString();
                             if (String.IsNullOrEmpty(esc) || esc == "\0")
                             {
@@ -438,33 +438,33 @@ namespace Tiraggo.OracleClientProvider
                                 needsStringParameter = true;
                             }
                             break;
-                        case esComparisonOperand.Contains:
+                        case tgComparisonOperand.Contains:
                             sql += " CONTAINS(" + GetColumnName(comparisonData.Column) +
                                 ", " + compareTo + ")";
                             needsStringParameter = true;
                             break;
-                        case esComparisonOperand.IsNull:
+                        case tgComparisonOperand.IsNull:
                             sql += ApplyWhereSubOperations(std, query, comparisonData) + " IS NULL";
                             requiresParam = false;
                             break;
-                        case esComparisonOperand.IsNotNull:
+                        case tgComparisonOperand.IsNotNull:
                             sql += ApplyWhereSubOperations(std, query, comparisonData) + " IS NOT NULL";
                             requiresParam = false;
                             break;
-                        case esComparisonOperand.In:
-                        case esComparisonOperand.NotIn:
+                        case tgComparisonOperand.In:
+                        case tgComparisonOperand.NotIn:
                             {
                                 if (subQuery != null)
                                 {
                                     // They used a subquery for In or Not 
                                     sql += ApplyWhereSubOperations(std, query, comparisonData);
-                                    sql += (comparisonData.Operand == esComparisonOperand.In) ? " IN" : " NOT IN";
+                                    sql += (comparisonData.Operand == tgComparisonOperand.In) ? " IN" : " NOT IN";
                                     sql += compareTo;
                                 }
                                 else
                                 {
                                     comma = String.Empty;
-                                    if (comparisonData.Operand == esComparisonOperand.In)
+                                    if (comparisonData.Operand == tgComparisonOperand.In)
                                     {
                                         sql += ApplyWhereSubOperations(std, query, comparisonData) + " IN (";
                                     }
@@ -518,7 +518,7 @@ namespace Tiraggo.OracleClientProvider
                             }
                             break;
 
-                        case esComparisonOperand.Between:
+                        case tgComparisonOperand.Between:
 
                             OracleCommand sqlCommand = std.cmd as OracleCommand;
 
@@ -621,7 +621,7 @@ namespace Tiraggo.OracleClientProvider
                     {
                         sql += columnName.Substring(1, columnName.Length - 2);
 
-                        if (orderByItem.Direction == esOrderByDirection.Unassigned)
+                        if (orderByItem.Direction == tgOrderByDirection.Unassigned)
                         {
                             literal = true; // They must provide the DESC/ASC in the literal string
                         }
@@ -644,7 +644,7 @@ namespace Tiraggo.OracleClientProvider
 
                     if (!literal)
                     {
-                        if (orderByItem.Direction == esOrderByDirection.Ascending)
+                        if (orderByItem.Direction == tgOrderByDirection.Ascending)
                             sql += " ASC";
                         else
                             sql += " DESC";
@@ -708,10 +708,10 @@ namespace Tiraggo.OracleClientProvider
                 {
                     switch (setOperation.SetOperationType)
                     {
-                        case esSetOperationType.Union: sql += " UNION "; break;
-                        case esSetOperationType.UnionAll: sql += " UNION ALL "; break;
-                        case esSetOperationType.Intersect: sql += " INTERSECT "; break;
-                        case esSetOperationType.Except: sql += " MINUS "; break;
+                        case tgSetOperationType.Union: sql += " UNION "; break;
+                        case tgSetOperationType.UnionAll: sql += " UNION ALL "; break;
+                        case tgSetOperationType.Intersect: sql += " INTERSECT "; break;
+                        case tgSetOperationType.Except: sql += " MINUS "; break;
                     }
 
                     sql += BuildQuery(std, setOperation.Query);
@@ -903,25 +903,25 @@ namespace Tiraggo.OracleClientProvider
 
             switch (mathmaticalExpression.Operator)
             {
-                case esArithmeticOperator.Add:
+                case tgArithmeticOperator.Add:
 
                     // MEG - 4/26/08, I'm not thrilled with this check here, will revist on future release
-                    if (mathmaticalExpression.SelectItem1.Column.Datatype == esSystemType.String ||
-                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.LiteralType == esSystemType.String) ||
-                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.SelectItem1.Column.Datatype == esSystemType.String) ||
-                       (mathmaticalExpression.LiteralType == esSystemType.String))
+                    if (mathmaticalExpression.SelectItem1.Column.Datatype == tgSystemType.String ||
+                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.LiteralType == tgSystemType.String) ||
+                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.SelectItem1.Column.Datatype == tgSystemType.String) ||
+                       (mathmaticalExpression.LiteralType == tgSystemType.String))
                         return " || ";
                     else
                         return " + ";
 
-                case esArithmeticOperator.Subtract: return " - ";
-                case esArithmeticOperator.Multiply: return " * ";
+                case tgArithmeticOperator.Subtract: return " - ";
+                case tgArithmeticOperator.Multiply: return " * ";
 
-                case esArithmeticOperator.Divide:
+                case tgArithmeticOperator.Divide:
                     needsRounding = true;
                     return "/";
 
-                case esArithmeticOperator.Modulo:
+                case tgArithmeticOperator.Modulo:
                     isMod = true;
                     return ",";
 
@@ -933,10 +933,10 @@ namespace Tiraggo.OracleClientProvider
         {
             switch (mathmaticalExpression.LiteralType)
             {
-                case esSystemType.String:
+                case tgSystemType.String:
                     return "'" + (string)mathmaticalExpression.Literal + "'";
 
-                case esSystemType.DateTime:
+                case tgSystemType.DateTime:
                     return Delimiters.StringOpen + ((DateTime)(mathmaticalExpression.Literal)).ToShortDateString() + Delimiters.StringClose;
 
                 default:
@@ -988,32 +988,32 @@ namespace Tiraggo.OracleClientProvider
                 {
                     switch (op.SubOperator)
                     {
-                        case esQuerySubOperatorType.ToLower:
+                        case tgQuerySubOperatorType.ToLower:
                             sql += "LOWER(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.ToUpper:
+                        case tgQuerySubOperatorType.ToUpper:
                             sql += "UPPER(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.LTrim:
+                        case tgQuerySubOperatorType.LTrim:
                             sql += "LTRIM(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.RTrim:
+                        case tgQuerySubOperatorType.RTrim:
                             sql += "RTRIM(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Trim:
+                        case tgQuerySubOperatorType.Trim:
                             sql += "LTRIM(RTRIM(";
                             stack.Push("))");
                             break;
 
-                        case esQuerySubOperatorType.SubString:
+                        case tgQuerySubOperatorType.SubString:
 
                             sql += "SUBSTR(";
 
@@ -1035,7 +1035,7 @@ namespace Tiraggo.OracleClientProvider
                             }
                             break;
 
-                        case esQuerySubOperatorType.Coalesce:
+                        case tgQuerySubOperatorType.Coalesce:
                             sql += "COALESCE(";
 
                             stack.Push(")");
@@ -1043,19 +1043,19 @@ namespace Tiraggo.OracleClientProvider
                             stack.Push(",");
                             break;
 
-                        case esQuerySubOperatorType.Date:
+                        case tgQuerySubOperatorType.Date:
                             sql += "TRUNC(";
 
                             stack.Push(")");
                             stack.Push("'DD'");
                             stack.Push(",");
                             break;
-                        case esQuerySubOperatorType.Length:
+                        case tgQuerySubOperatorType.Length:
                             sql += "LENGTH(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Round:
+                        case tgQuerySubOperatorType.Round:
                             sql += "ROUND(";
 
                             stack.Push(")");
@@ -1063,7 +1063,7 @@ namespace Tiraggo.OracleClientProvider
                             stack.Push(",");
                             break;
 
-                        case esQuerySubOperatorType.DatePart:
+                        case tgQuerySubOperatorType.DatePart:
                            std.needsStringParameter = true;
                             sql += "EXTRACT(";
                             sql += op.Parameters["DatePart"];
@@ -1072,49 +1072,49 @@ namespace Tiraggo.OracleClientProvider
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Avg:
+                        case tgQuerySubOperatorType.Avg:
                             sql += "ROUND(AVG(";
 
                             stack.Push("), 10)");
                             break;
 
-                        case esQuerySubOperatorType.Count:
+                        case tgQuerySubOperatorType.Count:
                             sql += "COUNT(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Max:
+                        case tgQuerySubOperatorType.Max:
                             sql += "MAX(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Min:
+                        case tgQuerySubOperatorType.Min:
                             sql += "MIN(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.StdDev:
+                        case tgQuerySubOperatorType.StdDev:
                             sql += "ROUND(STDDEV(";
 
                             stack.Push("), 10)");
                             break;
 
-                        case esQuerySubOperatorType.Sum:
+                        case tgQuerySubOperatorType.Sum:
                             sql += "SUM(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Var:
+                        case tgQuerySubOperatorType.Var:
                             sql += "ROUND(VARIANCE(";
 
                             stack.Push("), 10)");
                             break;
 
-                        case esQuerySubOperatorType.Cast:
+                        case tgQuerySubOperatorType.Cast:
                             sql += "CAST(";
                             stack.Push(")");
 
@@ -1137,7 +1137,7 @@ namespace Tiraggo.OracleClientProvider
                             }
 
 
-                            stack.Push(GetCastSql((esCastType)op.Parameters["esCastType"]));
+                            stack.Push(GetCastSql((tgCastType)op.Parameters["tgCastType"]));
                             stack.Push(" AS ");
                             break;
                     }
@@ -1153,22 +1153,22 @@ namespace Tiraggo.OracleClientProvider
             return sql;
         }
 
-        protected static string GetCastSql(esCastType castType)
+        protected static string GetCastSql(tgCastType castType)
         {
             switch (castType)
             {
-                case esCastType.Boolean: return "NUMBER";
-                case esCastType.Byte: return "RAW";
-                case esCastType.Char: return "CHAR";
-                case esCastType.DateTime: return "TIMESTAMP";
-                case esCastType.Double: return "NUMBER";
-                case esCastType.Decimal: return "NUMBER";
-                case esCastType.Guid: return "RAW";
-                case esCastType.Int16: return "INTEGER";
-                case esCastType.Int32: return "INTEGER";
-                case esCastType.Int64: return "INTEGER";
-                case esCastType.Single: return "NUMBER";
-                case esCastType.String: return "VARCHAR2";
+                case tgCastType.Boolean: return "NUMBER";
+                case tgCastType.Byte: return "RAW";
+                case tgCastType.Char: return "CHAR";
+                case tgCastType.DateTime: return "TIMESTAMP";
+                case tgCastType.Double: return "NUMBER";
+                case tgCastType.Decimal: return "NUMBER";
+                case tgCastType.Guid: return "RAW";
+                case tgCastType.Int16: return "INTEGER";
+                case tgCastType.Int32: return "INTEGER";
+                case tgCastType.Int64: return "INTEGER";
+                case tgCastType.Single: return "NUMBER";
+                case tgCastType.String: return "VARCHAR2";
 
                 default: return "error";
             }
@@ -1210,9 +1210,9 @@ namespace Tiraggo.OracleClientProvider
 
             switch (iQuery.SubquerySearchCondition)
             {
-                case esSubquerySearchCondition.All: searchCondition = "ALL"; break;
-                case esSubquerySearchCondition.Any: searchCondition = "ANY"; break;
-                case esSubquerySearchCondition.Some: searchCondition = "SOME"; break;
+                case tgSubquerySearchCondition.All: searchCondition = "ALL"; break;
+                case tgSubquerySearchCondition.Any: searchCondition = "ANY"; break;
+                case tgSubquerySearchCondition.Some: searchCondition = "SOME"; break;
             }
 
             return searchCondition;

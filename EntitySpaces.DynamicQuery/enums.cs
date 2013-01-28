@@ -34,7 +34,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The query type
     /// </summary>
-    public enum esQueryType
+    public enum tgQueryType
     {
         /// <summary>
         /// Unassigned
@@ -102,7 +102,7 @@ namespace Tiraggo.DynamicQuery
     ///   
     /// </code>
     [Serializable]
-    public enum esQuerySubOperatorType
+    public enum tgQuerySubOperatorType
     {
         /// <summary>
         /// Unassigned
@@ -191,7 +191,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The direction used by DynamicQuery.AddOrderBy
     /// </summary>
-    public enum esOrderByDirection
+    public enum tgOrderByDirection
     {
         /// <summary>
         /// Unassigned
@@ -211,7 +211,7 @@ namespace Tiraggo.DynamicQuery
     /// The type of comparison in a Where clause
     /// </summary>
     [Serializable]
-    public enum esComparisonOperand
+    public enum tgComparisonOperand
     {
         /// <summary>
         /// Unassigned
@@ -291,7 +291,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The conjunction used between WhereParameters
     /// </summary>
-    public enum esConjunction
+    public enum tgConjunction
     {
         /// <summary>
         /// WhereParameters are used via the default passed into DynamicQuery.Load.
@@ -318,7 +318,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The Parenthesis used in queries, '(' and ')'
     /// </summary>
-    public enum esParenthesis
+    public enum tgParenthesis
     {
         /// <summary>
         /// Unassigned.
@@ -349,7 +349,7 @@ namespace Tiraggo.DynamicQuery
     /// <code>
     /// // DateAdded for Customers whose Manager = 3
     /// CustomerQuery cq = new CustomerQuery("c");
-    /// cq.es.All = true;  // &lt;== This will set it to esSubquerySearchCondition.ALL
+    /// cq.es.All = true;  // &lt;== This will set it to tgSubquerySearchCondition.ALL
     /// cq.Select(cq.DateAdded);
     /// cq.Where(cq.Manager == 3);
     /// 
@@ -366,7 +366,7 @@ namespace Tiraggo.DynamicQuery
     /// collection.Load(oq);
     /// </code>
     /// </example>
-    public enum esSubquerySearchCondition
+    public enum tgSubquerySearchCondition
     {
         /// <summary>
         /// Unassigned.
@@ -389,7 +389,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The Type of Join
     /// </summary>
-    public enum esJoinType
+    public enum tgJoinType
     {
         /// <summary>
         /// Unassigned.
@@ -420,7 +420,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// The type of Combination
     /// </summary>
-    public enum esSetOperationType
+    public enum tgSetOperationType
     {
         /// <summary>
         /// Unassigned.
@@ -451,7 +451,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// Used to Track arithmetic expression in the DynamicQuery API
     /// </summary>
-    public enum esArithmeticOperator
+    public enum tgArithmeticOperator
     {
         /// <summary>
         /// Unassigned.
@@ -483,7 +483,7 @@ namespace Tiraggo.DynamicQuery
     /// Used to track the type of Cast requested, set automatically by the implicit cast 
     /// operators such as (tgString)query.Age. See also <see cref="tgQueryItem.Cast"/>
     /// </summary>
-    public enum esCastType
+    public enum tgCastType
     {
         /// <summary>
         /// Unassigned.
@@ -543,7 +543,7 @@ namespace Tiraggo.DynamicQuery
     /// <summary>
     /// Used to track data types in various places within the EntitySpaces Architecture
     /// </summary>
-    public enum esSystemType
+    public enum tgSystemType
     {
         /// <summary>
         /// Unassigned.

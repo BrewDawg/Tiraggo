@@ -63,17 +63,17 @@ namespace Tiraggo.Core
 
         #region ExecuteNonQuery
 
-        public int ExecuteNonQuery(esQueryType queryType, string query)
+        public int ExecuteNonQuery(tgQueryType queryType, string query)
         {
             return coll.ExecuteNonQuery(queryType, query);
         }
 
-        public int ExecuteNonQuery(esQueryType queryType, string query, params object[] parameters)
+        public int ExecuteNonQuery(tgQueryType queryType, string query, params object[] parameters)
         {
             return coll.ExecuteNonQuery(queryType, query, parameters);
         }
 
-        public int ExecuteNonQuery(esQueryType queryType, string query, esParameters parms)
+        public int ExecuteNonQuery(tgQueryType queryType, string query, esParameters parms)
         {
             return coll.ExecuteNonQuery(queryType, query, parms);
         }
@@ -102,17 +102,17 @@ namespace Tiraggo.Core
 
         #region ExecuteReader
 
-        public IDataReader ExecuteReader(esQueryType queryType, string query)
+        public IDataReader ExecuteReader(tgQueryType queryType, string query)
         {
             return coll.ExecuteReader(queryType, query);
         }
 
-        public IDataReader ExecuteReader(esQueryType queryType, string query, params object[] parameters)
+        public IDataReader ExecuteReader(tgQueryType queryType, string query, params object[] parameters)
         {
             return coll.ExecuteReader(queryType, query, parameters);
         }
 
-        public IDataReader ExecuteReader(esQueryType queryType, string query, esParameters parms)
+        public IDataReader ExecuteReader(tgQueryType queryType, string query, esParameters parms)
         {
             return coll.ExecuteReader(queryType, query, parms);
         }
@@ -141,17 +141,17 @@ namespace Tiraggo.Core
 
         #region ExecuteScalar
 
-        public object ExecuteScalar(esQueryType queryType, string query)
+        public object ExecuteScalar(tgQueryType queryType, string query)
         {
             return coll.ExecuteScalar(queryType, query);
         }
 
-        public object ExecuteScalar(esQueryType queryType, string query, params object[] parameters)
+        public object ExecuteScalar(tgQueryType queryType, string query, params object[] parameters)
         {
             return coll.ExecuteScalar(queryType, query, parameters);
         }
 
-        public object ExecuteScalar(esQueryType queryType, string query, esParameters parms)
+        public object ExecuteScalar(tgQueryType queryType, string query, esParameters parms)
         {
             return coll.ExecuteScalar(queryType, query, parms);
         }
@@ -178,17 +178,17 @@ namespace Tiraggo.Core
 
         #region Generic Versions
 
-        public T ExecuteScalar<T>(esQueryType queryType, string query)
+        public T ExecuteScalar<T>(tgQueryType queryType, string query)
         {
             return (T)coll.ExecuteScalar<T>(queryType, query);
         }
 
-        public T ExecuteScalar<T>(esQueryType queryType, string query, params object[] parameters)
+        public T ExecuteScalar<T>(tgQueryType queryType, string query, params object[] parameters)
         {
             return (T)coll.ExecuteScalar<T>(queryType, query, parameters);
         }
 
-        public T ExecuteScalar<T>(esQueryType queryType, string query, esParameters parms)
+        public T ExecuteScalar<T>(tgQueryType queryType, string query, esParameters parms)
         {
             return (T)coll.ExecuteScalar<T>(queryType, query, parms);
         }
@@ -219,17 +219,17 @@ namespace Tiraggo.Core
 
         #region FillDataTable
 
-        public DataTable FillDataTable(esQueryType queryType, string query)
+        public DataTable FillDataTable(tgQueryType queryType, string query)
         {
             return coll.FillDataTable(queryType, query);
         }
 
-        public DataTable FillDataTable(esQueryType queryType, string query, params object[] parameters)
+        public DataTable FillDataTable(tgQueryType queryType, string query, params object[] parameters)
         {
             return coll.FillDataTable(queryType, query, parameters);
         }
 
-        public DataTable FillDataTable(esQueryType queryType, string query, esParameters parms)
+        public DataTable FillDataTable(tgQueryType queryType, string query, esParameters parms)
         {
             return coll.FillDataTable(queryType, query, parms);
         }
@@ -258,17 +258,17 @@ namespace Tiraggo.Core
 
         #region FillDataSet
 
-        public DataSet FillDataSet(esQueryType queryType, string query)
+        public DataSet FillDataSet(tgQueryType queryType, string query)
         {
             return coll.FillDataSet(queryType, query);
         }
 
-        public DataSet FillDataSet(esQueryType queryType, string query, params object[] parameters)
+        public DataSet FillDataSet(tgQueryType queryType, string query, params object[] parameters)
         {
             return coll.FillDataSet(queryType, query, parameters);
         }
 
-        public DataSet FillDataSet(esQueryType queryType, string query, esParameters parms)
+        public DataSet FillDataSet(tgQueryType queryType, string query, esParameters parms)
         {
             return coll.FillDataSet(queryType, query, parms);
         }

@@ -488,15 +488,15 @@ namespace Tiraggo.Web
 
                     if (index == -1)
                     {
-                        sortItem.Direction = esOrderByDirection.Ascending;
+                        sortItem.Direction = tgOrderByDirection.Ascending;
                     }
                     else if (sortEntry.Contains(" DESC") || sortEntry.Contains(" desc") || sortEntry.Contains(" Desc"))
                     {
-                        sortItem.Direction = esOrderByDirection.Descending;
+                        sortItem.Direction = tgOrderByDirection.Descending;
                     }
                     else
                     {
-                        sortItem.Direction = esOrderByDirection.Ascending;
+                        sortItem.Direction = tgOrderByDirection.Ascending;
                     }
 
                     //------------------------------------
@@ -554,7 +554,7 @@ namespace Tiraggo.Web
                         {
                             foreach (esColumnMetadata pk in pks)
                             {
-                                query.OrderBy(pk.Name, esOrderByDirection.Ascending);
+                                query.OrderBy(pk.Name, tgOrderByDirection.Ascending);
                             }
                         }
                     }

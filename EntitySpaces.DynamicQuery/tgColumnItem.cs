@@ -100,7 +100,7 @@ namespace Tiraggo.DynamicQuery
         /// way here
         /// </summary>
         [DataMember(Name = "Datatype", EmitDefaultValue = false)]
-        public esSystemType Datatype;
+        public tgSystemType Datatype;
 
         private string alias;
         private bool distinct;

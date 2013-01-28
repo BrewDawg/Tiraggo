@@ -418,7 +418,7 @@ namespace Tiraggo.SqlServerCeProvider
 
         static public void AddParameters(SqlCeCommand cmd, esDataRequest request)
         {
-            if (request.QueryType == esQueryType.Text && request.QueryText != null && -1 != request.QueryText.IndexOf("{0}"))
+            if (request.QueryType == tgQueryType.Text && request.QueryText != null && -1 != request.QueryText.IndexOf("{0}"))
             {
                 int i = 0;
                 string token = String.Empty;

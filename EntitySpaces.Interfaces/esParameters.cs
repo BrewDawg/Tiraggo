@@ -53,7 +53,7 @@ namespace Tiraggo.Interfaces
     ///			parms.Add("EmployeeID", employeeID);
     ///			parms.Add("FullName", esParameterDirection.Output, DbType.String, 40);
     ///
-    ///			this.ExecuteNonQuery(esQueryType.StoredProcedure, "proc_GetEmployeeFullName", parms);
+    ///			this.ExecuteNonQuery(tgQueryType.StoredProcedure, "proc_GetEmployeeFullName", parms);
     ///
     ///			return parms["FullName"].Value as string;
     ///		}

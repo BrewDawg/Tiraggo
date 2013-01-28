@@ -34,7 +34,7 @@ namespace Tiraggo.DynamicQuery
 {
     /// <summary>
     /// Used when arithmetic expressions are used in the DynamicQuery syntax.
-    /// See <see cref="esArithmeticOperator"/>
+    /// See <see cref="tgArithmeticOperator"/>
     /// </summary>
  
     [Serializable]
@@ -54,10 +54,10 @@ namespace Tiraggo.DynamicQuery
         public tgExpression SelectItem2;
 
         /// <summary>
-        /// The esArithmeticOperator applied to SelectItem1 and SelectItem2
+        /// The tgArithmeticOperator applied to SelectItem1 and SelectItem2
         /// </summary>
         [DataMember(Name = "Operator", EmitDefaultValue = false)]
-        public esArithmeticOperator Operator;
+        public tgArithmeticOperator Operator;
 
         /// <summary>
         /// When the right hand side is a literal value this holds its value.
@@ -69,7 +69,7 @@ namespace Tiraggo.DynamicQuery
         /// When the right hand side is a literal value this describes its data type.
         /// </summary>
         [DataMember(Name = "LiteralType", EmitDefaultValue = false)]
-        public esSystemType LiteralType;
+        public tgSystemType LiteralType;
 
         /// <summary>
         /// Whether the tgQueryItem goes first in the expression

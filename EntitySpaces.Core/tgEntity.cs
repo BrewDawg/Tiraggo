@@ -683,7 +683,7 @@ namespace Tiraggo.Core
         /// <returns></returns>
         virtual public int OnSort(tgEntity other, esColumnMetadata esColumn, string propertyName)
         {
-            esSystemType esType = esSystemType.Unassigned;
+            tgSystemType esType = tgSystemType.Unassigned;
 
             string columnName = string.Empty;
 
@@ -704,23 +704,23 @@ namespace Tiraggo.Core
 
                 switch (t.Name)
                 {
-                    case "Boolean": esType = esSystemType.Boolean; break;
-                    case "Byte": esType = esSystemType.Byte; break;
-                    case "Char": esType = esSystemType.Char; break;
-                    case "DateTime": esType = esSystemType.DateTime; break;
-                    case "Decimal": esType = esSystemType.Decimal; break;
-                    case "Double": esType = esSystemType.Double; break;
-                    case "Guid": esType = esSystemType.Guid; break;
-                    case "Int16": esType = esSystemType.Int16; break;
-                    case "Int32": esType = esSystemType.Int32; break;
-                    case "Int64": esType = esSystemType.Int64; break;
-                    case "SByte": esType = esSystemType.SByte; break;
-                    case "Single": esType = esSystemType.Single; break;
-                    case "String": esType = esSystemType.String; break;
-                    case "TimeSpan": esType = esSystemType.TimeSpan; break;
-                    case "UInt16": esType = esSystemType.UInt16; break;
-                    case "UInt32": esType = esSystemType.UInt32; break;
-                    case "UInt64": esType = esSystemType.UInt64; break;
+                    case "Boolean": esType = tgSystemType.Boolean; break;
+                    case "Byte": esType = tgSystemType.Byte; break;
+                    case "Char": esType = tgSystemType.Char; break;
+                    case "DateTime": esType = tgSystemType.DateTime; break;
+                    case "Decimal": esType = tgSystemType.Decimal; break;
+                    case "Double": esType = tgSystemType.Double; break;
+                    case "Guid": esType = tgSystemType.Guid; break;
+                    case "Int16": esType = tgSystemType.Int16; break;
+                    case "Int32": esType = tgSystemType.Int32; break;
+                    case "Int64": esType = tgSystemType.Int64; break;
+                    case "SByte": esType = tgSystemType.SByte; break;
+                    case "Single": esType = tgSystemType.Single; break;
+                    case "String": esType = tgSystemType.String; break;
+                    case "TimeSpan": esType = tgSystemType.TimeSpan; break;
+                    case "UInt16": esType = tgSystemType.UInt16; break;
+                    case "UInt32": esType = tgSystemType.UInt32; break;
+                    case "UInt64": esType = tgSystemType.UInt64; break;
                  }
             }
             else
@@ -731,119 +731,119 @@ namespace Tiraggo.Core
 
             switch (esType)
             {
-                case esSystemType.Boolean:
+                case tgSystemType.Boolean:
                     {
                         bool? oThat = other.GetSystemBoolean(columnName);
                         bool? oThis = GetSystemBoolean(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Byte:
+                case tgSystemType.Byte:
                     {
                         byte? oThat = other.GetSystemByte(columnName);
                         byte? oThis = GetSystemByte(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Char:
+                case tgSystemType.Char:
                     {
                         char? oThat = other.GetSystemChar(columnName);
                         char? oThis = GetSystemChar(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.DateTime:
+                case tgSystemType.DateTime:
                     {
                         DateTime? oThat = other.GetSystemDateTime(columnName);
                         DateTime? oThis = GetSystemDateTime(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Decimal:
+                case tgSystemType.Decimal:
                     {
                         decimal? oThat = other.GetSystemDecimal(columnName);
                         decimal? oThis = GetSystemDecimal(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Double:
+                case tgSystemType.Double:
                     {
                         double? oThat = other.GetSystemDouble(columnName);
                         double? oThis = GetSystemDouble(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Guid:
+                case tgSystemType.Guid:
                     {
                         Guid? oThat = other.GetSystemGuid(columnName);
                         Guid? oThis = GetSystemGuid(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Int16:
+                case tgSystemType.Int16:
                     {
                         short? oThat = other.GetSystemInt16(columnName);
                         short? oThis = GetSystemInt16(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Int32:
+                case tgSystemType.Int32:
                     {
                         int? oThat = other.GetSystemInt32(columnName);
                         int? oThis = GetSystemInt32(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Int64:
+                case tgSystemType.Int64:
                     {
                         long? oThat = other.GetSystemInt64(columnName);
                         long? oThis = GetSystemInt64(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.SByte:
+                case tgSystemType.SByte:
                     {
                         sbyte? oThat = other.GetSystemSByte(columnName);
                         sbyte? oThis = GetSystemSByte(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.Single:
+                case tgSystemType.Single:
                     {
                         float? oThat = other.GetSystemSingle(columnName);
                         float? oThis = GetSystemSingle(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.String:
+                case tgSystemType.String:
                     {
                         string oThat = other.GetSystemString(columnName);
                         string oThis = GetSystemString(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.CompareTo(oThat);
                     }
-                case esSystemType.TimeSpan:
+                case tgSystemType.TimeSpan:
                     {
                         TimeSpan? oThat = other.GetSystemTimeSpan(columnName);
                         TimeSpan? oThis = GetSystemTimeSpan(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.UInt16:
+                case tgSystemType.UInt16:
                     {
                         ushort? oThat = other.GetSystemUInt16(columnName);
                         ushort? oThis = GetSystemUInt16(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.UInt32:
+                case tgSystemType.UInt32:
                     {
                         uint? oThat = other.GetSystemUInt32(columnName);
                         uint? oThis = GetSystemUInt16(columnName);
                         int result = tgEntity.Compare(oThis, oThat);
                         return (result != 2) ? result : oThis.Value.CompareTo(oThat.Value);
                     }
-                case esSystemType.UInt64:
+                case tgSystemType.UInt64:
                     {
                         ulong? oThat = other.GetSystemUInt64(columnName);
                         ulong? oThis = GetSystemUInt64(columnName);
@@ -2538,7 +2538,7 @@ namespace Tiraggo.Core
         #region Load
 
         /// <summary>
-        /// This can be called to custom load your esEntity class. The <see cref="esQueryType"/> provides
+        /// This can be called to custom load your esEntity class. The <see cref="tgQueryType"/> provides
         /// a lot of flexibiliy allowing you load your esEntity in any way desired. 
         /// </summary>
         /// <remarks>
@@ -2557,21 +2557,21 @@ namespace Tiraggo.Core
         ///         sqlText += "FROM [Employees] ";
         ///         sqlText += whereClause;
         /// 
-        ///         return this.Load(esQueryType.Text, sqlText);
+        ///         return this.Load(tgQueryType.Text, sqlText);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>True if a record was loaded.</returns>
-        protected bool Load(esQueryType queryType, string query)
+        protected bool Load(tgQueryType queryType, string query)
         {
             return Load(queryType, query, null as esParameters);
         }
 
         /// <summary>
-        /// This can be called to custom load your esEntity class. The <see cref="esQueryType"/> provides
+        /// This can be called to custom load your esEntity class. The <see cref="tgQueryType"/> provides
         /// a lot of flexibiliy allowing you load your esEntity in any way desired. 
         /// </summary>
         /// <remarks>
@@ -2584,26 +2584,26 @@ namespace Tiraggo.Core
         ///     public bool CustomLoad()
         ///     {
         ///         // The stored procedures expects three parameters
-        ///         return this.Load(esQueryType.StoredProcedure, "sp_MyProc", "Joe", "Smith", 27.53);
+        ///         return this.Load(tgQueryType.StoredProcedure, "sp_MyProc", "Joe", "Smith", 27.53);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters. It is important that you do not tack
         /// leading decorators such as @ or ? or whatever your database might require. The EntitySpaces
         /// data providers will do this for you.</param>
         /// <returns>True if a record was loaded.</returns>
-        /// <seealso cref="esQueryType"/>
+        /// <seealso cref="tgQueryType"/>
         /// <seealso cref="esParameters"/>
-        protected bool Load(esQueryType queryType, string query, params object[] parameters)
+        protected bool Load(tgQueryType queryType, string query, params object[] parameters)
         {
             return Load(queryType, query, PackageParameters(parameters));
         }
 
         /// <summary>
-        /// This can be called to custom load your esEntity class. The <see cref="esQueryType"/> provides
+        /// This can be called to custom load your esEntity class. The <see cref="tgQueryType"/> provides
         /// a lot of flexibiliy allowing you load your esEntity in any way desired. 
         /// </summary>
         /// <remarks>
@@ -2620,18 +2620,18 @@ namespace Tiraggo.Core
         ///         esParams.Add("LastName", "Smith");   
         ///         esParams.Add("Salary", 27.53);   
         /// 
-        ///			return this.Load(esQueryType.StoredProcedure, "sp_MyProc", esParams);
+        ///			return this.Load(tgQueryType.StoredProcedure, "sp_MyProc", esParams);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters. See <see cref="esParameters"/>.</param>
         /// <returns>True if a record was loaded.</returns>
-        /// <seealso cref="esQueryType"/>
+        /// <seealso cref="tgQueryType"/>
         /// <seealso cref="esParameters"/>/// 
-        protected bool Load(esQueryType queryType, string query, esParameters parms)
+        protected bool Load(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2737,16 +2737,16 @@ namespace Tiraggo.Core
         ///         sqlText += "SET [LastName] = '" + newName + "' ";
         ///         sqlText += "WHERE [EmployeeID] = " + empID;
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        /// <seealso cref="esQueryType"/>
-        protected int ExecuteNonQuery(esQueryType queryType, string query)
+        /// <seealso cref="tgQueryType"/>
+        protected int ExecuteNonQuery(tgQueryType queryType, string query)
         {
             return ExecuteNonQuery(queryType, query, null as esParameters);
         }
@@ -2771,16 +2771,16 @@ namespace Tiraggo.Core
         ///         sqlText += "SET [LastName] = {0} ";
         ///         sqlText += "WHERE [EmployeeID] = {1}";
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText, newName, empID);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText, newName, empID);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected int ExecuteNonQuery(esQueryType queryType, string query, params object[] parameters)
+        protected int ExecuteNonQuery(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteNonQuery(queryType, query, PackageParameters(parameters));
         }
@@ -2810,16 +2810,16 @@ namespace Tiraggo.Core
         ///			sqlText += "WHERE [LastName] = @LastName ";
         ///			sqlText += "AND [Salary] = @Salary";
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText, esParams);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText, esParams);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters. See <see cref="esParameters"/>.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected int ExecuteNonQuery(esQueryType queryType, string query, esParameters parms)
+        protected int ExecuteNonQuery(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2920,7 +2920,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
@@ -2943,7 +2943,7 @@ namespace Tiraggo.Core
         /// See <see cref="ExecuteNonQuery"/> for examples, overloads, and parameters.
         /// </example>
         /// <returns>The IDataReader</returns>
-        protected IDataReader ExecuteReader(esQueryType queryType, string query)
+        protected IDataReader ExecuteReader(tgQueryType queryType, string query)
         {
             return ExecuteReader(queryType, query, null as esParameters);
         }
@@ -2960,7 +2960,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected IDataReader ExecuteReader(esQueryType queryType, string query, params object[] parameters)
+        protected IDataReader ExecuteReader(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteReader(queryType, query, PackageParameters(parameters));
         }
@@ -2987,13 +2987,13 @@ namespace Tiraggo.Core
         /// 		esParameters esParams = new esParameters();			
         /// 		esParams.Add("LastName", "Doe");
         /// 			
-        /// 		return this.ExecuteReader(esQueryType.StoredProcedure, "proc_GetByLastName", esParams);
+        /// 		return this.ExecuteReader(tgQueryType.StoredProcedure, "proc_GetByLastName", esParams);
         ///		}
         /// }
         /// </code> 
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected IDataReader ExecuteReader(esQueryType queryType, string query, esParameters parms)
+        protected IDataReader ExecuteReader(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -3060,7 +3060,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
@@ -3084,7 +3084,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected object ExecuteScalar(esQueryType queryType, string query)
+        protected object ExecuteScalar(tgQueryType queryType, string query)
         {
             return ExecuteScalar(queryType, query, null as esParameters);
         }
@@ -3101,7 +3101,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected object ExecuteScalar(esQueryType queryType, string query, params object[] parameters)
+        protected object ExecuteScalar(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteScalar(queryType, query, PackageParameters(parameters));
         }
@@ -3118,7 +3118,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected object ExecuteScalar(esQueryType queryType, string query, esParameters parms)
+        protected object ExecuteScalar(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -3185,7 +3185,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
@@ -3209,7 +3209,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected T ExecuteScalar<T>(esQueryType queryType, string query)
+        protected T ExecuteScalar<T>(tgQueryType queryType, string query)
         {
             return (T)ExecuteScalar<T>(queryType, query, null as esParameters);
         }
@@ -3226,7 +3226,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected T ExecuteScalar<T>(esQueryType queryType, string query, params object[] parameters)
+        protected T ExecuteScalar<T>(tgQueryType queryType, string query, params object[] parameters)
         {
             return (T)ExecuteScalar<T>(queryType, query, PackageParameters(parameters));
         }
@@ -3243,7 +3243,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected T ExecuteScalar<T>(esQueryType queryType, string query, esParameters parms)
+        protected T ExecuteScalar<T>(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -3315,7 +3315,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);

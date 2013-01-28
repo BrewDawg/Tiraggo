@@ -93,7 +93,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// 
         /// </summary>
-        esSubquerySearchCondition SubquerySearchCondition { get; }
+        tgSubquerySearchCondition SubquerySearchCondition { get; }
 
         /// <summary>
         /// List&lt;tgJoinItem&gt; InternalSelectColumns.

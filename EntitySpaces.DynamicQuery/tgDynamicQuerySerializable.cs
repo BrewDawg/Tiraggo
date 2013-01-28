@@ -224,7 +224,7 @@ namespace Tiraggo.DynamicQuery
         /// A query SELECT clause for columns or aggregates.
         /// </summary>
         /// <example>
-        /// See <see cref="esQuerySubOperatorType"/> Enumeration.
+        /// See <see cref="tgQuerySubOperatorType"/> Enumeration.
         /// <code>
         /// emps.Query.Select
         /// (
@@ -343,7 +343,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An tgJoinItem, which you then call the On() method.</returns>
         public tgJoinItem InnerJoin(tgDynamicQuerySerializable joinQuery)
         {
-            return JoinCommon(joinQuery, esJoinType.InnerJoin);
+            return JoinCommon(joinQuery, tgJoinType.InnerJoin);
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An tgJoinItem, which you then call the On() method.</returns>
         public tgJoinItem LeftJoin(tgDynamicQuerySerializable joinQuery)
         {
-            return JoinCommon(joinQuery, esJoinType.LeftJoin);
+            return JoinCommon(joinQuery, tgJoinType.LeftJoin);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An tgJoinItem, which you then call the On() method.</returns>
         public tgJoinItem RightJoin(tgDynamicQuerySerializable joinQuery)
         {
-            return JoinCommon(joinQuery, esJoinType.RightJoin);
+            return JoinCommon(joinQuery, tgJoinType.RightJoin);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An tgJoinItem, which you then call the On() method.</returns>
         public tgJoinItem FullJoin(tgDynamicQuerySerializable joinQuery)
         {
-            return JoinCommon(joinQuery, esJoinType.FullJoin);
+            return JoinCommon(joinQuery, tgJoinType.FullJoin);
         }
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An tgJoinItem, which you then call the On() method.</returns>
         public tgJoinItem CrossJoin(tgDynamicQuerySerializable joinQuery)
         {
-            return JoinCommon(joinQuery, esJoinType.CrossJoin);
+            return JoinCommon(joinQuery, tgJoinType.CrossJoin);
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="joinQuery">This query represents the table you are joining to</param>
         /// <param name="joinType">The type of join, ie, Inner, Left, Right, Full</param>
         /// <returns></returns>
-        private tgJoinItem JoinCommon(tgDynamicQuerySerializable joinQuery, esJoinType joinType)
+        private tgJoinItem JoinCommon(tgDynamicQuerySerializable joinQuery, tgJoinType joinType)
         {
             if (joinQuery.joinAlias == " ")
             {
@@ -435,7 +435,7 @@ namespace Tiraggo.DynamicQuery
         public tgDynamicQuerySerializable Union(tgDynamicQuerySerializable query)
         {
             tgSetOperation setOperation = new tgSetOperation(query);
-            setOperation.SetOperationType = esSetOperationType.Union;
+            setOperation.SetOperationType = tgSetOperationType.Union;
 
             if(setOperations == null)
             {
@@ -454,7 +454,7 @@ namespace Tiraggo.DynamicQuery
         public tgDynamicQuerySerializable UnionAll(tgDynamicQuerySerializable query)
         {
             tgSetOperation setOperation = new tgSetOperation(query);
-            setOperation.SetOperationType = esSetOperationType.UnionAll;
+            setOperation.SetOperationType = tgSetOperationType.UnionAll;
 
             if (setOperations == null)
             {
@@ -473,7 +473,7 @@ namespace Tiraggo.DynamicQuery
         public tgDynamicQuerySerializable Intersect(tgDynamicQuerySerializable query)
         {
             tgSetOperation setOperation = new tgSetOperation(query);
-            setOperation.SetOperationType = esSetOperationType.Intersect;
+            setOperation.SetOperationType = tgSetOperationType.Intersect;
 
             if (setOperations == null)
             {
@@ -492,7 +492,7 @@ namespace Tiraggo.DynamicQuery
         public tgDynamicQuerySerializable Except(tgDynamicQuerySerializable query)
         {
             tgSetOperation setOperation = new tgSetOperation(query);
-            setOperation.SetOperationType = esSetOperationType.Except;
+            setOperation.SetOperationType = tgSetOperationType.Except;
 
             if (setOperations == null)
             {
@@ -526,7 +526,7 @@ namespace Tiraggo.DynamicQuery
         /// A query WHERE clause. The default conjunction is "AND".
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -562,11 +562,11 @@ namespace Tiraggo.DynamicQuery
 
                 if (wi != null)
                 {
-                    if (wi.Parenthesis == esParenthesis.Open)
+                    if (wi.Parenthesis == tgParenthesis.Open)
                     {
                         isExplicitParenthesis = true;
                     }
-                    else if (wi.Parenthesis == esParenthesis.Close)
+                    else if (wi.Parenthesis == tgParenthesis.Close)
                     {
                         this.whereItems.RemoveAt(this.whereItems.Count - 1);
                     }
@@ -711,7 +711,7 @@ namespace Tiraggo.DynamicQuery
         /// A query WHERE clause. The default conjunction is "AND".
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -747,11 +747,11 @@ namespace Tiraggo.DynamicQuery
 
                 if (wi != null)
                 {
-                    if (wi.Parenthesis == esParenthesis.Open)
+                    if (wi.Parenthesis == tgParenthesis.Open)
                     {
                         isExplicitParenthesis = true;
                     }
-                    else if (wi.Parenthesis == esParenthesis.Close)
+                    else if (wi.Parenthesis == tgParenthesis.Close)
                     {
                         this.havingItems.RemoveAt(this.havingItems.Count - 1);
                     }
@@ -812,7 +812,7 @@ namespace Tiraggo.DynamicQuery
             AddQueryToList(query);
 
             tgComparison where = new tgComparison(query);
-            where.Operand = esComparisonOperand.Exists;
+            where.Operand = tgComparisonOperand.Exists;
             where.Value = query;
             return where;
         }
@@ -827,7 +827,7 @@ namespace Tiraggo.DynamicQuery
             AddQueryToList(query);
 
             tgComparison where = new tgComparison(query);
-            where.Operand = esComparisonOperand.NotExists;
+            where.Operand = tgComparisonOperand.NotExists;
             where.Value = query;
             return where;
         }
@@ -836,7 +836,7 @@ namespace Tiraggo.DynamicQuery
         /// A query WHERE clause joined by "AND". Natural language alternative, C# = &amp;&amp; operator, VB.NET = AND Keyword
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -854,14 +854,14 @@ namespace Tiraggo.DynamicQuery
         [Obsolete("For more readable code use '&&' in C# or 'AndAlso' in VB.NET rather than this method")]
         public List<tgComparison> And(params object[] items)
         {
-            return ProcessWhereItems(esConjunction.And, items);
+            return ProcessWhereItems(tgConjunction.And, items);
         }
 
         /// <summary>
         /// A query WHERE clause joined by "AND NOT". Natural language alternative, C# = &amp;&amp; ! operator, VB.NET = AND NOT Keyword
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -878,14 +878,14 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
         public List<tgComparison> AndNot(params object[] items)
         {
-            return ProcessWhereItems(esConjunction.AndNot, items);
+            return ProcessWhereItems(tgConjunction.AndNot, items);
         }
 
         /// <summary>
         /// A query WHERE clause joined by "OR". Natural language alternative, C# = || operator, VB.NET = OR Keyword
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -903,14 +903,14 @@ namespace Tiraggo.DynamicQuery
         [Obsolete("For more readable code use '||' in C# or 'OrElse' in VB.NET rather than this method")]
         public List<tgComparison> Or(params object[] items)
         {
-            return ProcessWhereItems(esConjunction.Or, items);
+            return ProcessWhereItems(tgConjunction.Or, items);
         }
 
         /// <summary>
         /// A query WHERE clause joined by "OR NOT". Natural language alternative, C# = || ! operator, VB.NET = OR NOT Keyword
         /// </summary>
         /// <example>
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// <code>
         /// emps.Query.Where
         /// (
@@ -927,7 +927,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
         public List<tgComparison> OrNot(params object[] items)
         {
-            return ProcessWhereItems(esConjunction.OrNot, items);
+            return ProcessWhereItems(tgConjunction.OrNot, items);
         }
 
         /// <summary>
@@ -962,7 +962,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <example>
         /// You can order by an aggregate by passing the aggregate alias.
-        /// See <see cref="esOrderByDirection"/> Enumeration.
+        /// See <see cref="tgOrderByDirection"/> Enumeration.
         /// <code>
         /// emps.Query.OrderBy
         /// (
@@ -973,7 +973,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="columnName">The column to place in the OrderBy statement.</param>
         /// <param name="direction">Sort direction.</param>
         /// <returns>An esDynamicQueryTransport containing a OrderBy clause.</returns>
-        public tgDynamicQuerySerializable OrderBy(string columnName, esOrderByDirection direction)
+        public tgDynamicQuerySerializable OrderBy(string columnName, tgOrderByDirection direction)
         {
             if (this.orderByItems == null)
             {
@@ -1097,11 +1097,11 @@ namespace Tiraggo.DynamicQuery
         }
 
         #region Helper Routine
-        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(tgConjunction conj, params object[] theItems)
         {
             List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new tgComparison(esParenthesis.Open));
+            items.Add(new tgComparison(tgParenthesis.Open));
 
             bool first = true;
 
@@ -1147,7 +1147,7 @@ namespace Tiraggo.DynamicQuery
                 }
             }
 
-            items.Add(new tgComparison(esParenthesis.Close));
+            items.Add(new tgComparison(tgParenthesis.Close));
 
             return items;
         }
@@ -1225,10 +1225,10 @@ namespace Tiraggo.DynamicQuery
             }
 
             /// <summary>
-            /// esConjunction DefaultConjunction.
+            /// tgConjunction DefaultConjunction.
             /// </summary>
-            /// <returns>esConjunction DefaultConjunction.</returns>
-            public esConjunction DefaultConjunction
+            /// <returns>tgConjunction DefaultConjunction.</returns>
+            public tgConjunction DefaultConjunction
             {
                 get { return this.dynamicQuery.defaultConjunction; }
                 set { this.dynamicQuery.defaultConjunction = value; }
@@ -1260,8 +1260,8 @@ namespace Tiraggo.DynamicQuery
             /// </summary>
             public bool Any
             {
-                get { return this.dynamicQuery.subquerySearchCondition == esSubquerySearchCondition.Any; }
-                set { this.dynamicQuery.subquerySearchCondition = esSubquerySearchCondition.Any; }
+                get { return this.dynamicQuery.subquerySearchCondition == tgSubquerySearchCondition.Any; }
+                set { this.dynamicQuery.subquerySearchCondition = tgSubquerySearchCondition.Any; }
             }
 
             /// <summary>
@@ -1270,8 +1270,8 @@ namespace Tiraggo.DynamicQuery
             /// </summary>
             public bool All
             {
-                get { return this.dynamicQuery.subquerySearchCondition == esSubquerySearchCondition.All; }
-                set { this.dynamicQuery.subquerySearchCondition = esSubquerySearchCondition.All; }
+                get { return this.dynamicQuery.subquerySearchCondition == tgSubquerySearchCondition.All; }
+                set { this.dynamicQuery.subquerySearchCondition = tgSubquerySearchCondition.All; }
             }
 
             /// <summary>
@@ -1281,8 +1281,8 @@ namespace Tiraggo.DynamicQuery
             /// </summary>
             public bool Some
             {
-                get { return this.dynamicQuery.subquerySearchCondition == esSubquerySearchCondition.Some; }
-                set { this.dynamicQuery.subquerySearchCondition = esSubquerySearchCondition.Some; }
+                get { return this.dynamicQuery.subquerySearchCondition == tgSubquerySearchCondition.Some; }
+                set { this.dynamicQuery.subquerySearchCondition = tgSubquerySearchCondition.Some; }
             }
 
             /// <summary>
@@ -1579,7 +1579,7 @@ namespace Tiraggo.DynamicQuery
         internal protected bool m_selectAll = false;
 
         [DataMember(Name = "DefaultConjunction", EmitDefaultValue = false)]
-        internal esConjunction defaultConjunction = esConjunction.And;
+        internal tgConjunction defaultConjunction = tgConjunction.And;
 
         [DataMember(Name = "QuerySource", EmitDefaultValue = false)]
         internal string querySource;
@@ -1636,7 +1636,7 @@ namespace Tiraggo.DynamicQuery
         /// Used by derived classes
         /// </summary>
         [DataMember(Name = "SubquerySearchCondition", EmitDefaultValue = false)]
-        internal esSubquerySearchCondition subquerySearchCondition; 
+        internal tgSubquerySearchCondition subquerySearchCondition; 
 
         /// <summary>
         /// Used by derived classes
@@ -1767,7 +1767,7 @@ namespace Tiraggo.DynamicQuery
             get { return this.m_selectAllExcept; } 
         }
 
-        esSubquerySearchCondition IDynamicQuerySerializableInternal.SubquerySearchCondition
+        tgSubquerySearchCondition IDynamicQuerySerializableInternal.SubquerySearchCondition
         {
             get { return this.subquerySearchCondition; }
         }

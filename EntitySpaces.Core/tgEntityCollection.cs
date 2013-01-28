@@ -236,12 +236,12 @@ namespace Tiraggo.Core
         /// <code>
         /// EmployeesCollection dest = new EmployeesCollection();
         /// dest.Query.es.Top = 3;
-        /// dest.Query.OrderBy(dest.Query.EmployeeID, esOrderByDirection.Ascending);
+        /// dest.Query.OrderBy(dest.Query.EmployeeID, tgOrderByDirection.Ascending);
         /// dest.Query.Load();
         /// 
         /// EmployeesCollection src = new EmployeesCollection();
         /// src.Query.es.Top = 3;
-        /// src.Query.OrderBy(src.Query.EmployeeID, esOrderByDirection.Descending);
+        /// src.Query.OrderBy(src.Query.EmployeeID, tgOrderByDirection.Descending);
         /// src.Query.Load();
         ///
         /// dest.Combine(src);
@@ -1319,7 +1319,7 @@ namespace Tiraggo.Core
             if (this.es.Connection.SqlAccessType == esSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
-                return this.Load(esQueryType.StoredProcedure, this.es.spLoadAll);
+                return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
         }
 
         /// <summary>
@@ -1344,7 +1344,7 @@ namespace Tiraggo.Core
             if (sqlAccessType == esSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
-                return this.Load(esQueryType.StoredProcedure, this.es.spLoadAll);
+                return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
         }
 
         #endregion
@@ -1369,15 +1369,15 @@ namespace Tiraggo.Core
         ///         sqlText += "FROM [Employees] ";
         ///         sqlText += whereClause;
         /// 
-        ///         return this.Load(esQueryType.Text, sqlText);
+        ///         return this.Load(tgQueryType.Text, sqlText);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>True if the entity was loaded.</returns>
-        virtual protected bool Load(esQueryType queryType, string query)
+        virtual protected bool Load(tgQueryType queryType, string query)
         {
             return Load(queryType, query, null as esParameters);
         }
@@ -1401,16 +1401,16 @@ namespace Tiraggo.Core
         ///			sqlText += "WHERE [DepartmentID] = {0} ";
         ///			sqlText += "AND [EmployeeID] = {1}";
         /// 
-        ///			return this.Load(esQueryType.Text, sqlText, 1, 23);
+        ///			return this.Load(tgQueryType.Text, sqlText, 1, 23);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters.</param>
         /// <returns>True if the entity was loaded.</returns>
-        virtual protected bool Load(esQueryType queryType, string query, params object[] parameters)
+        virtual protected bool Load(tgQueryType queryType, string query, params object[] parameters)
         {
             return Load(queryType, query, PackageParameters(parameters));
         }
@@ -1435,16 +1435,16 @@ namespace Tiraggo.Core
         ///			sqlText += "FROM [Employees] ";
         ///			sqlText += "WHERE [EmployeeID] = @EmployeeID";
         /// 
-        ///			return this.Load(esQueryType.Text, sqlText, esParams);
+        ///			return this.Load(tgQueryType.Text, sqlText, esParams);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters.</param>
         /// <returns>True if the entity was loaded.</returns>
-        virtual protected bool Load(esQueryType queryType, string query, esParameters parms)
+        virtual protected bool Load(tgQueryType queryType, string query, esParameters parms)
         {
             bool loaded = false;
             try
@@ -1780,15 +1780,15 @@ namespace Tiraggo.Core
         ///         sqlText += "SET [LastName] = '" + newName + "' ";
         ///         sqlText += "WHERE [EmployeeID] = " + empID;
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected internal int ExecuteNonQuery(esQueryType queryType, string query)
+        protected internal int ExecuteNonQuery(tgQueryType queryType, string query)
         {
             return ExecuteNonQuery(queryType, query, null as esParameters);
         }
@@ -1812,16 +1812,16 @@ namespace Tiraggo.Core
         ///         sqlText += "SET [LastName] = {0} ";
         ///         sqlText += "WHERE [EmployeeID] = {1}";
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText, newName, empID);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText, newName, empID);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected internal int ExecuteNonQuery(esQueryType queryType, string query, params object[] parameters)
+        protected internal int ExecuteNonQuery(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteNonQuery(queryType, query, PackageParameters(parameters));
         }
@@ -1850,16 +1850,16 @@ namespace Tiraggo.Core
         ///			sqlText += "WHERE [LastName] = @LastName ";
         ///			sqlText += "AND [Salary] = @Salary";
         /// 
-        ///         return this.ExecuteNonQuery(esQueryType.Text, sqlText, esParams);
+        ///         return this.ExecuteNonQuery(tgQueryType.Text, sqlText, esParams);
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters. See <see cref="esParameters"/>.</param>
         /// <returns>The result of ExecuteNonQuery.</returns>
-        protected internal int ExecuteNonQuery(esQueryType queryType, string query, esParameters parms)
+        protected internal int ExecuteNonQuery(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -1960,7 +1960,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
@@ -2059,7 +2059,7 @@ namespace Tiraggo.Core
             request.Catalog = catalog;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
@@ -2083,7 +2083,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected internal IDataReader ExecuteReader(esQueryType queryType, string query)
+        protected internal IDataReader ExecuteReader(tgQueryType queryType, string query)
         {
             return ExecuteReader(queryType, query, null as esParameters);
         }
@@ -2100,7 +2100,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected internal IDataReader ExecuteReader(esQueryType queryType, string query, params object[] parameters)
+        protected internal IDataReader ExecuteReader(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteReader(queryType, query, PackageParameters(parameters));
         }
@@ -2117,7 +2117,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteReader.</returns>
-        protected internal IDataReader ExecuteReader(esQueryType queryType, string query, esParameters parms)
+        protected internal IDataReader ExecuteReader(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2184,7 +2184,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
@@ -2246,7 +2246,7 @@ namespace Tiraggo.Core
             request.Catalog = catalog;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
@@ -2270,7 +2270,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected internal object ExecuteScalar(esQueryType queryType, string query)
+        protected internal object ExecuteScalar(tgQueryType queryType, string query)
         {
             return ExecuteScalar(queryType, query, null as esParameters);
         }
@@ -2287,7 +2287,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected internal object ExecuteScalar(esQueryType queryType, string query, params object[] parameters)
+        protected internal object ExecuteScalar(tgQueryType queryType, string query, params object[] parameters)
         {
             return ExecuteScalar(queryType, query, PackageParameters(parameters));
         }
@@ -2304,7 +2304,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        protected internal object ExecuteScalar(esQueryType queryType, string query, esParameters parms)
+        protected internal object ExecuteScalar(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2371,7 +2371,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
@@ -2433,7 +2433,7 @@ namespace Tiraggo.Core
             request.Catalog = catalog;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
@@ -2457,7 +2457,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        internal D ExecuteScalar<D>(esQueryType queryType, string query)
+        internal D ExecuteScalar<D>(tgQueryType queryType, string query)
         {
             return (D)ExecuteScalar<D>(queryType, query, null as esParameters);
         }
@@ -2474,7 +2474,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        internal D ExecuteScalar<D>(esQueryType queryType, string query, params object[] parameters)
+        internal D ExecuteScalar<D>(tgQueryType queryType, string query, params object[] parameters)
         {
             return (D)ExecuteScalar<D>(queryType, query, PackageParameters(parameters));
         }
@@ -2491,7 +2491,7 @@ namespace Tiraggo.Core
         /// overloads, and parameters.
         /// </example>
         /// <returns>The result of ExecuteScalar.</returns>
-        internal D ExecuteScalar<D>(esQueryType queryType, string query, esParameters parms)
+        internal D ExecuteScalar<D>(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2563,7 +2563,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
@@ -2597,15 +2597,15 @@ namespace Tiraggo.Core
         ///         sqlText += "WHERE [LastName] = {0} ";
         ///         sqlText += "OR [LastName] = {1}";
         /// 
-        ///         return this.FillDataTable(esQueryType.Text, sqlText, "Doe", "Johnson");
+        ///         return this.FillDataTable(tgQueryType.Text, sqlText, "Doe", "Johnson");
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>A DataTable containing the result set.</returns>
-        protected internal DataTable FillDataTable(esQueryType queryType, string query)
+        protected internal DataTable FillDataTable(tgQueryType queryType, string query)
         {
             return FillDataTable(queryType, query, null as esParameters);
         }
@@ -2614,11 +2614,11 @@ namespace Tiraggo.Core
         /// Can be called by a method in your Custom entity.
         /// This does not populate your entity.
         /// </summary>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters.</param>
         /// <returns>A DataTable containing the result set.</returns>
-        protected internal DataTable FillDataTable(esQueryType queryType, string query, params object[] parameters)
+        protected internal DataTable FillDataTable(tgQueryType queryType, string query, params object[] parameters)
         {
             return FillDataTable(queryType, query, PackageParameters(parameters));
         }
@@ -2627,11 +2627,11 @@ namespace Tiraggo.Core
         /// Can be called by a method in your Custom entity.
         /// This does not populate your entity.
         /// </summary>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters.</param>
         /// <returns>A DataTable containing the result set.</returns>
-        protected internal DataTable FillDataTable(esQueryType queryType, string query, esParameters parms)
+        protected internal DataTable FillDataTable(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2695,7 +2695,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
@@ -2747,7 +2747,7 @@ namespace Tiraggo.Core
             request.Catalog = catalog;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
@@ -2775,15 +2775,15 @@ namespace Tiraggo.Core
         ///         sqlText += "FROM [Employees] ";
         ///         sqlText += "WHERE [LastName] = {0}";
         /// 
-        ///         return this.FillDataSet(esQueryType.Text, sqlText, "Doe");
+        ///         return this.FillDataSet(tgQueryType.Text, sqlText, "Doe");
         ///     }
         /// }
         /// </code>
         /// </example>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <returns>A DataSet containing the result set.</returns>
-        protected internal DataSet FillDataSet(esQueryType queryType, string query)
+        protected internal DataSet FillDataSet(tgQueryType queryType, string query)
         {
             return FillDataSet(queryType, query, null as esParameters);
         }
@@ -2792,11 +2792,11 @@ namespace Tiraggo.Core
         /// Can be called by a method in your Custom entity.
         /// This does not populate your entity.
         /// </summary>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parameters">A list of parameters.</param>
         /// <returns>A DataSet containing the result set.</returns>
-        protected internal DataSet FillDataSet(esQueryType queryType, string query, params object[] parameters)
+        protected internal DataSet FillDataSet(tgQueryType queryType, string query, params object[] parameters)
         {
             return FillDataSet(queryType, query, PackageParameters(parameters));
         }
@@ -2805,11 +2805,11 @@ namespace Tiraggo.Core
         /// Can be called by a method in your Custom entity.
         /// This does not populate your entity.
         /// </summary>
-        /// <param name="queryType">See <see cref="esQueryType"/>.</param>
+        /// <param name="queryType">See <see cref="tgQueryType"/>.</param>
         /// <param name="query">Either the SQL for the Query or the name of a stored procedure.</param>
         /// <param name="parms">A list of parameters.</param>
         /// <returns>A DataSet containing the result set.</returns>
-        protected internal DataSet FillDataSet(esQueryType queryType, string query, esParameters parms)
+        protected internal DataSet FillDataSet(tgQueryType queryType, string query, esParameters parms)
         {
             esDataRequest request = this.CreateRequest();
 
@@ -2874,7 +2874,7 @@ namespace Tiraggo.Core
             request.Parameters = parameters;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.FillDataSet(request, this.es.Connection.ProviderSignature);
@@ -2926,7 +2926,7 @@ namespace Tiraggo.Core
             request.Catalog = catalog;
             request.Schema = schema;
             request.QueryText = storedProcedure;
-            request.QueryType = esQueryType.StoredProcedure;
+            request.QueryType = tgQueryType.StoredProcedure;
 
             esDataProvider provider = new esDataProvider();
             esDataResponse response = provider.FillDataSet(request, this.es.Connection.ProviderSignature);

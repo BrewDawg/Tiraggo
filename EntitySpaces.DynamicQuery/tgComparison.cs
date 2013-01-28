@@ -69,10 +69,10 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// The tgComparison class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
-        /// See <see cref="esParenthesis"/> Enumeration.
+        /// See <see cref="tgParenthesis"/> Enumeration.
         /// </summary>
-        /// <param name="paren">The esParenthesis passed in via DynamicQuery</param>
-        public tgComparison(esParenthesis paren) 
+        /// <param name="paren">The tgParenthesis passed in via DynamicQuery</param>
+        public tgComparison(tgParenthesis paren) 
         {
             this.data.Parenthesis = paren;
         }
@@ -80,10 +80,10 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// The tgComparison class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// </summary>
-        /// <param name="conj">The esConjunction passed in via DynamicQuery</param>
-        public tgComparison(esConjunction conj)
+        /// <param name="conj">The tgConjunction passed in via DynamicQuery</param>
+        public tgComparison(tgConjunction conj)
         {
             this.data.Conjunction = conj;
         }
@@ -106,7 +106,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>The tgComparison returned to DynamicQuery</returns>
         public static tgComparison operator |(tgComparison c1, tgComparison c2)
         {
-            return HandleOperator(c1, c2, esConjunction.Or);
+            return HandleOperator(c1, c2, tgConjunction.Or);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Tiraggo.DynamicQuery
         /// <returns>The tgComparison returned to DynamicQuery</returns>
         public static tgComparison operator &(tgComparison c1, tgComparison c2)
         {
-            return HandleOperator(c1, c2, esConjunction.And);
+            return HandleOperator(c1, c2, tgConjunction.And);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="c2"></param>
         /// <param name="op"></param>
         /// <returns></returns>
-        private static tgComparison HandleOperator(tgComparison c1, tgComparison c2, esConjunction op)
+        private static tgComparison HandleOperator(tgComparison c1, tgComparison c2, tgConjunction op)
         {
             List<tgComparison> exp = null;
 
@@ -167,27 +167,27 @@ namespace Tiraggo.DynamicQuery
                 c1.data.WhereExpression = new List<tgComparison>();
                 exp = c1.data.WhereExpression;
 
-                exp.Add(new tgComparison(esParenthesis.Open));
+                exp.Add(new tgComparison(tgParenthesis.Open));
                 exp.Add(c1);
             }
             else
             {
                 exp = c1.data.WhereExpression;
-                exp.Insert(0, new tgComparison(esParenthesis.Open));
+                exp.Insert(0, new tgComparison(tgParenthesis.Open));
             }
 
-            esConjunction conj = op;
+            tgConjunction conj = op;
 
             if (c2.not)
             {
                 switch (op)
                 {
-                    case esConjunction.And:
-                        conj = esConjunction.AndNot;
+                    case tgConjunction.And:
+                        conj = tgConjunction.AndNot;
                         break;
 
-                    case esConjunction.Or:
-                        conj = esConjunction.OrNot;
+                    case tgConjunction.Or:
+                        conj = tgConjunction.OrNot;
                         break;
                 }
             }
@@ -203,7 +203,7 @@ namespace Tiraggo.DynamicQuery
                 exp.AddRange(c2.data.WhereExpression);
             }
 
-            exp.Add(new tgComparison(esParenthesis.Close));
+            exp.Add(new tgComparison(tgParenthesis.Close));
 
             return c1;
         }
@@ -272,7 +272,7 @@ namespace Tiraggo.DynamicQuery
 
 
         /// <summary>
-        /// Used only when <see cref="esComparisonOperand.Between"/> and the 2nd date is another column in the database.
+        /// Used only when <see cref="tgComparisonOperand.Between"/> and the 2nd date is another column in the database.
         /// </summary>
         internal string ComparisonColumn2
         {
@@ -281,10 +281,10 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// esComparisonOperand Operand.
-        /// See <see cref="esComparisonOperand"/> Enumeration.
+        /// tgComparisonOperand Operand.
+        /// See <see cref="tgComparisonOperand"/> Enumeration.
         /// </summary>
-        internal esComparisonOperand Operand
+        internal tgComparisonOperand Operand
         {
             get { return data.Operand; }
             set { data.Operand = value; }
@@ -301,27 +301,27 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// esConjunction Conjunction.
-        /// See <see cref="esConjunction"/> Enumeration.
+        /// tgConjunction Conjunction.
+        /// See <see cref="tgConjunction"/> Enumeration.
         /// </summary>
-        internal esConjunction Conjunction
+        internal tgConjunction Conjunction
         {
             get { return data.Conjunction; }
             set { data.Conjunction = value; }
         }
 
         /// <summary>
-        /// esParenthesis Parenthesis.
-        /// See <see cref="esParenthesis"/> Enumeration.
+        /// tgParenthesis Parenthesis.
+        /// See <see cref="tgParenthesis"/> Enumeration.
         /// </summary>
-        internal esParenthesis Parenthesis
+        internal tgParenthesis Parenthesis
         {
             get { return data.Parenthesis; }
             set { data.Parenthesis = value; }
         }
 
         /// <summary>
-        /// The first date when <see cref="esComparisonOperand.Between"/> is used and the value is 
+        /// The first date when <see cref="tgComparisonOperand.Between"/> is used and the value is 
         /// not another column in the table but a literal value being passed in.
         /// </summary>
         internal object BetweenBegin
@@ -331,7 +331,7 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// The second date when <see cref="esComparisonOperand.Between"/> is used and the value is 
+        /// The second date when <see cref="tgComparisonOperand.Between"/> is used and the value is 
         /// not another column in the table but a literal value being passed in.
         /// </summary>
         internal object BetweenEnd
@@ -373,7 +373,7 @@ namespace Tiraggo.DynamicQuery
             {
                 get
                 {
-                    return (this.Conjunction == esConjunction.Unassigned) ? false : true;
+                    return (this.Conjunction == tgConjunction.Unassigned) ? false : true;
                 }
             }
 
@@ -384,7 +384,7 @@ namespace Tiraggo.DynamicQuery
             {
                 get
                 {
-                    return (this.Parenthesis == esParenthesis.Unassigned) ? false : true;
+                    return (this.Parenthesis == tgParenthesis.Unassigned) ? false : true;
                 }
             }
 
@@ -462,19 +462,19 @@ namespace Tiraggo.DynamicQuery
             /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Operand", EmitDefaultValue = false)]
-            public esComparisonOperand Operand;
+            public tgComparisonOperand Operand;
 
             /// <summary>
             /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Conjunction", EmitDefaultValue = false)]
-            public esConjunction Conjunction;
+            public tgConjunction Conjunction;
 
             /// <summary>
             /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Parenthesis", EmitDefaultValue = false)]
-            public esParenthesis Parenthesis;
+            public tgParenthesis Parenthesis;
 
             /// <summary>
             /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
