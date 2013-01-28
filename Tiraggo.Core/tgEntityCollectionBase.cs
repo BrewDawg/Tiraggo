@@ -253,7 +253,7 @@ namespace Tiraggo.Core
         /// This serves two purposes, it keeps intellisense from getting polluted by noise and prevents the EntitySpaces
         /// "core" functionaltiy from colliding with your properties during code generation.
         /// </summary>
-        public IEntityCollection es
+        public IEntityCollection tg
         {
             get { return this as IEntityCollection; }
         }
@@ -262,7 +262,7 @@ namespace Tiraggo.Core
         private tgProviderSpecificMetadata GetProviderMetadata()
         {
             // We're on our own, use our own tgProviderSpecificMetadata
-            string key = this.es.Connection.ProviderMetadataKey;
+            string key = this.tg.Connection.ProviderMetadataKey;
             return this.Meta.GetProviderMetadata(key);
         }
 
@@ -303,8 +303,8 @@ namespace Tiraggo.Core
         {
             get
             {
-                if (this.es.Connection.Catalog != null)
-                    return this.es.Connection.Catalog;
+                if (this.tg.Connection.Catalog != null)
+                    return this.tg.Connection.Catalog;
                 else
                     return this.GetProviderMetadata().Catalog;
             }
@@ -314,8 +314,8 @@ namespace Tiraggo.Core
         {
             get
             {
-                if (this.es.Connection.Schema != null)
-                    return this.es.Connection.Schema;
+                if (this.tg.Connection.Schema != null)
+                    return this.tg.Connection.Schema;
                 else
                     return this.GetProviderMetadata().Schema;
             }

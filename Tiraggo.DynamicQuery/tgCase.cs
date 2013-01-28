@@ -34,7 +34,7 @@ using System.Runtime.Serialization;
 namespace Tiraggo.DynamicQuery
 {
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgCase
     {
         [NonSerialized]
@@ -211,7 +211,7 @@ namespace Tiraggo.DynamicQuery
         /// EntitySpaces data providers.
         /// </summary>
         [Serializable]
-        [DataContract(Namespace = "es")]
+        [DataContract(Namespace = "tg")]
         public struct esSimpleCaseData
         {
             public struct esCaseClause

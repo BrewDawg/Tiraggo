@@ -37,7 +37,7 @@ namespace Tiraggo.DynamicQuery
     /// Created when Query.Union (UnionAll, Intersect, Except) is called.
     /// </summary>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgSetOperation
     {
         /// <summary>

@@ -49,11 +49,11 @@ namespace Tiraggo.Core
             coll = new esPrivateCollection(this);
         }
 
-        public IEntityCollection es
+        public IEntityCollection tg
         {
             get
             {
-                return coll.es;
+                return coll.tg;
             }
         }
 
@@ -299,8 +299,8 @@ namespace Tiraggo.Core
 
         virtual public tgProviderSpecificMetadata GetProviderMetadata(string mapName)
         {
-            esProv.Schema = this.es.Connection.Schema;
-            esProv.Catalog = this.es.Connection.Catalog;
+            esProv.Schema = this.tg.Connection.Schema;
+            esProv.Catalog = this.tg.Connection.Catalog;
             esProv.Source = this.Source;
             esProv.Destination = this.Destination;
             return esProv;

@@ -55,7 +55,7 @@ namespace Tiraggo.DynamicQuery
     /// </code>
     /// </example>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgOrderByItem
     {
         /// <summary>

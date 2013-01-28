@@ -69,7 +69,7 @@ namespace Tiraggo.DynamicQuery
     /// </code>
     /// </example>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgQueryItem
     {
         private tgQueryItem()
@@ -89,7 +89,7 @@ namespace Tiraggo.DynamicQuery
             this.query = query;
             this.Column.Query = query;
             this.Column.Name = columnName;
-            this.Column.Query.es.JoinAlias = query.es.JoinAlias;
+            this.Column.Query.tg.JoinAlias = query.tg.JoinAlias;
             this.Column.Datatype = datatype;
         }
 

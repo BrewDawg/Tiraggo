@@ -395,8 +395,8 @@ namespace Tiraggo.SQLiteProvider
             string name = String.Empty;
 
             name += Delimiters.TableOpen;
-            if (query.es.QuerySource != null)
-                name += query.es.QuerySource;
+            if (query.tg.QuerySource != null)
+                name += query.tg.QuerySource;
             else
                 name += providerMetadata.Destination;
             name += Delimiters.TableClose;
@@ -409,8 +409,8 @@ namespace Tiraggo.SQLiteProvider
             string name = String.Empty;
 
             name += Delimiters.TableOpen;
-            if(request.DynamicQuery != null && request.DynamicQuery.es.QuerySource != null)
-                name += request.DynamicQuery.es.QuerySource;
+            if(request.DynamicQuery != null && request.DynamicQuery.tg.QuerySource != null)
+                name += request.DynamicQuery.tg.QuerySource;
             else
                 name += request.QueryText != null ? request.QueryText : request.ProviderMetadata.Destination;
             name += Delimiters.TableClose;

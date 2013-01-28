@@ -49,7 +49,7 @@ namespace Tiraggo.Interfaces
             tgDataResponse response = tgProviderFactory.GetDataProvider(sig.DataProviderName, sig.DataProviderClass).esLoadDataTable(request);
             if(request.DynamicQuery != null)
             {
-                request.DynamicQuery.es.LastQuery = response.LastQuery;
+                request.DynamicQuery.tg.LastQuery = response.LastQuery;
             }
 
             if (response.IsException)

@@ -54,7 +54,7 @@ namespace Tiraggo.DynamicQuery
     /// </code>
     /// </example>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgComparison
     {
         /// <summary>
@@ -363,7 +363,7 @@ namespace Tiraggo.DynamicQuery
         /// EntitySpaces data providers.
         /// </summary>
         [Serializable]
-        [DataContract(Namespace = "es", IsReference = true)]
+        [DataContract(Namespace = "tg", IsReference = true)]
         public class esComparisonData
         {
             /// <summary>

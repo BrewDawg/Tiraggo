@@ -46,9 +46,9 @@ namespace Tiraggo.DebuggerVisualizer
             IEntityCollection entityCollection = (IEntityCollection) entities;
             CollectionDataGridView.DataSource = entities;
 
-            if (entityCollection.Query != null && entityCollection.Query.es.LastQuery != null)
+            if (entityCollection.Query != null && entityCollection.Query.tg.LastQuery != null)
             {
-                this.txtLastQuery.Text = entityCollection.Query.es.LastQuery;
+                this.txtLastQuery.Text = entityCollection.Query.tg.LastQuery;
             }
         }
     }

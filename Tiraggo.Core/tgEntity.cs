@@ -108,9 +108,9 @@ namespace Tiraggo.Core
 
         private void CurrentValues_OnFirstAccess(tgSmartDictionary smartDictionary)
         {
-            smartDictionary.Allocate(es.Meta.Columns.Count);
+            smartDictionary.Allocate(tg.Meta.Columns.Count);
 
-            foreach (tgColumnMetadata col in es.Meta.Columns)
+            foreach (tgColumnMetadata col in tg.Meta.Columns)
             {
                 currentValues.SetOrdinal(col.Name, col.Ordinal);
             }
@@ -145,7 +145,7 @@ namespace Tiraggo.Core
                 Dictionary<object, tgEntityCollectionBase> me = new Dictionary<object, tgEntityCollectionBase>();
                 collections[string.Empty] = me;
 
-                this.es.IsLazyLoadDisabled = true;
+                this.tg.IsLazyLoadDisabled = true;
 
                 foreach (esPrefetchMap map in query.es2.PrefetchMaps)
                 {
@@ -220,7 +220,7 @@ namespace Tiraggo.Core
         /// </summary>
         static private void ProcessEntityForPrefetch(tgEntity obj, esPrefetchMap map, Dictionary<object, tgEntityCollectionBase> newCollection)
         {
-            obj.es.IsLazyLoadDisabled = true;
+            obj.tg.IsLazyLoadDisabled = true;
 
             object key = null;
 
@@ -286,7 +286,7 @@ namespace Tiraggo.Core
             tgDataRequest request = new tgDataRequest();
             request.Caller = this;
 
-            tgConnection conn = this.es.Connection;
+            tgConnection conn = this.tg.Connection;
 
             request.ConnectionString = conn.ConnectionString;
             request.CommandTimeout = conn.CommandTimeout;
@@ -308,7 +308,7 @@ namespace Tiraggo.Core
         private tgProviderSpecificMetadata GetProviderMetadata()
         {
             // We're on our own, use our own tgProviderSpecificMetadata
-            string key = this.es.Connection.ProviderMetadataKey;
+            string key = this.tg.Connection.ProviderMetadataKey;
             return this.Meta.GetProviderMetadata(key);
         }
 
@@ -533,7 +533,7 @@ namespace Tiraggo.Core
 
             if (this.currentValues != null)
             {
-                tgColumnMetadataCollection cols = this.es.Meta.Columns;
+                tgColumnMetadataCollection cols = this.tg.Meta.Columns;
 
                 foreach (string column in this.currentValues.Keys)
                 {
@@ -664,7 +664,7 @@ namespace Tiraggo.Core
         [Bindable(false)]
         #endif
         [XmlIgnore]
-        public IEntity es
+        public IEntity tg
         {
             get { return this as IEntity; }
         }
@@ -2476,13 +2476,13 @@ namespace Tiraggo.Core
             request.EntitySavePacket.OriginalValues = originalValues;
             request.EntitySavePacket.CurrentValues = currentValues;
             request.EntitySavePacket.RowState = rowState;
-            request.EntitySavePacket.ModifiedColumns = es.ModifiedColumns;
+            request.EntitySavePacket.ModifiedColumns = tg.ModifiedColumns;
 
             request.Columns = Meta.Columns;
             request.SqlAccessType = sqlAccessType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.esSaveDataTable(request, es.Connection.ProviderSignature);
+            tgDataResponse response = provider.esSaveDataTable(request, tg.Connection.ProviderSignature);
 
             if (response.IsException)
             {
@@ -2639,7 +2639,7 @@ namespace Tiraggo.Core
             request.QueryText = query;
             request.QueryType = queryType;
 
-            tgConnection conn = this.es.Connection;
+            tgConnection conn = this.tg.Connection;
 
             tgDataProvider provider = new tgDataProvider();
             tgDataResponse response = provider.esLoadDataTable(request, conn.ProviderSignature);
@@ -2828,7 +2828,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.tg.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -2923,7 +2923,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.tg.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -3002,7 +3002,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -3063,7 +3063,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -3127,7 +3127,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -3188,7 +3188,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -3252,7 +3252,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -3318,7 +3318,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -3422,12 +3422,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (!p.Node.Entity.es.IsDirty && !p.Node.Entity.es.IsGraphDirty)
+                    if (!p.Node.Entity.tg.IsDirty && !p.Node.Entity.tg.IsGraphDirty)
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (!p.Node.Entity.es.IsDirty && !p.Node.Entity.es.IsGraphDirty)
+                else if (!p.Node.Entity.tg.IsDirty && !p.Node.Entity.tg.IsGraphDirty)
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -3479,12 +3479,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
+                    if (MatchesState(p.Node.Entity.tg.RowState, (tgDataRowState)p.UserState))
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
+                else if (MatchesState(p.Node.Entity.tg.RowState, (tgDataRowState)p.UserState))
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -3502,7 +3502,7 @@ namespace Tiraggo.Core
                 bool canSetToNull = true;
                 foreach (tgEntity entity in p.Node.Collection)
                 {
-                    if (!MatchesState(entity.es.RowState, (tgDataRowState)p.UserState))
+                    if (!MatchesState(entity.tg.RowState, (tgDataRowState)p.UserState))
                     {
                         canSetToNull = false;
                         break;
@@ -3670,8 +3670,8 @@ namespace Tiraggo.Core
         {
             get
             {
-                if (this.es.Connection.Catalog != null)
-                    return this.es.Connection.Catalog;
+                if (this.tg.Connection.Catalog != null)
+                    return this.tg.Connection.Catalog;
                 else
                     return this.GetProviderMetadata().Catalog;
             }
@@ -3685,8 +3685,8 @@ namespace Tiraggo.Core
         {
             get
             {
-                if (this.es.Connection.Schema != null)
-                    return this.es.Connection.Schema;
+                if (this.tg.Connection.Schema != null)
+                    return this.tg.Connection.Schema;
                 else
                     return this.GetProviderMetadata().Schema;
             }
@@ -3765,7 +3765,7 @@ namespace Tiraggo.Core
         {
             get
             {
-                if ((currentValues.Count > 0 && es.RowState != tgDataRowState.Deleted) || collection != null)
+                if ((currentValues.Count > 0 && tg.RowState != tgDataRowState.Deleted) || collection != null)
                     return true;
                 else
                     return false;
@@ -3806,7 +3806,7 @@ namespace Tiraggo.Core
         {
             get
             {
-                if (this.es.IsDirty) return true; 
+                if (this.tg.IsDirty) return true; 
 
                 return !tgVisitor.Visit(this, IsGraphDirtyCallback);
             }
@@ -3820,7 +3820,7 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    isClean = !p.Node.Entity.es.IsDirty;
+                    isClean = !p.Node.Entity.tg.IsDirty;
                 }
             }
             else
@@ -4457,7 +4457,7 @@ namespace Tiraggo.Core
         [DataMember(Name = "RowState", EmitDefaultValue = false)]
         private tgDataRowState TempRowState
         {
-            get { return es.RowState; }
+            get { return tg.RowState; }
             set { tempRowState = value; }
         }
 

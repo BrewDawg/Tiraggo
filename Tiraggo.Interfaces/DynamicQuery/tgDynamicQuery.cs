@@ -352,9 +352,9 @@ namespace Tiraggo.Interfaces
                 _selectAll();
             }
 
-            if (es.QuerySource == null || es.QuerySource.Length == 0)
+            if (tg.QuerySource == null || tg.QuerySource.Length == 0)
             {
-                es.QuerySource = providerMetadata.Source;
+                tg.QuerySource = providerMetadata.Source;
             }
         }
 

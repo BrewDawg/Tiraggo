@@ -37,7 +37,7 @@ namespace Tiraggo.DynamicQuery
     /// Created when Query.InnerJoin (LeftJoin, RightJoin, FullJoin) is called.
     /// </summary>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgJoinItem
     {
         [NonSerialized]
@@ -171,7 +171,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
   
         [Serializable]
-        [DataContract(Namespace = "es")]
+        [DataContract(Namespace = "tg")]
         public struct esJoinItemData
         {
             /// <summary>

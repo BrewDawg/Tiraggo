@@ -54,7 +54,7 @@ namespace Tiraggo.Core
         int IComparer<T>.Compare(T obj1, T obj2)
         {
             tgEntity obj = obj1 as tgEntity;
-            tgColumnMetadata esColumn = obj.es.Meta.Columns.FindByPropertyName(sortProperty.Name);
+            tgColumnMetadata esColumn = obj.tg.Meta.Columns.FindByPropertyName(sortProperty.Name);
             return obj1.OnSort(obj2, esColumn, sortProperty.Name);
         }
 

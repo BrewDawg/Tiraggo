@@ -57,7 +57,7 @@ namespace Tiraggo.SqlClientProvider
         {
             bool paging = false;
 
-            if (query.es.PageNumber.HasValue && query.es.PageSize.HasValue)
+            if (query.tg.PageNumber.HasValue && query.tg.PageSize.HasValue)
                 paging = true;
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
@@ -75,8 +75,8 @@ namespace Tiraggo.SqlClientProvider
 
             if (paging)
             {
-                int begRow = ((query.es.PageNumber.Value - 1) * query.es.PageSize.Value) + 1;
-                int endRow = begRow + (query.es.PageSize.Value - 1);
+                int begRow = ((query.tg.PageNumber.Value - 1) * query.tg.PageSize.Value) + 1;
+                int endRow = begRow + (query.tg.PageSize.Value - 1);
 
                 // The WITH statement
                 sql += "WITH [withStatement] AS (";
@@ -124,7 +124,7 @@ namespace Tiraggo.SqlClientProvider
                     sql += " " + iQuery.JoinAlias;
                 }
 
-                if (query.es.WithNoLock == true)
+                if (query.tg.WithNoLock == true)
                 {
                     sql += " WITH (NOLOCK)";
                 }
@@ -158,8 +158,8 @@ namespace Tiraggo.SqlClientProvider
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            if (query.es.Distinct) sql += " DISTINCT ";
-            if (query.es.Top >= 0) sql += " TOP " + query.es.Top.ToString() + " ";
+            if (query.tg.Distinct) sql += " DISTINCT ";
+            if (query.tg.Top >= 0) sql += " TOP " + query.tg.Top.ToString() + " ";
 
             if (iQuery.InternalSelectColumns != null)
             {
@@ -203,17 +203,17 @@ namespace Tiraggo.SqlClientProvider
                 sql += " ";
             }
 
-            if (query.es.CountAll)
+            if (query.tg.CountAll)
             {
                 selectAll = false;
 
                 sql += comma;
                 sql += "COUNT(*)";
 
-                if (query.es.CountAllAlias != null)
+                if (query.tg.CountAllAlias != null)
                 {
                     // Need DBMS string delimiter here
-                    sql += " AS " + Delimiters.StringOpen + query.es.CountAllAlias + Delimiters.StringClose;
+                    sql += " AS " + Delimiters.StringOpen + query.tg.CountAllAlias + Delimiters.StringClose;
                 }
             }
 
@@ -259,7 +259,7 @@ namespace Tiraggo.SqlClientProvider
 
                     sql += " " + iSubQuery.JoinAlias;
 
-                    if (query.es.WithNoLock == true)
+                    if (query.tg.WithNoLock == true)
                     {
                         sql += " WITH (NOLOCK)";
                     }
@@ -665,7 +665,7 @@ namespace Tiraggo.SqlClientProvider
                     comma = ",";
                 }
 
-                if (query.es.WithRollup)
+                if (query.tg.WithRollup)
                 {
                     sql += " WITH ROLLUP";
                 }
@@ -1120,7 +1120,7 @@ namespace Tiraggo.SqlClientProvider
 
         protected static string GetColumnName(tgColumnItem column)
         {
-            if (column.Query == null || column.Query.es.JoinAlias == " ")
+            if (column.Query == null || column.Query.tg.JoinAlias == " ")
             {
                 return Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
             }
@@ -1130,7 +1130,7 @@ namespace Tiraggo.SqlClientProvider
 
                 if (iQuery.IsInSubQuery)
                 {
-                    return column.Query.es.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
+                    return column.Query.tg.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
                 }
                 else
                 {

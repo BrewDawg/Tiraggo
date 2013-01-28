@@ -324,7 +324,7 @@ namespace Tiraggo.Core
             bool weHaveData = false;
             int lastOrdinal = 0;
 
-            tgColumnMetadataCollection esMetaCols = entity.es.Meta.Columns;
+            tgColumnMetadataCollection esMetaCols = entity.tg.Meta.Columns;
 
             tgEntityCollectionBase theBaseCollection = baseCollection != null ? baseCollection : entity.Collection;
 
@@ -366,7 +366,7 @@ namespace Tiraggo.Core
 
                     if (column == "ESRN") continue;
 
-                    tgColumnMetadata esCol = entity.es.Meta.Columns.FindByColumnName(column);
+                    tgColumnMetadata esCol = entity.tg.Meta.Columns.FindByColumnName(column);
 
                     if (esCol != null)
                     {
@@ -1024,7 +1024,7 @@ namespace Tiraggo.Core
                 ICancelAddNew i = entities as ICancelAddNew;
                 i.CancelNew(itemIndex);
 
-                if (!obj.es.IsAdded) return;
+                if (!obj.tg.IsAdded) return;
 
                 if (entitiesFilterBackup != null)
                 {
@@ -1052,7 +1052,7 @@ namespace Tiraggo.Core
                 ICancelAddNew i = entities as ICancelAddNew;
                 i.CancelNew(itemIndex);
 
-                if (!obj.es.IsAdded) return false;
+                if (!obj.tg.IsAdded) return false;
 
                 if (entitiesFilterBackup != null)
                 {

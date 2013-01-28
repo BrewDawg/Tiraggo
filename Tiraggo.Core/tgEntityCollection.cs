@@ -265,7 +265,7 @@ namespace Tiraggo.Core
                 }
 
                 // This entity now takes on the Collection's Connection info
-                entity.es.Connection.Name = this.es.Connection.Name;
+                entity.tg.Connection.Name = this.tg.Connection.Name;
 
                 if (entitiesFilterBackup != null)
                 {
@@ -283,7 +283,7 @@ namespace Tiraggo.Core
             }
 
             collectionToAdd.entities.Clear();
-            collectionToAdd.es.Connection = null;
+            collectionToAdd.tg.Connection = null;
 
             RaiseListChangeEvents_Restore();
 
@@ -368,7 +368,7 @@ namespace Tiraggo.Core
                     {
                         foreach (tgEntity obj in collection)
                         {
-                            obj.es.IsLazyLoadDisabled = true;
+                            obj.tg.IsLazyLoadDisabled = true;
 
                             object key = null;
 
@@ -690,11 +690,11 @@ namespace Tiraggo.Core
                     }
                 }
 
-                bool isLazyLoadDisabled = this.es.IsLazyLoadDisabled;
+                bool isLazyLoadDisabled = this.tg.IsLazyLoadDisabled;
                 for (int i = 0; i < rowCount; i++)
                 {
                     T obj = AddNew();
-                    obj.es.IsLazyLoadDisabled = isLazyLoadDisabled;
+                    obj.tg.IsLazyLoadDisabled = isLazyLoadDisabled;
 
                     row = rows[i];
 
@@ -779,7 +779,7 @@ namespace Tiraggo.Core
             obj.rowState = tgDataRowState.Unchanged;
 
             IEntity iEntity = obj as IEntity;
-            obj.es.IsLazyLoadDisabled = true;
+            obj.tg.IsLazyLoadDisabled = true;
 
             return ordinals;
         }
@@ -796,7 +796,7 @@ namespace Tiraggo.Core
             tgDataRequest request = new tgDataRequest();
             request.Caller = this;
 
-            tgConnection conn = this.es.Connection;
+            tgConnection conn = this.tg.Connection;
             tgProviderSpecificMetadata providerMetadata = this.Meta.GetProviderMetadata(conn.ProviderMetadataKey);
 
             request.ConnectionString = conn.ConnectionString;
@@ -859,7 +859,7 @@ namespace Tiraggo.Core
         {
             entity.Collection = this;
 
-            if (entity.es.IsDeleted)
+            if (entity.tg.IsDeleted)
             {
                 if (deletedEntities == null)
                 {
@@ -871,7 +871,7 @@ namespace Tiraggo.Core
             }
 
             // This entity now takes on the Collection's Connection info
-            entity.es.Connection.Name = this.es.Connection.Name;
+            entity.tg.Connection.Name = this.tg.Connection.Name;
 
             entities.Add(entity);
 
@@ -1059,13 +1059,13 @@ namespace Tiraggo.Core
 
                             entity.PrepareSpecialFields();
 
-                            if (entity.es.RowState == tgDataRowState.Added)
+                            if (entity.tg.RowState == tgDataRowState.Added)
                             {
                                 tgEntitySavePacket packet;
                                 packet.OriginalValues = entity.originalValues;
                                 packet.CurrentValues = entity.currentValues;
                                 packet.RowState = entity.rowState;
-                                packet.ModifiedColumns = entity.es.ModifiedColumns;
+                                packet.ModifiedColumns = entity.tg.ModifiedColumns;
                                 packet.Entity = entity;
 
                                 request.CollectionSavePacket.Add(packet);
@@ -1080,7 +1080,7 @@ namespace Tiraggo.Core
                         {
                             // Make the call to the DataProvider to physically commit the changes
                             provider = new tgDataProvider();
-                            response = provider.esSaveDataTable(request, this.es.Connection.ProviderSignature);
+                            response = provider.esSaveDataTable(request, this.tg.Connection.ProviderSignature);
                             needToSendEvent = true;
 
                             if (response.IsException)
@@ -1193,13 +1193,13 @@ namespace Tiraggo.Core
                             entity.CommitPreSaves();
                             entity.ApplyPreSaveKeys();
 
-                            if (entity.es.RowState == tgDataRowState.Added || entity.es.RowState == tgDataRowState.Modified)
+                            if (entity.tg.RowState == tgDataRowState.Added || entity.tg.RowState == tgDataRowState.Modified)
                             {
                                 tgEntitySavePacket packet;
                                 packet.OriginalValues = entity.originalValues;
                                 packet.CurrentValues = entity.currentValues;
                                 packet.RowState = entity.rowState;
-                                packet.ModifiedColumns = entity.es.ModifiedColumns;
+                                packet.ModifiedColumns = entity.tg.ModifiedColumns;
                                 packet.Entity = entity;
 
                                 request.CollectionSavePacket.Add(packet);
@@ -1214,7 +1214,7 @@ namespace Tiraggo.Core
                         {
                             // Make the call to the DataProvider to physically commit the changes
                             provider = new tgDataProvider();
-                            response = provider.esSaveDataTable(request, this.es.Connection.ProviderSignature);
+                            response = provider.esSaveDataTable(request, this.tg.Connection.ProviderSignature);
                             needToSendEvent = true;
 
                             if (!continueUpdateOnError && response.IsException)
@@ -1256,7 +1256,7 @@ namespace Tiraggo.Core
                             packet.OriginalValues = entity.originalValues;
                             packet.CurrentValues = entity.currentValues;
                             packet.RowState = entity.rowState;
-                            packet.ModifiedColumns = entity.es.ModifiedColumns;
+                            packet.ModifiedColumns = entity.tg.ModifiedColumns;
                             packet.Entity = entity;
 
                             request.CollectionSavePacket.Add(packet);
@@ -1267,7 +1267,7 @@ namespace Tiraggo.Core
 
                         // Make the call to the DataProvider to physically commit the changes
                         provider = new tgDataProvider();
-                        response = provider.esSaveDataTable(request, this.es.Connection.ProviderSignature);
+                        response = provider.esSaveDataTable(request, this.tg.Connection.ProviderSignature);
                         needToSendEvent = true;
 
                         if (!continueUpdateOnError && response.IsException)
@@ -1316,10 +1316,10 @@ namespace Tiraggo.Core
         /// <returns>True if at least one entity was loaded, otherwise false.</returns>
         public override bool LoadAll()
         {
-            if (this.es.Connection.SqlAccessType == tgSqlAccessType.DynamicSQL)
+            if (this.tg.Connection.SqlAccessType == tgSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
-                return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
+                return this.Load(tgQueryType.StoredProcedure, this.tg.spLoadAll);
         }
 
         /// <summary>
@@ -1344,7 +1344,7 @@ namespace Tiraggo.Core
             if (sqlAccessType == tgSqlAccessType.DynamicSQL)
                 return this.GetDynamicQuery().Load();
             else
-                return this.Load(tgQueryType.StoredProcedure, this.es.spLoadAll);
+                return this.Load(tgQueryType.StoredProcedure, this.tg.spLoadAll);
         }
 
         #endregion
@@ -1456,7 +1456,7 @@ namespace Tiraggo.Core
                 request.QueryType = queryType;
 
                 tgDataProvider provider = new tgDataProvider();
-                tgDataResponse response = provider.esLoadDataTable(request, this.es.Connection.ProviderSignature);
+                tgDataResponse response = provider.esLoadDataTable(request, this.tg.Connection.ProviderSignature);
 
                 this.PopulateCollection(response.Table);
             }
@@ -1498,7 +1498,7 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    isClean = !p.Node.Entity.es.IsDirty;
+                    isClean = !p.Node.Entity.tg.IsDirty;
                 }
             }
             else
@@ -1606,12 +1606,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (!p.Node.Entity.es.IsDirty && !p.Node.Entity.es.IsGraphDirty)
+                    if (!p.Node.Entity.tg.IsDirty && !p.Node.Entity.tg.IsGraphDirty)
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (!p.Node.Entity.es.IsDirty && !p.Node.Entity.es.IsGraphDirty)
+                else if (!p.Node.Entity.tg.IsDirty && !p.Node.Entity.tg.IsGraphDirty)
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -1663,12 +1663,12 @@ namespace Tiraggo.Core
             {
                 if (p.Node.Entity.GetCollection() == null)
                 {
-                    if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
+                    if (MatchesState(p.Node.Entity.tg.RowState, (tgDataRowState)p.UserState))
                     {
                         p.Node.SetValueToNull(p.Parent.Obj);
                     }
                 }
-                else if (MatchesState(p.Node.Entity.es.RowState, (tgDataRowState)p.UserState))
+                else if (MatchesState(p.Node.Entity.tg.RowState, (tgDataRowState)p.UserState))
                 {
                     List<tgEntity> list = p.Parent.UserState as List<tgEntity>;
                     list.Add(p.Node.Entity);
@@ -1686,7 +1686,7 @@ namespace Tiraggo.Core
                 bool canSetToNull = true;
                 foreach (tgEntity entity in p.Node.Collection)
                 {
-                    if (!MatchesState(entity.es.RowState, (tgDataRowState)p.UserState))
+                    if (!MatchesState(entity.tg.RowState, (tgDataRowState)p.UserState))
                     {
                         canSetToNull = false;
                         break;
@@ -1868,7 +1868,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.tg.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -1963,7 +1963,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.tg.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -2062,7 +2062,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteNonQuery(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteNonQuery(request, this.tg.Connection.ProviderSignature);
 
             return response.RowsEffected;
         }
@@ -2126,7 +2126,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -2187,7 +2187,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -2249,7 +2249,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -2313,7 +2313,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -2374,7 +2374,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -2436,7 +2436,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -2500,7 +2500,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -2566,7 +2566,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg.Connection.ProviderSignature);
 
             if (response.Scalar == DBNull.Value)
             {
@@ -2640,7 +2640,7 @@ namespace Tiraggo.Core
             request.QueryType = queryType;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataTable(request, this.tg.Connection.ProviderSignature);
             return response.Table;
         }
 
@@ -2698,7 +2698,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataTable(request, this.tg.Connection.ProviderSignature);
 
             return response.Table;
         }
@@ -2750,7 +2750,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataTable(request, this.tg.Connection.ProviderSignature);
 
             return response.Table;
         }
@@ -2819,7 +2819,7 @@ namespace Tiraggo.Core
 
             tgDataProvider provider = new tgDataProvider();
             //tgDataResponse response = provider.FillDataTable(request, this.es.Connection.ProviderSignature);
-            tgDataResponse response = provider.FillDataSet(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataSet(request, this.tg.Connection.ProviderSignature);
             return response.DataSet;
         }
 
@@ -2877,7 +2877,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.FillDataSet(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataSet(request, this.tg.Connection.ProviderSignature);
 
             return response.DataSet;
         }
@@ -2929,7 +2929,7 @@ namespace Tiraggo.Core
             request.QueryType = tgQueryType.StoredProcedure;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.FillDataSet(request, this.es.Connection.ProviderSignature);
+            tgDataResponse response = provider.FillDataSet(request, this.tg.Connection.ProviderSignature);
 
             return response.DataSet;
         }

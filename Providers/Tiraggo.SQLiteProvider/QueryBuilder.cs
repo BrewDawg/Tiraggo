@@ -57,7 +57,7 @@ namespace Tiraggo.SQLiteProvider
         {
             bool paging = false;
 
-            if (query.es.PageNumber.HasValue && query.es.PageSize.HasValue)
+            if (query.tg.PageNumber.HasValue && query.tg.PageSize.HasValue)
                 paging = true;
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
@@ -77,14 +77,14 @@ namespace Tiraggo.SQLiteProvider
 
             if (paging)
             {
-                int begRow = ((query.es.PageNumber.Value - 1) * query.es.PageSize.Value);
+                int begRow = ((query.tg.PageNumber.Value - 1) * query.tg.PageSize.Value);
 
-                sql += " LIMIT " + query.es.PageSize.ToString();
+                sql += " LIMIT " + query.tg.PageSize.ToString();
                 sql += " OFFSET " + begRow.ToString() + " ";
             }
-            else if (query.es.Top >= 0)
+            else if (query.tg.Top >= 0)
             {
-                sql += " LIMIT " + query.es.Top.ToString() + " ";
+                sql += " LIMIT " + query.tg.Top.ToString() + " ";
             }
             else if (iQuery.Skip.HasValue || iQuery.Take.HasValue)
             {
@@ -146,7 +146,7 @@ namespace Tiraggo.SQLiteProvider
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            if (query.es.Distinct) sql += " DISTINCT ";
+            if (query.tg.Distinct) sql += " DISTINCT ";
  
             if (iQuery.InternalSelectColumns != null)
             {
@@ -190,17 +190,17 @@ namespace Tiraggo.SQLiteProvider
                 sql += " ";
             }
 
-            if (query.es.CountAll)
+            if (query.tg.CountAll)
             {
                 selectAll = false;
 
                 sql += comma;
                 sql += "COUNT(*)";
 
-                if (query.es.CountAllAlias != null)
+                if (query.tg.CountAllAlias != null)
                 {
                     // Need DBMS string delimiter here
-                    sql += " AS " + Delimiters.StringOpen + query.es.CountAllAlias + Delimiters.StringClose;
+                    sql += " AS " + Delimiters.StringOpen + query.tg.CountAllAlias + Delimiters.StringClose;
                 }
             }
 
@@ -645,7 +645,7 @@ namespace Tiraggo.SQLiteProvider
                     comma = ",";
                 }
 
-                if (query.es.WithRollup)
+                if (query.tg.WithRollup)
                 {
                     sql += " WITH ROLLUP";
                 }
@@ -1120,7 +1120,7 @@ namespace Tiraggo.SQLiteProvider
 
         protected static string GetColumnName(tgColumnItem column)
         {
-            if (column.Query == null || column.Query.es.JoinAlias == " ")
+            if (column.Query == null || column.Query.tg.JoinAlias == " ")
             {
                 return Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
             }
@@ -1130,7 +1130,7 @@ namespace Tiraggo.SQLiteProvider
 
                 if (iQuery.IsInSubQuery)
                 {
-                    return column.Query.es.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
+                    return column.Query.tg.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
                 }
                 else
                 {

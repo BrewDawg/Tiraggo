@@ -87,7 +87,7 @@ namespace Tiraggo.DynamicQuery
     /// </code>
     /// </example>
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgDynamicQuerySerializable : IDynamicQuerySerializableInternal
     {
         /// <summary>
@@ -1154,13 +1154,13 @@ namespace Tiraggo.DynamicQuery
 
         protected void HookupWithNoLock(tgDynamicQuerySerializable query)
         {
-            if (query.es.WithNoLock.HasValue && query.es.WithNoLock == true)
+            if (query.tg.WithNoLock.HasValue && query.tg.WithNoLock == true)
             {
                 if (query.queries != null)
                 {
                     foreach (tgDynamicQuerySerializable nestedQuery in query.queries.Values)
                     {
-                        nestedQuery.es.WithNoLock = true;
+                        nestedQuery.tg.WithNoLock = true;
 
                         HookupWithNoLock(nestedQuery);
                     }
@@ -1174,7 +1174,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is to help hide some details from Intellisense.
         /// </summary>
-        public DynamicQueryProps es
+        public DynamicQueryProps tg
         {
             get
             {

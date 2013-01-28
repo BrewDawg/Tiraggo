@@ -38,7 +38,7 @@ namespace Tiraggo.DynamicQuery
     /// its DataType, and any JoinAlias to use.
     /// </summary>
     [Serializable]
-    [DataContract(Namespace = "es")]
+    [DataContract(Namespace = "tg")]
     public struct tgColumnItem
     {
         /// <summary>

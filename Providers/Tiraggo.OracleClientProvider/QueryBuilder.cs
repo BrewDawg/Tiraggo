@@ -56,11 +56,11 @@ namespace Tiraggo.OracleClientProvider
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            bool selectAll = (iQuery.InternalSelectColumns == null && !query.es.CountAll);
+            bool selectAll = (iQuery.InternalSelectColumns == null && !query.tg.CountAll);
 
             bool paging = false;
 
-            if (query.es.PageNumber.HasValue && query.es.PageSize.HasValue)
+            if (query.tg.PageNumber.HasValue && query.tg.PageSize.HasValue)
                 paging = true;
 
             string select = GetSelectStatement(std, query);
@@ -76,14 +76,14 @@ namespace Tiraggo.OracleClientProvider
 
             if (paging)
             {
-                int begRow = ((query.es.PageNumber.Value - 1) * query.es.PageSize.Value) + 1;
-                int endRow = begRow + (query.es.PageSize.Value - 1);
+                int begRow = ((query.tg.PageNumber.Value - 1) * query.tg.PageSize.Value) + 1;
+                int endRow = begRow + (query.tg.PageSize.Value - 1);
                 // The WITH statement
                 sql += "WITH \"withStatement\" AS (";
                 if (selectAll)
                 {
                     sql += "SELECT " +
-                        Delimiters.TableOpen + query.es.QuerySource + Delimiters.TableClose
+                        Delimiters.TableOpen + query.tg.QuerySource + Delimiters.TableClose
                         + ".*, ROW_NUMBER() OVER(" + orderBy + ") AS ESRN ";
                 }
                 else
@@ -92,7 +92,7 @@ namespace Tiraggo.OracleClientProvider
                 }
                 sql += "FROM " + from + join + where + groupBy + ") ";
                 // The actual select
-                if (selectAll || join.Length > 0 || groupBy.Length > 0 || query.es.Distinct)
+                if (selectAll || join.Length > 0 || groupBy.Length > 0 || query.tg.Distinct)
                 {
                     sql += "SELECT " +
                         Delimiters.TableOpen + "withStatement" + Delimiters.TableClose
@@ -157,7 +157,7 @@ namespace Tiraggo.OracleClientProvider
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            if (query.es.Distinct) sql += " DISTINCT ";
+            if (query.tg.Distinct) sql += " DISTINCT ";
 
             if (iQuery.InternalSelectColumns != null)
             {
@@ -201,17 +201,17 @@ namespace Tiraggo.OracleClientProvider
                 sql += " ";
             }
 
-            if (query.es.CountAll)
+            if (query.tg.CountAll)
             {
                 selectAll = false;
 
                 sql += comma;
                 sql += "COUNT(*)";
 
-                if (query.es.CountAllAlias != null)
+                if (query.tg.CountAllAlias != null)
                 {
                     // Need DBMS string delimiter here
-                    sql += " AS " + Delimiters.StringOpen + query.es.CountAllAlias + Delimiters.StringClose;
+                    sql += " AS " + Delimiters.StringOpen + query.tg.CountAllAlias + Delimiters.StringClose;
                 }
             }
 
@@ -582,7 +582,7 @@ namespace Tiraggo.OracleClientProvider
             }
 
             // Kind of a hack here, I should probably pull this out and put it in build query ... and do it only for the WHERE 
-            if (query.es.Top >= 0 && prefix == " WHERE ")
+            if (query.tg.Top >= 0 && prefix == " WHERE ")
             {
                 if (!first)
                 {
@@ -592,7 +592,7 @@ namespace Tiraggo.OracleClientProvider
                 {
                     sql += " WHERE ";
                 }
-                sql += "ROWNUM <= " + query.es.Top.ToString();
+                sql += "ROWNUM <= " + query.tg.Top.ToString();
             }
 
             return sql;
@@ -668,7 +668,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 sql += " GROUP BY ";
 
-                if (query.es.WithRollup)
+                if (query.tg.WithRollup)
                 {
                     sql += " ROLLUP(";
                 }
@@ -687,7 +687,7 @@ namespace Tiraggo.OracleClientProvider
                     comma = ",";
                 }
 
-                if (query.es.WithRollup)
+                if (query.tg.WithRollup)
                 {
                     sql += ")";
                 }
@@ -1177,7 +1177,7 @@ namespace Tiraggo.OracleClientProvider
 
         protected static string GetColumnName(tgColumnItem column)
         {
-            if (column.Query == null || column.Query.es.JoinAlias == " ")
+            if (column.Query == null || column.Query.tg.JoinAlias == " ")
             {
                 return Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
             }
@@ -1187,7 +1187,7 @@ namespace Tiraggo.OracleClientProvider
 
                 if (iQuery.IsInSubQuery)
                 {
-                    return column.Query.es.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
+                    return column.Query.tg.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
                 }
                 else
                 {

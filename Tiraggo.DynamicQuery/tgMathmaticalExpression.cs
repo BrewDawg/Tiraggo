@@ -38,7 +38,7 @@ namespace Tiraggo.DynamicQuery
     /// </summary>
  
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
+    [DataContract(Namespace = "tg", IsReference = true)]
     public class tgMathmaticalExpression
     {
         /// <summary>
