@@ -439,7 +439,7 @@ namespace Tiraggo.MSAccessProvider
             return param.Clone() as OleDbParameter;
         }
 
-        static public string CreateFullName(esDynamicQuerySerializable query)
+        static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
             esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;

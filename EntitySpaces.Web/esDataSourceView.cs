@@ -393,8 +393,8 @@ namespace Tiraggo.Web
                     //
                     // Back up everything cause we're going to restore it
                     //
-                    List<esExpression> select = iQuery.InternalSelectColumns;
-                    List<esOrderByItem> orderBy = iQuery.InternalOrderByItems;
+                    List<tgExpression> select = iQuery.InternalSelectColumns;
+                    List<tgOrderByItem> orderBy = iQuery.InternalOrderByItems;
 
                     bool countAll = query.es.CountAll;
                     string countAllAlias = query.es.CountAllAlias;

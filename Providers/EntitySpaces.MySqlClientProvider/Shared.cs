@@ -501,7 +501,7 @@ namespace Tiraggo.MySqlClientProvider
             return (insert || update || delete) ? true : false;
         }
 
-        static public string CreateFullName(esDataRequest request, esDynamicQuerySerializable query)
+        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 

@@ -33,10 +33,10 @@ using System.Text;
 
 namespace Tiraggo.DynamicQuery
 {
-    public class esExpressionOrComparison
+    public class tgExpressionOrComparison
     {
-        public esExpression Expression;
-        public List<esComparison> Comparisons;
+        public tgExpression Expression;
+        public List<tgComparison> Comparisons;
 
         public bool IsExpression
         {

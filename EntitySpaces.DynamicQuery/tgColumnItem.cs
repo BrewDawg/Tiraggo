@@ -33,48 +33,76 @@ using System.Runtime.Serialization;
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// Used when arithmetic expressions are used in the DynamicQuery syntax.
-    /// See <see cref="esArithmeticOperator"/>
+    /// Used through the internal DynamicQuery classes and contains all of the
+    /// information needed to decribe a column, including it's alias (if any),
+    /// its DataType, and any JoinAlias to use.
     /// </summary>
- 
     [Serializable]
-    [DataContract(Namespace = "es", IsReference = true)]
-    public class esMathmaticalExpression
+    [DataContract(Namespace = "es")]
+    public struct tgColumnItem
     {
         /// <summary>
-        /// The item on the left side of the operation
+        /// The column name
         /// </summary>
-        [DataMember(Name = "SelectItem1", EmitDefaultValue = false)]
-        public esExpression SelectItem1;
+        [DataMember(Name = "Name", EmitDefaultValue = false)]
+        public string Name;
 
         /// <summary>
-        /// The item on the right side of the operation
+        /// Returns the column name if there is no Alias, otherwise, returns 
+        /// the Alias.
         /// </summary>
-        [DataMember(Name = "SelectItem2", EmitDefaultValue = false)]
-        public esExpression SelectItem2;
+        [DataMember(Name = "Alias", EmitDefaultValue = false)]
+        public string Alias
+        {
+            get
+            {
+                return (this.alias == null) ? Name : this.alias;
+            }
+
+            set
+            {
+                this.alias = value;
+            }
+        }
 
         /// <summary>
-        /// The esArithmeticOperator applied to SelectItem1 and SelectItem2
+        /// Returns true if this column has an Alias
         /// </summary>
-        [DataMember(Name = "Operator", EmitDefaultValue = false)]
-        public esArithmeticOperator Operator;
+        public bool HasAlias
+        {
+            get
+            {
+                return alias != null;
+            }
+        }
+
+        [DataMember(Name = "Distinct", EmitDefaultValue = false)]
+        public bool Distinct
+        {
+            get
+            {
+                return distinct;
+            }
+            set
+            {
+                this.distinct= value;
+            }
+        }
 
         /// <summary>
-        /// When the right hand side is a literal value this holds its value.
+        /// 
         /// </summary>
-        [DataMember(Name = "Literal", EmitDefaultValue = false)]
-        public object Literal;
+        [DataMember(Name = "ParentQuery", Order = 99, EmitDefaultValue = false)]
+        public tgDynamicQuerySerializable Query;
 
         /// <summary>
-        /// When the right hand side is a literal value this describes its data type.
+        /// This is passed into the tgQueryItem's constructor, it ultimately makes its 
+        /// way here
         /// </summary>
-        [DataMember(Name = "LiteralType", EmitDefaultValue = false)]
-        public esSystemType LiteralType;
+        [DataMember(Name = "Datatype", EmitDefaultValue = false)]
+        public esSystemType Datatype;
 
-        /// <summary>
-        /// Whether the esQueryItem goes first in the expression
-        /// </summary>
-        [DataMember(Name = "ItemFirst", EmitDefaultValue = false)]
-        public bool ItemFirst = true;
+        private string alias;
+        private bool distinct;
     }
 }

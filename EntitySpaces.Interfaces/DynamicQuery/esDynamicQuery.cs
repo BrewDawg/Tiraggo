@@ -151,7 +151,7 @@ namespace Tiraggo.Interfaces
     /// </code>
     /// </example>
     [Serializable] 
-    public class esDynamicQuery : esDynamicQuerySerializable
+    public class esDynamicQuery : tgDynamicQuerySerializable
     {
         /// <summary>
         /// The Constructor
@@ -213,7 +213,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        private void AssignProviderMetadata(esDynamicQuerySerializable query, List<esDynamicQuerySerializable> beenThere)
+        private void AssignProviderMetadata(tgDynamicQuerySerializable query, List<tgDynamicQuerySerializable> beenThere)
         {
             if (beenThere.Contains(query)) return;
 
@@ -244,13 +244,13 @@ namespace Tiraggo.Interfaces
             {
                 foreach (esColumnMetadata col in (esColumnMetadataCollection)iQuery.Columns)
                 {
-                    esQueryItem item = new esQueryItem(this, col.Name, col.esType);
+                    tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                     query.Select(item);
                 }
             }
             else 
             {
-                List<esQueryItem> columns = iQuery.SelectAllExcept;
+                List<tgQueryItem> columns = iQuery.SelectAllExcept;
 
                 if (columns != null)
                 {
@@ -269,20 +269,20 @@ namespace Tiraggo.Interfaces
 
                         if (found) continue;
 
-                        esExpression item = new esQueryItem(this, col.Name, col.esType);
+                        tgExpression item = new tgQueryItem(this, col.Name, col.esType);
                         query.Select(item);
                     }
                 }
             }
 
-            foreach (esDynamicQuerySerializable subQuery in iQuery.queries.Values)
+            foreach (tgDynamicQuerySerializable subQuery in iQuery.queries.Values)
             {
                 AssignProviderMetadata(subQuery, beenThere);
             }
 
             if (iQuery.InternalSetOperations != null)
             {
-                foreach (esSetOperation setOperation in iQuery.InternalSetOperations)
+                foreach (tgSetOperation setOperation in iQuery.InternalSetOperations)
                 {
                     AssignProviderMetadata(setOperation.Query, beenThere);
                 }
@@ -324,7 +324,7 @@ namespace Tiraggo.Interfaces
 
             if ((this.queries != null && this.queries.Count > 0) || iQuery.InternalSetOperations != null)
             {
-                AssignProviderMetadata(this, new List<esDynamicQuerySerializable>());
+                AssignProviderMetadata(this, new List<tgDynamicQuerySerializable>());
             }
 
             string catalog = conn.Catalog;
@@ -366,7 +366,7 @@ namespace Tiraggo.Interfaces
             {
                 foreach (esColumnMetadata col in this.Meta.Columns)
                 {
-                    esQueryItem item = new esQueryItem(this, col.Name, col.esType);
+                    tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                     this.Select(item);
                 }
 
@@ -689,7 +689,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="columns">The columns which you wish to exclude from the Select statement</param>
         /// <returns></returns>
-        override public esDynamicQuerySerializable SelectAllExcept(params esQueryItem[] columns)
+        override public tgDynamicQuerySerializable SelectAllExcept(params tgQueryItem[] columns)
         {
             foreach (esColumnMetadata col in this.Meta.Columns)
             {
@@ -706,7 +706,7 @@ namespace Tiraggo.Interfaces
 
                 if (found) continue;
 
-                esExpression item = new esQueryItem(this, col.Name, col.esType);
+                tgExpression item = new tgQueryItem(this, col.Name, col.esType);
                 this.Select(item);
             }
 
@@ -718,11 +718,11 @@ namespace Tiraggo.Interfaces
         /// classes as opposed to doing a SELECT *
         /// </summary>
         /// <returns></returns>
-        override public esDynamicQuerySerializable SelectAll()
+        override public tgDynamicQuerySerializable SelectAll()
         {
             foreach (esColumnMetadata col in this.Meta.Columns)
             {
-                esQueryItem item = new esQueryItem(this, col.Name, col.esType);
+                tgQueryItem item = new tgQueryItem(this, col.Name, col.esType);
                 this.Select(item);
             }
 
@@ -732,39 +732,39 @@ namespace Tiraggo.Interfaces
         #endregion
 
         #region Helper Routine
-        private List<esComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
         {
-            List<esComparison> items = new List<esComparison>();
+            List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new esComparison(esParenthesis.Open));
+            items.Add(new tgComparison(esParenthesis.Open));
 
             bool first = true;
 
-            esComparison whereItem;
+            tgComparison whereItem;
             int count = theItems.Length;
 
             for (int i = 0; i < count; i++)
             {
                 object o = theItems[i];
 
-                whereItem = o as esComparison;
+                whereItem = o as tgComparison;
                 if (whereItem != null)
                 {
                     if (!first)
                     {
-                        items.Add(new esComparison(conj));
+                        items.Add(new tgComparison(conj));
                     }
                     items.Add(whereItem);
                     first = false;
                 }
                 else
                 {
-                    List<esComparison> listItem = o as List<esComparison>;
+                    List<tgComparison> listItem = o as List<tgComparison>;
                     if (listItem != null)
                     {
                         if (!first)
                         {
-                            items.Add(new esComparison(conj));
+                            items.Add(new tgComparison(conj));
                         }
                         items.AddRange(listItem);
                         first = false;
@@ -776,7 +776,7 @@ namespace Tiraggo.Interfaces
                 }
             }
 
-            items.Add(new esComparison(esParenthesis.Close));
+            items.Add(new tgComparison(esParenthesis.Close));
 
             return items;
         }

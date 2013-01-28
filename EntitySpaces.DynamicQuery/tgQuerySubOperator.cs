@@ -35,7 +35,7 @@ namespace Tiraggo.DynamicQuery
 {
     /// <summary>
     /// Describes a SubOperator such as ToLower, ToUpper that can be applied
-    /// to an <seealso cref="esComparison"/> or <seealso cref="esExpression"/>. This
+    /// to an <seealso cref="tgComparison"/> or <seealso cref="tgExpression"/>. This
     /// class is used internally by Tiraggo.
     /// </summary>
     /// <remarks>
@@ -65,12 +65,12 @@ namespace Tiraggo.DynamicQuery
     /// </code>
     /// </remarks>
     /// <example>
-    /// You will not call esQuerySubOperator directly, but will be limited to use as
+    /// You will not call tgQuerySubOperator directly, but will be limited to use as
     /// in the example below, or to the many uses posted here:
     /// <code>
     /// http://www.entityspaces.net/portal/QueryAPISamples/tabid/80/Default.aspx
     /// </code>
-    /// This will be the extent of your use of the esQuerySubOperator class:
+    /// This will be the extent of your use of the tgQuerySubOperator class:
     /// <code>
     /// .Select
     /// (
@@ -85,7 +85,7 @@ namespace Tiraggo.DynamicQuery
     /// </example>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esQuerySubOperator
+    public class tgQuerySubOperator
     {
         /// <summary>
         /// The type of the suboperator

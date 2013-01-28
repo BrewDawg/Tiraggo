@@ -28,81 +28,71 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
+
 using System.Runtime.Serialization;
+
 
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// Used through the internal DynamicQuery classes and contains all of the
-    /// information needed to decribe a column, including it's alias (if any),
-    /// its DataType, and any JoinAlias to use.
+    /// The tgOrderByItem class is dynamically created by your BusinessEntity's
+    /// DynamicQuery mechanism.
+    /// This class is mostly used by the EntitySpaces architecture, not the programmer.
     /// </summary>
+    /// <example>
+    /// You will not call tgOrderByItem directly, but will be limited to use as
+    /// in the example below, or to the many uses posted here:
+    /// <code>
+    /// http://www.entityspaces.net/portal/QueryAPISamples/tabid/80/Default.aspx
+    /// </code>
+    /// This will be the extent of your use of the tgOrderByItem class:
+    /// <code>
+    /// .OrderBy
+    /// (
+    ///		emps.Query.LastName.Descending,
+    ///		emps.Query.FirstName.Ascending
+    /// );
+    /// </code>
+    /// </example>
     [Serializable]
-    [DataContract(Namespace = "es")]
-    public struct esColumnItem
+    [DataContract(Namespace = "es", IsReference = true)]
+    public class tgOrderByItem
     {
         /// <summary>
-        /// The column name
+        /// The tgOrderByItem class is dynamically created by your
+        /// BusinessEntity's DynamicQuery mechanism.
+        /// See <see cref="esOrderByDirection"/> Enumeration.
         /// </summary>
-        [DataMember(Name = "Name", EmitDefaultValue = false)]
-        public string Name;
-
-        /// <summary>
-        /// Returns the column name if there is no Alias, otherwise, returns 
-        /// the Alias.
-        /// </summary>
-        [DataMember(Name = "Alias", EmitDefaultValue = false)]
-        public string Alias
+        /// <param name="query">The associated DynamicQuery</param>
+        public tgOrderByItem()
         {
-            get
-            {
-                return (this.alias == null) ? Name : this.alias;
-            }
 
-            set
-            {
-                this.alias = value;
-            }
         }
 
         /// <summary>
-        /// Returns true if this column has an Alias
+        /// This allows the user to pass in a string to the Query.OrderBy() method
+        /// directly and we convert it to an instance of an tgOrderByItem class for
+        /// them
         /// </summary>
-        public bool HasAlias
+        public static implicit operator tgOrderByItem(string literal)
         {
-            get
-            {
-                return alias != null;
-            }
-        }
-
-        [DataMember(Name = "Distinct", EmitDefaultValue = false)]
-        public bool Distinct
-        {
-            get
-            {
-                return distinct;
-            }
-            set
-            {
-                this.distinct= value;
-            }
+            tgOrderByItem item = new tgOrderByItem();
+            item.Expression = new tgExpression();
+            item.Expression.Column.Name = literal;
+            return item;
         }
 
         /// <summary>
-        /// 
+        /// esOrderByDirection Direction.
+        /// See <see cref="esOrderByDirection"/> Enumeration.
         /// </summary>
-        [DataMember(Name = "ParentQuery", Order = 99, EmitDefaultValue = false)]
-        public esDynamicQuerySerializable Query;
+        [DataMember(Name = "Direction", EmitDefaultValue = false)]
+        public esOrderByDirection Direction;
 
         /// <summary>
-        /// This is passed into the esQueryItem's constructor, it ultimately makes its 
-        /// way here
-        /// </summary>
-        [DataMember(Name = "Datatype", EmitDefaultValue = false)]
-        public esSystemType Datatype;
-
-        private string alias;
-        private bool distinct;
+        /// The Expression for the OrderBy statement
+        /// </summary>  
+        [DataMember(Name = "Expression", EmitDefaultValue = false)]
+        public tgExpression Expression;
     }
 }

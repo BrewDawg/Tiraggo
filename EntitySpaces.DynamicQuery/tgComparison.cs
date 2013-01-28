@@ -34,17 +34,17 @@ using System.Runtime.Serialization;
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// The esComparison class is dynamically created by your BusinessEntity's
+    /// The tgComparison class is dynamically created by your BusinessEntity's
     /// DynamicQuery mechanism.
     /// This class is mostly used by the EntitySpaces architecture, not the programmer.
     /// </summary>
     /// <example>
-    /// You will not call esComparison directly, but will be limited to use as
+    /// You will not call tgComparison directly, but will be limited to use as
     /// in the example below, or to the many uses posted here:
     /// <code>
     /// http://www.entityspaces.net/portal/QueryAPISamples/tabid/80/Default.aspx
     /// </code>
-    /// This will be the extent of your use of the esComparison class:
+    /// This will be the extent of your use of the tgComparison class:
     /// <code>
     /// .Where
     /// (
@@ -55,35 +55,35 @@ namespace Tiraggo.DynamicQuery
     /// </example>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esComparison
+    public class tgComparison
     {
         /// <summary>
-        /// The esComparison class is dynamically created by your
+        /// The tgComparison class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
         /// </summary>
-        public esComparison(esDynamicQuerySerializable query) 
+        public tgComparison(tgDynamicQuerySerializable query) 
         {
             this.data.Query = query;
         }
 
         /// <summary>
-        /// The esComparison class is dynamically created by your
+        /// The tgComparison class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
         /// See <see cref="esParenthesis"/> Enumeration.
         /// </summary>
         /// <param name="paren">The esParenthesis passed in via DynamicQuery</param>
-        public esComparison(esParenthesis paren) 
+        public tgComparison(esParenthesis paren) 
         {
             this.data.Parenthesis = paren;
         }
 
         /// <summary>
-        /// The esComparison class is dynamically created by your
+        /// The tgComparison class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
         /// See <see cref="esConjunction"/> Enumeration.
         /// </summary>
         /// <param name="conj">The esConjunction passed in via DynamicQuery</param>
-        public esComparison(esConjunction conj)
+        public tgComparison(esConjunction conj)
         {
             this.data.Conjunction = conj;
         }
@@ -101,10 +101,10 @@ namespace Tiraggo.DynamicQuery
         /// );
         /// </code>
         /// </example>
-        /// <param name="c1">First esComparison passed in via DynamicQuery</param>
-        /// <param name="c2">Second esComparison passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator |(esComparison c1, esComparison c2)
+        /// <param name="c1">First tgComparison passed in via DynamicQuery</param>
+        /// <param name="c2">Second tgComparison passed in via DynamicQuery</param>
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator |(tgComparison c1, tgComparison c2)
         {
             return HandleOperator(c1, c2, esConjunction.Or);
         }
@@ -122,10 +122,10 @@ namespace Tiraggo.DynamicQuery
         /// );
         /// </code>
         /// </example>
-        /// <param name="c1">First esComparison passed in via DynamicQuery</param>
-        /// <param name="c2">Second esComparison passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator &(esComparison c1, esComparison c2)
+        /// <param name="c1">First tgComparison passed in via DynamicQuery</param>
+        /// <param name="c2">Second tgComparison passed in via DynamicQuery</param>
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator &(tgComparison c1, tgComparison c2)
         {
             return HandleOperator(c1, c2, esConjunction.And);
         }
@@ -143,9 +143,9 @@ namespace Tiraggo.DynamicQuery
         /// );
         /// </code>
         /// </example>
-        /// <param name="c1">The esComparison to negate</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator !(esComparison comparison)
+        /// <param name="c1">The tgComparison to negate</param>
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator !(tgComparison comparison)
         {
             comparison.not = true;
             return comparison;
@@ -158,22 +158,22 @@ namespace Tiraggo.DynamicQuery
         /// <param name="c2"></param>
         /// <param name="op"></param>
         /// <returns></returns>
-        private static esComparison HandleOperator(esComparison c1, esComparison c2, esConjunction op)
+        private static tgComparison HandleOperator(tgComparison c1, tgComparison c2, esConjunction op)
         {
-            List<esComparison> exp = null;
+            List<tgComparison> exp = null;
 
             if (c1.data.WhereExpression == null)
             {
-                c1.data.WhereExpression = new List<esComparison>();
+                c1.data.WhereExpression = new List<tgComparison>();
                 exp = c1.data.WhereExpression;
 
-                exp.Add(new esComparison(esParenthesis.Open));
+                exp.Add(new tgComparison(esParenthesis.Open));
                 exp.Add(c1);
             }
             else
             {
                 exp = c1.data.WhereExpression;
-                exp.Insert(0, new esComparison(esParenthesis.Open));
+                exp.Insert(0, new tgComparison(esParenthesis.Open));
             }
 
             esConjunction conj = op;
@@ -192,7 +192,7 @@ namespace Tiraggo.DynamicQuery
                 }
             }
 
-            exp.Add(new esComparison(conj));
+            exp.Add(new tgComparison(conj));
 
             if (c2.data.WhereExpression == null)
             {
@@ -203,7 +203,7 @@ namespace Tiraggo.DynamicQuery
                 exp.AddRange(c2.data.WhereExpression);
             }
 
-            exp.Add(new esComparison(esParenthesis.Close));
+            exp.Add(new tgComparison(esParenthesis.Close));
 
             return c1;
         }
@@ -211,7 +211,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Force true (to use in Where clauses).
         /// </summary>
-        public static bool operator true(esComparison c1)
+        public static bool operator true(tgComparison c1)
         {
             return false;
         }
@@ -219,7 +219,7 @@ namespace Tiraggo.DynamicQuery
         ///// <summary>
         ///// Force false (to use in Where clauses).
         ///// </summary>
-        public static bool operator false(esComparison c1)
+        public static bool operator false(tgComparison c1)
         {
             return false;
         }
@@ -291,10 +291,10 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// esQuerySubOperator
-        /// See <see cref="esQuerySubOperator"/> Enumeration.
+        /// tgQuerySubOperator
+        /// See <see cref="tgQuerySubOperator"/> Enumeration.
         /// </summary>
-        internal List<esQuerySubOperator> SubOperators
+        internal List<tgQuerySubOperator> SubOperators
         {
             get { return data.SubOperators; }
             set { data.SubOperators = value; }
@@ -350,7 +350,7 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// Whether the esComparison goes first in the expression
+        /// Whether the tgComparison goes first in the expression
         /// </summary>
         internal bool ItemFirst
         {
@@ -359,7 +359,7 @@ namespace Tiraggo.DynamicQuery
         }
 
         /// <summary>
-        /// Used internally by EntitySpaces to make the <see cref="esComparison"/> classes data available to the
+        /// Used internally by EntitySpaces to make the <see cref="tgComparison"/> classes data available to the
         /// EntitySpaces data providers.
         /// </summary>
         [Serializable]
@@ -411,103 +411,103 @@ namespace Tiraggo.DynamicQuery
             }
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "ParentQuery", Order = 99, EmitDefaultValue = false)]
-            public esDynamicQuerySerializable Query;
+            public tgDynamicQuerySerializable Query;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Column", EmitDefaultValue = false)]
-            public esColumnItem Column;
+            public tgColumnItem Column;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "IsLiteral", EmitDefaultValue = false)]
             public bool IsLiteral;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "ComparisonColumn", EmitDefaultValue = false)]
-            public esColumnItem ComparisonColumn;
+            public tgColumnItem ComparisonColumn;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "ComparisonColumn2", EmitDefaultValue = false)]
-            public esColumnItem ComparisonColumn2;
+            public tgColumnItem ComparisonColumn2;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Expression", EmitDefaultValue = false)]
-            public esMathmaticalExpression Expression;
+            public tgMathmaticalExpression Expression;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Value", EmitDefaultValue = false)]
             public object Value;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Values", EmitDefaultValue = false)]
             public List<object> Values;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Operand", EmitDefaultValue = false)]
             public esComparisonOperand Operand;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Conjunction", EmitDefaultValue = false)]
             public esConjunction Conjunction;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "Parenthesis", EmitDefaultValue = false)]
             public esParenthesis Parenthesis;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "BetweenBegin", EmitDefaultValue = false)]
             public object BetweenBegin;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "BetweenEnd", EmitDefaultValue = false)]
             public object BetweenEnd;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "LikeEscape", EmitDefaultValue = false)]
             public char LikeEscape;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "SubOperators", EmitDefaultValue = false)]
-            public List<esQuerySubOperator> SubOperators;
+            public List<tgQuerySubOperator> SubOperators;
 
             /// <summary>
-            /// Internal data used by <see cref="esComparison"/> and accessed by the EntitySpaces data providers.
+            /// Internal data used by <see cref="tgComparison"/> and accessed by the EntitySpaces data providers.
             /// </summary>
             [DataMember(Name = "WhereExpression", EmitDefaultValue = false)]
-            public List<esComparison> WhereExpression;
+            public List<tgComparison> WhereExpression;
 
             /// <summary>
-            /// Whether the esQueryItem goes first in the expression
+            /// Whether the tgQueryItem goes first in the expression
             /// </summary>
             [DataMember(Name = "ItemFirst", EmitDefaultValue = false)]
             public bool ItemFirst = true;
@@ -515,12 +515,12 @@ namespace Tiraggo.DynamicQuery
 
         /// <summary>
         /// The data is hidden from intellisense, however, the providers, can typecast
-        /// the esComparison and get to the real data without properties having to 
+        /// the tgComparison and get to the real data without properties having to 
         /// be exposed thereby cluttering up the intellisense
         /// </summary>
-        /// <param name="where">The esComparison to cast</param>
+        /// <param name="where">The tgComparison to cast</param>
         /// <returns>The esComparisonData interface</returns>
-        public static explicit operator esComparisonData(esComparison where)
+        public static explicit operator esComparisonData(tgComparison where)
         {
             return where.data;
         }

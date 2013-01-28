@@ -481,7 +481,7 @@ namespace Tiraggo.DynamicQuery
  
     /// <summary>
     /// Used to track the type of Cast requested, set automatically by the implicit cast 
-    /// operators such as (esString)query.Age. See also <see cref="esQueryItem.Cast"/>
+    /// operators such as (tgString)query.Age. See also <see cref="tgQueryItem.Cast"/>
     /// </summary>
     public enum esCastType
     {

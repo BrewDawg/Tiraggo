@@ -38,15 +38,15 @@ namespace Tiraggo.DynamicQuery
     /// </summary>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esJoinItem
+    public class tgJoinItem
     {
         [NonSerialized]
-        private esDynamicQuerySerializable parentQuery;
+        private tgDynamicQuerySerializable parentQuery;
 
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esJoinItem()
+        public tgJoinItem()
         {
 
         }
@@ -54,7 +54,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esJoinItem(esDynamicQuerySerializable parentQuery)
+        public tgJoinItem(tgDynamicQuerySerializable parentQuery)
         {
             this.parentQuery = parentQuery;
         }
@@ -64,24 +64,24 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public esDynamicQuerySerializable On(params object[] items)
+        public tgDynamicQuerySerializable On(params object[] items)
         {
             if (this.data.WhereItems == null)
             {
-                this.data.WhereItems = new List<esComparison>();
+                this.data.WhereItems = new List<tgComparison>();
             }
 
             foreach (object item in items)
             {
-                esComparison wi = item as esComparison;
+                tgComparison wi = item as tgComparison;
 
                 if (wi != null)
                 {
                     if (wi.data.WhereExpression != null)
                     {
-                        foreach (esComparison exp in wi.data.WhereExpression)
+                        foreach (tgComparison exp in wi.data.WhereExpression)
                         {
-                            esDynamicQuerySerializable q = exp.Value as esDynamicQuerySerializable;
+                            tgDynamicQuerySerializable q = exp.Value as tgDynamicQuerySerializable;
 
                             if (q != null)
                             {
@@ -97,7 +97,7 @@ namespace Tiraggo.DynamicQuery
                         this.data.WhereItems.Add(wi);
                     }
 
-                    esDynamicQuerySerializable query = wi.Value as esDynamicQuerySerializable;
+                    tgDynamicQuerySerializable query = wi.Value as tgDynamicQuerySerializable;
 
                     if (query != null)
                     {
@@ -115,39 +115,39 @@ namespace Tiraggo.DynamicQuery
         }
 
         #region ProcessWhereItems
-        private List<esComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
         {
-            List<esComparison> items = new List<esComparison>();
+            List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new esComparison(esParenthesis.Open));
+            items.Add(new tgComparison(esParenthesis.Open));
 
             bool first = true;
 
-            esComparison whereItem;
+            tgComparison whereItem;
             int count = theItems.Length;
 
             for (int i = 0; i < count; i++)
             {
                 object o = theItems[i];
 
-                whereItem = o as esComparison;
+                whereItem = o as tgComparison;
                 if (whereItem != null)
                 {
                     if (!first)
                     {
-                        items.Add(new esComparison(conj));
+                        items.Add(new tgComparison(conj));
                     }
                     items.Add(whereItem);
                     first = false;
                 }
                 else
                 {
-                    List<esComparison> listItem = o as List<esComparison>;
+                    List<tgComparison> listItem = o as List<tgComparison>;
                     if (listItem != null)
                     {
                         if (!first)
                         {
-                            items.Add(new esComparison(conj));
+                            items.Add(new tgComparison(conj));
                         }
                         items.AddRange(listItem);
                         first = false;
@@ -159,14 +159,14 @@ namespace Tiraggo.DynamicQuery
                 }
             }
 
-            items.Add(new esComparison(esParenthesis.Close));
+            items.Add(new tgComparison(esParenthesis.Close));
 
             return items;
         }
         #endregion
 
         /// <summary>
-        /// Used internally by EntitySpaces to make the <see cref="esJoinItem"/> classes data available to the
+        /// Used internally by EntitySpaces to make the <see cref="tgJoinItem"/> classes data available to the
         /// EntitySpaces data providers.
         /// </summary>
   
@@ -178,7 +178,7 @@ namespace Tiraggo.DynamicQuery
             /// The Query that makes up the join
             /// </summary>
             [DataMember(Name = "Query", Order = 99, EmitDefaultValue = false)]
-            public esDynamicQuerySerializable Query;
+            public tgDynamicQuerySerializable Query;
 
             /// <summary>
             /// The join type, InnerJoin, LeftJoin, ...
@@ -190,17 +190,17 @@ namespace Tiraggo.DynamicQuery
             /// The where conditions for the subquery
             /// </summary>
             [DataMember(Name = "WhereItems", EmitDefaultValue = false)]
-            public List<esComparison> WhereItems;
+            public List<tgComparison> WhereItems;
         }
 
         /// <summary>
         /// The data is hidden from intellisense, however, the providers, can typecast
-        /// the esJoinItem and get to the real data without properties having to 
+        /// the tgJoinItem and get to the real data without properties having to 
         /// be exposed thereby cluttering up the intellisense.
         /// </summary>
         /// <param name="join"></param>
         /// <returns></returns>
-        public static explicit operator esJoinItemData(esJoinItem join)
+        public static explicit operator esJoinItemData(tgJoinItem join)
         {
             return join.data;
         }

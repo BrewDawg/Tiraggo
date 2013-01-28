@@ -475,7 +475,7 @@ namespace Tiraggo.VistaDB4Provider
             return param.Clone() as VistaDBParameter;
         }
 
-        static public string CreateFullName(esDynamicQuerySerializable query)
+        static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
             esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;

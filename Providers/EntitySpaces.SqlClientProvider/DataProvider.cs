@@ -1052,7 +1052,7 @@ namespace Tiraggo.SqlClientProvider
                 response.Table = dataTable;
 
                 // Special code to remove the ESRN column if paging is going on
-                esDynamicQuerySerializable.DynamicQueryProps es = request.DynamicQuery.es;
+                tgDynamicQuerySerializable.DynamicQueryProps es = request.DynamicQuery.es;
                 if (es.PageNumber.HasValue && es.PageSize.HasValue)
                 {
                     DataColumnCollection cols = response.Table.Columns;

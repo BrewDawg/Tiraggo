@@ -104,22 +104,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enums.cs" />
-    <Compile Include="esCasts.cs" />
-    <Compile Include="esColumnItem.cs" />
-    <Compile Include="esDataContractSerializer.cs" />
-    <Compile Include="esDynamicQuerySerializable.cs" />
-    <Compile Include="esExpressionOrComparison.cs" />
-    <Compile Include="esExtraPropertyBinder.cs" />
-    <Compile Include="esMathmaticalExpression.cs" />
-    <Compile Include="esGroupByItem.cs" />
-    <Compile Include="esJoinItem.cs" />
-    <Compile Include="esOrderByItem.cs" />
-    <Compile Include="esQueryItem.cs" />
-    <Compile Include="esQuerySubOperator.cs" />
-    <Compile Include="esExpression.cs" />
-    <Compile Include="esComparison.cs" />
-    <Compile Include="esSetOperation.cs" />
-    <Compile Include="esCase.cs" />
+    <Compile Include="tgCasts.cs" />
+    <Compile Include="tgColumnItem.cs" />
+    <Compile Include="tgDataContractSerializer.cs" />
+    <Compile Include="tgDynamicQuerySerializable.cs" />
+    <Compile Include="tgExpressionOrComparison.cs" />
+    <Compile Include="tgExtraPropertyBinder.cs" />
+    <Compile Include="tgMathmaticalExpression.cs" />
+    <Compile Include="tgGroupByItem.cs" />
+    <Compile Include="tgJoinItem.cs" />
+    <Compile Include="tgOrderByItem.cs" />
+    <Compile Include="tgQueryItem.cs" />
+    <Compile Include="tgQuerySubOperator.cs" />
+    <Compile Include="tgExpression.cs" />
+    <Compile Include="tgComparison.cs" />
+    <Compile Include="tgSetOperation.cs" />
+    <Compile Include="tgCase.cs" />
     <Compile Include="IDynamicQuerySerializableInternal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

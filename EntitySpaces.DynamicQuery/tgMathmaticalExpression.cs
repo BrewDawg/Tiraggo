@@ -28,71 +28,53 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-
 using System.Runtime.Serialization;
-
 
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// The esOrderByItem class is dynamically created by your BusinessEntity's
-    /// DynamicQuery mechanism.
-    /// This class is mostly used by the EntitySpaces architecture, not the programmer.
+    /// Used when arithmetic expressions are used in the DynamicQuery syntax.
+    /// See <see cref="esArithmeticOperator"/>
     /// </summary>
-    /// <example>
-    /// You will not call esOrderByItem directly, but will be limited to use as
-    /// in the example below, or to the many uses posted here:
-    /// <code>
-    /// http://www.entityspaces.net/portal/QueryAPISamples/tabid/80/Default.aspx
-    /// </code>
-    /// This will be the extent of your use of the esOrderByItem class:
-    /// <code>
-    /// .OrderBy
-    /// (
-    ///		emps.Query.LastName.Descending,
-    ///		emps.Query.FirstName.Ascending
-    /// );
-    /// </code>
-    /// </example>
+ 
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esOrderByItem
+    public class tgMathmaticalExpression
     {
         /// <summary>
-        /// The esOrderByItem class is dynamically created by your
-        /// BusinessEntity's DynamicQuery mechanism.
-        /// See <see cref="esOrderByDirection"/> Enumeration.
+        /// The item on the left side of the operation
         /// </summary>
-        /// <param name="query">The associated DynamicQuery</param>
-        public esOrderByItem()
-        {
-
-        }
+        [DataMember(Name = "SelectItem1", EmitDefaultValue = false)]
+        public tgExpression SelectItem1;
 
         /// <summary>
-        /// This allows the user to pass in a string to the Query.OrderBy() method
-        /// directly and we convert it to an instance of an esOrderByItem class for
-        /// them
+        /// The item on the right side of the operation
         /// </summary>
-        public static implicit operator esOrderByItem(string literal)
-        {
-            esOrderByItem item = new esOrderByItem();
-            item.Expression = new esExpression();
-            item.Expression.Column.Name = literal;
-            return item;
-        }
+        [DataMember(Name = "SelectItem2", EmitDefaultValue = false)]
+        public tgExpression SelectItem2;
 
         /// <summary>
-        /// esOrderByDirection Direction.
-        /// See <see cref="esOrderByDirection"/> Enumeration.
+        /// The esArithmeticOperator applied to SelectItem1 and SelectItem2
         /// </summary>
-        [DataMember(Name = "Direction", EmitDefaultValue = false)]
-        public esOrderByDirection Direction;
+        [DataMember(Name = "Operator", EmitDefaultValue = false)]
+        public esArithmeticOperator Operator;
 
         /// <summary>
-        /// The Expression for the OrderBy statement
-        /// </summary>  
-        [DataMember(Name = "Expression", EmitDefaultValue = false)]
-        public esExpression Expression;
+        /// When the right hand side is a literal value this holds its value.
+        /// </summary>
+        [DataMember(Name = "Literal", EmitDefaultValue = false)]
+        public object Literal;
+
+        /// <summary>
+        /// When the right hand side is a literal value this describes its data type.
+        /// </summary>
+        [DataMember(Name = "LiteralType", EmitDefaultValue = false)]
+        public esSystemType LiteralType;
+
+        /// <summary>
+        /// Whether the tgQueryItem goes first in the expression
+        /// </summary>
+        [DataMember(Name = "ItemFirst", EmitDefaultValue = false)]
+        public bool ItemFirst = true;
     }
 }

@@ -36,17 +36,17 @@ using System.Runtime.Serialization;
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// The esQueryItem class is dynamically created by your BusinessEntity's
+    /// The tgQueryItem class is dynamically created by your BusinessEntity's
     /// DynamicQuery mechanism.
     /// This class is mostly used by the EntitySpaces architecture, not the programmer.
     /// </summary>
     /// <example>
-    /// You will not call esQueryItem directly, but will be limited to use as
+    /// You will not call tgQueryItem directly, but will be limited to use as
     /// in the example below, or to the many uses posted here:
     /// <code>
     /// http://www.entityspaces.net/portal/QueryAPISamples/tabid/80/Default.aspx
     /// </code>
-    /// This will be the extent of your use of the esQueryItem class:
+    /// This will be the extent of your use of the tgQueryItem class:
     /// <code>
     /// .Where
     /// (
@@ -70,21 +70,21 @@ namespace Tiraggo.DynamicQuery
     /// </example>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esQueryItem
+    public class tgQueryItem
     {
-        private esQueryItem()
+        private tgQueryItem()
         {
-            this.Expression = new esMathmaticalExpression();
+            this.Expression = new tgMathmaticalExpression();
         }
 
         /// <summary>
-        /// The esQueryItem class is dynamically created by your
+        /// The tgQueryItem class is dynamically created by your
         /// BusinessEntity's DynamicQuery mechanism.
         /// </summary>
         /// <param name="query">The esDynamicQueryTransport passed in via DynamicQuery</param>
         /// <param name="columnName">The columnName passed in via DynamicQuery</param>
         /// <param name="datatype">The esSystemType</param>
-        public esQueryItem(esDynamicQuerySerializable query, string columnName, esSystemType datatype)
+        public tgQueryItem(tgDynamicQuerySerializable query, string columnName, esSystemType datatype)
         {
             this.query = query;
             this.Column.Query = query;
@@ -108,10 +108,10 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="item">Passed in via DynamicQuery</param>
         /// <param name="value">Passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator >(esQueryItem item, esQueryItem value)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator >(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.GreaterThan;
 
             wi.data.Column = item.Column;
@@ -121,9 +121,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison GreaterThan(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison GreaterThan(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.GreaterThan;
 
             wi.data.Column = queryItem.Column;
@@ -136,196 +136,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator >(esQueryItem item1, bool literal)
+        public static tgComparison operator >(tgQueryItem item1, bool literal)
         {
             return GreaterThan(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator >(bool literal, esQueryItem item1)
+        public static tgComparison operator >(bool literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator >(esQueryItem item1, byte literal)
+        public static tgComparison operator >(tgQueryItem item1, byte literal)
         {
             return GreaterThan(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator >(byte literal, esQueryItem item1)
+        public static tgComparison operator >(byte literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator >(esQueryItem item1, char literal)
+        public static tgComparison operator >(tgQueryItem item1, char literal)
         {
             return GreaterThan(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator >(char literal, esQueryItem item1)
+        public static tgComparison operator >(char literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator >(esQueryItem item1, DateTime literal)
+        public static tgComparison operator >(tgQueryItem item1, DateTime literal)
         {
             return GreaterThan(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator >(DateTime literal, esQueryItem item1)
+        public static tgComparison operator >(DateTime literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator >(esQueryItem item1, double literal)
+        public static tgComparison operator >(tgQueryItem item1, double literal)
         {
             return GreaterThan(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator >(double literal, esQueryItem item1)
+        public static tgComparison operator >(double literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator >(esQueryItem item1, decimal literal)
+        public static tgComparison operator >(tgQueryItem item1, decimal literal)
         {
             return GreaterThan(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator >(decimal literal, esQueryItem item1)
+        public static tgComparison operator >(decimal literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator >(esQueryItem item1, Guid literal)
+        public static tgComparison operator >(tgQueryItem item1, Guid literal)
         {
             return GreaterThan(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator >(Guid literal, esQueryItem item1)
+        public static tgComparison operator >(Guid literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator >(esQueryItem item1, short literal)
+        public static tgComparison operator >(tgQueryItem item1, short literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator >(short literal, esQueryItem item1)
+        public static tgComparison operator >(short literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator >(esQueryItem item1, int literal)
+        public static tgComparison operator >(tgQueryItem item1, int literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator >(int literal, esQueryItem item1)
+        public static tgComparison operator >(int literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator >(esQueryItem item1, long literal)
+        public static tgComparison operator >(tgQueryItem item1, long literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator >(long literal, esQueryItem item1)
+        public static tgComparison operator >(long literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator >(esQueryItem item1, object literal)
+        public static tgComparison operator >(tgQueryItem item1, object literal)
         {
             return GreaterThan(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator >(object literal, esQueryItem item1)
+        public static tgComparison operator >(object literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, sbyte literal)
+        public static tgComparison operator >(tgQueryItem item1, sbyte literal)
         {
             return GreaterThan(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(sbyte literal, esQueryItem item1)
+        public static tgComparison operator >(sbyte literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator >(esQueryItem item1, float literal)
+        public static tgComparison operator >(tgQueryItem item1, float literal)
         {
             return GreaterThan(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator >(float literal, esQueryItem item1)
+        public static tgComparison operator >(float literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator >(esQueryItem item1, string literal)
+        public static tgComparison operator >(tgQueryItem item1, string literal)
         {
             return GreaterThan(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator >(string literal, esQueryItem item1)
+        public static tgComparison operator >(string literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, ushort literal)
+        public static tgComparison operator >(tgQueryItem item1, ushort literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(ushort literal, esQueryItem item1)
+        public static tgComparison operator >(ushort literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, uint literal)
+        public static tgComparison operator >(tgQueryItem item1, uint literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(uint literal, esQueryItem item1)
+        public static tgComparison operator >(uint literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, ulong literal)
+        public static tgComparison operator >(tgQueryItem item1, ulong literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(ulong literal, esQueryItem item1)
+        public static tgComparison operator >(ulong literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt64, false);
         }
@@ -344,10 +344,10 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="item">Passed in via DynamicQuery</param>
         /// <param name="value">Passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator <(esQueryItem item, esQueryItem value)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator <(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.LessThan;
 
             wi.data.Column = item.Column;
@@ -357,9 +357,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison LessThan(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison LessThan(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.LessThan;
 
             wi.data.Column = queryItem.Column;
@@ -372,196 +372,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator <(esQueryItem item1, bool literal)
+        public static tgComparison operator <(tgQueryItem item1, bool literal)
         {
             return LessThan(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator <(bool literal, esQueryItem item1)
+        public static tgComparison operator <(bool literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator <(esQueryItem item1, byte literal)
+        public static tgComparison operator <(tgQueryItem item1, byte literal)
         {
             return LessThan(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator <(byte literal, esQueryItem item1)
+        public static tgComparison operator <(byte literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator <(esQueryItem item1, char literal)
+        public static tgComparison operator <(tgQueryItem item1, char literal)
         {
             return LessThan(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator <(char literal, esQueryItem item1)
+        public static tgComparison operator <(char literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator <(esQueryItem item1, DateTime literal)
+        public static tgComparison operator <(tgQueryItem item1, DateTime literal)
         {
             return LessThan(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator <(DateTime literal, esQueryItem item1)
+        public static tgComparison operator <(DateTime literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator <(esQueryItem item1, double literal)
+        public static tgComparison operator <(tgQueryItem item1, double literal)
         {
             return LessThan(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator <(double literal, esQueryItem item1)
+        public static tgComparison operator <(double literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator <(esQueryItem item1, decimal literal)
+        public static tgComparison operator <(tgQueryItem item1, decimal literal)
         {
             return LessThan(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator <(decimal literal, esQueryItem item1)
+        public static tgComparison operator <(decimal literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator <(esQueryItem item1, Guid literal)
+        public static tgComparison operator <(tgQueryItem item1, Guid literal)
         {
             return LessThan(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator <(Guid literal, esQueryItem item1)
+        public static tgComparison operator <(Guid literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator <(esQueryItem item1, short literal)
+        public static tgComparison operator <(tgQueryItem item1, short literal)
         {
             return LessThan(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator <(short literal, esQueryItem item1)
+        public static tgComparison operator <(short literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator <(esQueryItem item1, int literal)
+        public static tgComparison operator <(tgQueryItem item1, int literal)
         {
             return LessThan(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator <(int literal, esQueryItem item1)
+        public static tgComparison operator <(int literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator <(esQueryItem item1, long literal)
+        public static tgComparison operator <(tgQueryItem item1, long literal)
         {
             return LessThan(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator <(long literal, esQueryItem item1)
+        public static tgComparison operator <(long literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator <(esQueryItem item1, object literal)
+        public static tgComparison operator <(tgQueryItem item1, object literal)
         {
             return LessThan(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator <(object literal, esQueryItem item1)
+        public static tgComparison operator <(object literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, sbyte literal)
+        public static tgComparison operator <(tgQueryItem item1, sbyte literal)
         {
             return LessThan(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(sbyte literal, esQueryItem item1)
+        public static tgComparison operator <(sbyte literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator <(esQueryItem item1, float literal)
+        public static tgComparison operator <(tgQueryItem item1, float literal)
         {
             return LessThan(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator <(float literal, esQueryItem item1)
+        public static tgComparison operator <(float literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator <(esQueryItem item1, string literal)
+        public static tgComparison operator <(tgQueryItem item1, string literal)
         {
             return LessThan(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator <(string literal, esQueryItem item1)
+        public static tgComparison operator <(string literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, ushort literal)
+        public static tgComparison operator <(tgQueryItem item1, ushort literal)
         {
             return LessThan(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(ushort literal, esQueryItem item1)
+        public static tgComparison operator <(ushort literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, uint literal)
+        public static tgComparison operator <(tgQueryItem item1, uint literal)
         {
             return LessThan(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(uint literal, esQueryItem item1)
+        public static tgComparison operator <(uint literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, ulong literal)
+        public static tgComparison operator <(tgQueryItem item1, ulong literal)
         {
             return LessThan(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(ulong literal, esQueryItem item1)
+        public static tgComparison operator <(ulong literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt64, false);
         }
@@ -580,10 +580,10 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="item">Passed in via DynamicQuery</param>
         /// <param name="value">Passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator <=(esQueryItem item, esQueryItem value)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator <=(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.LessThanOrEqual;
 
             wi.data.Column = item.Column;
@@ -593,9 +593,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison LessThanOrEqual(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison LessThanOrEqual(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.LessThanOrEqual;
 
             wi.data.Column = queryItem.Column;
@@ -608,196 +608,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator <=(esQueryItem item1, bool literal)
+        public static tgComparison operator <=(tgQueryItem item1, bool literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator <=(bool literal, esQueryItem item1)
+        public static tgComparison operator <=(bool literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator <=(esQueryItem item1, byte literal)
+        public static tgComparison operator <=(tgQueryItem item1, byte literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator <=(byte literal, esQueryItem item1)
+        public static tgComparison operator <=(byte literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator <=(esQueryItem item1, char literal)
+        public static tgComparison operator <=(tgQueryItem item1, char literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator <=(char literal, esQueryItem item1)
+        public static tgComparison operator <=(char literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator <=(esQueryItem item1, DateTime literal)
+        public static tgComparison operator <=(tgQueryItem item1, DateTime literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator <=(DateTime literal, esQueryItem item1)
+        public static tgComparison operator <=(DateTime literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator <=(esQueryItem item1, double literal)
+        public static tgComparison operator <=(tgQueryItem item1, double literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator <=(double literal, esQueryItem item1)
+        public static tgComparison operator <=(double literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator <=(esQueryItem item1, decimal literal)
+        public static tgComparison operator <=(tgQueryItem item1, decimal literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator <=(decimal literal, esQueryItem item1)
+        public static tgComparison operator <=(decimal literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator <=(esQueryItem item1, Guid literal)
+        public static tgComparison operator <=(tgQueryItem item1, Guid literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator <=(Guid literal, esQueryItem item1)
+        public static tgComparison operator <=(Guid literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator <=(esQueryItem item1, short literal)
+        public static tgComparison operator <=(tgQueryItem item1, short literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator <=(short literal, esQueryItem item1)
+        public static tgComparison operator <=(short literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator <=(esQueryItem item1, int literal)
+        public static tgComparison operator <=(tgQueryItem item1, int literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator <=(int literal, esQueryItem item1)
+        public static tgComparison operator <=(int literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator <=(esQueryItem item1, long literal)
+        public static tgComparison operator <=(tgQueryItem item1, long literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator <=(long literal, esQueryItem item1)
+        public static tgComparison operator <=(long literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator <=(esQueryItem item1, object literal)
+        public static tgComparison operator <=(tgQueryItem item1, object literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator <=(object literal, esQueryItem item1)
+        public static tgComparison operator <=(object literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, sbyte literal)
+        public static tgComparison operator <=(tgQueryItem item1, sbyte literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(sbyte literal, esQueryItem item1)
+        public static tgComparison operator <=(sbyte literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator <=(esQueryItem item1, float literal)
+        public static tgComparison operator <=(tgQueryItem item1, float literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator <=(float literal, esQueryItem item1)
+        public static tgComparison operator <=(float literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator <=(esQueryItem item1, string literal)
+        public static tgComparison operator <=(tgQueryItem item1, string literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator <=(string literal, esQueryItem item1)
+        public static tgComparison operator <=(string literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, ushort literal)
+        public static tgComparison operator <=(tgQueryItem item1, ushort literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(ushort literal, esQueryItem item1)
+        public static tgComparison operator <=(ushort literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, uint literal)
+        public static tgComparison operator <=(tgQueryItem item1, uint literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(uint literal, esQueryItem item1)
+        public static tgComparison operator <=(uint literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, ulong literal)
+        public static tgComparison operator <=(tgQueryItem item1, ulong literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(ulong literal, esQueryItem item1)
+        public static tgComparison operator <=(ulong literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt64, false);
         }
@@ -816,10 +816,10 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="item">Passed in via DynamicQuery</param>
         /// <param name="value">Passed in via DynamicQuery</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public static esComparison operator >=(esQueryItem item, esQueryItem value)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public static tgComparison operator >=(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.GreaterThanOrEqual;
 
             wi.data.Column = item.Column;
@@ -829,9 +829,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison GreaterThanOrEqual(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison GreaterThanOrEqual(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.GreaterThanOrEqual;
 
             wi.data.Column = queryItem.Column;
@@ -844,196 +844,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator >=(esQueryItem item1, bool literal)
+        public static tgComparison operator >=(tgQueryItem item1, bool literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator >=(bool literal, esQueryItem item1)
+        public static tgComparison operator >=(bool literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator >=(esQueryItem item1, byte literal)
+        public static tgComparison operator >=(tgQueryItem item1, byte literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator >=(byte literal, esQueryItem item1)
+        public static tgComparison operator >=(byte literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator >=(esQueryItem item1, char literal)
+        public static tgComparison operator >=(tgQueryItem item1, char literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator >=(char literal, esQueryItem item1)
+        public static tgComparison operator >=(char literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator >=(esQueryItem item1, DateTime literal)
+        public static tgComparison operator >=(tgQueryItem item1, DateTime literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator >=(DateTime literal, esQueryItem item1)
+        public static tgComparison operator >=(DateTime literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator >=(esQueryItem item1, double literal)
+        public static tgComparison operator >=(tgQueryItem item1, double literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator >=(double literal, esQueryItem item1)
+        public static tgComparison operator >=(double literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator >=(esQueryItem item1, decimal literal)
+        public static tgComparison operator >=(tgQueryItem item1, decimal literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator >=(decimal literal, esQueryItem item1)
+        public static tgComparison operator >=(decimal literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator >=(esQueryItem item1, Guid literal)
+        public static tgComparison operator >=(tgQueryItem item1, Guid literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator >=(Guid literal, esQueryItem item1)
+        public static tgComparison operator >=(Guid literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator >=(esQueryItem item1, short literal)
+        public static tgComparison operator >=(tgQueryItem item1, short literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator >=(short literal, esQueryItem item1)
+        public static tgComparison operator >=(short literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator >=(esQueryItem item1, int literal)
+        public static tgComparison operator >=(tgQueryItem item1, int literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator >=(int literal, esQueryItem item1)
+        public static tgComparison operator >=(int literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator >=(esQueryItem item1, long literal)
+        public static tgComparison operator >=(tgQueryItem item1, long literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator >=(long literal, esQueryItem item1)
+        public static tgComparison operator >=(long literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator >=(esQueryItem item1, object literal)
+        public static tgComparison operator >=(tgQueryItem item1, object literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator >=(object literal, esQueryItem item1)
+        public static tgComparison operator >=(object literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, sbyte literal)
+        public static tgComparison operator >=(tgQueryItem item1, sbyte literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(sbyte literal, esQueryItem item1)
+        public static tgComparison operator >=(sbyte literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator >=(esQueryItem item1, float literal)
+        public static tgComparison operator >=(tgQueryItem item1, float literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator >=(float literal, esQueryItem item1)
+        public static tgComparison operator >=(float literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator >=(esQueryItem item1, string literal)
+        public static tgComparison operator >=(tgQueryItem item1, string literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator >=(string literal, esQueryItem item1)
+        public static tgComparison operator >=(string literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, ushort literal)
+        public static tgComparison operator >=(tgQueryItem item1, ushort literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(ushort literal, esQueryItem item1)
+        public static tgComparison operator >=(ushort literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, uint literal)
+        public static tgComparison operator >=(tgQueryItem item1, uint literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(uint literal, esQueryItem item1)
+        public static tgComparison operator >=(uint literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, ulong literal)
+        public static tgComparison operator >=(tgQueryItem item1, ulong literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(ulong literal, esQueryItem item1)
+        public static tgComparison operator >=(ulong literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt64, false);
         }
@@ -1041,9 +1041,9 @@ namespace Tiraggo.DynamicQuery
 
         #region == operator literal overloads
 
-        public static esComparison operator ==(esQueryItem item, esQueryItem value)
+        public static tgComparison operator ==(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.Equal;
 
             wi.data.Column = item.Column;
@@ -1053,9 +1053,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison EqualOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison EqualOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.Equal;
 
             wi.data.Column = queryItem.Column;
@@ -1068,196 +1068,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator ==(esQueryItem item1, bool literal)
+        public static tgComparison operator ==(tgQueryItem item1, bool literal)
         {
             return EqualOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator ==(bool literal, esQueryItem item1)
+        public static tgComparison operator ==(bool literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator ==(esQueryItem item1, byte literal)
+        public static tgComparison operator ==(tgQueryItem item1, byte literal)
         {
             return EqualOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator ==(byte literal, esQueryItem item1)
+        public static tgComparison operator ==(byte literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator ==(esQueryItem item1, char literal)
+        public static tgComparison operator ==(tgQueryItem item1, char literal)
         {
             return EqualOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator ==(char literal, esQueryItem item1)
+        public static tgComparison operator ==(char literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator ==(esQueryItem item1, DateTime literal)
+        public static tgComparison operator ==(tgQueryItem item1, DateTime literal)
         {
             return EqualOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator ==(DateTime literal, esQueryItem item1)
+        public static tgComparison operator ==(DateTime literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator ==(esQueryItem item1, double literal)
+        public static tgComparison operator ==(tgQueryItem item1, double literal)
         {
             return EqualOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator ==(double literal, esQueryItem item1)
+        public static tgComparison operator ==(double literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator ==(esQueryItem item1, decimal literal)
+        public static tgComparison operator ==(tgQueryItem item1, decimal literal)
         {
             return EqualOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator ==(decimal literal, esQueryItem item1)
+        public static tgComparison operator ==(decimal literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator ==(esQueryItem item1, Guid literal)
+        public static tgComparison operator ==(tgQueryItem item1, Guid literal)
         {
             return EqualOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator ==(Guid literal, esQueryItem item1)
+        public static tgComparison operator ==(Guid literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator ==(esQueryItem item1, short literal)
+        public static tgComparison operator ==(tgQueryItem item1, short literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator ==(short literal, esQueryItem item1)
+        public static tgComparison operator ==(short literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator ==(esQueryItem item1, int literal)
+        public static tgComparison operator ==(tgQueryItem item1, int literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator ==(int literal, esQueryItem item1)
+        public static tgComparison operator ==(int literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator ==(esQueryItem item1, long literal)
+        public static tgComparison operator ==(tgQueryItem item1, long literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator ==(long literal, esQueryItem item1)
+        public static tgComparison operator ==(long literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator ==(esQueryItem item1, object literal)
+        public static tgComparison operator ==(tgQueryItem item1, object literal)
         {
             return EqualOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator ==(object literal, esQueryItem item1)
+        public static tgComparison operator ==(object literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, sbyte literal)
+        public static tgComparison operator ==(tgQueryItem item1, sbyte literal)
         {
             return EqualOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(sbyte literal, esQueryItem item1)
+        public static tgComparison operator ==(sbyte literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator ==(esQueryItem item1, float literal)
+        public static tgComparison operator ==(tgQueryItem item1, float literal)
         {
             return EqualOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator ==(float literal, esQueryItem item1)
+        public static tgComparison operator ==(float literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator ==(esQueryItem item1, string literal)
+        public static tgComparison operator ==(tgQueryItem item1, string literal)
         {
             return EqualOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator ==(string literal, esQueryItem item1)
+        public static tgComparison operator ==(string literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, ushort literal)
+        public static tgComparison operator ==(tgQueryItem item1, ushort literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(ushort literal, esQueryItem item1)
+        public static tgComparison operator ==(ushort literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, uint literal)
+        public static tgComparison operator ==(tgQueryItem item1, uint literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(uint literal, esQueryItem item1)
+        public static tgComparison operator ==(uint literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, ulong literal)
+        public static tgComparison operator ==(tgQueryItem item1, ulong literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(ulong literal, esQueryItem item1)
+        public static tgComparison operator ==(ulong literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -1265,9 +1265,9 @@ namespace Tiraggo.DynamicQuery
 
         #region != operator literal overloads
 
-        public static esComparison operator !=(esQueryItem item, esQueryItem value)
+        public static tgComparison operator !=(tgQueryItem item, tgQueryItem value)
         {
-            esComparison wi = new esComparison(item.query);
+            tgComparison wi = new tgComparison(item.query);
             wi.Operand = esComparisonOperand.NotEqual;
 
             wi.data.Column = item.Column;
@@ -1278,9 +1278,9 @@ namespace Tiraggo.DynamicQuery
             return wi;
         }
 
-        private static esComparison NotEqualOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgComparison NotEqualOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esComparison wi = new esComparison(queryItem.query);
+            tgComparison wi = new tgComparison(queryItem.query);
             wi.Operand = esComparisonOperand.NotEqual;
 
             wi.data.Column = queryItem.Column;
@@ -1293,196 +1293,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esComparison operator !=(esQueryItem item1, bool literal)
+        public static tgComparison operator !=(tgQueryItem item1, bool literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator !=(bool literal, esQueryItem item1)
+        public static tgComparison operator !=(bool literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator !=(esQueryItem item1, byte literal)
+        public static tgComparison operator !=(tgQueryItem item1, byte literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator !=(byte literal, esQueryItem item1)
+        public static tgComparison operator !=(byte literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator !=(esQueryItem item1, char literal)
+        public static tgComparison operator !=(tgQueryItem item1, char literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator !=(char literal, esQueryItem item1)
+        public static tgComparison operator !=(char literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator !=(esQueryItem item1, DateTime literal)
+        public static tgComparison operator !=(tgQueryItem item1, DateTime literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator !=(DateTime literal, esQueryItem item1)
+        public static tgComparison operator !=(DateTime literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator !=(esQueryItem item1, double literal)
+        public static tgComparison operator !=(tgQueryItem item1, double literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator !=(double literal, esQueryItem item1)
+        public static tgComparison operator !=(double literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator !=(esQueryItem item1, decimal literal)
+        public static tgComparison operator !=(tgQueryItem item1, decimal literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator !=(decimal literal, esQueryItem item1)
+        public static tgComparison operator !=(decimal literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator !=(esQueryItem item1, Guid literal)
+        public static tgComparison operator !=(tgQueryItem item1, Guid literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator !=(Guid literal, esQueryItem item1)
+        public static tgComparison operator !=(Guid literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator !=(esQueryItem item1, short literal)
+        public static tgComparison operator !=(tgQueryItem item1, short literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator !=(short literal, esQueryItem item1)
+        public static tgComparison operator !=(short literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator !=(esQueryItem item1, int literal)
+        public static tgComparison operator !=(tgQueryItem item1, int literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator !=(int literal, esQueryItem item1)
+        public static tgComparison operator !=(int literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator !=(esQueryItem item1, long literal)
+        public static tgComparison operator !=(tgQueryItem item1, long literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator !=(long literal, esQueryItem item1)
+        public static tgComparison operator !=(long literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esComparison operator !=(esQueryItem item1, object literal)
+        public static tgComparison operator !=(tgQueryItem item1, object literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esComparison operator !=(object literal, esQueryItem item1)
+        public static tgComparison operator !=(object literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, sbyte literal)
+        public static tgComparison operator !=(tgQueryItem item1, sbyte literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(sbyte literal, esQueryItem item1)
+        public static tgComparison operator !=(sbyte literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator !=(esQueryItem item1, float literal)
+        public static tgComparison operator !=(tgQueryItem item1, float literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator !=(float literal, esQueryItem item1)
+        public static tgComparison operator !=(float literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esComparison operator !=(esQueryItem item1, string literal)
+        public static tgComparison operator !=(tgQueryItem item1, string literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esComparison operator !=(string literal, esQueryItem item1)
+        public static tgComparison operator !=(string literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, ushort literal)
+        public static tgComparison operator !=(tgQueryItem item1, ushort literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt16, true);
         }
         
         [CLSCompliant(false)]
-        public static esComparison operator !=(ushort literal, esQueryItem item1)
+        public static tgComparison operator !=(ushort literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, uint literal)
+        public static tgComparison operator !=(tgQueryItem item1, uint literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(uint literal, esQueryItem item1)
+        public static tgComparison operator !=(uint literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, ulong literal)
+        public static tgComparison operator !=(tgQueryItem item1, ulong literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(ulong literal, esQueryItem item1)
+        public static tgComparison operator !=(ulong literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -1490,9 +1490,9 @@ namespace Tiraggo.DynamicQuery
 
         #region Arithmetic Expressions
 
-        public static esQueryItem operator +(esQueryItem item1, esQueryItem item2)
+        public static tgQueryItem operator +(tgQueryItem item1, tgQueryItem item2)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = item1;
             qi.Expression.Operator = esArithmeticOperator.Add;
             qi.Expression.SelectItem2 = item2;
@@ -1501,9 +1501,9 @@ namespace Tiraggo.DynamicQuery
 
         #region + operator literal overloads
 
-        private static esQueryItem AddOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgQueryItem AddOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = queryItem;
             qi.Expression.Operator = esArithmeticOperator.Add;
             qi.Expression.Literal = literal;
@@ -1513,204 +1513,204 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esQueryItem operator +(esQueryItem item1, bool literal)
+        public static tgQueryItem operator +(tgQueryItem item1, bool literal)
         {
             return AddOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator +(bool literal, esQueryItem item1)
+        public static tgQueryItem operator +(bool literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator +(esQueryItem item1, byte literal)
+        public static tgQueryItem operator +(tgQueryItem item1, byte literal)
         {
             return AddOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator +(byte literal, esQueryItem item1)
+        public static tgQueryItem operator +(byte literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator +(esQueryItem item1, char literal)
+        public static tgQueryItem operator +(tgQueryItem item1, char literal)
         {
             return AddOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator +(char literal, esQueryItem item1)
+        public static tgQueryItem operator +(char literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator +(esQueryItem item1, DateTime literal)
+        public static tgQueryItem operator +(tgQueryItem item1, DateTime literal)
         {
             return AddOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator +(DateTime literal, esQueryItem item1)
+        public static tgQueryItem operator +(DateTime literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator +(esQueryItem item1, double literal)
+        public static tgQueryItem operator +(tgQueryItem item1, double literal)
         {
             return AddOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator +(double literal, esQueryItem item1)
+        public static tgQueryItem operator +(double literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator +(esQueryItem item1, decimal literal)
+        public static tgQueryItem operator +(tgQueryItem item1, decimal literal)
         {
             return AddOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator +(decimal literal, esQueryItem item1)
+        public static tgQueryItem operator +(decimal literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator +(esQueryItem item1, Guid literal)
+        public static tgQueryItem operator +(tgQueryItem item1, Guid literal)
         {
             return AddOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator +(Guid literal, esQueryItem item1)
+        public static tgQueryItem operator +(Guid literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator +(esQueryItem item1, short literal)
+        public static tgQueryItem operator +(tgQueryItem item1, short literal)
         {
             return AddOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator +(short literal, esQueryItem item1)
+        public static tgQueryItem operator +(short literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator +(esQueryItem item1, int literal)
+        public static tgQueryItem operator +(tgQueryItem item1, int literal)
         {
             return AddOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator +(int literal, esQueryItem item1)
+        public static tgQueryItem operator +(int literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator +(esQueryItem item1, long literal)
+        public static tgQueryItem operator +(tgQueryItem item1, long literal)
         {
             return AddOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator +(long literal, esQueryItem item1)
+        public static tgQueryItem operator +(long literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esQueryItem operator +(esQueryItem item1, object literal)
+        public static tgQueryItem operator +(tgQueryItem item1, object literal)
         {
             return AddOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esQueryItem operator +(object literal, esQueryItem item1)
+        public static tgQueryItem operator +(object literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, sbyte literal)
+        public static tgQueryItem operator +(tgQueryItem item1, sbyte literal)
         {
             return AddOperator(item1, literal, esSystemType.SByte, true);
         }
         
         [CLSCompliant(false)]
-        public static esQueryItem operator +(sbyte literal, esQueryItem item1)
+        public static tgQueryItem operator +(sbyte literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator +(esQueryItem item1, float literal)
+        public static tgQueryItem operator +(tgQueryItem item1, float literal)
         {
             return AddOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator +(float literal, esQueryItem item1)
+        public static tgQueryItem operator +(float literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esQueryItem operator +(esQueryItem item1, string literal)
+        public static tgQueryItem operator +(tgQueryItem item1, string literal)
         {
             return AddOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esQueryItem operator +(string literal, esQueryItem item1)
+        public static tgQueryItem operator +(string literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, ushort literal)
+        public static tgQueryItem operator +(tgQueryItem item1, ushort literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(ushort literal, esQueryItem item1)
+        public static tgQueryItem operator +(ushort literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, uint literal)
+        public static tgQueryItem operator +(tgQueryItem item1, uint literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(uint literal, esQueryItem item1)
+        public static tgQueryItem operator +(uint literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, ulong literal)
+        public static tgQueryItem operator +(tgQueryItem item1, ulong literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(ulong literal, esQueryItem item1)
+        public static tgQueryItem operator +(ulong literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt64, false);
         }
         #endregion
 
-        public static esQueryItem operator -(esQueryItem item1, esQueryItem item2)
+        public static tgQueryItem operator -(tgQueryItem item1, tgQueryItem item2)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = item1;
             qi.Expression.Operator = esArithmeticOperator.Subtract;
             qi.Expression.SelectItem2 = item2;
@@ -1719,9 +1719,9 @@ namespace Tiraggo.DynamicQuery
 
         #region - operator literal overloads
 
-        private static esQueryItem SubtractOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgQueryItem SubtractOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = queryItem;
             qi.Expression.Operator = esArithmeticOperator.Subtract;
             qi.Expression.Literal = literal;
@@ -1731,204 +1731,204 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esQueryItem operator -(esQueryItem item1, bool literal)
+        public static tgQueryItem operator -(tgQueryItem item1, bool literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator -(bool literal, esQueryItem item1)
+        public static tgQueryItem operator -(bool literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator -(esQueryItem item1, byte literal)
+        public static tgQueryItem operator -(tgQueryItem item1, byte literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator -(byte literal, esQueryItem item1)
+        public static tgQueryItem operator -(byte literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator -(esQueryItem item1, char literal)
+        public static tgQueryItem operator -(tgQueryItem item1, char literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator -(char literal, esQueryItem item1)
+        public static tgQueryItem operator -(char literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator -(esQueryItem item1, DateTime literal)
+        public static tgQueryItem operator -(tgQueryItem item1, DateTime literal)
         {
             return SubtractOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator -(DateTime literal, esQueryItem item1)
+        public static tgQueryItem operator -(DateTime literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator -(esQueryItem item1, double literal)
+        public static tgQueryItem operator -(tgQueryItem item1, double literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator -(double literal, esQueryItem item1)
+        public static tgQueryItem operator -(double literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator -(esQueryItem item1, decimal literal)
+        public static tgQueryItem operator -(tgQueryItem item1, decimal literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator -(decimal literal, esQueryItem item1)
+        public static tgQueryItem operator -(decimal literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator -(esQueryItem item1, Guid literal)
+        public static tgQueryItem operator -(tgQueryItem item1, Guid literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator -(Guid literal, esQueryItem item1)
+        public static tgQueryItem operator -(Guid literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator -(esQueryItem item1, short literal)
+        public static tgQueryItem operator -(tgQueryItem item1, short literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator -(short literal, esQueryItem item1)
+        public static tgQueryItem operator -(short literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator -(esQueryItem item1, int literal)
+        public static tgQueryItem operator -(tgQueryItem item1, int literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator -(int literal, esQueryItem item1)
+        public static tgQueryItem operator -(int literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator -(esQueryItem item1, long literal)
+        public static tgQueryItem operator -(tgQueryItem item1, long literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator -(long literal, esQueryItem item1)
+        public static tgQueryItem operator -(long literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esQueryItem operator -(esQueryItem item1, object literal)
+        public static tgQueryItem operator -(tgQueryItem item1, object literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esQueryItem operator -(object literal, esQueryItem item1)
+        public static tgQueryItem operator -(object literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, sbyte literal)
+        public static tgQueryItem operator -(tgQueryItem item1, sbyte literal)
         {
             return SubtractOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(sbyte literal, esQueryItem item1)
+        public static tgQueryItem operator -(sbyte literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator -(esQueryItem item1, float literal)
+        public static tgQueryItem operator -(tgQueryItem item1, float literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator -(float literal, esQueryItem item1)
+        public static tgQueryItem operator -(float literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esQueryItem operator -(esQueryItem item1, string literal)
+        public static tgQueryItem operator -(tgQueryItem item1, string literal)
         {
             return SubtractOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esQueryItem operator -(string literal, esQueryItem item1)
+        public static tgQueryItem operator -(string literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, ushort literal)
+        public static tgQueryItem operator -(tgQueryItem item1, ushort literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(ushort literal, esQueryItem item1)
+        public static tgQueryItem operator -(ushort literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, uint literal)
+        public static tgQueryItem operator -(tgQueryItem item1, uint literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(uint literal, esQueryItem item1)
+        public static tgQueryItem operator -(uint literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, ulong literal)
+        public static tgQueryItem operator -(tgQueryItem item1, ulong literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(ulong literal, esQueryItem item1)
+        public static tgQueryItem operator -(ulong literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt64, false);
         }
         #endregion
 
-        public static esQueryItem operator *(esQueryItem item1, esQueryItem item2)
+        public static tgQueryItem operator *(tgQueryItem item1, tgQueryItem item2)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = item1;
             qi.Expression.Operator = esArithmeticOperator.Multiply;
             qi.Expression.SelectItem2 = item2;
@@ -1937,9 +1937,9 @@ namespace Tiraggo.DynamicQuery
 
         #region * operator literal overloads
 
-        private static esQueryItem MultiplyOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgQueryItem MultiplyOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = queryItem;
             qi.Expression.Operator = esArithmeticOperator.Multiply;
             qi.Expression.Literal = literal;
@@ -1949,204 +1949,204 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esQueryItem operator *(esQueryItem item1, bool literal)
+        public static tgQueryItem operator *(tgQueryItem item1, bool literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator *(bool literal, esQueryItem item1)
+        public static tgQueryItem operator *(bool literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator *(esQueryItem item1, byte literal)
+        public static tgQueryItem operator *(tgQueryItem item1, byte literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator *(byte literal, esQueryItem item1)
+        public static tgQueryItem operator *(byte literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator *(esQueryItem item1, char literal)
+        public static tgQueryItem operator *(tgQueryItem item1, char literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator *(char literal, esQueryItem item1)
+        public static tgQueryItem operator *(char literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator *(esQueryItem item1, DateTime literal)
+        public static tgQueryItem operator *(tgQueryItem item1, DateTime literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator *(DateTime literal, esQueryItem item1)
+        public static tgQueryItem operator *(DateTime literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator *(esQueryItem item1, double literal)
+        public static tgQueryItem operator *(tgQueryItem item1, double literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator *(double literal, esQueryItem item1)
+        public static tgQueryItem operator *(double literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator *(esQueryItem item1, decimal literal)
+        public static tgQueryItem operator *(tgQueryItem item1, decimal literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator *(decimal literal, esQueryItem item1)
+        public static tgQueryItem operator *(decimal literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator *(esQueryItem item1, Guid literal)
+        public static tgQueryItem operator *(tgQueryItem item1, Guid literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator *(Guid literal, esQueryItem item1)
+        public static tgQueryItem operator *(Guid literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator *(esQueryItem item1, short literal)
+        public static tgQueryItem operator *(tgQueryItem item1, short literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator *(short literal, esQueryItem item1)
+        public static tgQueryItem operator *(short literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator *(esQueryItem item1, int literal)
+        public static tgQueryItem operator *(tgQueryItem item1, int literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator *(int literal, esQueryItem item1)
+        public static tgQueryItem operator *(int literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator *(esQueryItem item1, long literal)
+        public static tgQueryItem operator *(tgQueryItem item1, long literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator *(long literal, esQueryItem item1)
+        public static tgQueryItem operator *(long literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esQueryItem operator *(esQueryItem item1, object literal)
+        public static tgQueryItem operator *(tgQueryItem item1, object literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esQueryItem operator *(object literal, esQueryItem item1)
+        public static tgQueryItem operator *(object literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, sbyte literal)
+        public static tgQueryItem operator *(tgQueryItem item1, sbyte literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(sbyte literal, esQueryItem item1)
+        public static tgQueryItem operator *(sbyte literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator *(esQueryItem item1, float literal)
+        public static tgQueryItem operator *(tgQueryItem item1, float literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator *(float literal, esQueryItem item1)
+        public static tgQueryItem operator *(float literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esQueryItem operator *(esQueryItem item1, string literal)
+        public static tgQueryItem operator *(tgQueryItem item1, string literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esQueryItem operator *(string literal, esQueryItem item1)
+        public static tgQueryItem operator *(string literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, ushort literal)
+        public static tgQueryItem operator *(tgQueryItem item1, ushort literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(ushort literal, esQueryItem item1)
+        public static tgQueryItem operator *(ushort literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, uint literal)
+        public static tgQueryItem operator *(tgQueryItem item1, uint literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(uint literal, esQueryItem item1)
+        public static tgQueryItem operator *(uint literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, ulong literal)
+        public static tgQueryItem operator *(tgQueryItem item1, ulong literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(ulong literal, esQueryItem item1)
+        public static tgQueryItem operator *(ulong literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt64, false);
         }
         #endregion
 
-        public static esQueryItem operator /(esQueryItem item1, esQueryItem item2)
+        public static tgQueryItem operator /(tgQueryItem item1, tgQueryItem item2)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = item1;
             qi.Expression.Operator = esArithmeticOperator.Divide;
             qi.Expression.SelectItem2 = item2;
@@ -2155,9 +2155,9 @@ namespace Tiraggo.DynamicQuery
 
         #region / operator literal overloads
 
-        private static esQueryItem DivideOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgQueryItem DivideOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = queryItem;
             qi.Expression.Operator = esArithmeticOperator.Divide;
             qi.Expression.Literal = literal;
@@ -2167,204 +2167,204 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esQueryItem operator /(esQueryItem item1, bool literal)
+        public static tgQueryItem operator /(tgQueryItem item1, bool literal)
         {
             return DivideOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator /(bool literal, esQueryItem item1)
+        public static tgQueryItem operator /(bool literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator /(esQueryItem item1, byte literal)
+        public static tgQueryItem operator /(tgQueryItem item1, byte literal)
         {
             return DivideOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator /(byte literal, esQueryItem item1)
+        public static tgQueryItem operator /(byte literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator /(esQueryItem item1, char literal)
+        public static tgQueryItem operator /(tgQueryItem item1, char literal)
         {
             return DivideOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator /(char literal, esQueryItem item1)
+        public static tgQueryItem operator /(char literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator /(esQueryItem item1, DateTime literal)
+        public static tgQueryItem operator /(tgQueryItem item1, DateTime literal)
         {
             return DivideOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator /(DateTime literal, esQueryItem item1)
+        public static tgQueryItem operator /(DateTime literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator /(esQueryItem item1, double literal)
+        public static tgQueryItem operator /(tgQueryItem item1, double literal)
         {
             return DivideOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator /(double literal, esQueryItem item1)
+        public static tgQueryItem operator /(double literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator /(esQueryItem item1, decimal literal)
+        public static tgQueryItem operator /(tgQueryItem item1, decimal literal)
         {
             return DivideOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator /(decimal literal, esQueryItem item1)
+        public static tgQueryItem operator /(decimal literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator /(esQueryItem item1, Guid literal)
+        public static tgQueryItem operator /(tgQueryItem item1, Guid literal)
         {
             return DivideOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator /(Guid literal, esQueryItem item1)
+        public static tgQueryItem operator /(Guid literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator /(esQueryItem item1, short literal)
+        public static tgQueryItem operator /(tgQueryItem item1, short literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator /(short literal, esQueryItem item1)
+        public static tgQueryItem operator /(short literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator /(esQueryItem item1, int literal)
+        public static tgQueryItem operator /(tgQueryItem item1, int literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator /(int literal, esQueryItem item1)
+        public static tgQueryItem operator /(int literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator /(esQueryItem item1, long literal)
+        public static tgQueryItem operator /(tgQueryItem item1, long literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator /(long literal, esQueryItem item1)
+        public static tgQueryItem operator /(long literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esQueryItem operator /(esQueryItem item1, object literal)
+        public static tgQueryItem operator /(tgQueryItem item1, object literal)
         {
             return DivideOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esQueryItem operator /(object literal, esQueryItem item1)
+        public static tgQueryItem operator /(object literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, sbyte literal)
+        public static tgQueryItem operator /(tgQueryItem item1, sbyte literal)
         {
             return DivideOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(sbyte literal, esQueryItem item1)
+        public static tgQueryItem operator /(sbyte literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator /(esQueryItem item1, float literal)
+        public static tgQueryItem operator /(tgQueryItem item1, float literal)
         {
             return DivideOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator /(float literal, esQueryItem item1)
+        public static tgQueryItem operator /(float literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esQueryItem operator /(esQueryItem item1, string literal)
+        public static tgQueryItem operator /(tgQueryItem item1, string literal)
         {
             return DivideOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esQueryItem operator /(string literal, esQueryItem item1)
+        public static tgQueryItem operator /(string literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, ushort literal)
+        public static tgQueryItem operator /(tgQueryItem item1, ushort literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(ushort literal, esQueryItem item1)
+        public static tgQueryItem operator /(ushort literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, uint literal)
+        public static tgQueryItem operator /(tgQueryItem item1, uint literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(uint literal, esQueryItem item1)
+        public static tgQueryItem operator /(uint literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, ulong literal)
+        public static tgQueryItem operator /(tgQueryItem item1, ulong literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(ulong literal, esQueryItem item1)
+        public static tgQueryItem operator /(ulong literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt64, false);
         }
         #endregion
 
-        public static esQueryItem operator %(esQueryItem item1, esQueryItem item2)
+        public static tgQueryItem operator %(tgQueryItem item1, tgQueryItem item2)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = item1;
             qi.Expression.Operator = esArithmeticOperator.Modulo;
             qi.Expression.SelectItem2 = item2;
@@ -2373,9 +2373,9 @@ namespace Tiraggo.DynamicQuery
 
         #region % operator literal overloads
 
-        private static esQueryItem ModuloOperator(esQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
+        private static tgQueryItem ModuloOperator(tgQueryItem queryItem, object literal, esSystemType literalType, bool itemFirst)
         {
-            esQueryItem qi = new esQueryItem();
+            tgQueryItem qi = new tgQueryItem();
             qi.Expression.SelectItem1 = queryItem;
             qi.Expression.Operator = esArithmeticOperator.Modulo;
             qi.Expression.Literal = literal;
@@ -2385,196 +2385,196 @@ namespace Tiraggo.DynamicQuery
         }
 
         // esSystemType.Boolean
-        public static esQueryItem operator %(esQueryItem item1, bool literal)
+        public static tgQueryItem operator %(tgQueryItem item1, bool literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator %(bool literal, esQueryItem item1)
+        public static tgQueryItem operator %(bool literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator %(esQueryItem item1, byte literal)
+        public static tgQueryItem operator %(tgQueryItem item1, byte literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator %(byte literal, esQueryItem item1)
+        public static tgQueryItem operator %(byte literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator %(esQueryItem item1, char literal)
+        public static tgQueryItem operator %(tgQueryItem item1, char literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator %(char literal, esQueryItem item1)
+        public static tgQueryItem operator %(char literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator %(esQueryItem item1, DateTime literal)
+        public static tgQueryItem operator %(tgQueryItem item1, DateTime literal)
         {
             return ModuloOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator %(DateTime literal, esQueryItem item1)
+        public static tgQueryItem operator %(DateTime literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator %(esQueryItem item1, double literal)
+        public static tgQueryItem operator %(tgQueryItem item1, double literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator %(double literal, esQueryItem item1)
+        public static tgQueryItem operator %(double literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator %(esQueryItem item1, decimal literal)
+        public static tgQueryItem operator %(tgQueryItem item1, decimal literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator %(decimal literal, esQueryItem item1)
+        public static tgQueryItem operator %(decimal literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator %(esQueryItem item1, Guid literal)
+        public static tgQueryItem operator %(tgQueryItem item1, Guid literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator %(Guid literal, esQueryItem item1)
+        public static tgQueryItem operator %(Guid literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator %(esQueryItem item1, short literal)
+        public static tgQueryItem operator %(tgQueryItem item1, short literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator %(short literal, esQueryItem item1)
+        public static tgQueryItem operator %(short literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator %(esQueryItem item1, int literal)
+        public static tgQueryItem operator %(tgQueryItem item1, int literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator %(int literal, esQueryItem item1)
+        public static tgQueryItem operator %(int literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator %(esQueryItem item1, long literal)
+        public static tgQueryItem operator %(tgQueryItem item1, long literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator %(long literal, esQueryItem item1)
+        public static tgQueryItem operator %(long literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.Object
-        public static esQueryItem operator %(esQueryItem item1, object literal)
+        public static tgQueryItem operator %(tgQueryItem item1, object literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Object, true);
         }
 
-        public static esQueryItem operator %(object literal, esQueryItem item1)
+        public static tgQueryItem operator %(object literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Object, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, sbyte literal)
+        public static tgQueryItem operator %(tgQueryItem item1, sbyte literal)
         {
             return ModuloOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(sbyte literal, esQueryItem item1)
+        public static tgQueryItem operator %(sbyte literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator %(esQueryItem item1, float literal)
+        public static tgQueryItem operator %(tgQueryItem item1, float literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator %(float literal, esQueryItem item1)
+        public static tgQueryItem operator %(float literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.String
-        public static esQueryItem operator %(esQueryItem item1, string literal)
+        public static tgQueryItem operator %(tgQueryItem item1, string literal)
         {
             return ModuloOperator(item1, literal, esSystemType.String, true);
         }
 
-        public static esQueryItem operator %(string literal, esQueryItem item1)
+        public static tgQueryItem operator %(string literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.String, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, ushort literal)
+        public static tgQueryItem operator %(tgQueryItem item1, ushort literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(ushort literal, esQueryItem item1)
+        public static tgQueryItem operator %(ushort literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, uint literal)
+        public static tgQueryItem operator %(tgQueryItem item1, uint literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(uint literal, esQueryItem item1)
+        public static tgQueryItem operator %(uint literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, ulong literal)
+        public static tgQueryItem operator %(tgQueryItem item1, ulong literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(ulong literal, esQueryItem item1)
+        public static tgQueryItem operator %(ulong literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -2589,174 +2589,174 @@ namespace Tiraggo.DynamicQuery
         #region > operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator >(esQueryItem item1, bool? literal)
+        public static tgComparison operator >(tgQueryItem item1, bool? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator >(bool? literal, esQueryItem item1)
+        public static tgComparison operator >(bool? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator >(esQueryItem item1, byte? literal)
+        public static tgComparison operator >(tgQueryItem item1, byte? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator >(byte? literal, esQueryItem item1)
+        public static tgComparison operator >(byte? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator >(esQueryItem item1, char? literal)
+        public static tgComparison operator >(tgQueryItem item1, char? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator >(char? literal, esQueryItem item1)
+        public static tgComparison operator >(char? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator >(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator >(tgQueryItem item1, DateTime? literal)
         {
             return GreaterThan(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator >(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator >(DateTime? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator >(esQueryItem item1, double? literal)
+        public static tgComparison operator >(tgQueryItem item1, double? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator >(double? literal, esQueryItem item1)
+        public static tgComparison operator >(double? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator >(esQueryItem item1, decimal? literal)
+        public static tgComparison operator >(tgQueryItem item1, decimal? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator >(decimal? literal, esQueryItem item1)
+        public static tgComparison operator >(decimal? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator >(esQueryItem item1, Guid? literal)
+        public static tgComparison operator >(tgQueryItem item1, Guid? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator >(Guid? literal, esQueryItem item1)
+        public static tgComparison operator >(Guid? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator >(esQueryItem item1, short? literal)
+        public static tgComparison operator >(tgQueryItem item1, short? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator >(short? literal, esQueryItem item1)
+        public static tgComparison operator >(short? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator >(esQueryItem item1, int? literal)
+        public static tgComparison operator >(tgQueryItem item1, int? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator >(int? literal, esQueryItem item1)
+        public static tgComparison operator >(int? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator >(esQueryItem item1, long? literal)
+        public static tgComparison operator >(tgQueryItem item1, long? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator >(long? literal, esQueryItem item1)
+        public static tgComparison operator >(long? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator >(tgQueryItem item1, sbyte? literal)
         {
             return GreaterThan(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator >(sbyte? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator >(esQueryItem item1, float? literal)
+        public static tgComparison operator >(tgQueryItem item1, float? literal)
         {
             return GreaterThan(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator >(float? literal, esQueryItem item1)
+        public static tgComparison operator >(float? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, ushort? literal)
+        public static tgComparison operator >(tgQueryItem item1, ushort? literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(ushort? literal, esQueryItem item1)
+        public static tgComparison operator >(ushort? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, uint? literal)
+        public static tgComparison operator >(tgQueryItem item1, uint? literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(uint? literal, esQueryItem item1)
+        public static tgComparison operator >(uint? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator >(esQueryItem item1, ulong? literal)
+        public static tgComparison operator >(tgQueryItem item1, ulong? literal)
         {
             return GreaterThan(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >(ulong? literal, esQueryItem item1)
+        public static tgComparison operator >(ulong? literal, tgQueryItem item1)
         {
             return GreaterThan(item1, literal, esSystemType.UInt64, false);
         }
@@ -2765,174 +2765,174 @@ namespace Tiraggo.DynamicQuery
         #region < operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator <(esQueryItem item1, bool? literal)
+        public static tgComparison operator <(tgQueryItem item1, bool? literal)
         {
             return LessThan(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator <(bool? literal, esQueryItem item1)
+        public static tgComparison operator <(bool? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator <(esQueryItem item1, byte? literal)
+        public static tgComparison operator <(tgQueryItem item1, byte? literal)
         {
             return LessThan(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator <(byte? literal, esQueryItem item1)
+        public static tgComparison operator <(byte? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator <(esQueryItem item1, char? literal)
+        public static tgComparison operator <(tgQueryItem item1, char? literal)
         {
             return LessThan(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator <(char? literal, esQueryItem item1)
+        public static tgComparison operator <(char? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator <(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator <(tgQueryItem item1, DateTime? literal)
         {
             return LessThan(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator <(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator <(DateTime? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator <(esQueryItem item1, double? literal)
+        public static tgComparison operator <(tgQueryItem item1, double? literal)
         {
             return LessThan(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator <(double? literal, esQueryItem item1)
+        public static tgComparison operator <(double? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator <(esQueryItem item1, decimal? literal)
+        public static tgComparison operator <(tgQueryItem item1, decimal? literal)
         {
             return LessThan(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator <(decimal? literal, esQueryItem item1)
+        public static tgComparison operator <(decimal? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator <(esQueryItem item1, Guid? literal)
+        public static tgComparison operator <(tgQueryItem item1, Guid? literal)
         {
             return LessThan(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator <(Guid? literal, esQueryItem item1)
+        public static tgComparison operator <(Guid? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator <(esQueryItem item1, short? literal)
+        public static tgComparison operator <(tgQueryItem item1, short? literal)
         {
             return LessThan(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator <(short? literal, esQueryItem item1)
+        public static tgComparison operator <(short? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator <(esQueryItem item1, int? literal)
+        public static tgComparison operator <(tgQueryItem item1, int? literal)
         {
             return LessThan(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator <(int? literal, esQueryItem item1)
+        public static tgComparison operator <(int? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator <(esQueryItem item1, long? literal)
+        public static tgComparison operator <(tgQueryItem item1, long? literal)
         {
             return LessThan(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator <(long? literal, esQueryItem item1)
+        public static tgComparison operator <(long? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator <(tgQueryItem item1, sbyte? literal)
         {
             return LessThan(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator <(sbyte? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator <(esQueryItem item1, float? literal)
+        public static tgComparison operator <(tgQueryItem item1, float? literal)
         {
             return LessThan(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator <(float? literal, esQueryItem item1)
+        public static tgComparison operator <(float? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, ushort? literal)
+        public static tgComparison operator <(tgQueryItem item1, ushort? literal)
         {
             return LessThan(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(ushort? literal, esQueryItem item1)
+        public static tgComparison operator <(ushort? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, uint? literal)
+        public static tgComparison operator <(tgQueryItem item1, uint? literal)
         {
             return LessThan(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(uint? literal, esQueryItem item1)
+        public static tgComparison operator <(uint? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator <(esQueryItem item1, ulong? literal)
+        public static tgComparison operator <(tgQueryItem item1, ulong? literal)
         {
             return LessThan(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <(ulong? literal, esQueryItem item1)
+        public static tgComparison operator <(ulong? literal, tgQueryItem item1)
         {
             return LessThan(item1, literal, esSystemType.UInt64, false);
         }
@@ -2941,174 +2941,174 @@ namespace Tiraggo.DynamicQuery
         #region <= operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator <=(esQueryItem item1, bool? literal)
+        public static tgComparison operator <=(tgQueryItem item1, bool? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator <=(bool? literal, esQueryItem item1)
+        public static tgComparison operator <=(bool? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator <=(esQueryItem item1, byte? literal)
+        public static tgComparison operator <=(tgQueryItem item1, byte? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator <=(byte? literal, esQueryItem item1)
+        public static tgComparison operator <=(byte? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator <=(esQueryItem item1, char? literal)
+        public static tgComparison operator <=(tgQueryItem item1, char? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator <=(char? literal, esQueryItem item1)
+        public static tgComparison operator <=(char? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator <=(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator <=(tgQueryItem item1, DateTime? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator <=(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator <=(DateTime? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator <=(esQueryItem item1, double? literal)
+        public static tgComparison operator <=(tgQueryItem item1, double? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator <=(double? literal, esQueryItem item1)
+        public static tgComparison operator <=(double? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator <=(esQueryItem item1, decimal? literal)
+        public static tgComparison operator <=(tgQueryItem item1, decimal? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator <=(decimal? literal, esQueryItem item1)
+        public static tgComparison operator <=(decimal? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator <=(esQueryItem item1, Guid? literal)
+        public static tgComparison operator <=(tgQueryItem item1, Guid? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator <=(Guid? literal, esQueryItem item1)
+        public static tgComparison operator <=(Guid? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator <=(esQueryItem item1, short? literal)
+        public static tgComparison operator <=(tgQueryItem item1, short? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator <=(short? literal, esQueryItem item1)
+        public static tgComparison operator <=(short? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator <=(esQueryItem item1, int? literal)
+        public static tgComparison operator <=(tgQueryItem item1, int? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator <=(int? literal, esQueryItem item1)
+        public static tgComparison operator <=(int? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator <=(esQueryItem item1, long? literal)
+        public static tgComparison operator <=(tgQueryItem item1, long? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator <=(long? literal, esQueryItem item1)
+        public static tgComparison operator <=(long? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator <=(tgQueryItem item1, sbyte? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator <=(sbyte? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator <=(esQueryItem item1, float? literal)
+        public static tgComparison operator <=(tgQueryItem item1, float? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator <=(float? literal, esQueryItem item1)
+        public static tgComparison operator <=(float? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, ushort? literal)
+        public static tgComparison operator <=(tgQueryItem item1, ushort? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(ushort? literal, esQueryItem item1)
+        public static tgComparison operator <=(ushort? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, uint? literal)
+        public static tgComparison operator <=(tgQueryItem item1, uint? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(uint? literal, esQueryItem item1)
+        public static tgComparison operator <=(uint? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator <=(esQueryItem item1, ulong? literal)
+        public static tgComparison operator <=(tgQueryItem item1, ulong? literal)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator <=(ulong? literal, esQueryItem item1)
+        public static tgComparison operator <=(ulong? literal, tgQueryItem item1)
         {
             return LessThanOrEqual(item1, literal, esSystemType.UInt64, false);
         }
@@ -3117,174 +3117,174 @@ namespace Tiraggo.DynamicQuery
         #region >= operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator >=(esQueryItem item1, bool? literal)
+        public static tgComparison operator >=(tgQueryItem item1, bool? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator >=(bool? literal, esQueryItem item1)
+        public static tgComparison operator >=(bool? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator >=(esQueryItem item1, byte? literal)
+        public static tgComparison operator >=(tgQueryItem item1, byte? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator >=(byte? literal, esQueryItem item1)
+        public static tgComparison operator >=(byte? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator >=(esQueryItem item1, char? literal)
+        public static tgComparison operator >=(tgQueryItem item1, char? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator >=(char? literal, esQueryItem item1)
+        public static tgComparison operator >=(char? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator >=(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator >=(tgQueryItem item1, DateTime? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator >=(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator >=(DateTime? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator >=(esQueryItem item1, double? literal)
+        public static tgComparison operator >=(tgQueryItem item1, double? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator >=(double? literal, esQueryItem item1)
+        public static tgComparison operator >=(double? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator >=(esQueryItem item1, decimal? literal)
+        public static tgComparison operator >=(tgQueryItem item1, decimal? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator >=(decimal? literal, esQueryItem item1)
+        public static tgComparison operator >=(decimal? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator >=(esQueryItem item1, Guid? literal)
+        public static tgComparison operator >=(tgQueryItem item1, Guid? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator >=(Guid? literal, esQueryItem item1)
+        public static tgComparison operator >=(Guid? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator >=(esQueryItem item1, short? literal)
+        public static tgComparison operator >=(tgQueryItem item1, short? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator >=(short? literal, esQueryItem item1)
+        public static tgComparison operator >=(short? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator >=(esQueryItem item1, int? literal)
+        public static tgComparison operator >=(tgQueryItem item1, int? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator >=(int? literal, esQueryItem item1)
+        public static tgComparison operator >=(int? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator >=(esQueryItem item1, long? literal)
+        public static tgComparison operator >=(tgQueryItem item1, long? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator >=(long? literal, esQueryItem item1)
+        public static tgComparison operator >=(long? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator >=(tgQueryItem item1, sbyte? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator >=(sbyte? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator >=(esQueryItem item1, float? literal)
+        public static tgComparison operator >=(tgQueryItem item1, float? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator >=(float? literal, esQueryItem item1)
+        public static tgComparison operator >=(float? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, ushort? literal)
+        public static tgComparison operator >=(tgQueryItem item1, ushort? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(ushort? literal, esQueryItem item1)
+        public static tgComparison operator >=(ushort? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, uint? literal)
+        public static tgComparison operator >=(tgQueryItem item1, uint? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(uint? literal, esQueryItem item1)
+        public static tgComparison operator >=(uint? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator >=(esQueryItem item1, ulong? literal)
+        public static tgComparison operator >=(tgQueryItem item1, ulong? literal)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator >=(ulong? literal, esQueryItem item1)
+        public static tgComparison operator >=(ulong? literal, tgQueryItem item1)
         {
             return GreaterThanOrEqual(item1, literal, esSystemType.UInt64, false);
         }
@@ -3293,174 +3293,174 @@ namespace Tiraggo.DynamicQuery
         #region == operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator ==(esQueryItem item1, bool? literal)
+        public static tgComparison operator ==(tgQueryItem item1, bool? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator ==(bool? literal, esQueryItem item1)
+        public static tgComparison operator ==(bool? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator ==(esQueryItem item1, byte? literal)
+        public static tgComparison operator ==(tgQueryItem item1, byte? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator ==(byte? literal, esQueryItem item1)
+        public static tgComparison operator ==(byte? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator ==(esQueryItem item1, char? literal)
+        public static tgComparison operator ==(tgQueryItem item1, char? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator ==(char? literal, esQueryItem item1)
+        public static tgComparison operator ==(char? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator ==(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator ==(tgQueryItem item1, DateTime? literal)
         {
             return EqualOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator ==(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator ==(DateTime? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator ==(esQueryItem item1, double? literal)
+        public static tgComparison operator ==(tgQueryItem item1, double? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator ==(double? literal, esQueryItem item1)
+        public static tgComparison operator ==(double? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator ==(esQueryItem item1, decimal? literal)
+        public static tgComparison operator ==(tgQueryItem item1, decimal? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator ==(decimal? literal, esQueryItem item1)
+        public static tgComparison operator ==(decimal? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator ==(esQueryItem item1, Guid? literal)
+        public static tgComparison operator ==(tgQueryItem item1, Guid? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator ==(Guid? literal, esQueryItem item1)
+        public static tgComparison operator ==(Guid? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator ==(esQueryItem item1, short? literal)
+        public static tgComparison operator ==(tgQueryItem item1, short? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator ==(short? literal, esQueryItem item1)
+        public static tgComparison operator ==(short? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator ==(esQueryItem item1, int? literal)
+        public static tgComparison operator ==(tgQueryItem item1, int? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator ==(int? literal, esQueryItem item1)
+        public static tgComparison operator ==(int? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator ==(esQueryItem item1, long? literal)
+        public static tgComparison operator ==(tgQueryItem item1, long? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator ==(long? literal, esQueryItem item1)
+        public static tgComparison operator ==(long? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator ==(tgQueryItem item1, sbyte? literal)
         {
             return EqualOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator ==(sbyte? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator ==(esQueryItem item1, float? literal)
+        public static tgComparison operator ==(tgQueryItem item1, float? literal)
         {
             return EqualOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator ==(float? literal, esQueryItem item1)
+        public static tgComparison operator ==(float? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, ushort? literal)
+        public static tgComparison operator ==(tgQueryItem item1, ushort? literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(ushort? literal, esQueryItem item1)
+        public static tgComparison operator ==(ushort? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, uint? literal)
+        public static tgComparison operator ==(tgQueryItem item1, uint? literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(uint? literal, esQueryItem item1)
+        public static tgComparison operator ==(uint? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator ==(esQueryItem item1, ulong? literal)
+        public static tgComparison operator ==(tgQueryItem item1, ulong? literal)
         {
             return EqualOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator ==(ulong? literal, esQueryItem item1)
+        public static tgComparison operator ==(ulong? literal, tgQueryItem item1)
         {
             return EqualOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -3469,174 +3469,174 @@ namespace Tiraggo.DynamicQuery
         #region != operator literal overloads
 
         // esSystemType.Boolean
-        public static esComparison operator !=(esQueryItem item1, bool? literal)
+        public static tgComparison operator !=(tgQueryItem item1, bool? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esComparison operator !=(bool? literal, esQueryItem item1)
+        public static tgComparison operator !=(bool? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esComparison operator !=(esQueryItem item1, byte? literal)
+        public static tgComparison operator !=(tgQueryItem item1, byte? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esComparison operator !=(byte? literal, esQueryItem item1)
+        public static tgComparison operator !=(byte? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esComparison operator !=(esQueryItem item1, char? literal)
+        public static tgComparison operator !=(tgQueryItem item1, char? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esComparison operator !=(char? literal, esQueryItem item1)
+        public static tgComparison operator !=(char? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esComparison operator !=(esQueryItem item1, DateTime? literal)
+        public static tgComparison operator !=(tgQueryItem item1, DateTime? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esComparison operator !=(DateTime? literal, esQueryItem item1)
+        public static tgComparison operator !=(DateTime? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esComparison operator !=(esQueryItem item1, double? literal)
+        public static tgComparison operator !=(tgQueryItem item1, double? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esComparison operator !=(double? literal, esQueryItem item1)
+        public static tgComparison operator !=(double? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esComparison operator !=(esQueryItem item1, decimal? literal)
+        public static tgComparison operator !=(tgQueryItem item1, decimal? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esComparison operator !=(decimal? literal, esQueryItem item1)
+        public static tgComparison operator !=(decimal? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esComparison operator !=(esQueryItem item1, Guid? literal)
+        public static tgComparison operator !=(tgQueryItem item1, Guid? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esComparison operator !=(Guid? literal, esQueryItem item1)
+        public static tgComparison operator !=(Guid? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esComparison operator !=(esQueryItem item1, short? literal)
+        public static tgComparison operator !=(tgQueryItem item1, short? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esComparison operator !=(short? literal, esQueryItem item1)
+        public static tgComparison operator !=(short? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esComparison operator !=(esQueryItem item1, int? literal)
+        public static tgComparison operator !=(tgQueryItem item1, int? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esComparison operator !=(int? literal, esQueryItem item1)
+        public static tgComparison operator !=(int? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esComparison operator !=(esQueryItem item1, long? literal)
+        public static tgComparison operator !=(tgQueryItem item1, long? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esComparison operator !=(long? literal, esQueryItem item1)
+        public static tgComparison operator !=(long? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, sbyte? literal)
+        public static tgComparison operator !=(tgQueryItem item1, sbyte? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(sbyte? literal, esQueryItem item1)
+        public static tgComparison operator !=(sbyte? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esComparison operator !=(esQueryItem item1, float? literal)
+        public static tgComparison operator !=(tgQueryItem item1, float? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esComparison operator !=(float? literal, esQueryItem item1)
+        public static tgComparison operator !=(float? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, ushort? literal)
+        public static tgComparison operator !=(tgQueryItem item1, ushort? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(ushort? literal, esQueryItem item1)
+        public static tgComparison operator !=(ushort? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, uint? literal)
+        public static tgComparison operator !=(tgQueryItem item1, uint? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(uint? literal, esQueryItem item1)
+        public static tgComparison operator !=(uint? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esComparison operator !=(esQueryItem item1, ulong? literal)
+        public static tgComparison operator !=(tgQueryItem item1, ulong? literal)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esComparison operator !=(ulong? literal, esQueryItem item1)
+        public static tgComparison operator !=(ulong? literal, tgQueryItem item1)
         {
             return NotEqualOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -3647,174 +3647,174 @@ namespace Tiraggo.DynamicQuery
         #region + operator literal overloads
 
         // esSystemType.Boolean
-        public static esQueryItem operator +(esQueryItem item1, bool? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, bool? literal)
         {
             return AddOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator +(bool? literal, esQueryItem item1)
+        public static tgQueryItem operator +(bool? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator +(esQueryItem item1, byte? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, byte? literal)
         {
             return AddOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator +(byte? literal, esQueryItem item1)
+        public static tgQueryItem operator +(byte? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator +(esQueryItem item1, char? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, char? literal)
         {
             return AddOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator +(char? literal, esQueryItem item1)
+        public static tgQueryItem operator +(char? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator +(esQueryItem item1, DateTime? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, DateTime? literal)
         {
             return AddOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator +(DateTime? literal, esQueryItem item1)
+        public static tgQueryItem operator +(DateTime? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator +(esQueryItem item1, double? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, double? literal)
         {
             return AddOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator +(double? literal, esQueryItem item1)
+        public static tgQueryItem operator +(double? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator +(esQueryItem item1, decimal? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, decimal? literal)
         {
             return AddOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator +(decimal? literal, esQueryItem item1)
+        public static tgQueryItem operator +(decimal? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator +(esQueryItem item1, Guid? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, Guid? literal)
         {
             return AddOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator +(Guid? literal, esQueryItem item1)
+        public static tgQueryItem operator +(Guid? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator +(esQueryItem item1, short? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, short? literal)
         {
             return AddOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator +(short? literal, esQueryItem item1)
+        public static tgQueryItem operator +(short? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator +(esQueryItem item1, int? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, int? literal)
         {
             return AddOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator +(int? literal, esQueryItem item1)
+        public static tgQueryItem operator +(int? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator +(esQueryItem item1, long? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, long? literal)
         {
             return AddOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator +(long? literal, esQueryItem item1)
+        public static tgQueryItem operator +(long? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, sbyte? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, sbyte? literal)
         {
             return AddOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(sbyte? literal, esQueryItem item1)
+        public static tgQueryItem operator +(sbyte? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator +(esQueryItem item1, float? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, float? literal)
         {
             return AddOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator +(float? literal, esQueryItem item1)
+        public static tgQueryItem operator +(float? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, ushort? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, ushort? literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(ushort? literal, esQueryItem item1)
+        public static tgQueryItem operator +(ushort? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, uint? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, uint? literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(uint? literal, esQueryItem item1)
+        public static tgQueryItem operator +(uint? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator +(esQueryItem item1, ulong? literal)
+        public static tgQueryItem operator +(tgQueryItem item1, ulong? literal)
         {
             return AddOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator +(ulong? literal, esQueryItem item1)
+        public static tgQueryItem operator +(ulong? literal, tgQueryItem item1)
         {
             return AddOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -3823,174 +3823,174 @@ namespace Tiraggo.DynamicQuery
         #region - operator literal overloads
 
         // esSystemType.Boolean
-        public static esQueryItem operator -(esQueryItem item1, bool? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, bool? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator -(bool? literal, esQueryItem item1)
+        public static tgQueryItem operator -(bool? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator -(esQueryItem item1, byte? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, byte? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator -(byte? literal, esQueryItem item1)
+        public static tgQueryItem operator -(byte? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator -(esQueryItem item1, char? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, char? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator -(char? literal, esQueryItem item1)
+        public static tgQueryItem operator -(char? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator -(esQueryItem item1, DateTime? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, DateTime? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator -(DateTime? literal, esQueryItem item1)
+        public static tgQueryItem operator -(DateTime? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator -(esQueryItem item1, double? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, double? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator -(double? literal, esQueryItem item1)
+        public static tgQueryItem operator -(double? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator -(esQueryItem item1, decimal? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, decimal? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator -(decimal? literal, esQueryItem item1)
+        public static tgQueryItem operator -(decimal? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator -(esQueryItem item1, Guid? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, Guid? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator -(Guid? literal, esQueryItem item1)
+        public static tgQueryItem operator -(Guid? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator -(esQueryItem item1, short? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, short? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator -(short? literal, esQueryItem item1)
+        public static tgQueryItem operator -(short? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator -(esQueryItem item1, int? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, int? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator -(int? literal, esQueryItem item1)
+        public static tgQueryItem operator -(int? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator -(esQueryItem item1, long? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, long? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator -(long? literal, esQueryItem item1)
+        public static tgQueryItem operator -(long? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, sbyte? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, sbyte? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(sbyte? literal, esQueryItem item1)
+        public static tgQueryItem operator -(sbyte? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator -(esQueryItem item1, float? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, float? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator -(float? literal, esQueryItem item1)
+        public static tgQueryItem operator -(float? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, ushort? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, ushort? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(ushort? literal, esQueryItem item1)
+        public static tgQueryItem operator -(ushort? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, uint? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, uint? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(uint? literal, esQueryItem item1)
+        public static tgQueryItem operator -(uint? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator -(esQueryItem item1, ulong? literal)
+        public static tgQueryItem operator -(tgQueryItem item1, ulong? literal)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator -(ulong? literal, esQueryItem item1)
+        public static tgQueryItem operator -(ulong? literal, tgQueryItem item1)
         {
             return SubtractOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -3999,174 +3999,174 @@ namespace Tiraggo.DynamicQuery
         #region * operator literal overloads
 
         // esSystemType.Boolean
-        public static esQueryItem operator *(esQueryItem item1, bool? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, bool? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator *(bool? literal, esQueryItem item1)
+        public static tgQueryItem operator *(bool? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator *(esQueryItem item1, byte? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, byte? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator *(byte? literal, esQueryItem item1)
+        public static tgQueryItem operator *(byte? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator *(esQueryItem item1, char? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, char? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator *(char? literal, esQueryItem item1)
+        public static tgQueryItem operator *(char? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator *(esQueryItem item1, DateTime? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, DateTime? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator *(DateTime? literal, esQueryItem item1)
+        public static tgQueryItem operator *(DateTime? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator *(esQueryItem item1, double? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, double? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator *(double? literal, esQueryItem item1)
+        public static tgQueryItem operator *(double? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator *(esQueryItem item1, decimal? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, decimal? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator *(decimal? literal, esQueryItem item1)
+        public static tgQueryItem operator *(decimal? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator *(esQueryItem item1, Guid? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, Guid? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator *(Guid? literal, esQueryItem item1)
+        public static tgQueryItem operator *(Guid? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator *(esQueryItem item1, short? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, short? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator *(short? literal, esQueryItem item1)
+        public static tgQueryItem operator *(short? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator *(esQueryItem item1, int? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, int? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator *(int? literal, esQueryItem item1)
+        public static tgQueryItem operator *(int? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator *(esQueryItem item1, long? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, long? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator *(long? literal, esQueryItem item1)
+        public static tgQueryItem operator *(long? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, sbyte? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, sbyte? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(sbyte? literal, esQueryItem item1)
+        public static tgQueryItem operator *(sbyte? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator *(esQueryItem item1, float? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, float? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator *(float? literal, esQueryItem item1)
+        public static tgQueryItem operator *(float? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, ushort? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, ushort? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(ushort? literal, esQueryItem item1)
+        public static tgQueryItem operator *(ushort? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, uint? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, uint? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(uint? literal, esQueryItem item1)
+        public static tgQueryItem operator *(uint? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator *(esQueryItem item1, ulong? literal)
+        public static tgQueryItem operator *(tgQueryItem item1, ulong? literal)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator *(ulong? literal, esQueryItem item1)
+        public static tgQueryItem operator *(ulong? literal, tgQueryItem item1)
         {
             return MultiplyOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -4175,174 +4175,174 @@ namespace Tiraggo.DynamicQuery
         #region / operator literal overloads
 
         // esSystemType.Boolean
-        public static esQueryItem operator /(esQueryItem item1, bool? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, bool? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator /(bool? literal, esQueryItem item1)
+        public static tgQueryItem operator /(bool? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator /(esQueryItem item1, byte? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, byte? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator /(byte? literal, esQueryItem item1)
+        public static tgQueryItem operator /(byte? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator /(esQueryItem item1, char? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, char? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator /(char? literal, esQueryItem item1)
+        public static tgQueryItem operator /(char? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator /(esQueryItem item1, DateTime? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, DateTime? literal)
         {
             return DivideOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator /(DateTime? literal, esQueryItem item1)
+        public static tgQueryItem operator /(DateTime? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator /(esQueryItem item1, double? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, double? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator /(double? literal, esQueryItem item1)
+        public static tgQueryItem operator /(double? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator /(esQueryItem item1, decimal? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, decimal? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator /(decimal? literal, esQueryItem item1)
+        public static tgQueryItem operator /(decimal? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator /(esQueryItem item1, Guid? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, Guid? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator /(Guid? literal, esQueryItem item1)
+        public static tgQueryItem operator /(Guid? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator /(esQueryItem item1, short? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, short? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator /(short? literal, esQueryItem item1)
+        public static tgQueryItem operator /(short? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator /(esQueryItem item1, int? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, int? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator /(int? literal, esQueryItem item1)
+        public static tgQueryItem operator /(int? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator /(esQueryItem item1, long? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, long? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator /(long? literal, esQueryItem item1)
+        public static tgQueryItem operator /(long? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, sbyte? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, sbyte? literal)
         {
             return DivideOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(sbyte? literal, esQueryItem item1)
+        public static tgQueryItem operator /(sbyte? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator /(esQueryItem item1, float? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, float? literal)
         {
             return DivideOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator /(float? literal, esQueryItem item1)
+        public static tgQueryItem operator /(float? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, ushort? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, ushort? literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(ushort? literal, esQueryItem item1)
+        public static tgQueryItem operator /(ushort? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, uint? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, uint? literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(uint? literal, esQueryItem item1)
+        public static tgQueryItem operator /(uint? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator /(esQueryItem item1, ulong? literal)
+        public static tgQueryItem operator /(tgQueryItem item1, ulong? literal)
         {
             return DivideOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator /(ulong? literal, esQueryItem item1)
+        public static tgQueryItem operator /(ulong? literal, tgQueryItem item1)
         {
             return DivideOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -4351,174 +4351,174 @@ namespace Tiraggo.DynamicQuery
         #region % operator literal overloads
 
         // esSystemType.Boolean
-        public static esQueryItem operator %(esQueryItem item1, bool? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, bool? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Boolean, true);
         }
 
-        public static esQueryItem operator %(bool? literal, esQueryItem item1)
+        public static tgQueryItem operator %(bool? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Boolean, false);
         }
 
         // esSystemType.Byte
-        public static esQueryItem operator %(esQueryItem item1, byte? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, byte? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Byte, true);
         }
 
-        public static esQueryItem operator %(byte? literal, esQueryItem item1)
+        public static tgQueryItem operator %(byte? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Byte, false);
         }
 
         // esSystemType.Char
-        public static esQueryItem operator %(esQueryItem item1, char? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, char? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Char, true);
         }
 
-        public static esQueryItem operator %(char? literal, esQueryItem item1)
+        public static tgQueryItem operator %(char? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Char, false);
         }
 
         // esSystemType.DateTime
-        public static esQueryItem operator %(esQueryItem item1, DateTime? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, DateTime? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.DateTime, true);
         }
 
-        public static esQueryItem operator %(DateTime? literal, esQueryItem item1)
+        public static tgQueryItem operator %(DateTime? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.DateTime, false);
         }
 
         // esSystemType.Double
-        public static esQueryItem operator %(esQueryItem item1, double? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, double? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Double, true);
         }
 
-        public static esQueryItem operator %(double? literal, esQueryItem item1)
+        public static tgQueryItem operator %(double? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Double, false);
         }
 
         // esSystemType.Decimal
-        public static esQueryItem operator %(esQueryItem item1, decimal? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, decimal? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Decimal, true);
         }
 
-        public static esQueryItem operator %(decimal? literal, esQueryItem item1)
+        public static tgQueryItem operator %(decimal? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Decimal, false);
         }
 
         // esSystemType.Guid
-        public static esQueryItem operator %(esQueryItem item1, Guid? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, Guid? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Guid, true);
         }
 
-        public static esQueryItem operator %(Guid? literal, esQueryItem item1)
+        public static tgQueryItem operator %(Guid? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Guid, false);
         }
 
         // esSystemType.Int16
-        public static esQueryItem operator %(esQueryItem item1, short? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, short? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int16, true);
         }
 
-        public static esQueryItem operator %(short? literal, esQueryItem item1)
+        public static tgQueryItem operator %(short? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int16, false);
         }
 
         // esSystemType.Int32
-        public static esQueryItem operator %(esQueryItem item1, int? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, int? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int32, true);
         }
 
-        public static esQueryItem operator %(int? literal, esQueryItem item1)
+        public static tgQueryItem operator %(int? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int32, false);
         }
 
         // esSystemType.Int64
-        public static esQueryItem operator %(esQueryItem item1, long? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, long? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Int64, true);
         }
 
-        public static esQueryItem operator %(long? literal, esQueryItem item1)
+        public static tgQueryItem operator %(long? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Int64, false);
         }
 
         // esSystemType.SByte
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, sbyte? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, sbyte? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.SByte, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(sbyte? literal, esQueryItem item1)
+        public static tgQueryItem operator %(sbyte? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.SByte, false);
         }
 
         // esSystemType.Single
-        public static esQueryItem operator %(esQueryItem item1, float? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, float? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.Single, true);
         }
 
-        public static esQueryItem operator %(float? literal, esQueryItem item1)
+        public static tgQueryItem operator %(float? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.Single, false);
         }
 
         // esSystemType.UInt16
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, ushort? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, ushort? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt16, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(ushort? literal, esQueryItem item1)
+        public static tgQueryItem operator %(ushort? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt16, false);
         }
 
         // esSystemType.UInt32
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, uint? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, uint? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt32, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(uint? literal, esQueryItem item1)
+        public static tgQueryItem operator %(uint? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt32, false);
         }
 
         // esSystemType.UInt64
         [CLSCompliant(false)]
-        public static esQueryItem operator %(esQueryItem item1, ulong? literal)
+        public static tgQueryItem operator %(tgQueryItem item1, ulong? literal)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt64, true);
         }
 
         [CLSCompliant(false)]
-        public static esQueryItem operator %(ulong? literal, esQueryItem item1)
+        public static tgQueryItem operator %(ulong? literal, tgQueryItem item1)
         {
             return ModuloOperator(item1, literal, esSystemType.UInt64, false);
         }
@@ -4530,14 +4530,14 @@ namespace Tiraggo.DynamicQuery
 
         #region Where Clause
 
-        private esComparison CreateComparisonParameter(esComparisonOperand operand, object value)
+        private tgComparison CreateComparisonParameter(esComparisonOperand operand, object value)
         {
-            esComparison comparison = null;
+            tgComparison comparison = null;
 
-            esQueryItem qi = value as esQueryItem;
+            tgQueryItem qi = value as tgQueryItem;
             if (Object.Equals(qi, null))
             {
-                comparison = new esComparison(this.query);
+                comparison = new tgComparison(this.query);
                 comparison.Operand = operand;
 
                 if (this.HasExpression)
@@ -4551,7 +4551,7 @@ namespace Tiraggo.DynamicQuery
             }
             else
             {
-                comparison = new esComparison(this.query);
+                comparison = new tgComparison(this.query);
                 comparison.Operand = operand;
                 comparison.data.Column = this.Column;
                 comparison.data.ComparisonColumn = qi.Column;
@@ -4561,9 +4561,9 @@ namespace Tiraggo.DynamicQuery
             return comparison;
         }
 
-        private esComparison CreateComparisonParameter(esComparisonOperand operand)
+        private tgComparison CreateComparisonParameter(esComparisonOperand operand)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
 
             comparison.Operand = operand;
 
@@ -4583,8 +4583,8 @@ namespace Tiraggo.DynamicQuery
         /// See <see cref="esComparisonOperand"/> Enumeration.
         /// </summary>
         /// <param name="op">E.g., esComparisonOperand.IsNotNull</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public esComparison OP(esComparisonOperand op)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public tgComparison OP(esComparisonOperand op)
         {
             switch (op)
             {
@@ -4603,8 +4603,8 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="op">E.g., esComparisonOperand.IsNotNull</param>
         /// <param name="value">The value for this comparison</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public esComparison OP(esComparisonOperand op, object value)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public tgComparison OP(esComparisonOperand op, object value)
         {
             switch (op)
             {
@@ -4640,8 +4640,8 @@ namespace Tiraggo.DynamicQuery
         /// <param name="op">E.g., esComparisonOperand.Between</param>
         /// <param name="value1">The first value for this comparison</param>
         /// <param name="value2">The second value for this comparison</param>
-        /// <returns>The esComparison returned to DynamicQuery</returns>
-        public esComparison OP(esComparisonOperand op, object value1, object value2)
+        /// <returns>The tgComparison returned to DynamicQuery</returns>
+        public tgComparison OP(esComparisonOperand op, object value1, object value2)
         {
             switch (op)
             {
@@ -4688,9 +4688,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '==' in C# or '=' in VB.NET rather than this method")]
-        public esComparison Equal(object value)
+        public tgComparison Equal(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.Equal, value);
         }
@@ -4709,9 +4709,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '!=' in C# or '<>' in VB.NET rather than this method")] 
-        public esComparison NotEqual(object value)
+        public tgComparison NotEqual(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.NotEqual, value);
         }
@@ -4730,9 +4730,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '>' rather than this method")]
-        public esComparison GreaterThan(object value)
+        public tgComparison GreaterThan(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.GreaterThan, value);
         }
@@ -4752,9 +4752,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '>=' rather than this method")]
-        public esComparison GreaterThanOrEqual(object value)
+        public tgComparison GreaterThanOrEqual(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.GreaterThanOrEqual, value);
         }
@@ -4773,9 +4773,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '<' rather than this method")]
-        public esComparison LessThan(object value)
+        public tgComparison LessThan(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.LessThan, value);
         }
@@ -4795,9 +4795,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
         [Obsolete("For more readable code use '<=' rather than this method")]
-        public esComparison LessThanOrEqual(object value)
+        public tgComparison LessThanOrEqual(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.LessThanOrEqual, value);
         }
@@ -4812,8 +4812,8 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>        
-        public esComparison Like(object value)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>        
+        public tgComparison Like(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.Like, value);
         }
@@ -4833,16 +4833,16 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="value">The value for comparison.</param>
         /// <param name="escapeCharacter">The single escape character.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison Like(object value, char escapeCharacter)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison Like(object value, char escapeCharacter)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.data.Column = this.Column;
             comparison.data.LikeEscape = escapeCharacter;
             comparison.Operand = esComparisonOperand.Like;
             comparison.SubOperators = this.SubOperators;
 
-            esQueryItem qi = value as esQueryItem;
+            tgQueryItem qi = value as tgQueryItem;
             if (Object.Equals(qi, null))
             {
                 comparison.data.Value = value;
@@ -4865,8 +4865,8 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison NotLike(object value)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison NotLike(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.NotLike, value);
         }
@@ -4886,16 +4886,16 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="value">The value for comparison.</param>
         /// <param name="escapeCharacter">The single escape character.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison NotLike(object value, char escapeCharacter)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison NotLike(object value, char escapeCharacter)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.data.Column = this.Column;
             comparison.data.LikeEscape = escapeCharacter;
             comparison.Operand = esComparisonOperand.NotLike;
             comparison.SubOperators = this.SubOperators;
 
-            esQueryItem qi = value as esQueryItem;
+            tgQueryItem qi = value as tgQueryItem;
             if (Object.Equals(qi, null))
             {
                 comparison.data.Value = value;
@@ -4939,8 +4939,8 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison Contains(object value)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison Contains(object value)
         {
             return CreateComparisonParameter(esComparisonOperand.Contains, value);
         }
@@ -4954,8 +4954,8 @@ namespace Tiraggo.DynamicQuery
         /// Where(LastName.IsNull())
         /// </code>
         /// </example>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison IsNull()
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison IsNull()
         {
             return CreateComparisonParameter(esComparisonOperand.IsNull);
         }
@@ -4969,8 +4969,8 @@ namespace Tiraggo.DynamicQuery
         /// Where(LastName.IsNotNull())
         /// </code>
         /// </example>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison IsNotNull()
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison IsNotNull()
         {
             return CreateComparisonParameter(esComparisonOperand.IsNotNull);
         }
@@ -4986,16 +4986,16 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="start">The starting value for comparison.</param>
         /// <param name="end">The ending value for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison Between(object start, object end)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison Between(object start, object end)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.Operand = esComparisonOperand.Between;
             comparison.SubOperators = this.SubOperators;
 
             comparison.data.Column = this.Column;
 
-            esQueryItem qi = start as esQueryItem;
+            tgQueryItem qi = start as tgQueryItem;
             if (Object.Equals(qi, null))
             {
                 comparison.BetweenBegin = start;
@@ -5005,7 +5005,7 @@ namespace Tiraggo.DynamicQuery
                 comparison.data.ComparisonColumn = qi.Column;
             }
 
-            qi = end as esQueryItem;
+            qi = end as tgQueryItem;
             if (Object.Equals(qi, null))
             {
                 comparison.BetweenEnd = end;
@@ -5030,8 +5030,8 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The list of values for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison In(params object[] value)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison In(params object[] value)
         {
             List<object> values = new List<object>();
 
@@ -5066,7 +5066,7 @@ namespace Tiraggo.DynamicQuery
             }
             #endregion
 
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.Operand = esComparisonOperand.In;
             comparison.data.Column = this.Column;
             comparison.SubOperators = this.SubOperators;
@@ -5080,9 +5080,9 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="value">The Query to provide the matching values for the IN comparison</param>
         /// <returns></returns>
-        public esComparison In(esDynamicQuerySerializable subQuery)
+        public tgComparison In(tgDynamicQuerySerializable subQuery)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.Operand = esComparisonOperand.In;
             comparison.data.Column = this.Column;
             comparison.SubOperators = this.SubOperators;
@@ -5103,8 +5103,8 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <param name="value">The list of values for comparison.</param>
-        /// <returns>The esComparison returned to DynamicQuery.</returns>
-        public esComparison NotIn(params object[] value)
+        /// <returns>The tgComparison returned to DynamicQuery.</returns>
+        public tgComparison NotIn(params object[] value)
         {
             List<object> values = new List<object>();
 
@@ -5139,7 +5139,7 @@ namespace Tiraggo.DynamicQuery
             }
             #endregion
 
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.Operand = esComparisonOperand.NotIn;
             comparison.data.Column = this.Column;
             comparison.SubOperators = this.SubOperators;
@@ -5152,9 +5152,9 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="value">The Query to provide the matching values for the NOT IN comparison</param>
         /// <returns></returns>
-        public esComparison NotIn(esDynamicQuerySerializable subQuery)
+        public tgComparison NotIn(tgDynamicQuerySerializable subQuery)
         {
-            esComparison comparison = new esComparison(this.query);
+            tgComparison comparison = new tgComparison(this.query);
             comparison.Operand = esComparisonOperand.NotIn;
             comparison.data.Column = this.Column;
             comparison.SubOperators = this.SubOperators;
@@ -5166,15 +5166,15 @@ namespace Tiraggo.DynamicQuery
         }
         #endregion
 
-        //public esCase Case(esQueryItem column)
+        //public tgCase Case(tgQueryItem column)
         //{
-        //    this.CaseWhen = new esCase(this.query, this, column);
+        //    this.CaseWhen = new tgCase(this.query, this, column);
         //    return this.CaseWhen;
         //}
 
-        public esCase Case()
+        public tgCase Case()
         {
-            this.CaseWhen = new esCase(this.query, this);
+            this.CaseWhen = new tgCase(this.query, this);
             return this.CaseWhen;
         }
 
@@ -5189,12 +5189,12 @@ namespace Tiraggo.DynamicQuery
         /// emps.Query.OrderBy(emps.Query.LastName.Descending);
         /// </code>
         /// </example>
-        /// <returns>The esOrderByItem returned to DynamicQuery.</returns>
-        public esOrderByItem Descending
+        /// <returns>The tgOrderByItem returned to DynamicQuery.</returns>
+        public tgOrderByItem Descending
         {
             get 
             {
-                esOrderByItem item = new esOrderByItem();
+                tgOrderByItem item = new tgOrderByItem();
                 item.Direction = esOrderByDirection.Descending;
                 item.Expression = this;
                 item.Expression.Query = this.query;
@@ -5211,12 +5211,12 @@ namespace Tiraggo.DynamicQuery
         /// emps.Query.OrderBy(emps.Query.LastName.Ascending);
         /// </code>
         /// </example>
-        /// <returns>The esOrderByItem returned to DynamicQuery.</returns>
-        public esOrderByItem Ascending
+        /// <returns>The tgOrderByItem returned to DynamicQuery.</returns>
+        public tgOrderByItem Ascending
         {
             get
             {
-                esOrderByItem item = new esOrderByItem();
+                tgOrderByItem item = new tgOrderByItem();
                 item.Direction = esOrderByDirection.Ascending;
                 item.Expression = this;
                 item.Expression.Query = this.query;
@@ -5232,13 +5232,13 @@ namespace Tiraggo.DynamicQuery
         /// Cast informs the DataProviders that a SQL CAST operation is needed.
         /// </summary>
         /// <remarks>
-        /// In C# you can cast with the overloaded cast operators, like this: (esString)query.Age
+        /// In C# you can cast with the overloaded cast operators, like this: (tgString)query.Age
         /// </remarks>
         /// <param name="castType">The type of cast needed</param>
-        /// <returns>The very same esQueryItem now with Cast instructions</returns>
-        public esQueryItem Cast(esCastType castType)
+        /// <returns>The very same tgQueryItem now with Cast instructions</returns>
+        public tgQueryItem Cast(esCastType castType)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Cast;
             subOp.Parameters["esCastType"] = castType;
             this.AddSubOperator(subOp);
@@ -5251,13 +5251,13 @@ namespace Tiraggo.DynamicQuery
         /// of Cast is useful for Casting variable length character columns
         /// </summary>
         /// <remarks>
-        /// In C# you can cast with the overloaded cast operators, like this: (esString)query.Age
+        /// In C# you can cast with the overloaded cast operators, like this: (tgString)query.Age
         /// </remarks>
         /// <param name="castType">The type of cast needed</param>
-        /// <returns>The very same esQueryItem now with Cast instructions</returns>
-        public esQueryItem Cast(esCastType castType, int length)
+        /// <returns>The very same tgQueryItem now with Cast instructions</returns>
+        public tgQueryItem Cast(esCastType castType, int length)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Cast;
             subOp.Parameters["esCastType"] = castType;
             subOp.Parameters["length"] = length;
@@ -5271,13 +5271,13 @@ namespace Tiraggo.DynamicQuery
         /// of Cast is useful for Casting decimal types
         /// </summary>
         /// <remarks>
-        /// In C# you can cast with the overloaded cast operators, like this: (esString)query.Age
+        /// In C# you can cast with the overloaded cast operators, like this: (tgString)query.Age
         /// </remarks>
         /// <param name="castType">The type of cast needed</param>
-        /// <returns>The very same esQueryItem now with Cast instructions</returns>
-        public esQueryItem Cast(esCastType castType, int precision, int scale)
+        /// <returns>The very same tgQueryItem now with Cast instructions</returns>
+        public tgQueryItem Cast(esCastType castType, int precision, int scale)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Cast;
             subOp.Parameters["esCastType"] = castType;
             subOp.Parameters["precision"] = precision;
@@ -5293,8 +5293,8 @@ namespace Tiraggo.DynamicQuery
         /// Privides the Ability to Alias a column name
         /// </summary>
         /// <param name="alias">The Alias Name</param>
-        /// <returns>esQueryItem</returns>
-        public esQueryItem As(string alias)
+        /// <returns>tgQueryItem</returns>
+        public tgQueryItem As(string alias)
         {
             this.Column.Alias = alias;
             return this;
@@ -5305,9 +5305,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Returns the column in UPPER CASE
         /// </summary>
-         public esQueryItem ToUpper()
+         public tgQueryItem ToUpper()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.ToUpper;
             this.AddSubOperator(subOp);
 
@@ -5317,9 +5317,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Returns the column in LOWER CASE
         /// </summary>
-        public esQueryItem ToLower()
+        public tgQueryItem ToLower()
         {    
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.ToLower;
             this.AddSubOperator(subOp);
 
@@ -5329,9 +5329,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Performs a Left Trim (remove blanks) on the column
         /// </summary>
-        public esQueryItem LTrim()
+        public tgQueryItem LTrim()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.LTrim;
             this.AddSubOperator(subOp);
 
@@ -5341,9 +5341,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Performs a Right Trim (remove blanks) on the column
         /// </summary>
-        public  esQueryItem RTrim()
+        public  tgQueryItem RTrim()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.RTrim;
             this.AddSubOperator(subOp);
 
@@ -5353,9 +5353,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Removes blanks from the beginning and end of the column
         /// </summary>
-        public esQueryItem Trim()
+        public tgQueryItem Trim()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Trim;
             this.AddSubOperator(subOp);
 
@@ -5367,9 +5367,9 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="start">The starting character</param>
         /// <param name="length">How many characters to return</param>
-        public esQueryItem Substring(System.Int64 start, System.Int64 length)
+        public tgQueryItem Substring(System.Int64 start, System.Int64 length)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.SubString;
             subOp.Parameters["start"] = start;
             subOp.Parameters["length"] = length;
@@ -5382,9 +5382,9 @@ namespace Tiraggo.DynamicQuery
         /// Returns a portion of the string column
         /// </summary>
         /// <param name="length">How many characters to return</param>
-        public esQueryItem Substring(System.Int64 length)
+        public tgQueryItem Substring(System.Int64 length)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.SubString;
             subOp.Parameters["length"] = length;
             this.AddSubOperator(subOp);
@@ -5397,9 +5397,9 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="start">The starting character</param>
         /// <param name="length">How many characters to return</param>
-        public esQueryItem Substring(int start, int length)
+        public tgQueryItem Substring(int start, int length)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.SubString;
             subOp.Parameters["start"] = start;
             subOp.Parameters["length"] = length;
@@ -5412,9 +5412,9 @@ namespace Tiraggo.DynamicQuery
         /// Returns a portion of the string column
         /// </summary>
         /// <param name="length">How many characters to return</param>
-        public esQueryItem Substring(int length)
+        public tgQueryItem Substring(int length)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.SubString;
             subOp.Parameters["length"] = length;
             this.AddSubOperator(subOp);
@@ -5434,9 +5434,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </remarks>
         /// <param name="expresssions">The value to return if null</param>
-        public esQueryItem Coalesce(string expresssions)
+        public tgQueryItem Coalesce(string expresssions)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Coalesce;
             subOp.Parameters["expressions"] = expresssions;
             this.AddSubOperator(subOp);
@@ -5448,9 +5448,9 @@ namespace Tiraggo.DynamicQuery
         /// Returns the Date only portion of a date columm
         /// </summary>
         /// <returns></returns>
-        public esQueryItem Date()
+        public tgQueryItem Date()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Date;
             this.AddSubOperator(subOp);
 
@@ -5460,9 +5460,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Returns the length of a character based column
         /// </summary>
-        public esQueryItem Length()
+        public tgQueryItem Length()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Length;
             this.AddSubOperator(subOp);
 
@@ -5473,9 +5473,9 @@ namespace Tiraggo.DynamicQuery
         /// Performs a round on the column
         /// </summary>
         /// <param name="significantDigits">Round to the number of significant digits</param>
-        public esQueryItem Round(int significantDigits)
+        public tgQueryItem Round(int significantDigits)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Round;
             subOp.Parameters["SignificantDigits"] = significantDigits;
             this.AddSubOperator(subOp);
@@ -5487,9 +5487,9 @@ namespace Tiraggo.DynamicQuery
         /// Returns a particular date part of a date column
         /// </summary>
         /// <param name="datePart"></param>
-        public esQueryItem DatePart(string datePart)
+        public tgQueryItem DatePart(string datePart)
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.DatePart;
             subOp.Parameters["DatePart"] = datePart;
             this.AddSubOperator(subOp);
@@ -5508,9 +5508,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Sum()
+        public tgQueryItem Sum()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Sum;
             this.AddSubOperator(subOp);
 
@@ -5528,9 +5528,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Avg()
+        public tgQueryItem Avg()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Avg;
             this.AddSubOperator(subOp);
 
@@ -5548,9 +5548,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Max()
+        public tgQueryItem Max()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Max;
             this.AddSubOperator(subOp);
 
@@ -5568,9 +5568,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Min()
+        public tgQueryItem Min()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Min;
             this.AddSubOperator(subOp);
 
@@ -5588,9 +5588,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem StdDev()
+        public tgQueryItem StdDev()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.StdDev;
             this.AddSubOperator(subOp);
 
@@ -5608,9 +5608,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Var()
+        public tgQueryItem Var()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Var;
             this.AddSubOperator(subOp);
            
@@ -5628,9 +5628,9 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>The esAggregateItem returned to DynamicQuery.</returns>
-        public esQueryItem Count()
+        public tgQueryItem Count()
         {
-            esQuerySubOperator subOp = new esQuerySubOperator();
+            tgQuerySubOperator subOp = new tgQuerySubOperator();
             subOp.SubOperator = esQuerySubOperatorType.Count;
             this.AddSubOperator(subOp);
 
@@ -5642,7 +5642,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// Set to true for (DISTINCT columnName).
         /// </summary>
-        public esQueryItem Distinct()
+        public tgQueryItem Distinct()
         {
             this.Column.Distinct = true;
             return this;
@@ -5676,64 +5676,64 @@ namespace Tiraggo.DynamicQuery
 
         #region Cast Operators
 
-        public static implicit operator esBoolean(esQueryItem item)
+        public static implicit operator tgBoolean(tgQueryItem item)
         {
-            return new esBoolean(item);
+            return new tgBoolean(item);
         }
 
-        public static implicit operator esByte(esQueryItem item)
+        public static implicit operator tgByte(tgQueryItem item)
         {
-            return new esByte(item);
+            return new tgByte(item);
         }
 
-        public static implicit operator esChar(esQueryItem item)
+        public static implicit operator tgChar(tgQueryItem item)
         {
-            return new esChar(item);
+            return new tgChar(item);
         }
 
-        public static implicit operator esDateTime(esQueryItem item)
+        public static implicit operator tgDateTime(tgQueryItem item)
         {
-            return new esDateTime(item);
+            return new tgDateTime(item);
         }
 
-        public static implicit operator esDouble(esQueryItem item)
+        public static implicit operator tgDouble(tgQueryItem item)
         {
-            return new esDouble(item);
+            return new tgDouble(item);
         }
 
-        public static implicit operator esDecimal(esQueryItem item)
+        public static implicit operator tgDecimal(tgQueryItem item)
         {
-            return new esDecimal(item);
+            return new tgDecimal(item);
         }
 
-        public static implicit operator esGuid(esQueryItem item)
+        public static implicit operator tgGuid(tgQueryItem item)
         {
-            return new esGuid(item);
+            return new tgGuid(item);
         }
 
-        public static implicit operator esInt16(esQueryItem item)
+        public static implicit operator tgInt16(tgQueryItem item)
         {
-            return new esInt16(item);
+            return new tgInt16(item);
         }
 
-        public static implicit operator esInt32(esQueryItem item)
+        public static implicit operator tgInt32(tgQueryItem item)
         {
-            return new esInt32(item);
+            return new tgInt32(item);
         }
 
-        public static implicit operator esInt64(esQueryItem item)
+        public static implicit operator tgInt64(tgQueryItem item)
         {
-            return new esInt64(item);
+            return new tgInt64(item);
         }
 
-        public static implicit operator esSingle(esQueryItem item)
+        public static implicit operator tgSingle(tgQueryItem item)
         {
-            return new esSingle(item);
+            return new tgSingle(item);
         }
 
-        public static implicit operator esString(esQueryItem item)
+        public static implicit operator tgString(tgQueryItem item)
         {
-            return new esString(item);
+            return new tgString(item);
         }
 
         #endregion
@@ -5741,7 +5741,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// ToString() (to use in GroupBy/OrderBy and such ....)
         /// </summary>
-        public static implicit operator string(esQueryItem item)
+        public static implicit operator string(tgQueryItem item)
         {
             return item.Column.Name;
         }
@@ -5749,7 +5749,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// ToString() (to use in GroupBy/OrderBy and such ....)
         /// </summary>
-        public static implicit operator esColumnItem(esQueryItem item)
+        public static implicit operator tgColumnItem(tgQueryItem item)
         {
             return item.Column;
         }
@@ -5757,9 +5757,9 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// ToString() (to use in GroupBy/OrderBy and such ....)
         /// </summary>
-        public static implicit operator esExpression(esQueryItem item)
+        public static implicit operator tgExpression(tgQueryItem item)
         {
-            esExpression sItem = new esExpression();
+            tgExpression sItem = new tgExpression();
             sItem.Column = item.Column;
             sItem.CaseWhen = item.CaseWhen;
             sItem.SubOperators = item.SubOperators;
@@ -5767,11 +5767,11 @@ namespace Tiraggo.DynamicQuery
             return sItem;
         }
 
-        private void AddSubOperator(esQuerySubOperator subOperator)
+        private void AddSubOperator(tgQuerySubOperator subOperator)
         {
             if (this.SubOperators == null)
             {
-                this.SubOperators = new List<esQuerySubOperator>();
+                this.SubOperators = new List<tgQuerySubOperator>();
             }
 
             this.SubOperators.Add(subOperator);
@@ -5780,10 +5780,10 @@ namespace Tiraggo.DynamicQuery
         //-----------------------------
         // Data
         //-----------------------------
-        internal esColumnItem Column;
-        internal List<esQuerySubOperator> SubOperators;
-        internal esCase CaseWhen;
-        private esDynamicQuerySerializable query;
+        internal tgColumnItem Column;
+        internal List<tgQuerySubOperator> SubOperators;
+        internal tgCase CaseWhen;
+        private tgDynamicQuerySerializable query;
 
         /// <summary>
         /// Used Internally by EntitySpaces
@@ -5796,6 +5796,6 @@ namespace Tiraggo.DynamicQuery
             }
         }
 
-        internal esMathmaticalExpression Expression;
+        internal tgMathmaticalExpression Expression;
     }
 }

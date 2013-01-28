@@ -550,7 +550,7 @@ namespace Tiraggo.Npgsql2Provider
             return param.Clone() as NpgsqlParameter;
         }
 
-        static public string CreateFullName(esDataRequest request, esDynamicQuerySerializable query)
+        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 

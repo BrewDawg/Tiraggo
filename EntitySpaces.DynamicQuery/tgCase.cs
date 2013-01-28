@@ -35,15 +35,15 @@ namespace Tiraggo.DynamicQuery
 {
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esCase
+    public class tgCase
     {
         [NonSerialized]
-        private esExpressionOrComparison WhenItem;
+        private tgExpressionOrComparison WhenItem;
 
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esCase(esDynamicQuerySerializable query, esQueryItem queryItem)
+        public tgCase(tgDynamicQuerySerializable query, tgQueryItem queryItem)
         {
             this.data.Query = query;
             this.data.QueryItem = queryItem;
@@ -52,42 +52,42 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esCase(esDynamicQuerySerializable query)
+        public tgCase(tgDynamicQuerySerializable query)
         {
             this.data.Query = query;
         }
 
-        public esCase When(object value)
+        public tgCase When(object value)
         {
-            this.WhenItem = new esExpressionOrComparison();
-            this.WhenItem.Expression = new esExpression();
+            this.WhenItem = new tgExpressionOrComparison();
+            this.WhenItem.Expression = new tgExpression();
             this.WhenItem.Expression.LiteralValue = value;
 
             return this;
         }
 
-        public esCase When(esQueryItem ex)
+        public tgCase When(tgQueryItem ex)
         {
             return this;
         }
 
-        public esCase When(esExpression ex)
+        public tgCase When(tgExpression ex)
         {
             return this;
         }
 
-        public esCase When(esComparison comparison)
+        public tgCase When(tgComparison comparison)
         {
-            this.WhenItem = new esExpressionOrComparison();
-            this.WhenItem.Comparisons = new List<esComparison>();
+            this.WhenItem = new tgExpressionOrComparison();
+            this.WhenItem.Comparisons = new List<tgComparison>();
 
             if (comparison != null)
             {
                 if (comparison.data.WhereExpression != null)
                 {
-                    foreach (esComparison exp in comparison.data.WhereExpression)
+                    foreach (tgComparison exp in comparison.data.WhereExpression)
                     {
-                        esDynamicQuerySerializable q = exp.Value as esDynamicQuerySerializable;
+                        tgDynamicQuerySerializable q = exp.Value as tgDynamicQuerySerializable;
 
                         if (q != null)
                         {
@@ -103,7 +103,7 @@ namespace Tiraggo.DynamicQuery
                     this.WhenItem.Comparisons.Add(comparison);
                 }
 
-                esDynamicQuerySerializable query = comparison.Value as esDynamicQuerySerializable;
+                tgDynamicQuerySerializable query = comparison.Value as tgDynamicQuerySerializable;
 
                 if (query != null)
                 {
@@ -117,12 +117,12 @@ namespace Tiraggo.DynamicQuery
 
         #region Then
 
-        public esCase Then(object value)
+        public tgCase Then(object value)
         {
 
             esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
             clause.When = this.WhenItem;
-            clause.Then = new esExpression();
+            clause.Then = new tgExpression();
             clause.Then.LiteralValue = value;
 
             if (data.Cases == null)
@@ -135,9 +135,9 @@ namespace Tiraggo.DynamicQuery
             return this;
         }
 
-        public esCase Then(esQueryItem queryItem)
+        public tgCase Then(tgQueryItem queryItem)
         {
-            esExpression expression = queryItem;
+            tgExpression expression = queryItem;
 
             esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
             clause.When = this.WhenItem;
@@ -153,7 +153,7 @@ namespace Tiraggo.DynamicQuery
             return this;
         }
 
-        public esCase Then(esExpression expression)
+        public tgCase Then(tgExpression expression)
         {
             esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
             clause.When = this.WhenItem;
@@ -173,23 +173,23 @@ namespace Tiraggo.DynamicQuery
 
         #region Else
 
-        public esCase Else(object value)
+        public tgCase Else(object value)
         {
-            this.data.Else = new esExpression();
+            this.data.Else = new tgExpression();
             this.data.Else.LiteralValue = value;
 
             return this;
         }
 
-        public esCase Else(esQueryItem queryItem)
+        public tgCase Else(tgQueryItem queryItem)
         {
-            esExpression expression = queryItem;
+            tgExpression expression = queryItem;
             this.data.Else = expression;
 
             return this;
         }
 
-        public esCase Else(esExpression expression)
+        public tgCase Else(tgExpression expression)
         {
             this.data.Else = expression;
             return this;
@@ -199,7 +199,7 @@ namespace Tiraggo.DynamicQuery
 
         #region End
 
-        public esQueryItem End()
+        public tgQueryItem End()
         {
             return this.data.QueryItem;
         }
@@ -207,7 +207,7 @@ namespace Tiraggo.DynamicQuery
         #endregion
 
         /// <summary>
-        /// Used internally by EntitySpaces to make the <see cref="esJoinItem"/> classes data available to the
+        /// Used internally by EntitySpaces to make the <see cref="tgJoinItem"/> classes data available to the
         /// EntitySpaces data providers.
         /// </summary>
         [Serializable]
@@ -216,21 +216,21 @@ namespace Tiraggo.DynamicQuery
         {
             public struct esCaseClause
             {
-                public esExpressionOrComparison When;
-                public esExpression Then;
+                public tgExpressionOrComparison When;
+                public tgExpression Then;
             }
 
-            public esDynamicQuerySerializable Query;
-            public esQueryItem QueryItem;
+            public tgDynamicQuerySerializable Query;
+            public tgQueryItem QueryItem;
 
             public List<esCaseClause> Cases;
-            public esExpression Else;
+            public tgExpression Else;
         }
 
         [DataMember(Name = "Data", EmitDefaultValue = false)]
         internal esSimpleCaseData data;
 
-        public static implicit operator esSimpleCaseData(esCase caseWhen)
+        public static implicit operator esSimpleCaseData(tgCase caseWhen)
         {
             return caseWhen.data;
         }

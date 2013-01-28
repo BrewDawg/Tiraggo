@@ -550,7 +550,7 @@ namespace Tiraggo.Core
         }
 
         /// <summary>
-        /// Serializes the Dictionary return from GetExtraColumns() with the esDataContractSerializer
+        /// Serializes the Dictionary return from GetExtraColumns() with the tgDataContractSerializer
         /// </summary>
         /// <returns>The serialized dictionary or null if there are no extra columns</returns>
         protected string GetExtraColumnsSerialized()
@@ -559,7 +559,7 @@ namespace Tiraggo.Core
 
             if (ext.Values.Count > 0)
             {
-                return esDataContractSerializer.ToXml(ext);
+                return tgDataContractSerializer.ToXml(ext);
             }
             else
             {

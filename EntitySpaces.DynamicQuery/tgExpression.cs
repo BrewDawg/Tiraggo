@@ -28,45 +28,71 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Tiraggo.DynamicQuery
 {
     /// <summary>
-    /// Created when Query.GroupBy() is called, contains an esColumnItem in order
-    /// to describe the column.
+    /// Used to house the parameters to Query.Select()
     /// </summary>
-  
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esGroupByItem
+    public class tgExpression
     {
+        public tgExpression() { }
+
         /// <summary>
-        /// The Constructor
+        /// Back Pointer to the Parent Query
         /// </summary>
-        /// <param name="query"></param>
-        public esGroupByItem()
-        {
-
-        }
+        [DataMember(Name = "ParentQuery", Order = 99, EmitDefaultValue = false)]
+        public tgDynamicQuerySerializable Query;
 
         /// <summary>
-        /// This allows the user to pass in a string to the Query.GroupBy() method
-        /// directly and we convert it to an instance of an esGroupByItem class for
-        /// them
+        /// Contains the necessary information to describe this column
         /// </summary>
-        public static implicit operator esGroupByItem(string literal)
-        {
-            esGroupByItem item = new esGroupByItem();
-            item.Expression = new esExpression();
-            item.Expression.Column.Name = literal;
-            return item;
-        }
+        [DataMember(Name = "Column", EmitDefaultValue = false)]
+        public tgColumnItem Column;
+       
+        /// <summary>
+        /// A collection of SubOperators such as ToLower to apply to the select column
+        /// </summary>
+        [DataMember(Name = "SubOperators", EmitDefaultValue = false)]
+        public List<tgQuerySubOperator> SubOperators;
 
         /// <summary>
-        /// The Expression for the OrderBy statement
-        /// </summary>  
+        /// Case / When / Then / End
+        /// </summary>
+        [DataMember(Name = "CaseWhen", EmitDefaultValue = false)]
+        public tgCase CaseWhen;
+
+        /// <summary>
+        /// The data behind the expression. This ends up looking like a tree in the end as 
+        /// more arithmetic expressions are applied
+        /// </summary>
         [DataMember(Name = "Expression", EmitDefaultValue = false)]
-        public esExpression Expression;
+        public tgMathmaticalExpression MathmaticalExpression;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "LiteralValue", EmitDefaultValue = false)]
+        public object LiteralValue;
+
+        /// <summary>
+        /// True if this tgExpression has an expression formed by the arithmetic operators +,-,*,/,%
+        /// </summary>
+        public bool HasMathmaticalExpression
+        {
+            get { return this.MathmaticalExpression != null; }
+        }
+
+        /// <summary>
+        /// True if this tgExpression merely represents a literal value
+        /// </summary>
+        public bool IsLiteralValue
+        {
+            get { return this.LiteralValue != null; }
+        }
     }
 }

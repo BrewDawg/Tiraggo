@@ -88,12 +88,12 @@ namespace Tiraggo.DynamicQuery
     /// </example>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esDynamicQuerySerializable : IDynamicQuerySerializableInternal
+    public class tgDynamicQuerySerializable : IDynamicQuerySerializableInternal
     {
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esDynamicQuerySerializable()
+        public tgDynamicQuerySerializable()
         {
 
         }
@@ -102,7 +102,7 @@ namespace Tiraggo.DynamicQuery
         /// The Constructor used when using this query in a "Join"
         /// </summary>
         /// <param name="joinAlias">The alias of the associated Table to be used in the "Join"</param>
-        public esDynamicQuerySerializable(string joinAlias)
+        public tgDynamicQuerySerializable(string joinAlias)
         {
             this.joinAlias = joinAlias;
         }
@@ -127,7 +127,7 @@ namespace Tiraggo.DynamicQuery
             return null;
         }
 
-        virtual protected esQueryItem QueryItemFromName(string name)
+        virtual protected tgQueryItem QueryItemFromName(string name)
         {
             return null;
         }
@@ -136,7 +136,7 @@ namespace Tiraggo.DynamicQuery
         /// Used by EntitySpaces internally
         /// </summary>
         /// <param name="query">The SubQuery</param>
-        internal void AddQueryToList(esDynamicQuerySerializable query)
+        internal void AddQueryToList(tgDynamicQuerySerializable query)
         {
             if (!queries.ContainsKey(query.joinAlias) && query != this)
             {
@@ -157,7 +157,7 @@ namespace Tiraggo.DynamicQuery
         /// </code>
         /// </example>
         /// <returns>An esDynamicQueryTransport containing a select clause.</returns>
-        public esDynamicQuerySerializable Select()
+        public tgDynamicQuerySerializable Select()
         {
             return this;
         }
@@ -172,26 +172,26 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="column">The column to place in the select statement.</param>
         /// <returns>An esDynamicQueryTransport containing a select clause.</returns>
-        public esDynamicQuerySerializable Select(object obj)
+        public tgDynamicQuerySerializable Select(object obj)
         {
             if (this.selectColumns == null)
             {
-                this.selectColumns = new List<esExpression>();
+                this.selectColumns = new List<tgExpression>();
             }
 
-            esExpression sItem = obj as esExpression;
+            tgExpression sItem = obj as tgExpression;
             if (sItem == null)
             {
-                esQueryItem queryItem = null;
+                tgQueryItem queryItem = null;
 
-                esCast cast = obj as esCast;
+                tgCast cast = obj as tgCast;
                 if (cast != null)
                 {
                     queryItem = cast.item;
                 }
                 else
                 {
-                    queryItem = obj as esQueryItem;
+                    queryItem = obj as tgQueryItem;
                 }
 
                 // This if conditional is this way intentionally
@@ -201,8 +201,8 @@ namespace Tiraggo.DynamicQuery
                 }
                 else
                 {
-                    sItem = new esExpression();
-                    esDynamicQuerySerializable query = obj as esDynamicQuerySerializable;
+                    sItem = new tgExpression();
+                    tgDynamicQuerySerializable query = obj as tgDynamicQuerySerializable;
                     if (query != null)
                     {
                         AddQueryToList(query);
@@ -235,26 +235,26 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="columns">The list of columns or aggregates to place in the select statement.</param>
         /// <returns>An esDynamicQueryTransport containing a select clause.</returns>
-        public esDynamicQuerySerializable Select(params object[] columns)
+        public tgDynamicQuerySerializable Select(params object[] columns)
         {
             if (this.selectColumns == null)
             {
-                this.selectColumns = new List<esExpression>();
+                this.selectColumns = new List<tgExpression>();
             }
 
             foreach (object obj in columns)
             {
-                esQueryItem queryItem = null;
-                esExpression sItem;
+                tgQueryItem queryItem = null;
+                tgExpression sItem;
 
-                esCast cast = obj as esCast;
+                tgCast cast = obj as tgCast;
                 if (cast != null)
                 {
                     queryItem = cast.item;
                 }
                 else
                 {
-                    queryItem = obj as esQueryItem;
+                    queryItem = obj as tgQueryItem;
                 }
 
                 // This if conditional is this way intentionally
@@ -264,8 +264,8 @@ namespace Tiraggo.DynamicQuery
                 }
                 else
                 {
-                    sItem = new esExpression();
-                    esDynamicQuerySerializable query = obj as esDynamicQuerySerializable;
+                    sItem = new tgExpression();
+                    tgDynamicQuerySerializable query = obj as tgDynamicQuerySerializable;
                     if (query != null)
                     {
                         AddQueryToList(query);
@@ -289,14 +289,14 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="columns">The columns which you wish to exclude from the Select statement</param>
         /// <returns></returns>
-        virtual public esDynamicQuerySerializable SelectAllExcept(params esQueryItem[] columns)
+        virtual public tgDynamicQuerySerializable SelectAllExcept(params tgQueryItem[] columns)
         {
             if (m_selectAllExcept == null)
             {
-                m_selectAllExcept = new List<esQueryItem>();
+                m_selectAllExcept = new List<tgQueryItem>();
             }
 
-            foreach (esQueryItem item in columns)
+            foreach (tgQueryItem item in columns)
             {
                 m_selectAllExcept.Add(item);
             }
@@ -308,7 +308,7 @@ namespace Tiraggo.DynamicQuery
         /// classes as opposed to doing a SELECT *
         /// </summary>
         /// <returns></returns>
-        virtual public esDynamicQuerySerializable SelectAll()
+        virtual public tgDynamicQuerySerializable SelectAll()
         {
             m_selectAll = true;
             return this;
@@ -319,7 +319,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="count">The number of rows to skip</param>
         /// <returns></returns>
-        public esDynamicQuerySerializable Skip(int count)
+        public tgDynamicQuerySerializable Skip(int count)
         {
             this.skip = count;
             return this;
@@ -330,7 +330,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="count">The number of rows to return</param>
         /// <returns></returns>
-        public esDynamicQuerySerializable Take(int count)
+        public tgDynamicQuerySerializable Take(int count)
         {
             this.take = count;
             return this;
@@ -340,8 +340,8 @@ namespace Tiraggo.DynamicQuery
         /// Creates an INNER JOIN 
         /// </summary>
         /// <param name="joinQuery">This query represents the table you are joining to</param>
-        /// <returns>An esJoinItem, which you then call the On() method.</returns>
-        public esJoinItem InnerJoin(esDynamicQuerySerializable joinQuery)
+        /// <returns>An tgJoinItem, which you then call the On() method.</returns>
+        public tgJoinItem InnerJoin(tgDynamicQuerySerializable joinQuery)
         {
             return JoinCommon(joinQuery, esJoinType.InnerJoin);
         }
@@ -350,8 +350,8 @@ namespace Tiraggo.DynamicQuery
         /// Creates a LEFT JOIN 
         /// </summary>
         /// <param name="joinQuery">This query represents the table you are joining to</param>
-        /// <returns>An esJoinItem, which you then call the On() method.</returns>
-        public esJoinItem LeftJoin(esDynamicQuerySerializable joinQuery)
+        /// <returns>An tgJoinItem, which you then call the On() method.</returns>
+        public tgJoinItem LeftJoin(tgDynamicQuerySerializable joinQuery)
         {
             return JoinCommon(joinQuery, esJoinType.LeftJoin);
         }
@@ -360,8 +360,8 @@ namespace Tiraggo.DynamicQuery
         /// Creates a RIGHT JOIN 
         /// </summary>
         /// <param name="joinQuery">This query represents the table you are joining to</param>
-        /// <returns>An esJoinItem, which you then call the On() method.</returns>
-        public esJoinItem RightJoin(esDynamicQuerySerializable joinQuery)
+        /// <returns>An tgJoinItem, which you then call the On() method.</returns>
+        public tgJoinItem RightJoin(tgDynamicQuerySerializable joinQuery)
         {
             return JoinCommon(joinQuery, esJoinType.RightJoin);
         }
@@ -370,8 +370,8 @@ namespace Tiraggo.DynamicQuery
         /// Creates a FULL JOIN 
         /// </summary>
         /// <param name="joinQuery">This query represents the table you are joining to</param>
-        /// <returns>An esJoinItem, which you then call the On() method.</returns>
-        public esJoinItem FullJoin(esDynamicQuerySerializable joinQuery)
+        /// <returns>An tgJoinItem, which you then call the On() method.</returns>
+        public tgJoinItem FullJoin(tgDynamicQuerySerializable joinQuery)
         {
             return JoinCommon(joinQuery, esJoinType.FullJoin);
         }
@@ -380,8 +380,8 @@ namespace Tiraggo.DynamicQuery
         /// Creates an INNER JOIN 
         /// </summary>
         /// <param name="joinQuery">This query represents the table you are joining to</param>
-        /// <returns>An esJoinItem, which you then call the On() method.</returns>
-        public esJoinItem CrossJoin(esDynamicQuerySerializable joinQuery)
+        /// <returns>An tgJoinItem, which you then call the On() method.</returns>
+        public tgJoinItem CrossJoin(tgDynamicQuerySerializable joinQuery)
         {
             return JoinCommon(joinQuery, esJoinType.CrossJoin);
         }
@@ -393,7 +393,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="joinQuery">This query represents the table you are joining to</param>
         /// <param name="joinType">The type of join, ie, Inner, Left, Right, Full</param>
         /// <returns></returns>
-        private esJoinItem JoinCommon(esDynamicQuerySerializable joinQuery, esJoinType joinType)
+        private tgJoinItem JoinCommon(tgDynamicQuerySerializable joinQuery, esJoinType joinType)
         {
             if (joinQuery.joinAlias == " ")
             {
@@ -402,10 +402,10 @@ namespace Tiraggo.DynamicQuery
 
             if (this.joinItems == null)
             {
-                this.joinItems = new List<esJoinItem>();
+                this.joinItems = new List<tgJoinItem>();
             }
 
-            esJoinItem joinItem = new esJoinItem(this);
+            tgJoinItem joinItem = new tgJoinItem(this);
             joinItem.data.Query = joinQuery;
             joinItem.data.JoinType = joinType;
 
@@ -421,7 +421,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="fromQuery">The subquery to use as your FROM statement</param>
         /// <returns></returns>
-        public esDynamicQuerySerializable From(esDynamicQuerySerializable fromQuery)
+        public tgDynamicQuerySerializable From(tgDynamicQuerySerializable fromQuery)
         {
             this.fromQuery = fromQuery;
             AddQueryToList(fromQuery);
@@ -432,14 +432,14 @@ namespace Tiraggo.DynamicQuery
         /// Performs a UNION between two statements
         /// </summary>
         /// <returns></returns>
-        public esDynamicQuerySerializable Union(esDynamicQuerySerializable query)
+        public tgDynamicQuerySerializable Union(tgDynamicQuerySerializable query)
         {
-            esSetOperation setOperation = new esSetOperation(query);
+            tgSetOperation setOperation = new tgSetOperation(query);
             setOperation.SetOperationType = esSetOperationType.Union;
 
             if(setOperations == null)
             {
-                setOperations = new List<esSetOperation>();
+                setOperations = new List<tgSetOperation>();
             }
 
             setOperations.Add(setOperation);
@@ -451,14 +451,14 @@ namespace Tiraggo.DynamicQuery
         /// Performs a UNION ALL between two statements
         /// </summary>
         /// <returns></returns>
-        public esDynamicQuerySerializable UnionAll(esDynamicQuerySerializable query)
+        public tgDynamicQuerySerializable UnionAll(tgDynamicQuerySerializable query)
         {
-            esSetOperation setOperation = new esSetOperation(query);
+            tgSetOperation setOperation = new tgSetOperation(query);
             setOperation.SetOperationType = esSetOperationType.UnionAll;
 
             if (setOperations == null)
             {
-                setOperations = new List<esSetOperation>();
+                setOperations = new List<tgSetOperation>();
             }
 
             setOperations.Add(setOperation);
@@ -470,14 +470,14 @@ namespace Tiraggo.DynamicQuery
         /// Peforms an INTERSECT between two statements
         /// </summary>
         /// <returns></returns>
-        public esDynamicQuerySerializable Intersect(esDynamicQuerySerializable query)
+        public tgDynamicQuerySerializable Intersect(tgDynamicQuerySerializable query)
         {
-            esSetOperation setOperation = new esSetOperation(query);
+            tgSetOperation setOperation = new tgSetOperation(query);
             setOperation.SetOperationType = esSetOperationType.Intersect;
 
             if (setOperations == null)
             {
-                setOperations = new List<esSetOperation>();
+                setOperations = new List<tgSetOperation>();
             }
 
             setOperations.Add(setOperation);
@@ -489,14 +489,14 @@ namespace Tiraggo.DynamicQuery
         /// Performs an EXCEPT between two statements
         /// </summary>
         /// <returns></returns>
-        public esDynamicQuerySerializable Except(esDynamicQuerySerializable query)
+        public tgDynamicQuerySerializable Except(tgDynamicQuerySerializable query)
         {
-            esSetOperation setOperation = new esSetOperation(query);
+            tgSetOperation setOperation = new tgSetOperation(query);
             setOperation.SetOperationType = esSetOperationType.Except;
 
             if (setOperations == null)
             {
-                setOperations = new List<esSetOperation>();
+                setOperations = new List<tgSetOperation>();
             }
 
             setOperations.Add(setOperation);
@@ -509,7 +509,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="subQueryAlias"></param>
         /// <returns></returns>
-        public esDynamicQuerySerializable As(string subQueryAlias)
+        public tgDynamicQuerySerializable As(string subQueryAlias)
         {
             if (this.fromQuery == null)
             {
@@ -536,19 +536,19 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
-        public esDynamicQuerySerializable Where(params object[] items)
+        public tgDynamicQuerySerializable Where(params object[] items)
         {
             bool first = true;
 
             if (this.whereItems == null)
             {
-                this.whereItems = new List<esComparison>();
+                this.whereItems = new List<tgComparison>();
             }
             else
             {
                 if (!isExplicitParenthesis)
                 {
-                    whereItems.Add(new esComparison(this.defaultConjunction));
+                    whereItems.Add(new tgComparison(this.defaultConjunction));
                 }
                 else
                 {
@@ -558,7 +558,7 @@ namespace Tiraggo.DynamicQuery
 
             foreach (object item in items)
             {
-                esComparison wi = item as esComparison;
+                tgComparison wi = item as tgComparison;
 
                 if (wi != null)
                 {
@@ -573,11 +573,11 @@ namespace Tiraggo.DynamicQuery
 
                     if (wi.data.WhereExpression != null)
                     {
-                        foreach (esComparison expItem in wi.data.WhereExpression)
+                        foreach (tgComparison expItem in wi.data.WhereExpression)
                         {
                             if (expItem.Value != null)
                             {
-                                esDynamicQuerySerializable q = expItem.data.Value as esDynamicQuerySerializable;
+                                tgDynamicQuerySerializable q = expItem.data.Value as tgDynamicQuerySerializable;
                                 if (q != null)
                                 {
                                     AddQueryToList(q);
@@ -591,12 +591,12 @@ namespace Tiraggo.DynamicQuery
                     {
                         if (!first)
                         {
-                            this.whereItems.Add(new esComparison(this.defaultConjunction));
+                            this.whereItems.Add(new tgComparison(this.defaultConjunction));
                         }
                         this.whereItems.Add(wi);
                     }
 
-                    esDynamicQuerySerializable query = wi.Value as esDynamicQuerySerializable;
+                    tgDynamicQuerySerializable query = wi.Value as tgDynamicQuerySerializable;
 
                     if (query != null)
                     {
@@ -607,7 +607,7 @@ namespace Tiraggo.DynamicQuery
                 {
                     if (!first)
                     {
-                        this.whereItems.Add(new esComparison(this.defaultConjunction));
+                        this.whereItems.Add(new tgComparison(this.defaultConjunction));
                     }
                     this.whereItems.AddRange(ProcessWhereItems(this.defaultConjunction, item));
                 }
@@ -626,9 +626,9 @@ namespace Tiraggo.DynamicQuery
         /// <param name="criteria2">the 2nd value of the "BETWEEN" operation</param>
         /// <param name="conjuction">Either "AND" or "OR"</param>
         /// <returns></returns>
-        public esComparison ManualWhere(string column, string operation, object criteria, object criteria2, string conjuction)
+        public tgComparison ManualWhere(string column, string operation, object criteria, object criteria2, string conjuction)
         {
-            var v = null as esComparison;
+            var v = null as tgComparison;
 
             switch (operation.ToUpper())
             {
@@ -721,19 +721,19 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
-        public esDynamicQuerySerializable Having(params object[] items)
+        public tgDynamicQuerySerializable Having(params object[] items)
         {
             bool first = true;
 
             if (this.havingItems == null)
             {
-                this.havingItems = new List<esComparison>();
+                this.havingItems = new List<tgComparison>();
             }
             else
             {
                 if (!isExplicitParenthesis)
                 {
-                    havingItems.Add(new esComparison(this.defaultConjunction));
+                    havingItems.Add(new tgComparison(this.defaultConjunction));
                 }
                 else
                 {
@@ -743,7 +743,7 @@ namespace Tiraggo.DynamicQuery
 
             foreach (object item in items)
             {
-                esComparison wi = item as esComparison;
+                tgComparison wi = item as tgComparison;
 
                 if (wi != null)
                 {
@@ -758,11 +758,11 @@ namespace Tiraggo.DynamicQuery
 
                     if (wi.data.WhereExpression != null)
                     {
-                        foreach (esComparison expItem in wi.data.WhereExpression)
+                        foreach (tgComparison expItem in wi.data.WhereExpression)
                         {
                             if (expItem.Value != null)
                             {
-                                esDynamicQuerySerializable q = expItem.data.Value as esDynamicQuerySerializable;
+                                tgDynamicQuerySerializable q = expItem.data.Value as tgDynamicQuerySerializable;
                                 if (q != null)
                                 {
                                     AddQueryToList(q);
@@ -776,12 +776,12 @@ namespace Tiraggo.DynamicQuery
                     {
                         if (!first)
                         {
-                            this.havingItems.Add(new esComparison(this.defaultConjunction));
+                            this.havingItems.Add(new tgComparison(this.defaultConjunction));
                         }
                         this.havingItems.Add(wi);
                     }
 
-                    esDynamicQuerySerializable query = wi.Value as esDynamicQuerySerializable;
+                    tgDynamicQuerySerializable query = wi.Value as tgDynamicQuerySerializable;
 
                     if (query != null)
                     {
@@ -792,7 +792,7 @@ namespace Tiraggo.DynamicQuery
                 {
                     if (!first)
                     {
-                        this.havingItems.Add(new esComparison(this.defaultConjunction));
+                        this.havingItems.Add(new tgComparison(this.defaultConjunction));
                     }
                     this.havingItems.AddRange(ProcessWhereItems(this.defaultConjunction, item));
                 }
@@ -807,11 +807,11 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public esComparison Exists(esDynamicQuerySerializable query)
+        public tgComparison Exists(tgDynamicQuerySerializable query)
         {
             AddQueryToList(query);
 
-            esComparison where = new esComparison(query);
+            tgComparison where = new tgComparison(query);
             where.Operand = esComparisonOperand.Exists;
             where.Value = query;
             return where;
@@ -822,11 +822,11 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public esComparison NotExists(esDynamicQuerySerializable query)
+        public tgComparison NotExists(tgDynamicQuerySerializable query)
         {
             AddQueryToList(query);
 
-            esComparison where = new esComparison(query);
+            tgComparison where = new tgComparison(query);
             where.Operand = esComparisonOperand.NotExists;
             where.Value = query;
             return where;
@@ -852,7 +852,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
         [Obsolete("For more readable code use '&&' in C# or 'AndAlso' in VB.NET rather than this method")]
-        public List<esComparison> And(params object[] items)
+        public List<tgComparison> And(params object[] items)
         {
             return ProcessWhereItems(esConjunction.And, items);
         }
@@ -876,7 +876,7 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
-        public List<esComparison> AndNot(params object[] items)
+        public List<tgComparison> AndNot(params object[] items)
         {
             return ProcessWhereItems(esConjunction.AndNot, items);
         }
@@ -901,7 +901,7 @@ namespace Tiraggo.DynamicQuery
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
         [Obsolete("For more readable code use '||' in C# or 'OrElse' in VB.NET rather than this method")]
-        public List<esComparison> Or(params object[] items)
+        public List<tgComparison> Or(params object[] items)
         {
             return ProcessWhereItems(esConjunction.Or, items);
         }
@@ -925,7 +925,7 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="items">The list of objects to place in the where statement.</param>
         /// <returns>An esDynamicQueryTransport containing a where clause.</returns>
-        public List<esComparison> OrNot(params object[] items)
+        public List<tgComparison> OrNot(params object[] items)
         {
             return ProcessWhereItems(esConjunction.OrNot, items);
         }
@@ -943,14 +943,14 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="orderByItems">The list of objects to place in the OrderBy statement.</param>
         /// <returns>An esDynamicQueryTransport containing a OrderBy clause.</returns>
-        public esDynamicQuerySerializable OrderBy(params esOrderByItem[] orderByItems)
+        public tgDynamicQuerySerializable OrderBy(params tgOrderByItem[] orderByItems)
         {
             if (this.orderByItems == null)
             {
-                this.orderByItems = new List<esOrderByItem>();
+                this.orderByItems = new List<tgOrderByItem>();
             }
 
-            foreach (esOrderByItem orderByItem in orderByItems)
+            foreach (tgOrderByItem orderByItem in orderByItems)
             {
                 this.orderByItems.Add(orderByItem);
             }
@@ -973,16 +973,16 @@ namespace Tiraggo.DynamicQuery
         /// <param name="columnName">The column to place in the OrderBy statement.</param>
         /// <param name="direction">Sort direction.</param>
         /// <returns>An esDynamicQueryTransport containing a OrderBy clause.</returns>
-        public esDynamicQuerySerializable OrderBy(string columnName, esOrderByDirection direction)
+        public tgDynamicQuerySerializable OrderBy(string columnName, esOrderByDirection direction)
         {
             if (this.orderByItems == null)
             {
-                this.orderByItems = new List<esOrderByItem>();
+                this.orderByItems = new List<tgOrderByItem>();
             }
 
-            esOrderByItem item = new esOrderByItem();
+            tgOrderByItem item = new tgOrderByItem();
 
-            item.Expression = new esExpression();
+            item.Expression = new tgExpression();
             item.Expression.Query = this;
             item.Expression.Column.Name = columnName;
             item.Expression.Column.Alias = columnName;
@@ -1013,16 +1013,16 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="columns">The columns to place in the OrderBy statement.</param>
         /// <returns>An esDynamicQueryTransport containing a GroupBy clause.</returns>
-        public esDynamicQuerySerializable GroupBy(params esQueryItem[] columns)
+        public tgDynamicQuerySerializable GroupBy(params tgQueryItem[] columns)
         {
             if (this.groupByItems == null)
             {
-                this.groupByItems = new List<esGroupByItem>();
+                this.groupByItems = new List<tgGroupByItem>();
             }
 
-            foreach (esQueryItem item in columns)
+            foreach (tgQueryItem item in columns)
             {
-                esGroupByItem groupBy = new esGroupByItem();
+                tgGroupByItem groupBy = new tgGroupByItem();
                 groupBy.Expression = item;
                 this.groupByItems.Add(groupBy);
             }
@@ -1049,17 +1049,17 @@ namespace Tiraggo.DynamicQuery
         /// </example>
         /// <param name="columns">The columns to place in the OrderBy statement.</param>
         /// <returns>An esDynamicQueryTransport containing a GroupBy clause.</returns>
-        public esDynamicQuerySerializable GroupBy(params string[] columns)
+        public tgDynamicQuerySerializable GroupBy(params string[] columns)
         {
             if (this.groupByItems == null)
             {
-                this.groupByItems = new List<esGroupByItem>();
+                this.groupByItems = new List<tgGroupByItem>();
             }
 
             foreach (string column in columns)
             {
-                esGroupByItem item = new esGroupByItem();
-                item.Expression = new esExpression();
+                tgGroupByItem item = new tgGroupByItem();
+                item.Expression = new tgExpression();
                 item.Expression.Column.Name = column;
                 item.Expression.Column.Alias = column;
                 item.Expression.Query = this;
@@ -1073,14 +1073,14 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <typeparam name="T">The Type of the desired Query</typeparam>
         /// <returns>The Query if found, otherwise null</returns>
-        public T GetQuery<T>() where T : esDynamicQuerySerializable
+        public T GetQuery<T>() where T : tgDynamicQuerySerializable
         {
             Type type = typeof(T);
             string strType = type.ToString();
 
-            foreach (esJoinItem joinItem in this.joinItems)
+            foreach (tgJoinItem joinItem in this.joinItems)
             {
-                esJoinItem.esJoinItemData data = (esJoinItem.esJoinItemData)joinItem;
+                tgJoinItem.esJoinItemData data = (tgJoinItem.esJoinItemData)joinItem;
 
                 if (data.Query.GetType().ToString() == strType)
                 {
@@ -1097,39 +1097,39 @@ namespace Tiraggo.DynamicQuery
         }
 
         #region Helper Routine
-        private List<esComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
+        private List<tgComparison> ProcessWhereItems(esConjunction conj, params object[] theItems)
         {
-            List<esComparison> items = new List<esComparison>();
+            List<tgComparison> items = new List<tgComparison>();
 
-            items.Add(new esComparison(esParenthesis.Open));
+            items.Add(new tgComparison(esParenthesis.Open));
 
             bool first = true;
 
-            esComparison whereItem;
+            tgComparison whereItem;
             int count = theItems.Length;
 
             for (int i = 0; i < count; i++)
             {
                 object o = theItems[i];
 
-                whereItem = o as esComparison;
+                whereItem = o as tgComparison;
                 if (whereItem != null)
                 {
                     if (!first)
                     {
-                        items.Add(new esComparison(conj));
+                        items.Add(new tgComparison(conj));
                     }
                     items.Add(whereItem);
                     first = false;
                 }
                 else
                 {
-                    List<esComparison> listItem = o as List<esComparison>;
+                    List<tgComparison> listItem = o as List<tgComparison>;
                     if (listItem != null)
                     {
                         if (!first)
                         {
-                            items.Add(new esComparison(conj));
+                            items.Add(new tgComparison(conj));
                         }
                         items.AddRange(listItem);
                         first = false;
@@ -1138,7 +1138,7 @@ namespace Tiraggo.DynamicQuery
                     {
                         if (o is string)
                         {
-                            whereItem = new esComparison(this);
+                            whereItem = new tgComparison(this);
                             whereItem.ColumnName = o as string;
                             whereItem.IsLiteral = true;
                             items.Add(whereItem);
@@ -1147,18 +1147,18 @@ namespace Tiraggo.DynamicQuery
                 }
             }
 
-            items.Add(new esComparison(esParenthesis.Close));
+            items.Add(new tgComparison(esParenthesis.Close));
 
             return items;
         }
 
-        protected void HookupWithNoLock(esDynamicQuerySerializable query)
+        protected void HookupWithNoLock(tgDynamicQuerySerializable query)
         {
             if (query.es.WithNoLock.HasValue && query.es.WithNoLock == true)
             {
                 if (query.queries != null)
                 {
-                    foreach (esDynamicQuerySerializable nestedQuery in query.queries.Values)
+                    foreach (tgDynamicQuerySerializable nestedQuery in query.queries.Values)
                     {
                         nestedQuery.es.WithNoLock = true;
 
@@ -1199,7 +1199,7 @@ namespace Tiraggo.DynamicQuery
             /// The Dynamic Query properties.
             /// </summary>
             /// <param name="query">The esDynamicQueryTransport's properties.</param>
-            public DynamicQueryProps(esDynamicQuerySerializable query)
+            public DynamicQueryProps(tgDynamicQuerySerializable query)
             {
                 this.dynamicQuery = query;
             }
@@ -1393,7 +1393,7 @@ namespace Tiraggo.DynamicQuery
             //    set { this.dynamicQuery.connection = value; }
             //}
 
-            private esDynamicQuerySerializable dynamicQuery;
+            private tgDynamicQuerySerializable dynamicQuery;
         }
         #endregion
 
@@ -1405,14 +1405,14 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         static public class SerializeHelper
         {
-            static public List<System.Type> GetKnownTypes(esDynamicQuerySerializable query)
+            static public List<System.Type> GetKnownTypes(tgDynamicQuerySerializable query)
             {
                 List<System.Type> types = new List<Type>();
                 GetKnownTypes(query, types);
                 return types;
             }
 
-            static public DataContractSerializer GetSerializer(esDynamicQuerySerializable query)
+            static public DataContractSerializer GetSerializer(tgDynamicQuerySerializable query)
             {
                 List<System.Type> types = GetKnownTypes(query);
  
@@ -1420,7 +1420,7 @@ namespace Tiraggo.DynamicQuery
                     "http://www.entityspaces.net", types, Int32.MaxValue, false, true, null);
             }
 
-            static public DataContractSerializer GetSerializer(esDynamicQuerySerializable query, Type type)
+            static public DataContractSerializer GetSerializer(tgDynamicQuerySerializable query, Type type)
             {
                 List<System.Type> types = GetKnownTypes(query);
 
@@ -1428,19 +1428,19 @@ namespace Tiraggo.DynamicQuery
                     "http://www.entityspaces.net", types, Int32.MaxValue, false, true, null);
             }
 
-            static public DataContractSerializer GetSerializer(esDynamicQuerySerializable query, List<System.Type> knownTypes)
+            static public DataContractSerializer GetSerializer(tgDynamicQuerySerializable query, List<System.Type> knownTypes)
             {
                 return new DataContractSerializer(query.GetType(), query.GetQueryName(),
                     "http://www.entityspaces.net", knownTypes, Int32.MaxValue, false, true, null);
             }
 
-            static public DataContractSerializer GetSerializer(esDynamicQuerySerializable query, Type type, List<System.Type> knownTypes)
+            static public DataContractSerializer GetSerializer(tgDynamicQuerySerializable query, Type type, List<System.Type> knownTypes)
             {
                 return new DataContractSerializer(type, query.GetQueryName(),
                     "http://www.entityspaces.net", knownTypes, Int32.MaxValue, false, true, null);
             }
 
-            static public string ToXml(esDynamicQuerySerializable query)
+            static public string ToXml(tgDynamicQuerySerializable query)
             {
                 string xml = "";
 
@@ -1460,9 +1460,9 @@ namespace Tiraggo.DynamicQuery
                 return xml;
             }
 
-            static public esDynamicQuerySerializable FromXml(string xml, Type type)
+            static public tgDynamicQuerySerializable FromXml(string xml, Type type)
             {
-                esDynamicQuerySerializable query = null;
+                tgDynamicQuerySerializable query = null;
 
                 using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml)))
                 {
@@ -1474,16 +1474,16 @@ namespace Tiraggo.DynamicQuery
                     {
                         // Deserialize
                         DataContractSerializer serializer = new DataContractSerializer(type, type.Name, "http://www.entityspaces.net");
-                        query = serializer.ReadObject(reader) as esDynamicQuerySerializable;
+                        query = serializer.ReadObject(reader) as tgDynamicQuerySerializable;
                     }
                 }
 
                 return query;
             }
 
-            static public esDynamicQuerySerializable FromXml(string xml, Type type, List<System.Type> knownTypes)
+            static public tgDynamicQuerySerializable FromXml(string xml, Type type, List<System.Type> knownTypes)
             {
-                esDynamicQuerySerializable query = null;
+                tgDynamicQuerySerializable query = null;
 
                 using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml)))
                 {
@@ -1496,14 +1496,14 @@ namespace Tiraggo.DynamicQuery
                         // Deserialize
                         DataContractSerializer serializer = new DataContractSerializer(type, type.Name, "http://www.entityspaces.net", 
                             knownTypes, Int32.MaxValue, false, true, null);
-                        query = serializer.ReadObject(reader) as esDynamicQuerySerializable;
+                        query = serializer.ReadObject(reader) as tgDynamicQuerySerializable;
                     }
                 }
 
                 return query;
             }
 
-            static private void GetKnownTypes(esDynamicQuerySerializable query, List<System.Type> types)
+            static private void GetKnownTypes(tgDynamicQuerySerializable query, List<System.Type> types)
             {
                 bool found = false;
 
@@ -1522,7 +1522,7 @@ namespace Tiraggo.DynamicQuery
                     types.Add(query.GetType());
                 }
 
-                foreach (esDynamicQuerySerializable subQuery in query.queries.Values)
+                foreach (tgDynamicQuerySerializable subQuery in query.queries.Values)
                 {
                     GetKnownTypes(subQuery, types);
                 }
@@ -1533,31 +1533,31 @@ namespace Tiraggo.DynamicQuery
 
         #region Internal Workings
 
-        internal void AddSubOperator(esExpression selectItem)
+        internal void AddSubOperator(tgExpression selectItem)
         {
             if (this.selectColumns == null)
             {
-                this.selectColumns = new List<esExpression>();
+                this.selectColumns = new List<tgExpression>();
             }
 
             this.selectColumns.Add(selectItem);
         }
 
-        internal void AddOrderBy(esOrderByItem orderByItem)
+        internal void AddOrderBy(tgOrderByItem orderByItem)
         {
             if (this.orderByItems == null)
             {
-                this.orderByItems = new List<esOrderByItem>();
+                this.orderByItems = new List<tgOrderByItem>();
             }
 
             this.orderByItems.Add(orderByItem);
         }
 
-        internal void AddWhere(esComparison where)
+        internal void AddWhere(tgComparison where)
         {
             if (this.whereItems == null)
             {
-                this.whereItems = new List<esComparison>();
+                this.whereItems = new List<tgComparison>();
             }
 
             this.whereItems.Add(where);
@@ -1568,11 +1568,11 @@ namespace Tiraggo.DynamicQuery
         // Holds the name of the metadata maps that will eventually be turned into 
         // the real ones by esDynamicQuery
         [DataMember(Name = "Queries", EmitDefaultValue = false)]
-        internal protected Dictionary<string, esDynamicQuerySerializable> queries = new Dictionary<string, esDynamicQuerySerializable>();
+        internal protected Dictionary<string, tgDynamicQuerySerializable> queries = new Dictionary<string, tgDynamicQuerySerializable>();
 
         // Filled in by SelectAllExcept()
         [DataMember(Name = "SelectAllExcept", EmitDefaultValue = false)]
-        internal protected List<esQueryItem> m_selectAllExcept;
+        internal protected List<tgQueryItem> m_selectAllExcept;
 
         // Set to true by SelectAll()
         [DataMember(Name = "SelectAll", EmitDefaultValue = false)]
@@ -1603,28 +1603,28 @@ namespace Tiraggo.DynamicQuery
         internal string subQueryAlias = string.Empty;
 
         [DataMember(Name = "SelectColumns", Order = 99, EmitDefaultValue = false)]
-        internal List<esExpression> selectColumns;
+        internal List<tgExpression> selectColumns;
 
         [DataMember(Name = "FromQuery", Order = 100, EmitDefaultValue = false)]
-        internal esDynamicQuerySerializable fromQuery;
+        internal tgDynamicQuerySerializable fromQuery;
 
         [DataMember(Name = "JoinItems", Order = 101, EmitDefaultValue = false)]
-        internal List<esJoinItem> joinItems;
+        internal List<tgJoinItem> joinItems;
 
         [DataMember(Name = "WhereItems", Order = 102, EmitDefaultValue = false)]
-        internal List<esComparison> whereItems;
+        internal List<tgComparison> whereItems;
 
         [DataMember(Name = "HavingItems", Order = 103, EmitDefaultValue = false)]
-        internal List<esComparison> havingItems;
+        internal List<tgComparison> havingItems;
 
         [DataMember(Name = "OrderByItems", Order = 104, EmitDefaultValue = false)]
-        internal List<esOrderByItem> orderByItems;
+        internal List<tgOrderByItem> orderByItems;
 
         [DataMember(Name = "GroupByItems", Order = 105, EmitDefaultValue = false)]
-        internal List<esGroupByItem> groupByItems;
+        internal List<tgGroupByItem> groupByItems;
 
         [DataMember(Name = "SetOperations", Order = 106, EmitDefaultValue = false)]
-        internal List<esSetOperation> setOperations;
+        internal List<tgSetOperation> setOperations;
 
         /// <summary>
         /// Used by derived classes
@@ -1698,7 +1698,7 @@ namespace Tiraggo.DynamicQuery
         internal string lastQuery;
         private object providerMetadata;
         private object columns;
-        private esComparison prevComp;
+        private tgComparison prevComp;
 
         #region IDynamicQueryTransportInternal Members
 
@@ -1762,7 +1762,7 @@ namespace Tiraggo.DynamicQuery
             get { return this.m_selectAll; } 
         }
 
-        List<esQueryItem> IDynamicQuerySerializableInternal.SelectAllExcept 
+        List<tgQueryItem> IDynamicQuerySerializableInternal.SelectAllExcept 
         {
             get { return this.m_selectAllExcept; } 
         }
@@ -1772,45 +1772,45 @@ namespace Tiraggo.DynamicQuery
             get { return this.subquerySearchCondition; }
         }
 
-        List<esExpression> IDynamicQuerySerializableInternal.InternalSelectColumns
+        List<tgExpression> IDynamicQuerySerializableInternal.InternalSelectColumns
         {
             get { return this.selectColumns; }
             set { this.selectColumns = value; }
         }
 
-        esDynamicQuerySerializable IDynamicQuerySerializableInternal.InternalFromQuery
+        tgDynamicQuerySerializable IDynamicQuerySerializableInternal.InternalFromQuery
         {
             get { return this.fromQuery; }
         }
 
-        List<esJoinItem> IDynamicQuerySerializableInternal.InternalJoinItems
+        List<tgJoinItem> IDynamicQuerySerializableInternal.InternalJoinItems
         {
             get { return this.joinItems; }
         }
 
-        List<esComparison> IDynamicQuerySerializableInternal.InternalWhereItems
+        List<tgComparison> IDynamicQuerySerializableInternal.InternalWhereItems
         {
             get { return this.whereItems; }
         }
 
-        List<esOrderByItem> IDynamicQuerySerializableInternal.InternalOrderByItems
+        List<tgOrderByItem> IDynamicQuerySerializableInternal.InternalOrderByItems
         {
             get { return this.orderByItems; }
             set { this.orderByItems = value; }
         }
 
-        List<esComparison> IDynamicQuerySerializableInternal.InternalHavingItems
+        List<tgComparison> IDynamicQuerySerializableInternal.InternalHavingItems
         {
             get { return this.havingItems; }
         }
 
-        List<esGroupByItem> IDynamicQuerySerializableInternal.InternalGroupByItems
+        List<tgGroupByItem> IDynamicQuerySerializableInternal.InternalGroupByItems
         {
             get { return this.groupByItems; }
             set { this.groupByItems = value; }
         }
 
-        List<esSetOperation> IDynamicQuerySerializableInternal.InternalSetOperations
+        List<tgSetOperation> IDynamicQuerySerializableInternal.InternalSetOperations
         {
             get { return this.setOperations; }
             set { this.setOperations = value; }
@@ -1837,7 +1837,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// 
         /// </summary>
-        void IDynamicQuerySerializableInternal.HookupProviderMetadata(esDynamicQuerySerializable query)
+        void IDynamicQuerySerializableInternal.HookupProviderMetadata(tgDynamicQuerySerializable query)
         {
             AddQueryToList(query);
         }
@@ -1845,7 +1845,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, esDynamicQuerySerializable> IDynamicQuerySerializableInternal.queries 
+        Dictionary<string, tgDynamicQuerySerializable> IDynamicQuerySerializableInternal.queries 
         {
             get { return this.queries; }
         }

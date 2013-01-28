@@ -154,7 +154,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// Automatically populated whenver you use the EntitySpaces dynamic query mechanism.
         /// </summary>
-        public esDynamicQuerySerializable DynamicQuery;
+        public tgDynamicQuerySerializable DynamicQuery;
 
         /// <summary>
         /// Optional, the command timeout as defined in the web.config or app.config file

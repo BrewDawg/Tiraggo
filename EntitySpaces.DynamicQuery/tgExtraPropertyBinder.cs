@@ -35,14 +35,14 @@ using System.Windows.Data;
 
 namespace Tiraggo.DynamicQuery
 {
-    public class esExtraPropertyBinder 
+    public class tgExtraPropertyBinder 
 #if (!MonoTouch)
 		: IValueConverter
 #endif
     {
         Dictionary<string, object> extraColumns = null;
 
-        public esExtraPropertyBinder()
+        public tgExtraPropertyBinder()
         {
 
         }

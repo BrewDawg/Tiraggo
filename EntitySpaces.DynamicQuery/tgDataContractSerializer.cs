@@ -50,20 +50,20 @@ namespace Tiraggo.DynamicQuery
     ///    BusinessObjects.EmployeesCollectionProxyStub server = new BusinessObjects.EmployeesCollectionProxyStub(coll);
     /// 
     ///    // Serialize it into a string and return this string to Silverlight
-    ///    string xml = esDataContractSerializer.ToXml(server);
+    ///    string xml = tgDataContractSerializer.ToXml(server);
     /// 
     ///    // Deserialize the string above into our Client side proxy
-    ///    Proxies.EmployeesCollectionProxyStub client = esDataContractSerializer.FromXml(xml, typeof(Proxies.EmployeesCollectionProxyStub))
+    ///    Proxies.EmployeesCollectionProxyStub client = tgDataContractSerializer.FromXml(xml, typeof(Proxies.EmployeesCollectionProxyStub))
     ///        as Proxies.EmployeesCollectionProxyStub;
     /// 
     ///    // Set a property and notice that esRowState goes to Modified
     ///    client.Collection[0].LastName = "crazy_horse";
     /// 
     ///    // Serialize our client side proxy into xml and send it to the server
-    ///    xml = esDataContractSerializer.ToXml(client);
+    ///    xml = tgDataContractSerializer.ToXml(client);
     /// 
     ///    // Deserialize it on the server, the esRowState is modifed as we would expect
-    ///    BusinessObjects.EmployeesCollectionProxyStub server1 = esDataContractSerializer.FromXml(xml, typeof(BusinessObjects.EmployeesCollectionProxyStub))
+    ///    BusinessObjects.EmployeesCollectionProxyStub server1 = tgDataContractSerializer.FromXml(xml, typeof(BusinessObjects.EmployeesCollectionProxyStub))
     ///        as BusinessObjects.EmployeesCollectionProxyStub;
     /// 
     ///    // Now save the Entity
@@ -71,7 +71,7 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    static public class esDataContractSerializer
+    static public class tgDataContractSerializer
     {
         #region ToXml
         /// <summary>

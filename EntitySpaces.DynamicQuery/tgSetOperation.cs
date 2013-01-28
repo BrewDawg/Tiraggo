@@ -38,17 +38,17 @@ namespace Tiraggo.DynamicQuery
     /// </summary>
     [Serializable]
     [DataContract(Namespace = "es", IsReference = true)]
-    public class esSetOperation
+    public class tgSetOperation
     {
         /// <summary>
         /// The Constructor
         /// </summary>
-        protected esSetOperation() { }
+        protected tgSetOperation() { }
 
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esSetOperation(esDynamicQuerySerializable query)
+        public tgSetOperation(tgDynamicQuerySerializable query)
         {
             this.Query = query;
         }
@@ -57,7 +57,7 @@ namespace Tiraggo.DynamicQuery
         /// The Query to form the Set with
         /// </summary>
         [DataMember(Name = "Query", EmitDefaultValue = false)]
-        public esDynamicQuerySerializable Query;
+        public tgDynamicQuerySerializable Query;
         /// <summary>
         /// The Set Type, Union/Unionall/Intersect/Except
         /// </summary>

@@ -618,7 +618,7 @@ namespace Tiraggo.OracleClientProvider
             return param.Clone() as OracleParameter;
         }
 
-        static public string CreateFullName(esDataRequest request, esDynamicQuerySerializable query)
+        static public string CreateFullName(esDataRequest request, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 

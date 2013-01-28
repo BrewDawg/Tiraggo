@@ -31,25 +31,25 @@ namespace Tiraggo.DynamicQuery
 {
     /// <summary>
     /// The base class for all of the explicit casting operators such as 
-    /// <see cref="esByte"/>, <see cref="esChar"/>, <see cref="esDateTime"/>.
+    /// <see cref="tgByte"/>, <see cref="tgChar"/>, <see cref="tgDateTime"/>.
     /// </summary>
-    public class esCast
+    public class tgCast
     {
-        internal esCast() { }
+        internal tgCast() { }
 
-        internal esQueryItem item;
+        internal tgQueryItem item;
     }
 
-    #region esBoolean
+    #region tgBoolean
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esBoolean)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgBoolean)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -58,7 +58,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -72,11 +72,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esBoolean : esCast
+    public class tgBoolean : tgCast
     {
-        private esBoolean() { }
+        private tgBoolean() { }
 
-        internal esBoolean(esQueryItem item)
+        internal tgBoolean(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Boolean);
@@ -85,23 +85,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esBoolean cast)
+        public static implicit operator tgQueryItem(tgBoolean cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esByte
+    #region tgByte
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esByte)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgByte)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -110,7 +110,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -124,11 +124,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esByte : esCast
+    public class tgByte : tgCast
     {
-        private esByte() { }
+        private tgByte() { }
 
-        internal esByte(esQueryItem item)
+        internal tgByte(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Byte);
@@ -137,23 +137,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esByte cast)
+        public static implicit operator tgQueryItem(tgByte cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esChar
+    #region tgChar
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esChar)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgChar)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -162,7 +162,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -176,11 +176,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esChar : esCast
+    public class tgChar : tgCast
     {
-        private esChar() { }
+        private tgChar() { }
 
-        internal esChar(esQueryItem item)
+        internal tgChar(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Char);
@@ -189,23 +189,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esChar cast)
+        public static implicit operator tgQueryItem(tgChar cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esDateTime
+    #region tgDateTime
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esDateTime)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgDateTime)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -214,7 +214,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -228,11 +228,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esDateTime : esCast
+    public class tgDateTime : tgCast
     {
-        private esDateTime() { }
+        private tgDateTime() { }
 
-        internal esDateTime(esQueryItem item)
+        internal tgDateTime(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.DateTime);
@@ -241,23 +241,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esDateTime cast)
+        public static implicit operator tgQueryItem(tgDateTime cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esDecimal
+    #region tgDecimal
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esDecimal)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgDecimal)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast
+    /// VB.NET users will need to use tgQueryItem.Cast
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -266,7 +266,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -280,11 +280,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esDecimal : esCast
+    public class tgDecimal : tgCast
     {
-        private esDecimal() { }
+        private tgDecimal() { }
 
-        internal esDecimal(esQueryItem item)
+        internal tgDecimal(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Decimal);
@@ -293,23 +293,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esDecimal cast)
+        public static implicit operator tgQueryItem(tgDecimal cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esDouble
+    #region tgDouble
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esDouble)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgDouble)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -318,7 +318,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -332,11 +332,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esDouble : esCast
+    public class tgDouble : tgCast
     {
-        private esDouble() { }
+        private tgDouble() { }
 
-        internal esDouble(esQueryItem item)
+        internal tgDouble(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Double);
@@ -345,23 +345,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esDouble cast)
+        public static implicit operator tgQueryItem(tgDouble cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esGuid
+    #region tgGuid
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esGuid)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgGuid)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -370,7 +370,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -384,11 +384,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esGuid : esCast
+    public class tgGuid : tgCast
     {
-        private esGuid() { }
+        private tgGuid() { }
 
-        internal esGuid(esQueryItem item)
+        internal tgGuid(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Guid);
@@ -397,23 +397,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esGuid cast)
+        public static implicit operator tgQueryItem(tgGuid cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esInt16
+    #region tgInt16
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esInt16)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgInt16)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -422,7 +422,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -436,11 +436,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esInt16 : esCast
+    public class tgInt16 : tgCast
     {
-        private esInt16() { }
+        private tgInt16() { }
 
-        internal esInt16(esQueryItem item)
+        internal tgInt16(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Int16);
@@ -449,23 +449,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esInt16 cast)
+        public static implicit operator tgQueryItem(tgInt16 cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esInt32
+    #region tgInt32
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esInt32)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgInt32)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -474,7 +474,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -488,11 +488,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esInt32 : esCast
+    public class tgInt32 : tgCast
     {
-        private esInt32() {}
+        private tgInt32() {}
 
-        internal esInt32(esQueryItem item)
+        internal tgInt32(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Int32);
@@ -501,23 +501,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esInt32 cast)
+        public static implicit operator tgQueryItem(tgInt32 cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esInt64
+    #region tgInt64
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esInt64)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgInt64)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -526,7 +526,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -540,11 +540,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esInt64 : esCast
+    public class tgInt64 : tgCast
     {
-        private esInt64() {}
+        private tgInt64() {}
 
-        internal esInt64(esQueryItem item)
+        internal tgInt64(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Int64);
@@ -553,23 +553,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esInt64 cast)
+        public static implicit operator tgQueryItem(tgInt64 cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esSingle
+    #region tgSingle
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esSingle)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgSingle)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -578,7 +578,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -592,11 +592,11 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esSingle : esCast
+    public class tgSingle : tgCast
     {
-        private esSingle() {}
+        private tgSingle() {}
 
-        internal esSingle(esQueryItem item)
+        internal tgSingle(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.Single);
@@ -605,23 +605,23 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esSingle cast)
+        public static implicit operator tgQueryItem(tgSingle cast)
         {
             return cast.item;
         }
     }
     #endregion
 
-    #region esString
+    #region tgString
     /// <summary>
-    /// Used in the DynamicQuery syntax to cast like this: (esString)query.SomeProperty
+    /// Used in the DynamicQuery syntax to cast like this: (tgString)query.SomeProperty
     /// </summary>
     /// <remarks>
-    /// VB.NET users will need to use esQueryItem.Cast.
+    /// VB.NET users will need to use tgQueryItem.Cast.
     /// </remarks>
     /// <example>
     /// Here we are building a special column like this "Smith, John [24]" where 24 is
-    /// his age. We use the (esString) cast operator so that the database system will
+    /// his age. We use the (tgString) cast operator so that the database system will
     /// convert it to a string.
     /// <code>
     /// EmployeeCollection coll = new EmployeeCollection(); 
@@ -630,7 +630,7 @@ namespace Tiraggo.DynamicQuery
     /// q.Select
     /// (
     ///     (
-    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (esString)q.Age + "]"
+    ///         (q.LastName + ", " + q.FirstName).Trim() + " [" + (tgString)q.Age + "]"
     ///     )
     ///     .ToUpper().As("FullName")
     /// ); 
@@ -644,9 +644,9 @@ namespace Tiraggo.DynamicQuery
     /// }
     /// </code>
     /// </example>
-    public class esString : esCast
+    public class tgString : tgCast
     {
-        internal esString(esQueryItem item)
+        internal tgString(tgQueryItem item)
         {
             base.item = item;
             item.Cast(esCastType.String);
@@ -655,7 +655,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// This is called automatically for you when necessary.
         /// </summary>
-        public static implicit operator esQueryItem(esString cast)
+        public static implicit operator tgQueryItem(tgString cast)
         {
             return cast.item;
         }

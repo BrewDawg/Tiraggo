@@ -88,7 +88,7 @@ namespace Tiraggo.DynamicQuery
         /// <summary>
         /// 
         /// </summary>
-        List<esQueryItem> SelectAllExcept { get; }
+        List<tgQueryItem> SelectAllExcept { get; }
 
         /// <summary>
         /// 
@@ -96,51 +96,51 @@ namespace Tiraggo.DynamicQuery
         esSubquerySearchCondition SubquerySearchCondition { get; }
 
         /// <summary>
-        /// List&lt;esJoinItem&gt; InternalSelectColumns.
+        /// List&lt;tgJoinItem&gt; InternalSelectColumns.
         /// </summary>
-        /// <returns>List&lt;esExpression&gt; InternalSelectColumns.</returns>
-        List<esExpression> InternalSelectColumns { get; set; }
+        /// <returns>List&lt;tgExpression&gt; InternalSelectColumns.</returns>
+        List<tgExpression> InternalSelectColumns { get; set; }
 
         /// <summary>
         /// The From SubQuery
         /// </summary>
-        esDynamicQuerySerializable InternalFromQuery { get; }
+        tgDynamicQuerySerializable InternalFromQuery { get; }
 
         /// <summary>
-        /// List&lt;esJoinItem&gt; InternalJoinItems.
+        /// List&lt;tgJoinItem&gt; InternalJoinItems.
         /// </summary>
-        /// <returns>List&lt;esJoinItem&gt; InternalJoinItems.</returns>
-        List<esJoinItem> InternalJoinItems { get; }
+        /// <returns>List&lt;tgJoinItem&gt; InternalJoinItems.</returns>
+        List<tgJoinItem> InternalJoinItems { get; }
 
         /// <summary>
-        /// List&lt;esComparison&gt; InternalWhereItems.
+        /// List&lt;tgComparison&gt; InternalWhereItems.
         /// </summary>
-        /// <returns>List&lt;esComparison&gt; InternalWhereItems.</returns>
-        List<esComparison> InternalWhereItems { get; }
+        /// <returns>List&lt;tgComparison&gt; InternalWhereItems.</returns>
+        List<tgComparison> InternalWhereItems { get; }
 
         /// <summary>
-        /// List&lt;esJoinItem&gt; InternalOrderByItems.
+        /// List&lt;tgJoinItem&gt; InternalOrderByItems.
         /// </summary>
-        /// <returns>List&lt;esOrderByItem&gt; InternalOrderByItems.</returns>
-        List<esOrderByItem> InternalOrderByItems { get; set; }
+        /// <returns>List&lt;tgOrderByItem&gt; InternalOrderByItems.</returns>
+        List<tgOrderByItem> InternalOrderByItems { get; set; }
 
         /// <summary>
-        /// List&lt;esComparison&gt; InternalHavingItems.
+        /// List&lt;tgComparison&gt; InternalHavingItems.
         /// </summary>
-        /// <returns>List&lt;esComparison&gt; InternalHavingItems.</returns>
-        List<esComparison> InternalHavingItems { get; }
+        /// <returns>List&lt;tgComparison&gt; InternalHavingItems.</returns>
+        List<tgComparison> InternalHavingItems { get; }
 
         /// <summary>
-        /// List&lt;esComparison&gt; InternalGroupByItems.
+        /// List&lt;tgComparison&gt; InternalGroupByItems.
         /// </summary>
-        /// <returns>List&lt;esGroupByItem&gt; InternalGroupByItems.</returns>
-        List<esGroupByItem> InternalGroupByItems { get; set; }
+        /// <returns>List&lt;tgGroupByItem&gt; InternalGroupByItems.</returns>
+        List<tgGroupByItem> InternalGroupByItems { get; set; }
 
         /// <summary>
         /// The Set Operation, if any, Union, UnionAll, Intersect, Except
         /// </summary>
-        /// <returns>List&lt;esGroupByItem&gt; InternalGroupByItems.</returns>
-        List<esSetOperation> InternalSetOperations { get; set; }
+        /// <returns>List&lt;tgGroupByItem&gt; InternalGroupByItems.</returns>
+        List<tgSetOperation> InternalSetOperations { get; set; }
 
         /// <summary>
         /// This is of type object because this library cannot link with other 
@@ -159,15 +159,15 @@ namespace Tiraggo.DynamicQuery
         object Columns { get; set; }
 
         /// <summary>
-        /// This is used because esDynamicQuerySerializable.AssignProviderMetadata is
-        /// not public and esJoinItem needs to be able to execute it
+        /// This is used because tgDynamicQuerySerializable.AssignProviderMetadata is
+        /// not public and tgJoinItem needs to be able to execute it
         /// </summary>
-        void HookupProviderMetadata(esDynamicQuerySerializable query);
+        void HookupProviderMetadata(tgDynamicQuerySerializable query);
 
         /// <summary>
         /// This is used internally
         /// </summary>
-        Dictionary<string, esDynamicQuerySerializable> queries { get; }
+        Dictionary<string, tgDynamicQuerySerializable> queries { get; }
 
         /// <summary>
         /// The number of rows to skip in the result set (starting from the beginning)

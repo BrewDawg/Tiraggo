@@ -53,7 +53,7 @@ namespace Tiraggo.SqlClientProvider
             return (SqlCommand)std.cmd;
         }
 
-        protected static string BuildQuery(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string BuildQuery(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             bool paging = false;
 
@@ -109,7 +109,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetFromStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetFromStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
@@ -150,7 +150,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetSelectStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetSelectStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -165,7 +165,7 @@ namespace Tiraggo.SqlClientProvider
             {
                 selectAll = false;
 
-                foreach (esExpression expressionItem in iQuery.InternalSelectColumns)
+                foreach (tgExpression expressionItem in iQuery.InternalSelectColumns)
                 {
                     if (expressionItem.Query != null)
                     {
@@ -180,7 +180,7 @@ namespace Tiraggo.SqlClientProvider
                         else
                         {
                             iSubQuery.IsInSubQuery = true;
-                            sql += " (" + BuildQuery(std, expressionItem.Query as esDynamicQuerySerializable) + ") AS " + iSubQuery.SubQueryAlias;
+                            sql += " (" + BuildQuery(std, expressionItem.Query as tgDynamicQuerySerializable) + ") AS " + iSubQuery.SubQueryAlias;
                             iSubQuery.IsInSubQuery = false;
                         }
 
@@ -225,7 +225,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetJoinStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetJoinStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
 
@@ -233,9 +233,9 @@ namespace Tiraggo.SqlClientProvider
 
             if (iQuery.InternalJoinItems != null)
             {
-                foreach (esJoinItem joinItem in iQuery.InternalJoinItems)
+                foreach (tgJoinItem joinItem in iQuery.InternalJoinItems)
                 {
-                    esJoinItem.esJoinItemData joinData = (esJoinItem.esJoinItemData)joinItem;
+                    tgJoinItem.esJoinItemData joinData = (tgJoinItem.esJoinItemData)joinItem;
 
                     switch (joinData.JoinType)
                     {
@@ -272,7 +272,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetComparisonStatement(StandardProviderParameters std, esDynamicQuerySerializable query, List<esComparison> items, string prefix)
+        protected static string GetComparisonStatement(StandardProviderParameters std, tgDynamicQuerySerializable query, List<tgComparison> items, string prefix)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -289,12 +289,12 @@ namespace Tiraggo.SqlClientProvider
                 DbType paramType = DbType.String;
 
                 string compareTo = String.Empty;
-                foreach (esComparison comparisonItem in items)
+                foreach (tgComparison comparisonItem in items)
                 {
                     paramType = DbType.String;
 
-                    esComparison.esComparisonData comparisonData = (esComparison.esComparisonData)comparisonItem;
-                    esDynamicQuerySerializable subQuery = null;
+                    tgComparison.esComparisonData comparisonData = (tgComparison.esComparisonData)comparisonItem;
+                    tgDynamicQuerySerializable subQuery = null;
 
                     bool requiresParam = true;
                     bool needsStringParameter = false;
@@ -344,7 +344,7 @@ namespace Tiraggo.SqlClientProvider
 
                     if (comparisonData.ComparisonColumn.Name == null)
                     {
-                        subQuery = comparisonData.Value as esDynamicQuerySerializable;
+                        subQuery = comparisonData.Value as tgDynamicQuerySerializable;
 
                         if (subQuery == null)
                         {
@@ -592,7 +592,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetOrderByStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetOrderByStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -603,7 +603,7 @@ namespace Tiraggo.SqlClientProvider
             {
                 sql += " ORDER BY ";
 
-                foreach (esOrderByItem orderByItem in iQuery.InternalOrderByItems)
+                foreach (tgOrderByItem orderByItem in iQuery.InternalOrderByItems)
                 {
                     bool literal = false;
 
@@ -640,7 +640,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetGroupByStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetGroupByStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -651,7 +651,7 @@ namespace Tiraggo.SqlClientProvider
             {
                 sql += " GROUP BY ";
 
-                foreach (esGroupByItem groupBy in iQuery.InternalGroupByItems)
+                foreach (tgGroupByItem groupBy in iQuery.InternalGroupByItems)
                 {
                     sql += comma;
 
@@ -674,7 +674,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetSetOperationStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetSetOperationStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
 
@@ -682,7 +682,7 @@ namespace Tiraggo.SqlClientProvider
 
             if (iQuery.InternalSetOperations != null)
             {
-                foreach (esSetOperation setOperation in iQuery.InternalSetOperations)
+                foreach (tgSetOperation setOperation in iQuery.InternalSetOperations)
                 {
                     switch (setOperation.SetOperationType)
                     {
@@ -699,7 +699,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetExpressionColumn(StandardProviderParameters std, esDynamicQuerySerializable query, esExpression expression, bool inExpression, bool useAlias)
+        protected static string GetExpressionColumn(StandardProviderParameters std, tgDynamicQuerySerializable query, tgExpression expression, bool inExpression, bool useAlias)
         {
             string sql = String.Empty;
 
@@ -740,20 +740,20 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetCaseWhenThenEnd(StandardProviderParameters std, esDynamicQuerySerializable query, esCase caseWhenThen)
+        protected static string GetCaseWhenThenEnd(StandardProviderParameters std, tgDynamicQuerySerializable query, tgCase caseWhenThen)
         {
             string sql = string.Empty;
 
-            Tiraggo.DynamicQuery.esCase.esSimpleCaseData caseStatement = caseWhenThen;
+            Tiraggo.DynamicQuery.tgCase.esSimpleCaseData caseStatement = caseWhenThen;
 
-            esColumnItem column = caseStatement.QueryItem;
+            tgColumnItem column = caseStatement.QueryItem;
 
             sql += Delimiters.ColumnOpen + column.Alias + Delimiters.ColumnClose + " = "; 
             sql += "CASE ";
 
-            List<esComparison> list = new List<esComparison>();
+            List<tgComparison> list = new List<tgComparison>();
 
-            foreach (Tiraggo.DynamicQuery.esCase.esSimpleCaseData.esCaseClause caseClause in caseStatement.Cases)
+            foreach (Tiraggo.DynamicQuery.tgCase.esSimpleCaseData.esCaseClause caseClause in caseStatement.Cases)
             {
                 sql += " WHEN ";
                 if (!caseClause.When.IsExpression)
@@ -824,7 +824,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string GetMathmaticalExpressionColumn(StandardProviderParameters std, esDynamicQuerySerializable query, esMathmaticalExpression mathmaticalExpression)
+        protected static string GetMathmaticalExpressionColumn(StandardProviderParameters std, tgDynamicQuerySerializable query, tgMathmaticalExpression mathmaticalExpression)
         {
             string sql = "(";
 
@@ -875,7 +875,7 @@ namespace Tiraggo.SqlClientProvider
             }
         }
 
-        protected static string GetMathmaticalExpressionLiteralType(StandardProviderParameters std, esMathmaticalExpression mathmaticalExpression)
+        protected static string GetMathmaticalExpressionLiteralType(StandardProviderParameters std, tgMathmaticalExpression mathmaticalExpression)
         {
             switch (mathmaticalExpression.LiteralType)
             {
@@ -890,7 +890,7 @@ namespace Tiraggo.SqlClientProvider
              }
         }
 
-        protected static string ApplyWhereSubOperations(StandardProviderParameters std, esDynamicQuerySerializable query, esComparison.esComparisonData comparisonData)
+        protected static string ApplyWhereSubOperations(StandardProviderParameters std, tgDynamicQuerySerializable query, tgComparison.esComparisonData comparisonData)
         {
             string sql = string.Empty;
 
@@ -920,7 +920,7 @@ namespace Tiraggo.SqlClientProvider
             return sql;
         }
 
-        protected static string BuildSubOperationsSql(StandardProviderParameters std, string columnName, List<esQuerySubOperator> subOperators)
+        protected static string BuildSubOperationsSql(StandardProviderParameters std, string columnName, List<tgQuerySubOperator> subOperators)
         {
             string sql = string.Empty;
 
@@ -930,7 +930,7 @@ namespace Tiraggo.SqlClientProvider
 
             if (subOperators != null)
             {
-                foreach (esQuerySubOperator op in subOperators)
+                foreach (tgQuerySubOperator op in subOperators)
                 {
                     switch (op.SubOperator)
                     {
@@ -1118,7 +1118,7 @@ namespace Tiraggo.SqlClientProvider
             }
         }
 
-        protected static string GetColumnName(esColumnItem column)
+        protected static string GetColumnName(tgColumnItem column)
         {
             if (column.Query == null || column.Query.es.JoinAlias == " ")
             {
@@ -1145,7 +1145,7 @@ namespace Tiraggo.SqlClientProvider
             return cmd.Parameters.Count;
         }
 
-        private static string GetSubquerySearchCondition(esDynamicQuerySerializable query)
+        private static string GetSubquerySearchCondition(tgDynamicQuerySerializable query)
         {
             string searchCondition = String.Empty;
 
