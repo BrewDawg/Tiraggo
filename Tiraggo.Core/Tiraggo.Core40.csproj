@@ -160,7 +160,7 @@
   <ItemGroup>
     <Compile Include="tgCollectionWCFPacket.cs" />
     <Compile Include="tgEntity.cs" />
-    <Compile Include="esEntityCollection.Binding.cs">
+    <Compile Include="tgEntityCollection.Binding.cs">
       <DependentUpon>tgEntityCollection.cs</DependentUpon>
     </Compile>
     <Compile Include="tgEntityCollection.cs" />
