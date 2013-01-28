@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.SqlServerCe4Provider_35", "EntitySpaces.SqlServerCe4Provider_35.csproj", "{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.Interfaces35", "..\..\EntitySpaces.Interfaces\EntitySpaces.Interfaces35.csproj", "{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitySpaces.DynamicQuery35", "..\..\EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery35.csproj", "{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugDavidTests|Any CPU = DebugDavidTests|Any CPU
+		DebugMikeTests|Any CPU = DebugMikeTests|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.DebugDavidTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.DebugDavidTests|Any CPU.Build.0 = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.DebugMikeTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.DebugMikeTests|Any CPU.Build.0 = Debug|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422D6EB1-A9BD-40C8-8B7E-8349D0283AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.DebugDavidTests|Any CPU.ActiveCfg = DebugDavidTests|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.DebugDavidTests|Any CPU.Build.0 = DebugDavidTests|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.DebugMikeTests|Any CPU.ActiveCfg = DebugMikeTests|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.DebugMikeTests|Any CPU.Build.0 = DebugMikeTests|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.DebugDavidTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.DebugDavidTests|Any CPU.Build.0 = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.DebugMikeTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.DebugMikeTests|Any CPU.Build.0 = Debug|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
