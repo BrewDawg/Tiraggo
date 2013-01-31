@@ -224,7 +224,7 @@ namespace Tiraggo.Interfaces
 
             if (theQuery != null)
             {
-                tgConnection conn = theQuery.es2.Connection;
+                tgConnection conn = theQuery.tg2.Connection;
 
                 if (iQuery.ProviderMetadata == null)
                 {
@@ -317,7 +317,7 @@ namespace Tiraggo.Interfaces
         {
             IMetadata meta = this.Meta;
 
-            tgConnection conn = this.es2.Connection;
+            tgConnection conn = this.tg2.Connection;
             tgProviderSpecificMetadata providerMetadata = meta.GetProviderMetadata(conn.ProviderMetadataKey);
 
             IDynamicQuerySerializableInternal iQuery = this as IDynamicQuerySerializableInternal;
@@ -418,7 +418,7 @@ namespace Tiraggo.Interfaces
             this.PopulateRequest(request);
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.esLoadDataTable(request, this.tg2.Connection.ProviderSignature);
 
             table = response.Table;
 
@@ -427,7 +427,7 @@ namespace Tiraggo.Interfaces
                 foreach (esPrefetchMap map in prefetchMaps)
                 {
                     // Give our Prefetch Queries the proper connection strings
-                    if (!map.Query.es2.HasConnection)
+                    if (!map.Query.tg2.HasConnection)
                     {
                         string generatedName = this.GetConnectionName();
 
@@ -435,13 +435,13 @@ namespace Tiraggo.Interfaces
                         {
                             // Use the connection name typed into the generated master when they
                             // generated the code
-                            map.Query.es2.Connection.Name = generatedName;
+                            map.Query.tg2.Connection.Name = generatedName;
                         }
                         else
                         {
                             // Use the connection from the Collection/Entity at the time they
                             // call Load()
-                            map.Query.es2.Connection.Name = this.connection.Name;
+                            map.Query.tg2.Connection.Name = this.connection.Name;
                         }
                     }
 
@@ -477,7 +477,7 @@ namespace Tiraggo.Interfaces
             request.QueryType = tgQueryType.DynamicQueryParseOnly;
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.esLoadDataTable(request, this.tg2.Connection.ProviderSignature);
 
             return response.LastQuery;
         }
@@ -496,7 +496,7 @@ namespace Tiraggo.Interfaces
             this.PopulateRequest(request);
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.esLoadDataTable(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.esLoadDataTable(request, this.tg2.Connection.ProviderSignature);
 
             table = response.Table;
 
@@ -516,7 +516,7 @@ namespace Tiraggo.Interfaces
             this.PopulateRequest(request);
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteReader(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteReader(request, this.tg2.Connection.ProviderSignature);
 
             return response.DataReader;
         }
@@ -533,7 +533,7 @@ namespace Tiraggo.Interfaces
             this.PopulateRequest(request);
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg2.Connection.ProviderSignature);
 
             return response.Scalar;
         }
@@ -550,7 +550,7 @@ namespace Tiraggo.Interfaces
             this.PopulateRequest(request);
 
             tgDataProvider provider = new tgDataProvider();
-            tgDataResponse response = provider.ExecuteScalar(request, this.es2.Connection.ProviderSignature);
+            tgDataResponse response = provider.ExecuteScalar(request, this.tg2.Connection.ProviderSignature);
 
             return (T)response.Scalar;
         }
@@ -787,7 +787,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// This is to help hide some details from Intellisense.
         /// </summary>
-        public DynamicQueryProps es2
+        public DynamicQueryProps tg2
         {
             get
             {

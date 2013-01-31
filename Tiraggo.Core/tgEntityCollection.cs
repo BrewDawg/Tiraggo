@@ -346,9 +346,9 @@ namespace Tiraggo.Core
             me[string.Empty] = this;
             collections[string.Empty] = me;
 
-            if (query.es2.PrefetchMaps != null)
+            if (query.tg2.PrefetchMaps != null)
             {
-                foreach (esPrefetchMap map in query.es2.PrefetchMaps)
+                foreach (esPrefetchMap map in query.tg2.PrefetchMaps)
                 {
                     DataTable preFetchedTable = map.Table;
 

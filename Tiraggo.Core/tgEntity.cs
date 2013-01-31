@@ -136,7 +136,7 @@ namespace Tiraggo.Core
 
             bool dataFound = this.PopulateEntity(table);
 
-            if (query.es2.PrefetchMaps != null)
+            if (query.tg2.PrefetchMaps != null)
             {
                 bool firstTime = true;
 
@@ -147,7 +147,7 @@ namespace Tiraggo.Core
 
                 this.tg.IsLazyLoadDisabled = true;
 
-                foreach (esPrefetchMap map in query.es2.PrefetchMaps)
+                foreach (esPrefetchMap map in query.tg2.PrefetchMaps)
                 {
                     DataTable preFetchedTable = map.Table;
 
