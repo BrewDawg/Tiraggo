@@ -975,7 +975,7 @@ namespace Tiraggo.VistaDB4Provider
 
                 if (request.Parameters != null)
                 {
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
                         sql += esParam.Name;
                     }

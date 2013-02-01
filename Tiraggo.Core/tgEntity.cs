@@ -127,7 +127,7 @@ namespace Tiraggo.Core
         /// <param name="query">The Query that was just loaded</param>
         /// <param name="table">The DataTable which contains what will become the Entity's data</param>
         /// <returns>True if a record was found</returns>
-        protected bool OnQueryLoaded(esDynamicQuery query, DataTable table)
+        protected bool OnQueryLoaded(tgDynamicQuery query, DataTable table)
         {
             if (table.Rows.Count > 1)
             {
@@ -147,7 +147,7 @@ namespace Tiraggo.Core
 
                 this.tg.IsLazyLoadDisabled = true;
 
-                foreach (esPrefetchMap map in query.tg2.PrefetchMaps)
+                foreach (tgPrefetchMap map in query.tg2.PrefetchMaps)
                 {
                     DataTable preFetchedTable = map.Table;
 
@@ -218,7 +218,7 @@ namespace Tiraggo.Core
         /// <summary>
         /// Used Internally by EntitySpaces to avoid duplicating some code
         /// </summary>
-        static private void ProcessEntityForPrefetch(tgEntity obj, esPrefetchMap map, Dictionary<object, tgEntityCollectionBase> newCollection)
+        static private void ProcessEntityForPrefetch(tgEntity obj, tgPrefetchMap map, Dictionary<object, tgEntityCollectionBase> newCollection)
         {
             obj.tg.IsLazyLoadDisabled = true;
 
@@ -3758,7 +3758,7 @@ namespace Tiraggo.Core
         /// <summary>
         /// This method returns true if the esEntity has been loaded with data and the esEntity is not
         /// marked as Deleted. Remember, an esEntity can only represent a single row. However the full Query
-        /// syntax is allowed to load an esEntity. See <see cref="esDynamicQuery"/>
+        /// syntax is allowed to load an esEntity. See <see cref="tgDynamicQuery"/>
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         bool IEntity.HasData

@@ -802,7 +802,7 @@ namespace Tiraggo.SqlClientProvider
                 string sIndex = String.Empty;
                 string param = String.Empty;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     sIndex = i.ToString();
                     token = '{' + sIndex + '}';
@@ -822,17 +822,17 @@ namespace Tiraggo.SqlClientProvider
             {
                 SqlParameter param;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     param = cmd.Parameters.AddWithValue(Delimiters.Param + esParam.Name, esParam.Value);
 
                     switch (esParam.Direction)
                     {
-                        case esParameterDirection.InputOutput:
+                        case tgParameterDirection.InputOutput:
                             param.Direction = ParameterDirection.InputOutput;
                             break;
 
-                        case esParameterDirection.Output:
+                        case tgParameterDirection.Output:
                             param.Direction = ParameterDirection.Output;
                             param.DbType = esParam.DbType;
                             param.Size = esParam.Size;
@@ -840,7 +840,7 @@ namespace Tiraggo.SqlClientProvider
                             param.Precision = esParam.Precision;
                             break;
 
-                        case esParameterDirection.ReturnValue:
+                        case tgParameterDirection.ReturnValue:
                             param.Direction = ParameterDirection.ReturnValue;
                             break;
 
@@ -863,9 +863,9 @@ namespace Tiraggo.SqlClientProvider
                 {
                     response.Parameters = new tgParameters();
 
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
-                        if (esParam.Direction != esParameterDirection.Input)
+                        if (esParam.Direction != tgParameterDirection.Input)
                         {
                             response.Parameters.Add(esParam);
                             SqlParameter p = cmd.Parameters[Delimiters.Param + esParam.Name];

@@ -128,13 +128,13 @@ namespace Tiraggo.Core
         /// Used by esDataSource to gain access to the Query so that it can
         /// implement AutoPaging and AutoSorting
         /// </summary>
-        esDynamicQuery Query { get; }
+        tgDynamicQuery Query { get; }
 
         /// <summary>
         /// Called by esDataSource to hookup the query to the collection during the esSelect event.
         /// </summary>
         /// <returns></returns>
-        void HookupQuery(esDynamicQuery query);
+        void HookupQuery(tgDynamicQuery query);
 
         /// <summary>
         /// The List of Entities marked for deletion

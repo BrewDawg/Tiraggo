@@ -272,7 +272,7 @@ namespace Tiraggo.Interfaces
             }
             set 
             {
-                foreach(esConnectionElement conn in tgConfigSettings.ConnectionInfo.Connections)
+                foreach(tgConnectionElement conn in tgConfigSettings.ConnectionInfo.Connections)
                 {
                     if (conn.Name == value)
                     {

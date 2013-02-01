@@ -120,12 +120,12 @@ namespace Tiraggo.Core
 
         }
 
-        virtual protected esDynamicQuery GetDynamicQuery()
+        virtual protected tgDynamicQuery GetDynamicQuery()
         {
             return null;
         }
 
-        virtual protected void HookupQuery(esDynamicQuery query)
+        virtual protected void HookupQuery(tgDynamicQuery query)
         {
 
         }
@@ -356,12 +356,12 @@ namespace Tiraggo.Core
             get { return this.GetProviderMetadata().spLoadByPrimaryKey; }
         }
 
-        esDynamicQuery IEntityCollection.Query
+        tgDynamicQuery IEntityCollection.Query
         {
             get { return this.GetDynamicQuery(); }
         }
 
-        void IEntityCollection.HookupQuery(esDynamicQuery query)
+        void IEntityCollection.HookupQuery(tgDynamicQuery query)
         {
             this.HookupQuery(query);
         }

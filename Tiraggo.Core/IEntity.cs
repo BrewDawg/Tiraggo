@@ -137,7 +137,7 @@ namespace Tiraggo.Core
         /// <summary>
         /// This method returns true if the esEntity has been loaded with data and the esEntity is not
         /// marked as Deleted. Remember, an esEntity can only represent a single row. However the full Query
-        /// syntax is allowed to load an esEntity. See <see cref="esDynamicQuery"/>
+        /// syntax is allowed to load an esEntity. See <see cref="tgDynamicQuery"/>
         /// </summary>
         bool HasData { get; }
 

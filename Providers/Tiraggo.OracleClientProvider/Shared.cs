@@ -704,7 +704,7 @@ namespace Tiraggo.OracleClientProvider
                 string sIndex = String.Empty;
                 string param = String.Empty;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     sIndex = i.ToString();
                     token = '{' + sIndex + '}';
@@ -723,7 +723,7 @@ namespace Tiraggo.OracleClientProvider
                 string paramPrefix = request.QueryType == tgQueryType.StoredProcedure ? String.Empty : Delimiters.Param;
                 paramPrefix = request.ProviderMetadata.spLoadByPrimaryKey == request.QueryText ? "p" : paramPrefix;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     param = new OracleParameter(paramPrefix + esParam.Name, esParam.Value);
                     cmd.Parameters.Add(param);
@@ -731,11 +731,11 @@ namespace Tiraggo.OracleClientProvider
                     // The default is ParameterDirection.Input
                     switch (esParam.Direction)
                     {
-                        case esParameterDirection.InputOutput:
+                        case tgParameterDirection.InputOutput:
                             param.Direction = ParameterDirection.InputOutput;
                             break;
 
-                        case esParameterDirection.Output:
+                        case tgParameterDirection.Output:
                             param.Direction = ParameterDirection.Output;
                             param.DbType = esParam.DbType;
                             param.Size = esParam.Size;
@@ -745,7 +745,7 @@ namespace Tiraggo.OracleClientProvider
                             //param.Precision = esParam.Precision;
                             break;
 
-                        case esParameterDirection.ReturnValue:
+                        case tgParameterDirection.ReturnValue:
                             param.Direction = ParameterDirection.ReturnValue;
                             break;
                     }
@@ -764,9 +764,9 @@ namespace Tiraggo.OracleClientProvider
 
                     response.Parameters = new tgParameters();
 
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
-                        if (esParam.Direction != esParameterDirection.Input)
+                        if (esParam.Direction != tgParameterDirection.Input)
                         {
                             response.Parameters.Add(esParam);
                             OracleParameter p = cmd.Parameters[paramPrefix + esParam.Name];

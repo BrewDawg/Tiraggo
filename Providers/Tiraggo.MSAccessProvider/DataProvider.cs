@@ -654,7 +654,7 @@ namespace Tiraggo.MSAccessProvider
 
                 if (request.Parameters != null)
                 {
-                    foreach (esParameter param in request.Parameters)
+                    foreach (tgParameter param in request.Parameters)
                     {
                         cmd.Parameters.AddWithValue(Delimiters.Param + param.Name, param.Value);
                     }
@@ -794,7 +794,7 @@ namespace Tiraggo.MSAccessProvider
 
                 if (request.Parameters != null)
                 {
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
                         sql += esParam.Name;
                     }
@@ -867,7 +867,7 @@ namespace Tiraggo.MSAccessProvider
 
                 if (request.Parameters != null)
                 {
-                    foreach (esParameter param in request.Parameters)
+                    foreach (tgParameter param in request.Parameters)
                     {
                         cmd.Parameters.AddWithValue(Delimiters.Param + param.Name, param.Value);
                     }
@@ -1666,7 +1666,7 @@ namespace Tiraggo.MSAccessProvider
                 string sIndex = String.Empty;
                 string param = String.Empty;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     sIndex = i.ToString();
                     token = '{' + sIndex + '}';
@@ -1679,7 +1679,7 @@ namespace Tiraggo.MSAccessProvider
             }
             else
             {
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     cmd.Parameters.AddWithValue(Delimiters.Param + esParam.Name, esParam.Value);
                 }

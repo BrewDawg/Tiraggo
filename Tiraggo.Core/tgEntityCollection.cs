@@ -336,7 +336,7 @@ namespace Tiraggo.Core
         /// <param name="query">The Query that was just loaded</param>
         /// <param name="table">The DataTable returned from the EntitySpaces data provider</param>
         /// <returns>True if at least one record was returned</returns>
-        protected bool OnQueryLoaded(esDynamicQuery query, DataTable table)
+        protected bool OnQueryLoaded(tgDynamicQuery query, DataTable table)
         {
             this.PopulateCollection(table);
 
@@ -348,7 +348,7 @@ namespace Tiraggo.Core
 
             if (query.tg2.PrefetchMaps != null)
             {
-                foreach (esPrefetchMap map in query.tg2.PrefetchMaps)
+                foreach (tgPrefetchMap map in query.tg2.PrefetchMaps)
                 {
                     DataTable preFetchedTable = map.Table;
 

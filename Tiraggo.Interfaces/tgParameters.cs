@@ -51,7 +51,7 @@ namespace Tiraggo.Interfaces
     ///			tgParameters parms = new tgParameters();
     ///
     ///			parms.Add("EmployeeID", employeeID);
-    ///			parms.Add("FullName", esParameterDirection.Output, DbType.String, 40);
+    ///			parms.Add("FullName", tgParameterDirection.Output, DbType.String, 40);
     ///
     ///			this.ExecuteNonQuery(tgQueryType.StoredProcedure, "proc_GetEmployeeFullName", parms);
     ///
@@ -59,7 +59,7 @@ namespace Tiraggo.Interfaces
     ///		}
     ///}
     /// </code>
-    /// <seealso cref="esParameter"/>, <seealso cref="tgDataProvider"/>, <seealso cref="IDataProvider"/>
+    /// <seealso cref="tgParameter"/>, <seealso cref="tgDataProvider"/>, <seealso cref="IDataProvider"/>
     /// </example> 
     [Serializable] 
     public class tgParameters : IEnumerable 
@@ -72,9 +72,9 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="parameter">An already created esParameter. This is mostly used internally.</param>
+        /// <param name="parameter">An already created tgParameter. This is mostly used internally.</param>
         /// <returns>The same parameter passed in</returns>
-        public esParameter Add(esParameter parameter)
+        public tgParameter Add(tgParameter parameter)
         {
             this.parameters.Add(parameter);
             this.hash[parameter.Name] = parameter;
@@ -92,20 +92,20 @@ namespace Tiraggo.Interfaces
         /// <param name="name">The name of the parameter without a prefix, for example, "EmployeeID" not "@EmployeeID".</param>
         /// <param name="value">The value of the parameter</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter Add(string name, object value)
+        public tgParameter Add(string name, object value)
         {
-            return this.Add(new esParameter(name, value));
+            return this.Add(new tgParameter(name, value));
         }
 
         /// <summary>
-        /// If you need to add a parameter with an esParameterDirection other than Input use this method.
+        /// If you need to add a parameter with an tgParameterDirection other than Input use this method.
         /// </summary>
         /// <param name="name">The name of the parameter without a prefix, for example, "EmployeeID" not "@EmployeeID".</param>
         /// <param name="direction">The parameter direction</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter Add(string name, esParameterDirection direction)
+        public tgParameter Add(string name, tgParameterDirection direction)
         {
-            return this.Add(new esParameter(name, null, direction));
+            return this.Add(new tgParameter(name, null, direction));
         }
 
         /// <summary>
@@ -115,9 +115,9 @@ namespace Tiraggo.Interfaces
         /// <param name="value">The value of the parameter</param>
         /// <param name="direction">The parameter direction</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter Add(string name, object value, esParameterDirection direction)
+        public tgParameter Add(string name, object value, tgParameterDirection direction)
         {
-            return this.Add(new esParameter(name, value, direction));
+            return this.Add(new tgParameter(name, value, direction));
         }
 
         /// <summary>
@@ -128,9 +128,9 @@ namespace Tiraggo.Interfaces
         /// <param name="type">The System.Data.DbType of the parameter</param>
         /// <param name="size">The size. For strings the length, for most others 0 can be passed in</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter Add(string name, esParameterDirection direction, DbType type, int size)
+        public tgParameter Add(string name, tgParameterDirection direction, DbType type, int size)
         {
-            return this.Add(new esParameter(name, direction, type, size));
+            return this.Add(new tgParameter(name, direction, type, size));
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace Tiraggo.Interfaces
         /// <param name="type">The System.Data.DbType of the parameter</param>
         /// <param name="size">The size. For strings the length, for most others 0 can be passed in</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter Add(string name, object value, esParameterDirection direction, DbType type, int size)
+        public tgParameter Add(string name, object value, tgParameterDirection direction, DbType type, int size)
         {
-            return this.Add(new esParameter(name, value, direction, type, size));
+            return this.Add(new tgParameter(name, value, direction, type, size));
         }
 
         /// <summary>
@@ -156,15 +156,15 @@ namespace Tiraggo.Interfaces
         }
 
         /// <summary>
-        /// Use this method to fetch a given esParameter by name. There should be no prefix such as @, ? or : in the name.
+        /// Use this method to fetch a given tgParameter by name. There should be no prefix such as @, ? or : in the name.
         /// </summary>
         /// <param name="name">The name of the parameter without a prefix, for example, "EmployeeID" not "@EmployeeID".</param>
         /// <returns>The desired parameter or null/Nothing if not found</returns>
-        public esParameter this[string name]
+        public tgParameter this[string name]
         {
             get
             {
-                esParameter param = null;
+                tgParameter param = null;
 
                 if (this.hash.ContainsKey(name))
                 {
@@ -181,9 +181,9 @@ namespace Tiraggo.Interfaces
         /// <param name="parms"></param>
         internal void Merge(tgParameters parms)
         {
-            foreach(esParameter esParam in parms)
+            foreach(tgParameter esParam in parms)
             {
-                esParameter esOriginalParam = this.hash[esParam.Name];
+                tgParameter esOriginalParam = this.hash[esParam.Name];
 
                 esOriginalParam.Value = esParam.Value;
             }
@@ -198,24 +198,24 @@ namespace Tiraggo.Interfaces
 
         #endregion
 
-        private List<esParameter> parameters = new List<esParameter>();
+        private List<tgParameter> parameters = new List<tgParameter>();
 
         [NonSerialized]
-        private Dictionary<System.String, esParameter> hash = new Dictionary<string, esParameter>();
+        private Dictionary<System.String, tgParameter> hash = new Dictionary<string, tgParameter>();
     }
 
     /// <summary>
     /// Represents a parameter typically passed into a stored procedure.
     /// </summary>
     /// <remarks>
-    /// Normally you don't directly create esParameter objects, instead you call the Add method on the tgParameters Collection.
+    /// Normally you don't directly create tgParameter objects, instead you call the Add method on the tgParameters Collection.
     /// It is important not to add prefixes to the parameter names such as @, ?, : as the providers will do this.
     /// </remarks>
     /// <seealso cref="tgParameters"/>
     [Serializable] 
-    public class esParameter
+    public class tgParameter
     {
-        public esParameter()
+        public tgParameter()
         {
 
         }
@@ -226,7 +226,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="name">The name of the parameter without a prefix, for example, "EmployeeID" not "@EmployeeID".</param>
         /// <param name="value">The value of the parameter</param>
-        public esParameter(string name, object value)
+        public tgParameter(string name, object value)
         {
             this.name = name;
             this.value = value;
@@ -238,7 +238,7 @@ namespace Tiraggo.Interfaces
         /// <param name="name">The name of the parameter without a prefix, for example, "EmployeeID" not "@EmployeeID".</param>
         /// <param name="value">The value of the parameter</param>
         /// <param name="direction">The direction of the parameter</param>
-        public esParameter(string name, object value, esParameterDirection direction)
+        public tgParameter(string name, object value, tgParameterDirection direction)
         {
             this.name = name;
             this.value = value;
@@ -252,7 +252,7 @@ namespace Tiraggo.Interfaces
         /// <param name="direction">The parameter direction</param>
         /// <param name="type">The System.Data.DbType of the parameter</param>
         /// <param name="size">The size. For strings the length, for most others 0 can be passed in</param>
-        public esParameter(string name, esParameterDirection direction, DbType type, int size)
+        public tgParameter(string name, tgParameterDirection direction, DbType type, int size)
         {
             this.name = name;
             this.direction = direction;
@@ -269,7 +269,7 @@ namespace Tiraggo.Interfaces
         /// <param name="type">The System.Data.DbType of the parameter</param>
         /// <param name="size">The size. For strings the length, for most others 0 can be passed in</param>
         /// <returns>The newly created parameter</returns>
-        public esParameter(string name, object value, esParameterDirection direction, DbType type, int size)
+        public tgParameter(string name, object value, tgParameterDirection direction, DbType type, int size)
         {
             this.name = name;
             this.value = value;
@@ -300,7 +300,7 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// The parameter direction. The default is Input.
         /// </summary>
-        public esParameterDirection Direction
+        public tgParameterDirection Direction
         {
             get { return direction;  }
             set { direction = value; }
@@ -362,7 +362,7 @@ namespace Tiraggo.Interfaces
 
         private string name;
         private object value;
-        private esParameterDirection direction;
+        private tgParameterDirection direction;
         private DbType dbType;
         private int size;
         private byte scale;
@@ -371,10 +371,10 @@ namespace Tiraggo.Interfaces
     }
 
     /// <summary>
-    /// Used to determine the direction of the esParameter class. The default is Input
+    /// Used to determine the direction of the tgParameter class. The default is Input
     /// </summary>
     [Serializable] 
-    public enum esParameterDirection
+    public enum tgParameterDirection
     {
         /// <summary>
         /// The parameter is an input parameter. 

@@ -45,13 +45,13 @@ namespace Tiraggo.Interfaces
         /// <summary>
         /// The Root query when the Prefetch path is complete
         /// </summary>
-        public esDynamicQuery Root;
+        public tgDynamicQuery Root;
 
         /// <summary>
         /// In the esPrefetchDelegate if this is non-null this is "you" so don't create your Query, it was created in the 
         /// esPrefetchDelegate just before you were called
         /// </summary>
-        public esDynamicQuery You;
+        public tgDynamicQuery You;
 
         /// <summary>
         /// Used by the prefetch logic, alias = "a" + Alias++.ToString()
@@ -67,20 +67,20 @@ namespace Tiraggo.Interfaces
     /// <summary>
     /// Used internally by EntitySpaces in support of the DynamicQuery Prefetch logic
     /// </summary>
-    public class esPrefetchMap
+    public class tgPrefetchMap
     {
         /// <summary>
-        /// The Query for the Prefetch, only on the root esPrefetchMap will contain a query
+        /// The Query for the Prefetch, only on the root tgPrefetchMap will contain a query
         /// </summary>
-        public esDynamicQuery Query;
+        public tgDynamicQuery Query;
         /// <summary>
-        /// The Query for the Prefetch, only on the root esPrefetchMap will contain a DataTable (after the call to Query.Load())
+        /// The Query for the Prefetch, only on the root tgPrefetchMap will contain a DataTable (after the call to Query.Load())
         /// </summary>
         public DataTable Table;
         /// <summary>
         /// The Prefetch delegate itself. This is used when building the query
         /// </summary>
-        public esPrefetchDelegate PrefetchDelegate;
+        public tgPrefetchDelegate PrefetchDelegate;
         /// <summary>
         /// The Property name this prefetch Property, ie, "OrdersCollectionByEmployeeID"
         /// </summary>
@@ -107,7 +107,7 @@ namespace Tiraggo.Interfaces
     /// A Prefetch delegate map entry used when building a Prefetch path
     /// </summary>
     /// <param name="data">Used to pass state to each esPrefetchDelegate delegate as the query is being created</param>
-    public delegate void esPrefetchDelegate(tgPrefetchParameters data);
+    public delegate void tgPrefetchDelegate(tgPrefetchParameters data);
 
     /// <summary>
     /// This provides the Dynamic Query mechanism used by your Business object (Employees),
@@ -151,12 +151,12 @@ namespace Tiraggo.Interfaces
     /// </code>
     /// </example>
     [Serializable] 
-    public class esDynamicQuery : tgDynamicQuerySerializable
+    public class tgDynamicQuery : tgDynamicQuerySerializable
     {
         /// <summary>
         /// The Constructor
         /// </summary>
-        public esDynamicQuery()
+        public tgDynamicQuery()
         {
 
         }
@@ -165,7 +165,7 @@ namespace Tiraggo.Interfaces
         /// The Constructor used when using this query in a "Join"
         /// </summary>
         /// <param name="joinAlias">The alias of the associated Table to be used in the "Join"</param>
-        public esDynamicQuery(string joinAlias)
+        public tgDynamicQuery(string joinAlias)
         {
             iData.JoinAlias = joinAlias;
         }
@@ -219,7 +219,7 @@ namespace Tiraggo.Interfaces
 
             beenThere.Add(query);
 
-            esDynamicQuery theQuery = query as esDynamicQuery;
+            tgDynamicQuery theQuery = query as tgDynamicQuery;
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
             if (theQuery != null)
@@ -298,7 +298,7 @@ namespace Tiraggo.Interfaces
         /// <param name="Query">The DynamicQuery that was just loaded</param>        
         /// <param name="table">The DataTable as passed into Query.Load()</param>
         /// <returns>True if at least one record was loaded</returns>
-        public delegate bool QueryLoadedDelegate(esDynamicQuery Query, DataTable table);
+        public delegate bool QueryLoadedDelegate(tgDynamicQuery Query, DataTable table);
 
         /// <summary>
         /// This is called when DynamicQuery.Load() is called,
@@ -424,7 +424,7 @@ namespace Tiraggo.Interfaces
 
             if (prefetchMaps != null)
             {
-                foreach (esPrefetchMap map in prefetchMaps)
+                foreach (tgPrefetchMap map in prefetchMaps)
                 {
                     // Give our Prefetch Queries the proper connection strings
                     if (!map.Query.tg2.HasConnection)
@@ -588,7 +588,7 @@ namespace Tiraggo.Interfaces
         /// <typeparam name="T">The Type of the esDynamicQuery returned</typeparam> 
         /// <param name="maps">The Path to the data</param>
         /// <returns>The esDynamicQuery for the Type of query you intend to load</returns>
-        public T Prefetch<T>(params esPrefetchMap[] maps) where T : esDynamicQuery
+        public T Prefetch<T>(params tgPrefetchMap[] maps) where T : tgDynamicQuery
         {
             return this.Prefetch<T>(true, maps);
         }
@@ -600,13 +600,13 @@ namespace Tiraggo.Interfaces
         /// <param name="provideSelect">If true then you must fill in the Query.Select() clause</param>
         /// <param name="maps">The Path to the data</param>
         /// <returns>The esDynamicQuery for the Type of query you intend to load</returns>
-        public T Prefetch<T>(bool provideSelect, params esPrefetchMap[] maps) where T : esDynamicQuery
+        public T Prefetch<T>(bool provideSelect, params tgPrefetchMap[] maps) where T : tgDynamicQuery
         {
             if (maps != null)
             {
                 if (prefetchMaps == null)
                 {
-                    prefetchMaps = new List<esPrefetchMap>();
+                    prefetchMaps = new List<tgPrefetchMap>();
                 }
 
                 tgPrefetchParameters data = new tgPrefetchParameters();
@@ -614,7 +614,7 @@ namespace Tiraggo.Interfaces
                 // Create the query, we do so in reverse order
                 for (int i = maps.Length - 1; i >= 0; i--)
                 {
-                    esPrefetchDelegate prefetchDelegate = maps[i].PrefetchDelegate;
+                    tgPrefetchDelegate prefetchDelegate = maps[i].PrefetchDelegate;
                     prefetchDelegate(data);
                 }
 
@@ -625,7 +625,7 @@ namespace Tiraggo.Interfaces
                     path = maps[maps.Length - 2].PropertyName;
                 }
 
-                esPrefetchMap rootMap = maps[maps.Length - 1];
+                tgPrefetchMap rootMap = maps[maps.Length - 1];
                 rootMap.Query = data.Root;
                 rootMap.Path = path;
                 prefetchMaps.Add(rootMap);
@@ -645,13 +645,13 @@ namespace Tiraggo.Interfaces
         /// This Prefetch call is a simpler API for when you are not interested in tweaking the Query
         /// </summary>
         /// <param name="maps">The Path to the data</param>
-        public void Prefetch(params esPrefetchMap[] maps)
+        public void Prefetch(params tgPrefetchMap[] maps)
         {
             if (maps != null)
             {
                 if (prefetchMaps == null)
                 {
-                    prefetchMaps = new List<esPrefetchMap>();
+                    prefetchMaps = new List<tgPrefetchMap>();
                 }
 
                 tgPrefetchParameters data = new tgPrefetchParameters();
@@ -659,7 +659,7 @@ namespace Tiraggo.Interfaces
                 // Create the query, we do so in reverse order
                 for (int i = maps.Length - 1; i >= 0; i--)
                 {
-                    esPrefetchDelegate prefetchDelegate = maps[i].PrefetchDelegate;
+                    tgPrefetchDelegate prefetchDelegate = maps[i].PrefetchDelegate;
                     prefetchDelegate(data);
                 }
 
@@ -670,7 +670,7 @@ namespace Tiraggo.Interfaces
                     path = maps[maps.Length - 2].PropertyName;
                 }
 
-                esPrefetchMap rootMap = maps[maps.Length - 1];
+                tgPrefetchMap rootMap = maps[maps.Length - 1];
                 rootMap.Query = data.Root;
                 rootMap.Path = path;
                 prefetchMaps.Add(rootMap);
@@ -812,7 +812,7 @@ namespace Tiraggo.Interfaces
             /// The Dynamic Query properties.
             /// </summary>
             /// <param name="query">The esDynamicQuery's properties.</param>
-            public DynamicQueryProps(esDynamicQuery query)
+            public DynamicQueryProps(tgDynamicQuery query)
             {
                 this.dynamicQuery = query;
             }
@@ -861,7 +861,7 @@ namespace Tiraggo.Interfaces
             /// <summary>
             /// Used internally by Entityspaces, do not use this Property
             /// </summary>
-            public List<esPrefetchMap> PrefetchMaps
+            public List<tgPrefetchMap> PrefetchMaps
             {
                 get
                 {
@@ -870,7 +870,7 @@ namespace Tiraggo.Interfaces
             }
 
 
-            private esDynamicQuery dynamicQuery;
+            private tgDynamicQuery dynamicQuery;
         }
         #endregion
 
@@ -898,6 +898,6 @@ namespace Tiraggo.Interfaces
         /// Holds the information for each Prefetch property to be loaded
         /// </summary>
         [NonSerialized]
-        private List<esPrefetchMap> prefetchMaps;
+        private List<tgPrefetchMap> prefetchMaps;
     }
 }
