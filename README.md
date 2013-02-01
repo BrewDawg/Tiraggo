@@ -5,7 +5,7 @@ A C# Cross Platform ORM Architecture derived from EntitySpaces (MonoTouch Suppor
 
 ##Support Thus Far##
 * The Templates on https://www.My2ndGeneration.com for Tiraggo now generate clean code from your database schema
-* The is a windows Sample App in the windows folder (cheesy but just proof it runs for now)
-* the MonoTouch iPhone/iPad .iOS project compile clean (sample app due within days)
+* There is a windows Sample Applicatioin in the Samples folder (cheesy but just a test app for now)
+* The MonoTouch iPhone/iPad .iOS project compile clean (sample app due within days)
 
 Next up, Android, should be done by this weekend
