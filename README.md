@@ -6,9 +6,8 @@ Tiraggo - The Nomadic Architecture that Runs Anywhere
 A C# Cross Platform ORM Architecture derived from EntitySpaces with full Xamarin Mono Touch Support (http://xamarin.com/)
 
 ##Platforms Supported Thus Far##
-* The Tiraggo templates on https://www.My2ndGeneration.com generate your code from your database schema
-* There is a Windows Sample Application in the Samples folder (cheesy but just a test app for now)
-* The MonoTouch iPhone/iPad .iOS projects compile clean (sample app due within days)
+* Windows - There is a Windows Sample Application in the Samples folder (cheesy but just a test app for now)
+* Mac iOS iPhone/iPad - The .iOS projects compile clean (sample app due within days)
 
 Next up, Android, should be done by this weekend ...
 
