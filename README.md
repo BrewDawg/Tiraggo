@@ -17,6 +17,7 @@ Next up, Android, should be done by this weekend ...
 * Download the Cross Platform Client (Windows, Mac, Linux)
 * Push your Database Schema (Metadata only) up to the My2ndGeneration cloud.
 * Generate the Tiraggo Custom and Generated Classes
+* Click on the "Zip" button and download you classes
 
 ##Databases Supported##
 * Microsoft SQL Server
