@@ -1,7 +1,10 @@
-Tiraggo
+Tiraggo - The Nomadic Architecture that Runs Anywhere
 =======
 
-A C# Cross Platform ORM Architecture derived from EntitySpaces (MonoTouch Support)
+<img src="https://raw.github.com/BrewDawg/Tiraggo/images/platforms.png" border="0">
+
+A C# Cross Platform ORM Architecture derived from EntitySpaces with full (Xamarin Mono Touch Support) (http://xamarin.com/)
+(MonoTouch Support)
 
 ##Support Thus Far##
 * The Templates on https://www.My2ndGeneration.com for Tiraggo now generate clean code from your database schema
