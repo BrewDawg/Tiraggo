@@ -30,21 +30,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 
-using EntitySpaces.Interfaces;
+using Tiraggo.Interfaces;
 
 using Mono.Data.Sqlite;
 
-namespace EntitySpaces.SQLiteProvider
+namespace Tiraggo.SQLiteProvider
 {
     class Cache
     {
-        static public Dictionary<string, SqliteParameter> GetParameters(esDataRequest request)
+        static public Dictionary<string, SqliteParameter> GetParameters(tgDataRequest request)
         {
             return GetParameters(request.DataID, request.ProviderMetadata, request.Columns);
         }
 
         static public Dictionary<string, SqliteParameter> GetParameters(Guid dataID,
-            esProviderSpecificMetadata providerMetadata, esColumnMetadataCollection columns)
+            tgProviderSpecificMetadata providerMetadata, tgColumnMetadataCollection columns)
         {
             lock (parameterCache)
             {
@@ -54,9 +54,9 @@ namespace EntitySpaces.SQLiteProvider
                     Dictionary<string, SqliteParameter> types = new Dictionary<string, SqliteParameter>();
 
                     SqliteParameter param1;
-                    foreach (esColumnMetadata col in columns)
+                    foreach (tgColumnMetadata col in columns)
                     {
-                        esTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
+                        tgTypeMap typeMap = providerMetadata.GetTypeMap(col.PropertyName);
                         if (typeMap != null)
                         {
                             string nativeType = typeMap.NativeType;

@@ -31,16 +31,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-using EntitySpaces.DynamicQuery;
-using EntitySpaces.Interfaces;
+using Tiraggo.DynamicQuery;
+using Tiraggo.Interfaces;
 
 using Mono.Data.Sqlite;
 
-namespace EntitySpaces.SQLiteProvider
+namespace Tiraggo.SQLiteProvider
 {
     class QueryBuilder
     {
-        public static SqliteCommand PrepareCommand(esDataRequest request)
+        public static SqliteCommand PrepareCommand(tgDataRequest request)
         {
             StandardProviderParameters std = new StandardProviderParameters();
             std.cmd = new SqliteCommand();
@@ -53,11 +53,11 @@ namespace EntitySpaces.SQLiteProvider
             return (SqliteCommand)std.cmd;
         }
 
-        protected static string BuildQuery(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string BuildQuery(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             bool paging = false;
 
-            if (query.es.PageNumber.HasValue && query.es.PageSize.HasValue)
+            if (query.tg.PageNumber.HasValue && query.tg.PageSize.HasValue)
                 paging = true;
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
@@ -77,14 +77,14 @@ namespace EntitySpaces.SQLiteProvider
 
             if (paging)
             {
-                int begRow = ((query.es.PageNumber.Value - 1) * query.es.PageSize.Value);
+                int begRow = ((query.tg.PageNumber.Value - 1) * query.tg.PageSize.Value);
 
-                sql += " LIMIT " + query.es.PageSize.ToString();
+                sql += " LIMIT " + query.tg.PageSize.ToString();
                 sql += " OFFSET " + begRow.ToString() + " ";
             }
-            else if (query.es.Top >= 0)
+            else if (query.tg.Top >= 0)
             {
-                sql += " LIMIT " + query.es.Top.ToString() + " ";
+                sql += " LIMIT " + query.tg.Top.ToString() + " ";
             }
             else if (iQuery.Skip.HasValue || iQuery.Take.HasValue)
             {
@@ -102,7 +102,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetFromStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetFromStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
@@ -138,7 +138,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetSelectStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetSelectStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -146,13 +146,13 @@ namespace EntitySpaces.SQLiteProvider
 
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
 
-            if (query.es.Distinct) sql += " DISTINCT ";
+            if (query.tg.Distinct) sql += " DISTINCT ";
  
             if (iQuery.InternalSelectColumns != null)
             {
                 selectAll = false;
 
-                foreach (esExpression expressionItem in iQuery.InternalSelectColumns)
+                foreach (tgExpression expressionItem in iQuery.InternalSelectColumns)
                 {
                     if (expressionItem.Query != null)
                     {
@@ -167,7 +167,7 @@ namespace EntitySpaces.SQLiteProvider
                         else
                         {
                             iSubQuery.IsInSubQuery = true;
-                            sql += " (" + BuildQuery(std, expressionItem.Query as esDynamicQuerySerializable) + ") AS " + iSubQuery.SubQueryAlias;
+                            sql += " (" + BuildQuery(std, expressionItem.Query as tgDynamicQuerySerializable) + ") AS " + iSubQuery.SubQueryAlias;
                             iSubQuery.IsInSubQuery = false;
                         }
 
@@ -190,17 +190,17 @@ namespace EntitySpaces.SQLiteProvider
                 sql += " ";
             }
 
-            if (query.es.CountAll)
+            if (query.tg.CountAll)
             {
                 selectAll = false;
 
                 sql += comma;
                 sql += "COUNT(*)";
 
-                if (query.es.CountAllAlias != null)
+                if (query.tg.CountAllAlias != null)
                 {
                     // Need DBMS string delimiter here
-                    sql += " AS " + Delimiters.StringOpen + query.es.CountAllAlias + Delimiters.StringClose;
+                    sql += " AS " + Delimiters.StringOpen + query.tg.CountAllAlias + Delimiters.StringClose;
                 }
             }
 
@@ -212,7 +212,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetJoinStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetJoinStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
 
@@ -220,29 +220,29 @@ namespace EntitySpaces.SQLiteProvider
 
             if (iQuery.InternalJoinItems != null)
             {
-                foreach (esJoinItem joinItem in iQuery.InternalJoinItems)
+                foreach (tgJoinItem joinItem in iQuery.InternalJoinItems)
                 {
-                    esJoinItem.esJoinItemData joinData = (esJoinItem.esJoinItemData)joinItem;
+                    tgJoinItem.tgJoinItemData joinData = (tgJoinItem.tgJoinItemData)joinItem;
 
                     switch (joinData.JoinType)
                     {
-                        case esJoinType.InnerJoin:
+                        case tgJoinType.InnerJoin:
                             sql += " INNER JOIN ";
                             break;
-                        case esJoinType.LeftJoin:
+                        case tgJoinType.LeftJoin:
                             sql += " LEFT JOIN ";
                             break;
-                        case esJoinType.RightJoin:
+                        case tgJoinType.RightJoin:
                             sql += " RIGHT JOIN ";
                             break;
-                        case esJoinType.FullJoin:
+                        case tgJoinType.FullJoin:
                             sql += " FULL JOIN ";
                             break;
                     }
 
                     IDynamicQuerySerializableInternal iSubQuery = joinData.Query as IDynamicQuerySerializableInternal;
 
-                    sql += Shared.CreateFullName((esProviderSpecificMetadata)iSubQuery.ProviderMetadata);
+                    sql += Shared.CreateFullName((tgProviderSpecificMetadata)iSubQuery.ProviderMetadata);
 
                     sql += " " + iSubQuery.JoinAlias + " ON ";
 
@@ -252,7 +252,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetComparisonStatement(StandardProviderParameters std, esDynamicQuerySerializable query, List<esComparison> items, string prefix)
+        protected static string GetComparisonStatement(StandardProviderParameters std, tgDynamicQuerySerializable query, List<tgComparison> items, string prefix)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -267,10 +267,10 @@ namespace EntitySpaces.SQLiteProvider
                 sql += prefix;
 
                 string compareTo = String.Empty;
-                foreach (esComparison comparisonItem in items)
+                foreach (tgComparison comparisonItem in items)
                 {
-                    esComparison.esComparisonData comparisonData = (esComparison.esComparisonData)comparisonItem;
-                    esDynamicQuerySerializable subQuery = null;
+                    tgComparison.tgComparisonData comparisonData = (tgComparison.tgComparisonData)comparisonItem;
+                    tgDynamicQuerySerializable subQuery = null;
 
                     bool requiresParam = true;
                     std.needsStringParameter = false;
@@ -279,7 +279,7 @@ namespace EntitySpaces.SQLiteProvider
 
                     if (comparisonData.IsParenthesis)
                     {
-                        if (comparisonData.Parenthesis == esParenthesis.Open)
+                        if (comparisonData.Parenthesis == tgParenthesis.Open)
                             sql += "(";
                         else
                             sql += ")";
@@ -291,10 +291,10 @@ namespace EntitySpaces.SQLiteProvider
                     {
                         switch (comparisonData.Conjunction)
                         {
-                            case esConjunction.And: sql += " AND "; break;
-                            case esConjunction.Or: sql += " OR "; break;
-                            case esConjunction.AndNot: sql += " AND NOT "; break;
-                            case esConjunction.OrNot: sql += " OR NOT "; break;
+                            case tgConjunction.And: sql += " AND "; break;
+                            case tgConjunction.Or: sql += " OR "; break;
+                            case tgConjunction.AndNot: sql += " AND NOT "; break;
+                            case tgConjunction.OrNot: sql += " OR NOT "; break;
                         }
                         continue;
                     }
@@ -304,7 +304,7 @@ namespace EntitySpaces.SQLiteProvider
                     if (comparisonData.Column.Query != null)
                     {
                         IDynamicQuerySerializableInternal iLocalQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                        types = Cache.GetParameters(iLocalQuery.DataID, (esProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (esColumnMetadataCollection)iLocalQuery.Columns);
+                        types = Cache.GetParameters(iLocalQuery.DataID, (tgProviderSpecificMetadata)iLocalQuery.ProviderMetadata, (tgColumnMetadataCollection)iLocalQuery.Columns);
                     }
 
                     if (comparisonData.IsLiteral)
@@ -322,14 +322,14 @@ namespace EntitySpaces.SQLiteProvider
 
                     if (comparisonData.ComparisonColumn.Name == null)
                     {
-                        subQuery = comparisonData.Value as esDynamicQuerySerializable;
+                        subQuery = comparisonData.Value as tgDynamicQuerySerializable;
 
                         if (subQuery == null)
                         {
                             if (comparisonData.Column.Name != null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
                             }
                             else
@@ -352,54 +352,54 @@ namespace EntitySpaces.SQLiteProvider
 
                     switch (comparisonData.Operand)
                     {
-                        case esComparisonOperand.Exists:
+                        case tgComparisonOperand.Exists:
                             sql += " EXISTS" + compareTo;
                             break;
-                        case esComparisonOperand.NotExists:
+                        case tgComparisonOperand.NotExists:
                             sql += " NOT EXISTS" + compareTo;
                             break;
 
                         //-----------------------------------------------------------
                         // Comparison operators, left side vs right side
                         //-----------------------------------------------------------
-                        case esComparisonOperand.Equal:
+                        case tgComparisonOperand.Equal:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " = " + compareTo;
                             else
                                 sql += compareTo + " = " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.NotEqual:
+                        case tgComparisonOperand.NotEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " <> " + compareTo;
                             else
                                 sql += compareTo + " <> " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.GreaterThan:
+                        case tgComparisonOperand.GreaterThan:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " > " + compareTo;
                             else
                                 sql += compareTo + " > " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.LessThan:
+                        case tgComparisonOperand.LessThan:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " < " + compareTo;
                             else
                                 sql += compareTo + " < " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.LessThanOrEqual:
+                        case tgComparisonOperand.LessThanOrEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " <= " + compareTo;
                             else
                                 sql += compareTo + " <= " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
-                        case esComparisonOperand.GreaterThanOrEqual:
+                        case tgComparisonOperand.GreaterThanOrEqual:
                             if (comparisonData.ItemFirst)
                                 sql += ApplyWhereSubOperations(std, query, comparisonData) + " >= " + compareTo;
                             else
                                 sql += compareTo + " >= " + ApplyWhereSubOperations(std, query, comparisonData);
                             break;
 
-                        case esComparisonOperand.Like:
+                        case tgComparisonOperand.Like:
                             string esc = comparisonData.LikeEscape.ToString();
                             if (String.IsNullOrEmpty(esc) || esc == "\0")
                             {
@@ -413,7 +413,7 @@ namespace EntitySpaces.SQLiteProvider
                                 std.needsStringParameter = true;
                             }
                             break;
-                        case esComparisonOperand.NotLike:
+                        case tgComparisonOperand.NotLike:
                             esc = comparisonData.LikeEscape.ToString();
                             if (String.IsNullOrEmpty(esc) || esc == "\0")
                             {
@@ -427,33 +427,33 @@ namespace EntitySpaces.SQLiteProvider
                                 std.needsStringParameter = true;
                             }
                             break;
-                        case esComparisonOperand.Contains:
+                        case tgComparisonOperand.Contains:
                             sql += " CONTAINS(" + GetColumnName(comparisonData.Column) +
                                 ", " + compareTo + ")";
                             std.needsStringParameter = true;
                             break;
-                        case esComparisonOperand.IsNull:
+                        case tgComparisonOperand.IsNull:
                             sql += ApplyWhereSubOperations(std, query, comparisonData) + " IS NULL";
                             requiresParam = false;
                             break;
-                        case esComparisonOperand.IsNotNull:
+                        case tgComparisonOperand.IsNotNull:
                             sql += ApplyWhereSubOperations(std, query, comparisonData) + " IS NOT NULL";
                             requiresParam = false;
                             break;
-                        case esComparisonOperand.In:
-                        case esComparisonOperand.NotIn:
+                        case tgComparisonOperand.In:
+                        case tgComparisonOperand.NotIn:
                             {
                                 if (subQuery != null)
                                 {
                                     // They used a subquery for In or Not 
                                     sql += ApplyWhereSubOperations(std, query, comparisonData);
-                                    sql += (comparisonData.Operand == esComparisonOperand.In) ? " IN" : " NOT IN";
+                                    sql += (comparisonData.Operand == tgComparisonOperand.In) ? " IN" : " NOT IN";
                                     sql += compareTo;
                                 }
                                 else
                                 {
                                     comma = String.Empty;
-                                    if (comparisonData.Operand == esComparisonOperand.In)
+                                    if (comparisonData.Operand == tgComparisonOperand.In)
                                     {
                                         sql += ApplyWhereSubOperations(std, query, comparisonData) + " IN (";
                                     }
@@ -507,7 +507,7 @@ namespace EntitySpaces.SQLiteProvider
                             }
                             break;
 
-                        case esComparisonOperand.Between:
+                        case tgComparisonOperand.Between:
 
                             SqliteCommand sqlCommand = std.cmd as SqliteCommand;
 
@@ -521,7 +521,7 @@ namespace EntitySpaces.SQLiteProvider
                             if (comparisonData.ComparisonColumn2.Name == null)
                             {
                                 IDynamicQuerySerializableInternal iColQuery = comparisonData.Column.Query as IDynamicQuerySerializableInternal;
-                                esColumnMetadataCollection columns = (esColumnMetadataCollection)iColQuery.Columns;
+                                tgColumnMetadataCollection columns = (tgColumnMetadataCollection)iColQuery.Columns;
                                 compareTo = Delimiters.Param + columns[comparisonData.Column.Name].PropertyName + (++std.pindex).ToString();
 
                                 sql += " AND " + compareTo;
@@ -573,7 +573,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetOrderByStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetOrderByStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -584,7 +584,7 @@ namespace EntitySpaces.SQLiteProvider
             {
                 sql += " ORDER BY ";
 
-                foreach (esOrderByItem orderByItem in iQuery.InternalOrderByItems)
+                foreach (tgOrderByItem orderByItem in iQuery.InternalOrderByItems)
                 {
                     bool literal = false;
 
@@ -596,7 +596,7 @@ namespace EntitySpaces.SQLiteProvider
                     {
                         sql += columnName.Substring(1, columnName.Length - 2);
 
-                        if (orderByItem.Direction == esOrderByDirection.Unassigned)
+                        if (orderByItem.Direction == tgOrderByDirection.Unassigned)
                         {
                             literal = true; // They must provide the DESC/ASC in the literal string
                         }
@@ -608,7 +608,7 @@ namespace EntitySpaces.SQLiteProvider
 
                     if (!literal)
                     {
-                        if (orderByItem.Direction == esOrderByDirection.Ascending)
+                        if (orderByItem.Direction == tgOrderByDirection.Ascending)
                             sql += " ASC";
                         else
                             sql += " DESC";
@@ -621,7 +621,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetGroupByStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetGroupByStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
             string comma = String.Empty;
@@ -632,7 +632,7 @@ namespace EntitySpaces.SQLiteProvider
             {
                 sql += " GROUP BY ";
 
-                foreach (esGroupByItem groupBy in iQuery.InternalGroupByItems)
+                foreach (tgGroupByItem groupBy in iQuery.InternalGroupByItems)
                 {
                     sql += comma;
 
@@ -646,7 +646,7 @@ namespace EntitySpaces.SQLiteProvider
                     comma = ",";
                 }
 
-                if (query.es.WithRollup)
+                if (query.tg.WithRollup)
                 {
                     sql += " WITH ROLLUP";
                 }
@@ -655,7 +655,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetSetOperationStatement(StandardProviderParameters std, esDynamicQuerySerializable query)
+        protected static string GetSetOperationStatement(StandardProviderParameters std, tgDynamicQuerySerializable query)
         {
             string sql = String.Empty;
 
@@ -663,14 +663,14 @@ namespace EntitySpaces.SQLiteProvider
 
             if (iQuery.InternalSetOperations != null)
             {
-                foreach (esSetOperation setOperation in iQuery.InternalSetOperations)
+                foreach (tgSetOperation setOperation in iQuery.InternalSetOperations)
                 {
                     switch (setOperation.SetOperationType)
                     {
-                        case esSetOperationType.Union: sql += " UNION "; break;
-                        case esSetOperationType.UnionAll: sql += " UNION ALL "; break;
-                        case esSetOperationType.Intersect: sql += " INTERSECT "; break;
-                        case esSetOperationType.Except: sql += " EXCEPT "; break;
+                        case tgSetOperationType.Union: sql += " UNION "; break;
+                        case tgSetOperationType.UnionAll: sql += " UNION ALL "; break;
+                        case tgSetOperationType.Intersect: sql += " INTERSECT "; break;
+                        case tgSetOperationType.Except: sql += " EXCEPT "; break;
                     }
 
                     sql += BuildQuery(std, setOperation.Query);
@@ -680,13 +680,13 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetCaseWhenThenEnd(StandardProviderParameters std, esDynamicQuerySerializable query, esCase caseWhenThen)
+        protected static string GetCaseWhenThenEnd(StandardProviderParameters std, tgDynamicQuerySerializable query, tgCase caseWhenThen)
         {
             string sql = string.Empty;
 
-            EntitySpaces.DynamicQuery.esCase.esSimpleCaseData caseStatement = caseWhenThen;
+            Tiraggo.DynamicQuery.tgCase.tgSimpleCaseData caseStatement = caseWhenThen;
 
-            esColumnItem column = caseStatement.QueryItem;
+            tgColumnItem column = caseStatement.QueryItem;
 
             if (column.HasAlias)
             {
@@ -698,9 +698,9 @@ namespace EntitySpaces.SQLiteProvider
             }
             sql += " = CASE ";
 
-            List<esComparison> list = new List<esComparison>();
+            List<tgComparison> list = new List<tgComparison>();
 
-            foreach (EntitySpaces.DynamicQuery.esCase.esSimpleCaseData.esCaseClause caseClause in caseStatement.Cases)
+            foreach (Tiraggo.DynamicQuery.tgCase.tgSimpleCaseData.tgCaseClause caseClause in caseStatement.Cases)
             {
                 sql += " WHEN ";
                 if (!caseClause.When.IsExpression)
@@ -771,7 +771,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetExpressionColumn(StandardProviderParameters std, esDynamicQuerySerializable query, esExpression expression, bool inExpression, bool useAlias)
+        protected static string GetExpressionColumn(StandardProviderParameters std, tgDynamicQuerySerializable query, tgExpression expression, bool inExpression, bool useAlias)
         {
             string sql = String.Empty;
 
@@ -812,14 +812,14 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetMathmaticalExpressionColumn(StandardProviderParameters std, esDynamicQuerySerializable query, esMathmaticalExpression mathmaticalExpression)
+        protected static string GetMathmaticalExpressionColumn(StandardProviderParameters std, tgDynamicQuerySerializable query, tgMathmaticalExpression mathmaticalExpression)
         {
             string sql = "(";
 
             if (mathmaticalExpression.ItemFirst)
             {
                 sql += GetExpressionColumn(std, query, mathmaticalExpression.SelectItem1, true, true);
-                sql += esArithmeticOperatorToString(mathmaticalExpression);
+                sql += tgArithmeticOperatorToString(mathmaticalExpression);
 
                 if (mathmaticalExpression.SelectItem2 != null)
                 {
@@ -841,7 +841,7 @@ namespace EntitySpaces.SQLiteProvider
                     sql += GetMathmaticalExpressionLiteralType(mathmaticalExpression);
                 }
 
-                sql += esArithmeticOperatorToString(mathmaticalExpression);
+                sql += tgArithmeticOperatorToString(mathmaticalExpression);
                 sql += GetExpressionColumn(std, query, mathmaticalExpression.SelectItem1, true, true);
             }
 
@@ -850,37 +850,37 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string esArithmeticOperatorToString(esMathmaticalExpression mathmaticalExpression)
+        protected static string tgArithmeticOperatorToString(tgMathmaticalExpression mathmaticalExpression)
         {
             switch (mathmaticalExpression.Operator)
             {
-                case esArithmeticOperator.Add:
+                case tgArithmeticOperator.Add:
 
                     // MEG - 4/26/08, I'm not thrilled with this check here, will revist on future release
-                    if (mathmaticalExpression.SelectItem1.Column.Datatype == esSystemType.String ||
-                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.LiteralType == esSystemType.String) ||
-                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.SelectItem1.Column.Datatype == esSystemType.String) ||
-                       (mathmaticalExpression.LiteralType == esSystemType.String))
+                    if (mathmaticalExpression.SelectItem1.Column.Datatype == tgSystemType.String ||
+                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.LiteralType == tgSystemType.String) ||
+                       (mathmaticalExpression.SelectItem1.HasMathmaticalExpression && mathmaticalExpression.SelectItem1.MathmaticalExpression.SelectItem1.Column.Datatype == tgSystemType.String) ||
+                       (mathmaticalExpression.LiteralType == tgSystemType.String))
                         return "||";
                     else
                         return "+";
 
-                case esArithmeticOperator.Subtract: return " - ";
-                case esArithmeticOperator.Multiply: return " * ";
-                case esArithmeticOperator.Divide: return " / ";
-                case esArithmeticOperator.Modulo: return " % ";
+                case tgArithmeticOperator.Subtract: return " - ";
+                case tgArithmeticOperator.Multiply: return " * ";
+                case tgArithmeticOperator.Divide: return " / ";
+                case tgArithmeticOperator.Modulo: return " % ";
                 default: return "";
             }
         }
 
-        protected static string GetMathmaticalExpressionLiteralType(esMathmaticalExpression mathmaticalExpression)
+        protected static string GetMathmaticalExpressionLiteralType(tgMathmaticalExpression mathmaticalExpression)
         {
             switch (mathmaticalExpression.LiteralType)
             {
-                case esSystemType.String:
+                case tgSystemType.String:
                     return Delimiters.StringOpen + (string)mathmaticalExpression.Literal + Delimiters.StringClose;
 
-                case esSystemType.DateTime:
+                case tgSystemType.DateTime:
                     return Delimiters.StringOpen + ((DateTime)(mathmaticalExpression.Literal)).ToShortDateString() + Delimiters.StringClose;
 
                 default:
@@ -888,7 +888,7 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        protected static string ApplyWhereSubOperations(StandardProviderParameters std, esDynamicQuerySerializable query, esComparison.esComparisonData comparisonData)
+        protected static string ApplyWhereSubOperations(StandardProviderParameters std, tgDynamicQuerySerializable query, tgComparison.tgComparisonData comparisonData)
         {
             string sql = string.Empty;
 
@@ -918,7 +918,7 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string BuildSubOperationsSql(StandardProviderParameters std, string columnName, List<esQuerySubOperator> subOperators)
+        protected static string BuildSubOperationsSql(StandardProviderParameters std, string columnName, List<tgQuerySubOperator> subOperators)
         {
             string sql = string.Empty;
 
@@ -928,36 +928,36 @@ namespace EntitySpaces.SQLiteProvider
 
             if (subOperators != null)
             {
-                foreach (esQuerySubOperator op in subOperators)
+                foreach (tgQuerySubOperator op in subOperators)
                 {
                     switch (op.SubOperator)
                     {
-                        case esQuerySubOperatorType.ToLower:
+                        case tgQuerySubOperatorType.ToLower:
                             sql += "LOWER(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.ToUpper:
+                        case tgQuerySubOperatorType.ToUpper:
                             sql += "UPPER(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.LTrim:
+                        case tgQuerySubOperatorType.LTrim:
                             sql += "LTRIM(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.RTrim:
+                        case tgQuerySubOperatorType.RTrim:
                             sql += "RTRIM(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Trim:
+                        case tgQuerySubOperatorType.Trim:
                             sql += "LTRIM(RTRIM(";
                             stack.Push("))");
                             break;
 
-                        case esQuerySubOperatorType.SubString:
+                        case tgQuerySubOperatorType.SubString:
 
                             sql += "SUBSTR(";
 
@@ -979,7 +979,7 @@ namespace EntitySpaces.SQLiteProvider
                             }
                             break;
 
-                        case esQuerySubOperatorType.Coalesce:
+                        case tgQuerySubOperatorType.Coalesce:
                             sql += "COALESCE(";
 
                             stack.Push(")");
@@ -987,19 +987,19 @@ namespace EntitySpaces.SQLiteProvider
                             stack.Push(",");
                             break;
 
-                        case esQuerySubOperatorType.Date:
+                        case tgQuerySubOperatorType.Date:
                             std.needsStringParameter = true;
                             sql += "DATE(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Length:
+                        case tgQuerySubOperatorType.Length:
                             std.needsIntegerParameter = true;
                             sql += "LENGTH(";
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Round:
+                        case tgQuerySubOperatorType.Round:
                             std.needsDoubleParameter = true;
                             sql += "ROUND(";
 
@@ -1008,7 +1008,7 @@ namespace EntitySpaces.SQLiteProvider
                             stack.Push(",");
                             break;
 
-                        case esQuerySubOperatorType.DatePart:
+                        case tgQuerySubOperatorType.DatePart:
                             std.needsStringParameter = true;
                             sql += "strftime(";
                             sql += op.Parameters["DatePart"];
@@ -1017,49 +1017,49 @@ namespace EntitySpaces.SQLiteProvider
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Avg:
+                        case tgQuerySubOperatorType.Avg:
                             sql += "AVG(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Count:
+                        case tgQuerySubOperatorType.Count:
                             sql += "COUNT(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Max:
+                        case tgQuerySubOperatorType.Max:
                             sql += "MAX(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Min:
+                        case tgQuerySubOperatorType.Min:
                             sql += "MIN(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.StdDev:
+                        case tgQuerySubOperatorType.StdDev:
                             sql += "STDEV(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Sum:
+                        case tgQuerySubOperatorType.Sum:
                             sql += "SUM(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Var:
+                        case tgQuerySubOperatorType.Var:
                             sql += "VAR(";
 
                             stack.Push(")");
                             break;
 
-                        case esQuerySubOperatorType.Cast:
+                        case tgQuerySubOperatorType.Cast:
                             sql += "CAST(";
                             stack.Push(")");
 
@@ -1082,7 +1082,7 @@ namespace EntitySpaces.SQLiteProvider
                             }
 
 
-                            stack.Push(GetCastSql((esCastType)op.Parameters["esCastType"]));
+                            stack.Push(GetCastSql((tgCastType)op.Parameters["tgCastType"]));
                             stack.Push(" AS ");
                             break;
                     }
@@ -1098,30 +1098,30 @@ namespace EntitySpaces.SQLiteProvider
             return sql;
         }
 
-        protected static string GetCastSql(esCastType castType)
+        protected static string GetCastSql(tgCastType castType)
         {
             switch (castType)
             {
-                case esCastType.Boolean: return "bit";
-                case esCastType.Byte: return "tinyint";
-                case esCastType.Char: return "character";
-                case esCastType.DateTime: return "datetime";
-                case esCastType.Double: return "double";
-                case esCastType.Decimal: return "decimal";
-                case esCastType.Guid: return "varchar";
-                case esCastType.Int16: return "smallint";
-                case esCastType.Int32: return "integer";
-                case esCastType.Int64: return "bigint";
-                case esCastType.Single: return "real";
-                case esCastType.String: return "varchar";
+                case tgCastType.Boolean: return "bit";
+                case tgCastType.Byte: return "tinyint";
+                case tgCastType.Char: return "character";
+                case tgCastType.DateTime: return "datetime";
+                case tgCastType.Double: return "double";
+                case tgCastType.Decimal: return "decimal";
+                case tgCastType.Guid: return "varchar";
+                case tgCastType.Int16: return "smallint";
+                case tgCastType.Int32: return "integer";
+                case tgCastType.Int64: return "bigint";
+                case tgCastType.Single: return "real";
+                case tgCastType.String: return "varchar";
 
                 default: return "error";
             }
         }
 
-        protected static string GetColumnName(esColumnItem column)
+        protected static string GetColumnName(tgColumnItem column)
         {
-            if (column.Query == null || column.Query.es.JoinAlias == " ")
+            if (column.Query == null || column.Query.tg.JoinAlias == " ")
             {
                 return Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
             }
@@ -1131,7 +1131,7 @@ namespace EntitySpaces.SQLiteProvider
 
                 if (iQuery.IsInSubQuery)
                 {
-                    return column.Query.es.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
+                    return column.Query.tg.JoinAlias + "." + Delimiters.ColumnOpen + column.Name + Delimiters.ColumnClose;
                 }
                 else
                 {
@@ -1146,7 +1146,7 @@ namespace EntitySpaces.SQLiteProvider
             return cmd.Parameters.Count;
         }
 
-        private static string GetSubquerySearchCondition(esDynamicQuerySerializable query)
+        private static string GetSubquerySearchCondition(tgDynamicQuerySerializable query)
         {
             string searchCondition = String.Empty;
 
@@ -1154,9 +1154,9 @@ namespace EntitySpaces.SQLiteProvider
 
             switch (iQuery.SubquerySearchCondition)
             {
-                case esSubquerySearchCondition.All: searchCondition = "ALL"; break;
-                case esSubquerySearchCondition.Any: searchCondition = "ANY"; break;
-                case esSubquerySearchCondition.Some: searchCondition = "SOME"; break;
+                case tgSubquerySearchCondition.All: searchCondition = "ALL"; break;
+                case tgSubquerySearchCondition.Any: searchCondition = "ANY"; break;
+                case tgSubquerySearchCondition.Some: searchCondition = "SOME"; break;
             }
 
             return searchCondition;

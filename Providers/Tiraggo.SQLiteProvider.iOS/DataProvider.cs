@@ -33,10 +33,11 @@ using System.Data;
 using Mono.Data.Sqlite;
 using System.Diagnostics;
 using System.Threading;
-using EntitySpaces.DynamicQuery;
-using EntitySpaces.Interfaces;
 
-namespace EntitySpaces.SQLiteProvider
+using Tiraggo.DynamicQuery;
+using Tiraggo.Interfaces;
+
+namespace Tiraggo.SQLiteProvider
 {
     public class DataProvider : IDataProvider
     {
@@ -44,9 +45,9 @@ namespace EntitySpaces.SQLiteProvider
         {
         }
 
-        #region esTraceArguments
+        #region tgTraceArguments
 
-        private sealed class esTraceArguments : EntitySpaces.Interfaces.ITraceArguments, IDisposable
+        private sealed class tgTraceArguments : Tiraggo.Interfaces.ITraceArguments, IDisposable
         {
             static private long packetOrder = 0;
 
@@ -63,13 +64,13 @@ namespace EntitySpaces.SQLiteProvider
                 public string AfterValue { get; set; }
             }
 
-            public esTraceArguments()
+            public tgTraceArguments()
             {
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, esEntitySavePacket packet, string action, string callStack)
+            public tgTraceArguments(tgDataRequest request, IDbCommand cmd, tgEntitySavePacket packet, string action, string callStack)
             {
-                PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
+                PacketOrder = Interlocked.Increment(ref tgTraceArguments.packetOrder);
 
                 this.command = cmd;
 
@@ -132,9 +133,9 @@ namespace EntitySpaces.SQLiteProvider
                 stopwatch = Stopwatch.StartNew();
             }
 
-            public esTraceArguments(esDataRequest request, IDbCommand cmd, string action, string callStack)
+            public tgTraceArguments(tgDataRequest request, IDbCommand cmd, string action, string callStack)
             {
-                PacketOrder = Interlocked.Increment(ref esTraceArguments.packetOrder);
+                PacketOrder = Interlocked.Increment(ref tgTraceArguments.packetOrder);
 
                 this.command = cmd;
 
@@ -179,7 +180,7 @@ namespace EntitySpaces.SQLiteProvider
 
             public string Syntax { get; set; }
 
-            public esDataRequest Request { get; set; }
+            public tgDataRequest Request { get; set; }
 
             public int ThreadId { get; set; }
 
@@ -230,7 +231,7 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        #endregion esTraceArguments
+        #endregion tgTraceArguments
 
         #region Profiling Logic
 
@@ -270,7 +271,7 @@ namespace EntitySpaces.SQLiteProvider
         #endregion Profiling Logic
 
         /// <summary>
-        /// This method acts as a delegate for esTransactionScope
+        /// This method acts as a delegate for tgTransactionScope
         /// </summary>
         /// <returns></returns>
         static private IDbConnection CreateIDbConnectionDelegate()
@@ -291,39 +292,39 @@ namespace EntitySpaces.SQLiteProvider
 
         #region IDataProvider Members
 
-        esDataResponse IDataProvider.esLoadDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esLoadDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataTableFromText(request);
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         SqliteCommand cmd = QueryBuilder.PrepareCommand(request);
                         LoadDataTableFromDynamicQuery(request, response, cmd);
                         break;
 
-                    case esQueryType.DynamicQueryParseOnly:
+                    case tgQueryType.DynamicQueryParseOnly:
 
-                        response = new esDataResponse();
+                        response = new tgDataResponse();
                         SqliteCommand cmd1 = QueryBuilder.PrepareCommand(request);
                         response.LastQuery = cmd1.CommandText;
                         break;
 
-                    case esQueryType.ManyToMany:
+                    case tgQueryType.ManyToMany:
 
                         response = LoadManyToMany(request);
                         break;
@@ -340,13 +341,13 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        esDataResponse IDataProvider.esSaveDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.esSaveDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
-                if (request.SqlAccessType == esSqlAccessType.StoredProcedure)
+                if (request.SqlAccessType == tgSqlAccessType.StoredProcedure)
                 {
                     if (request.CollectionSavePacket != null)
                         SaveStoredProcCollection(request);
@@ -363,7 +364,7 @@ namespace EntitySpaces.SQLiteProvider
             }
             catch (SqliteException ex)
             {
-                esException es = Shared.CheckForConcurrencyException(ex);
+                tgException es = Shared.CheckForConcurrencyException(ex);
                 if (es != null)
                     response.Exception = es;
                 else
@@ -371,16 +372,16 @@ namespace EntitySpaces.SQLiteProvider
             }
             catch (DBConcurrencyException dbex)
             {
-                response.Exception = new esConcurrencyException("Error in SQLiteProvider.esSaveDataTable", dbex);
+                response.Exception = new tgConcurrencyException("Error in SQLiteProvider.esSaveDataTable", dbex);
             }
 
             response.Table = request.Table;
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteNonQuery(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteNonQuery(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -391,17 +392,17 @@ namespace EntitySpaces.SQLiteProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
@@ -409,13 +410,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "ExecuteNonQuery", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "ExecuteNonQuery", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -438,7 +439,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -455,9 +456,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteReader(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteReader(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -468,22 +469,22 @@ namespace EntitySpaces.SQLiteProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
@@ -495,7 +496,7 @@ namespace EntitySpaces.SQLiteProvider
 
                 if (sTraceHandler != null)
                 {
-                    using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "ExecuteReader", System.Environment.StackTrace))
+                    using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "ExecuteReader", System.Environment.StackTrace))
                     {
                         try
                         {
@@ -525,9 +526,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        esDataResponse IDataProvider.ExecuteScalar(esDataRequest request)
+        tgDataResponse IDataProvider.ExecuteScalar(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -538,35 +539,35 @@ namespace EntitySpaces.SQLiteProvider
 
                 switch (request.QueryType)
                 {
-                    case esQueryType.TableDirect:
+                    case tgQueryType.TableDirect:
                         cmd.CommandType = CommandType.TableDirect;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = Shared.CreateFullName(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = request.QueryText;
                         break;
 
-                    case esQueryType.DynamicQuery:
+                    case tgQueryType.DynamicQuery:
                         cmd = QueryBuilder.PrepareCommand(request);
                         break;
                 }
 
                 try
                 {
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "ExecuteScalar", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "ExecuteScalar", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -589,7 +590,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
                 if (request.Parameters != null)
@@ -606,20 +607,20 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataSet(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataSet(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataSetFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataSetFromText(request);
                         break;
@@ -636,20 +637,20 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        esDataResponse IDataProvider.FillDataTable(esDataRequest request)
+        tgDataResponse IDataProvider.FillDataTable(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
 
             try
             {
                 switch (request.QueryType)
                 {
-                    case esQueryType.StoredProcedure:
+                    case tgQueryType.StoredProcedure:
 
                         response = LoadDataTableFromStoredProcedure(request);
                         break;
 
-                    case esQueryType.Text:
+                    case tgQueryType.Text:
 
                         response = LoadDataTableFromText(request);
                         break;
@@ -668,9 +669,9 @@ namespace EntitySpaces.SQLiteProvider
 
         #endregion IDataProvider Members
 
-        static private esDataResponse LoadDataSetFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -689,13 +690,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadFromStoredProcedure", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadFromStoredProcedure", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -718,7 +719,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -740,9 +741,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        static private esDataResponse LoadDataSetFromText(esDataRequest request)
+        static private tgDataResponse LoadDataSetFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -759,13 +760,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadDataSetFromText", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadDataSetFromText", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -788,7 +789,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.DataSet = dataSet;
@@ -810,9 +811,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromStoredProcedure(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromStoredProcedure(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -830,13 +831,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadFromStoredProcedure", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadFromStoredProcedure", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -859,7 +860,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -881,9 +882,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        static private esDataResponse LoadDataTableFromText(esDataRequest request)
+        static private tgDataResponse LoadDataTableFromText(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -901,13 +902,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadFromText", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadFromText", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -930,7 +931,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -952,9 +953,9 @@ namespace EntitySpaces.SQLiteProvider
             return response;
         }
 
-        static private esDataResponse LoadManyToMany(esDataRequest request)
+        static private tgDataResponse LoadManyToMany(tgDataRequest request)
         {
-            esDataResponse response = new esDataResponse();
+            tgDataResponse response = new tgDataResponse();
             SqliteCommand cmd = null;
 
             try
@@ -979,7 +980,7 @@ namespace EntitySpaces.SQLiteProvider
 
                 if (request.Parameters != null)
                 {
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
                         sql += esParam.Name;
                     }
@@ -994,13 +995,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadManyToMany", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadManyToMany", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -1023,7 +1024,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1041,7 +1042,7 @@ namespace EntitySpaces.SQLiteProvider
         }
 
         // This is used only to execute the Dynamic Query API
-        static private void LoadDataTableFromDynamicQuery(esDataRequest request, esDataResponse response, SqliteCommand cmd)
+        static private void LoadDataTableFromDynamicQuery(tgDataRequest request, tgDataResponse response, SqliteCommand cmd)
         {
             try
             {
@@ -1056,13 +1057,13 @@ namespace EntitySpaces.SQLiteProvider
 
                 try
                 {
-                    esTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(da.SelectCommand, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "LoadFromDynamicQuery", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "LoadFromDynamicQuery", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -1085,7 +1086,7 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(da.SelectCommand);
+                    tgTransactionScope.DeEnlist(da.SelectCommand);
                 }
 
                 response.Table = dataTable;
@@ -1100,21 +1101,21 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        static private DataTable SaveStoredProcCollection(esDataRequest request)
+        static private DataTable SaveStoredProcCollection(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedure Support Not Implemented");
         }
 
-        static private DataTable SaveStoredProcEntity(esDataRequest request)
+        static private DataTable SaveStoredProcEntity(tgDataRequest request)
         {
             throw new NotImplementedException("Stored Procedure Support Not Implemented");
         }
 
-        static private DataTable SaveDynamicCollection(esDataRequest request)
+        static private DataTable SaveDynamicCollection(tgDataRequest request)
         {
-            esEntitySavePacket pkt = request.CollectionSavePacket[0];
+            tgEntitySavePacket pkt = request.CollectionSavePacket[0];
 
-            if (pkt.RowState == esDataRowState.Deleted)
+            if (pkt.RowState == tgDataRowState.Deleted)
             {
                 //============================================================================
                 // We do all our deletes at once, so if the first one is a delete they all are
@@ -1130,11 +1131,11 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        static private DataTable SaveDynamicCollection_InsertsUpdates(esDataRequest request)
+        static private DataTable SaveDynamicCollection_InsertsUpdates(tgDataRequest request)
         {
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (SqliteDataAdapter da = new SqliteDataAdapter())
                 {
@@ -1148,21 +1149,21 @@ namespace EntitySpaces.SQLiteProvider
                         da.RowUpdated += new EventHandler<System.Data.Common.RowUpdatedEventArgs>(OnRowUpdated);
                     }
 
-                    foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                    foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                     {
-                        if (packet.RowState != esDataRowState.Added && packet.RowState != esDataRowState.Modified) continue;
+                        if (packet.RowState != tgDataRowState.Added && packet.RowState != tgDataRowState.Modified) continue;
 
                         DataRow row = dataTable.NewRow();
                         dataTable.Rows.Add(row);
 
                         switch (packet.RowState)
                         {
-                            case esDataRowState.Added:
+                            case tgDataRowState.Added:
                                 cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, packet);
                                 SetModifiedValues(request, packet, row);
                                 break;
 
-                            case esDataRowState.Modified:
+                            case tgDataRowState.Modified:
                                 cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, packet);
                                 SetOriginalValues(request, packet, row, false);
                                 SetModifiedValues(request, packet, row);
@@ -1171,7 +1172,7 @@ namespace EntitySpaces.SQLiteProvider
                                 break;
                         }
 
-                        request.Properties["esDataRequest"] = request;
+                        request.Properties["tgDataRequest"] = request;
                         request.Properties["esEntityData"] = packet;
                         dataTable.ExtendedProperties["props"] = request.Properties;
 
@@ -1180,13 +1181,13 @@ namespace EntitySpaces.SQLiteProvider
 
                         try
                         {
-                            esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                            tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                             #region Profiling
 
                             if (sTraceHandler != null)
                             {
-                                using (esTraceArguments esTrace = new esTraceArguments(request, cmd, packet, "SaveCollectionDynamic", System.Environment.StackTrace))
+                                using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, packet, "SaveCollectionDynamic", System.Environment.StackTrace))
                                 {
                                     try
                                     {
@@ -1214,11 +1215,11 @@ namespace EntitySpaces.SQLiteProvider
                         }
                         finally
                         {
-                            esTransactionScope.DeEnlist(cmd);
+                            tgTransactionScope.DeEnlist(cmd);
                             dataTable.Rows.Clear();
                         }
 
-                        if (!row.HasErrors && packet.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                        if (!row.HasErrors && packet.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                         {
                             foreach (SqliteParameter param in cmd.Parameters)
                             {
@@ -1243,13 +1244,13 @@ namespace EntitySpaces.SQLiteProvider
             return dataTable;
         }
 
-        static private DataTable SaveDynamicCollection_Deletes(esDataRequest request)
+        static private DataTable SaveDynamicCollection_Deletes(tgDataRequest request)
         {
             SqliteCommand cmd = null;
 
             DataTable dataTable = CreateDataTable(request);
 
-            using (esTransactionScope scope = new esTransactionScope())
+            using (tgTransactionScope scope = new tgTransactionScope())
             {
                 using (SqliteDataAdapter da = new SqliteDataAdapter())
                 {
@@ -1259,12 +1260,12 @@ namespace EntitySpaces.SQLiteProvider
                     try
                     {
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request);
-                        esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                        tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                         DataRow[] singleRow = new DataRow[1];
 
                         // Delete each record
-                        foreach (esEntitySavePacket packet in request.CollectionSavePacket)
+                        foreach (tgEntitySavePacket packet in request.CollectionSavePacket)
                         {
                             DataRow row = dataTable.NewRow();
                             dataTable.Rows.Add(row);
@@ -1279,7 +1280,7 @@ namespace EntitySpaces.SQLiteProvider
 
                             if (sTraceHandler != null)
                             {
-                                using (esTraceArguments esTrace = new esTraceArguments(request, cmd, packet, "SaveCollectionDynamic", System.Environment.StackTrace))
+                                using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, packet, "SaveCollectionDynamic", System.Environment.StackTrace))
                                 {
                                     try
                                     {
@@ -1310,7 +1311,7 @@ namespace EntitySpaces.SQLiteProvider
                     }
                     finally
                     {
-                        esTransactionScope.DeEnlist(cmd);
+                        tgTransactionScope.DeEnlist(cmd);
                         cmd.Dispose();
                     }
                 }
@@ -1320,9 +1321,9 @@ namespace EntitySpaces.SQLiteProvider
             return request.Table;
         }
 
-        static private DataTable SaveDynamicEntity(esDataRequest request)
+        static private DataTable SaveDynamicEntity(tgDataRequest request)
         {
-            bool needToDelete = request.EntitySavePacket.RowState == esDataRowState.Deleted;
+            bool needToDelete = request.EntitySavePacket.RowState == tgDataRowState.Deleted;
 
             DataTable dataTable = CreateDataTable(request);
 
@@ -1337,12 +1338,12 @@ namespace EntitySpaces.SQLiteProvider
 
                 switch (request.EntitySavePacket.RowState)
                 {
-                    case esDataRowState.Added:
+                    case tgDataRowState.Added:
                         cmd = da.InsertCommand = Shared.BuildDynamicInsertCommand(request, request.EntitySavePacket);
                         SetModifiedValues(request, request.EntitySavePacket, row);
                         break;
 
-                    case esDataRowState.Modified:
+                    case tgDataRowState.Modified:
                         cmd = da.UpdateCommand = Shared.BuildDynamicUpdateCommand(request, request.EntitySavePacket);
                         SetOriginalValues(request, request.EntitySavePacket, row, false);
                         SetModifiedValues(request, request.EntitySavePacket, row);
@@ -1350,7 +1351,7 @@ namespace EntitySpaces.SQLiteProvider
                         row.SetModified();
                         break;
 
-                    case esDataRowState.Deleted:
+                    case tgDataRowState.Deleted:
                         cmd = da.DeleteCommand = Shared.BuildDynamicDeleteCommand(request);
                         SetOriginalValues(request, request.EntitySavePacket, row, true);
                         row.AcceptChanges();
@@ -1360,7 +1361,7 @@ namespace EntitySpaces.SQLiteProvider
 
                 if (!needToDelete && request.Properties != null)
                 {
-                    request.Properties["esDataRequest"] = request;
+                    request.Properties["tgDataRequest"] = request;
                     request.Properties["esEntityData"] = request.EntitySavePacket;
                     dataTable.ExtendedProperties["props"] = request.Properties;
                 }
@@ -1374,13 +1375,13 @@ namespace EntitySpaces.SQLiteProvider
                     {
                         da.RowUpdated += new EventHandler<System.Data.Common.RowUpdatedEventArgs>(OnRowUpdated);
                     }
-                    esTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
+                    tgTransactionScope.Enlist(cmd, request.ConnectionString, CreateIDbConnectionDelegate);
 
                     #region Profiling
 
                     if (sTraceHandler != null)
                     {
-                        using (esTraceArguments esTrace = new esTraceArguments(request, cmd, request.EntitySavePacket, "SaveEntityDynamic", System.Environment.StackTrace))
+                        using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, request.EntitySavePacket, "SaveEntityDynamic", System.Environment.StackTrace))
                         {
                             try
                             {
@@ -1403,10 +1404,10 @@ namespace EntitySpaces.SQLiteProvider
                 }
                 finally
                 {
-                    esTransactionScope.DeEnlist(cmd);
+                    tgTransactionScope.DeEnlist(cmd);
                 }
 
-                if (request.EntitySavePacket.RowState != esDataRowState.Deleted && cmd.Parameters != null)
+                if (request.EntitySavePacket.RowState != tgDataRowState.Deleted && cmd.Parameters != null)
                 {
                     foreach (SqliteParameter param in cmd.Parameters)
                     {
@@ -1427,15 +1428,15 @@ namespace EntitySpaces.SQLiteProvider
             return dataTable;
         }
 
-        static private DataTable CreateDataTable(esDataRequest request)
+        static private DataTable CreateDataTable(tgDataRequest request)
         {
             DataTable dataTable = new DataTable();
             DataColumnCollection dataColumns = dataTable.Columns;
-            esColumnMetadataCollection cols = request.Columns;
+            tgColumnMetadataCollection cols = request.Columns;
 
             if (request.SelectedColumns == null)
             {
-                esColumnMetadata col;
+                tgColumnMetadata col;
                 for (int i = 0; i < cols.Count; i++)
                 {
                     col = cols[i];
@@ -1453,9 +1454,9 @@ namespace EntitySpaces.SQLiteProvider
             return dataTable;
         }
 
-        private static void SetOriginalValues(esDataRequest request, esEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
+        private static void SetOriginalValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row, bool primaryKeysAndConcurrencyOnly)
         {
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (primaryKeysAndConcurrencyOnly &&
                     (!col.IsInPrimaryKey && !col.IsConcurrency && !col.IsEntitySpacesConcurrency)) continue;
@@ -1469,7 +1470,7 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        private static void SetModifiedValues(esDataRequest request, esEntitySavePacket packet, DataRow row)
+        private static void SetModifiedValues(tgDataRequest request, tgEntitySavePacket packet, DataRow row)
         {
             foreach (string column in packet.ModifiedColumns)
             {
@@ -1493,8 +1494,8 @@ namespace EntitySpaces.SQLiteProvider
 
                 if (e.Status == UpdateStatus.Continue && (e.StatementType == StatementType.Insert || e.StatementType == StatementType.Update))
                 {
-                    esDataRequest request = props["esDataRequest"] as esDataRequest;
-                    esEntitySavePacket packet = (esEntitySavePacket)props["esEntityData"];
+                    tgDataRequest request = props["tgDataRequest"] as tgDataRequest;
+                    tgEntitySavePacket packet = (tgEntitySavePacket)props["esEntityData"];
 
                     if (e.StatementType == StatementType.Insert)
                     {
@@ -1515,7 +1516,7 @@ namespace EntitySpaces.SQLiteProvider
 
                             if (sTraceHandler != null)
                             {
-                                using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "OnRowUpdated", System.Environment.StackTrace))
+                                using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "OnRowUpdated", System.Environment.StackTrace))
                                 {
                                     try
                                     {
@@ -1587,7 +1588,7 @@ namespace EntitySpaces.SQLiteProvider
 
                             if (sTraceHandler != null)
                             {
-                                using (esTraceArguments esTrace = new esTraceArguments(request, cmd, "OnRowUpdated", System.Environment.StackTrace))
+                                using (tgTraceArguments esTrace = new tgTraceArguments(request, cmd, "OnRowUpdated", System.Environment.StackTrace))
                                 {
                                     try
                                     {

@@ -1080,7 +1080,7 @@ namespace Tiraggo.DynamicQuery
 
             foreach (tgJoinItem joinItem in this.joinItems)
             {
-                tgJoinItem.esJoinItemData data = (tgJoinItem.esJoinItemData)joinItem;
+                tgJoinItem.tgJoinItemData data = (tgJoinItem.tgJoinItemData)joinItem;
 
                 if (data.Query.GetType().ToString() == strType)
                 {

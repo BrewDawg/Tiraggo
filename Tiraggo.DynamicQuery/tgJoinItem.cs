@@ -172,7 +172,7 @@ namespace Tiraggo.DynamicQuery
   
         [Serializable]
         [DataContract(Namespace = "tg")]
-        public struct esJoinItemData
+        public struct tgJoinItemData
         {
             /// <summary>
             /// The Query that makes up the join
@@ -200,12 +200,12 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         /// <param name="join"></param>
         /// <returns></returns>
-        public static explicit operator esJoinItemData(tgJoinItem join)
+        public static explicit operator tgJoinItemData(tgJoinItem join)
         {
             return join.data;
         }
 
         [DataMember(Name = "Data", EmitDefaultValue = false)]
-        internal esJoinItemData data;
+        internal tgJoinItemData data;
     }
 }

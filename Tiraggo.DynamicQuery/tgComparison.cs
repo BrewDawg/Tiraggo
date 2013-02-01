@@ -364,7 +364,7 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         [Serializable]
         [DataContract(Namespace = "tg", IsReference = true)]
-        public class esComparisonData
+        public class tgComparisonData
         {
             /// <summary>
             /// bool IsConjunction.
@@ -519,14 +519,14 @@ namespace Tiraggo.DynamicQuery
         /// be exposed thereby cluttering up the intellisense
         /// </summary>
         /// <param name="where">The tgComparison to cast</param>
-        /// <returns>The esComparisonData interface</returns>
-        public static explicit operator esComparisonData(tgComparison where)
+        /// <returns>The tgComparisonData interface</returns>
+        public static explicit operator tgComparisonData(tgComparison where)
         {
             return where.data;
         }
 
         [DataMember(Name = "Data", EmitDefaultValue = false)]
-        internal esComparisonData data = new esComparisonData();
+        internal tgComparisonData data = new tgComparisonData();
 
         [NonSerialized]
         // this lives for just a fraction during the queries build process

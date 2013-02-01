@@ -38,22 +38,19 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="esDataProviderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tgDataProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitySpaces.Interfaces\EntitySpaces.Interfaces.iOS.csproj">
+    <ProjectReference Include="..\Tiraggo.Interfaces\Tiraggo.Interfaces.iOS.csproj">
       <Project>{06056741-EA39-450D-988D-4AD73CB7775D}</Project>
-      <Name>EntitySpaces.Interfaces.iOS</Name>
+      <Name>Tiraggo.Interfaces.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Providers\EntitiySpaces.SQLiteProvider.iOS\EntitiySpaces.SQLiteProvider.iOS.csproj">
+    <ProjectReference Include="..\Providers\Tiraggo.SQLiteProvider.iOS\Tiraggo.SQLiteProvider.iOS.csproj">
       <Project>{E1C67B0F-8E64-4C11-B13E-1B5DB049C3B5}</Project>
-      <Name>EntitiySpaces.SQLiteProvider.iOS</Name>
+      <Name>Tiraggo.SQLiteProvider.iOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

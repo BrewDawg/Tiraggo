@@ -222,7 +222,7 @@ namespace Tiraggo.SQLiteProvider
             {
                 foreach (tgJoinItem joinItem in iQuery.InternalJoinItems)
                 {
-                    tgJoinItem.esJoinItemData joinData = (tgJoinItem.esJoinItemData)joinItem;
+                    tgJoinItem.tgJoinItemData joinData = (tgJoinItem.tgJoinItemData)joinItem;
 
                     switch (joinData.JoinType)
                     {
@@ -269,7 +269,7 @@ namespace Tiraggo.SQLiteProvider
                 string compareTo = String.Empty;
                 foreach (tgComparison comparisonItem in items)
                 {
-                    tgComparison.esComparisonData comparisonData = (tgComparison.esComparisonData)comparisonItem;
+                    tgComparison.tgComparisonData comparisonData = (tgComparison.tgComparisonData)comparisonItem;
                     tgDynamicQuerySerializable subQuery = null;
 
                     bool requiresParam = true;
@@ -683,7 +683,7 @@ namespace Tiraggo.SQLiteProvider
         {
             string sql = string.Empty;
 
-            Tiraggo.DynamicQuery.tgCase.esSimpleCaseData caseStatement = caseWhenThen;
+            Tiraggo.DynamicQuery.tgCase.tgSimpleCaseData caseStatement = caseWhenThen;
 
             tgColumnItem column = caseStatement.QueryItem;
 
@@ -699,7 +699,7 @@ namespace Tiraggo.SQLiteProvider
 
             List<tgComparison> list = new List<tgComparison>();
 
-            foreach (Tiraggo.DynamicQuery.tgCase.esSimpleCaseData.esCaseClause caseClause in caseStatement.Cases)
+            foreach (Tiraggo.DynamicQuery.tgCase.tgSimpleCaseData.tgCaseClause caseClause in caseStatement.Cases)
             {
                 sql += " WHEN ";
                 if (!caseClause.When.IsExpression)
@@ -887,7 +887,7 @@ namespace Tiraggo.SQLiteProvider
             }
         }
 
-        protected static string ApplyWhereSubOperations(StandardProviderParameters std, tgDynamicQuerySerializable query, tgComparison.esComparisonData comparisonData)
+        protected static string ApplyWhereSubOperations(StandardProviderParameters std, tgDynamicQuerySerializable query, tgComparison.tgComparisonData comparisonData)
         {
             string sql = string.Empty;
 

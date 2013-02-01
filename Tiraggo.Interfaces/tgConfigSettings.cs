@@ -499,14 +499,14 @@ namespace Tiraggo.Interfaces
         /// For example, if the EntitySpaces config section contained <connectionInfo default="SQLDynamic"> 
         /// the <see cref="esConnectionElement"/> for "SQLDynamic" would be returned.
         /// </remarks>
-        static public esConnectionElement DefaultConnection
+        static public tgConnectionElement DefaultConnection
         {
             get
             {
                 if (tgConfigSettings.defaultConnection == null)
                 {
                     tgConfigSettings ConnectionInfoSettings = tgConfigSettings.ConnectionInfo;
-                    foreach (esConnectionElement connection in ConnectionInfoSettings.Connections)
+                    foreach (tgConnectionElement connection in ConnectionInfoSettings.Connections)
                     {
                         if (connection.Name == ConnectionInfoSettings.Default)
                         {
@@ -557,7 +557,7 @@ namespace Tiraggo.Interfaces
         /// }
         /// </code>
         /// </remarks>
-        public esConnectionsCollection Connections
+        public tgConnectionsCollection Connections
         {
             get
             {
@@ -565,10 +565,10 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        private esConnectionsCollection connections = new esConnectionsCollection();
+        private tgConnectionsCollection connections = new tgConnectionsCollection();
 
         static private tgConfigSettings connectionInfo = new tgConfigSettings();
-        static private esConnectionElement defaultConnection;
+        static private tgConnectionElement defaultConnection;
     }
 
 
@@ -580,14 +580,14 @@ namespace Tiraggo.Interfaces
     /// <seealso cref="tgConfigSettings"/>
     /// <seealso cref="esConnectionElement"/>
     /// <seealso cref="ConfigurationElementCollection"/>
-    public class esConnectionsCollection : IEnumerable
+    public class tgConnectionsCollection : IEnumerable
     {
-        public esConnectionsCollection()
+        public tgConnectionsCollection()
         {
 
         }
 
-        public esConnectionElement this[int index]
+        public tgConnectionElement this[int index]
         {
             get
             {
@@ -595,11 +595,11 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        public esConnectionElement this[string name]
+        public tgConnectionElement this[string name]
         {
             get
             {
-                esConnectionElement element = null;
+                tgConnectionElement element = null;
                 if(this.hash.ContainsKey(name))
                 {
                     element = this.hash[name];
@@ -609,7 +609,7 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        public void Add(esConnectionElement connection)
+        public void Add(tgConnectionElement connection)
         {
             if(!this.hash.ContainsKey(connection.Name))
             {
@@ -618,7 +618,7 @@ namespace Tiraggo.Interfaces
             }
         }
 
-        public void Remove(esConnectionElement connection)
+        public void Remove(tgConnectionElement connection)
         {
             if(!this.hash.ContainsKey(connection.Name))
             {
@@ -654,17 +654,17 @@ namespace Tiraggo.Interfaces
 
         #endregion
 
-        private Dictionary<string, esConnectionElement> hash = new Dictionary<string, esConnectionElement>();
-        private List<esConnectionElement> list = new List<esConnectionElement>();
+        private Dictionary<string, tgConnectionElement> hash = new Dictionary<string, tgConnectionElement>();
+        private List<tgConnectionElement> list = new List<tgConnectionElement>();
     }
 
     /// <summary>
     /// This contains the detail connection information for an entry in the
     /// EntitySpaces configuration section.
     /// </summary>
-    public class esConnectionElement 
+    public class tgConnectionElement 
     {
-        public esConnectionElement()
+        public tgConnectionElement()
         {
 
         }
@@ -674,7 +674,7 @@ namespace Tiraggo.Interfaces
         /// </summary>
         /// <param name="provider"></param>
         /// <param name="connectionString"></param>
-        public esConnectionElement(String provider, String connectionString)
+        public tgConnectionElement(String provider, String connectionString)
         {
             this.Provider = provider;
             this.ConnectionString = connectionString;

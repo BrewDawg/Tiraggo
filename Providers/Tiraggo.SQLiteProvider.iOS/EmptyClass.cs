@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
-namespace EntitySpaces.SQLiteProvider
+namespace Tiraggo.SQLiteProvider
 {
     class EmptyClass
     {

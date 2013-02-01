@@ -120,14 +120,14 @@ namespace Tiraggo.DynamicQuery
         public tgCase Then(object value)
         {
 
-            esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
+            tgSimpleCaseData.tgCaseClause clause = new tgSimpleCaseData.tgCaseClause();
             clause.When = this.WhenItem;
             clause.Then = new tgExpression();
             clause.Then.LiteralValue = value;
 
             if (data.Cases == null)
             {
-                data.Cases = new List<esSimpleCaseData.esCaseClause>();
+                data.Cases = new List<tgSimpleCaseData.tgCaseClause>();
             }
 
             this.data.Cases.Add(clause);
@@ -139,13 +139,13 @@ namespace Tiraggo.DynamicQuery
         {
             tgExpression expression = queryItem;
 
-            esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
+            tgSimpleCaseData.tgCaseClause clause = new tgSimpleCaseData.tgCaseClause();
             clause.When = this.WhenItem;
             clause.Then = expression;
 
             if (data.Cases == null)
             {
-                data.Cases = new List<esSimpleCaseData.esCaseClause>();
+                data.Cases = new List<tgSimpleCaseData.tgCaseClause>();
             }
 
             this.data.Cases.Add(clause);
@@ -155,13 +155,13 @@ namespace Tiraggo.DynamicQuery
 
         public tgCase Then(tgExpression expression)
         {
-            esSimpleCaseData.esCaseClause clause = new esSimpleCaseData.esCaseClause();
+            tgSimpleCaseData.tgCaseClause clause = new tgSimpleCaseData.tgCaseClause();
             clause.When = this.WhenItem;
             clause.Then = expression;
 
             if (data.Cases == null)
             {
-                data.Cases = new List<esSimpleCaseData.esCaseClause>();
+                data.Cases = new List<tgSimpleCaseData.tgCaseClause>();
             }
 
             this.data.Cases.Add(clause);
@@ -212,9 +212,9 @@ namespace Tiraggo.DynamicQuery
         /// </summary>
         [Serializable]
         [DataContract(Namespace = "tg")]
-        public struct esSimpleCaseData
+        public struct tgSimpleCaseData
         {
-            public struct esCaseClause
+            public struct tgCaseClause
             {
                 public tgExpressionOrComparison When;
                 public tgExpression Then;
@@ -223,14 +223,14 @@ namespace Tiraggo.DynamicQuery
             public tgDynamicQuerySerializable Query;
             public tgQueryItem QueryItem;
 
-            public List<esCaseClause> Cases;
+            public List<tgCaseClause> Cases;
             public tgExpression Else;
         }
 
         [DataMember(Name = "Data", EmitDefaultValue = false)]
-        internal esSimpleCaseData data;
+        internal tgSimpleCaseData data;
 
-        public static implicit operator esSimpleCaseData(tgCase caseWhen)
+        public static implicit operator tgSimpleCaseData(tgCase caseWhen)
         {
             return caseWhen.data;
         }

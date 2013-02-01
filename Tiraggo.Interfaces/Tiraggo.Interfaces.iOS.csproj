@@ -11,7 +11,6 @@
     <RootNamespace>EntitySpaces.Interfaces</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>EntitySpaces.Interfaces</AssemblyName>
-    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -40,28 +39,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="enums.cs" />
-    <Compile Include="esColumnMetadata.cs" />
-    <Compile Include="esColumnMetadataCollection.cs" />
-    <Compile Include="esConfigSettings.cs" />
-    <Compile Include="esConnection.cs" />
-    <Compile Include="esDataProvider.cs" />
-    <Compile Include="esDataRequest.cs" />
-    <Compile Include="esDataResponse.cs" />
-    <Compile Include="esEntitySavePacket.cs" />
-    <Compile Include="esParameters.cs" />
-    <Compile Include="esProviderFactory.cs" />
-    <Compile Include="esProviderSignature.cs" />
-    <Compile Include="esProviderSpecificMetadata.cs" />
-    <Compile Include="esSmartDictionary.cs" />
-    <Compile Include="esTracePacket.cs" />
-    <Compile Include="esTransactionScope.cs" />
-    <Compile Include="esTypeMap.cs" />
     <Compile Include="ICommittable.cs" />
     <Compile Include="IConnectionNameService.cs" />
     <Compile Include="IDataProvider.cs" />
@@ -69,17 +49,35 @@
     <Compile Include="IMetadata.cs" />
     <Compile Include="IProviderSpecificMetadata.cs" />
     <Compile Include="ITraceArguments.cs" />
-    <Compile Include="Exceptions\esConcurrencyException.cs" />
-    <Compile Include="Exceptions\esException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DynamicQuery\esDynamicQuery.cs" />
-    <Compile Include="DynamicQuery\IDynamicQueryInternal.cs" />
     <Compile Include="StandardProviderParameters.cs" />
+    <Compile Include="DynamicQuery\tgDynamicQuery.cs" />
+    <Compile Include="Exceptions\tgConcurrencyException.cs" />
+    <Compile Include="Exceptions\tgException.cs" />
+    <Compile Include="tgColumnMetadata.cs" />
+    <Compile Include="tgColumnMetadataCollection.cs" />
+    <Compile Include="tgConfigSettings.cs" />
+    <Compile Include="tgConnection.cs" />
+    <Compile Include="tgDataProvider.cs" />
+    <Compile Include="tgDataRequest.cs" />
+    <Compile Include="tgDataResponse.cs" />
+    <Compile Include="tgEntitySavePacket.cs" />
+    <Compile Include="tgParameters.cs" />
+    <Compile Include="tgProviderFactory.cs" />
+    <Compile Include="tgProviderSignature.cs" />
+    <Compile Include="tgProviderSpecificMetadata.cs" />
+    <Compile Include="tgSmartDictionary.cs" />
+    <Compile Include="tgTracePacket.cs" />
+    <Compile Include="tgTransactionScope.cs" />
+    <Compile Include="tgTypeMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitySpaces.DynamicQuery\EntitySpaces.DynamicQuery.iOS.csproj">
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.iOS.csproj">
       <Project>{933FCEA6-F944-49FA-859B-C114B71FAA9F}</Project>
-      <Name>EntitySpaces.DynamicQuery.iOS</Name>
+      <Name>Tiraggo.DynamicQuery.iOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

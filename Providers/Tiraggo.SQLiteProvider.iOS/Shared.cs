@@ -32,14 +32,14 @@ using System.Collections.Generic;
 using System.Data;
 using Mono.Data.Sqlite;
 
-using EntitySpaces.DynamicQuery;
-using EntitySpaces.Interfaces;
+using Tiraggo.DynamicQuery;
+using Tiraggo.Interfaces;
 
-namespace EntitySpaces.SQLiteProvider
+namespace Tiraggo.SQLiteProvider
 {
     class Shared
     {
-        static public SqliteCommand BuildDynamicInsertCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqliteCommand BuildDynamicInsertCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string sql = String.Empty;
             string defaults = String.Empty;
@@ -57,8 +57,8 @@ namespace EntitySpaces.SQLiteProvider
             SqliteCommand cmd = new SqliteCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -183,7 +183,7 @@ namespace EntitySpaces.SQLiteProvider
             return cmd;
         }
 
-        static public SqliteCommand BuildDynamicUpdateCommand(esDataRequest request, esEntitySavePacket packet)
+        static public SqliteCommand BuildDynamicUpdateCommand(tgDataRequest request, tgEntitySavePacket packet)
         {
             string where = String.Empty;
             string scomma = String.Empty;
@@ -202,8 +202,8 @@ namespace EntitySpaces.SQLiteProvider
             SqliteCommand cmd = new SqliteCommand();
             if (request.CommandTimeout != null) cmd.CommandTimeout = request.CommandTimeout.Value;
 
-            esColumnMetadataCollection cols = request.Columns;
-            foreach (esColumnMetadata col in cols)
+            tgColumnMetadataCollection cols = request.Columns;
+            foreach (tgColumnMetadata col in cols)
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
@@ -315,7 +315,7 @@ namespace EntitySpaces.SQLiteProvider
             return cmd;
         }
 
-        static public SqliteCommand BuildDynamicDeleteCommand(esDataRequest request)
+        static public SqliteCommand BuildDynamicDeleteCommand(tgDataRequest request)
         {
             Dictionary<string, SqliteParameter> types = Cache.GetParameters(request);
 
@@ -327,7 +327,7 @@ namespace EntitySpaces.SQLiteProvider
             string comma = String.Empty;
             comma = String.Empty;
             sql += " WHERE ";
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
                 {
@@ -345,28 +345,28 @@ namespace EntitySpaces.SQLiteProvider
             return cmd;
         }
 
-        static public SqliteCommand BuildStoredProcInsertCommand(esDataRequest request)
+        static public SqliteCommand BuildStoredProcInsertCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public SqliteCommand BuildStoredProcUpdateCommand(esDataRequest request)
+        static public SqliteCommand BuildStoredProcUpdateCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public SqliteCommand BuildStoredProcDeleteCommand(esDataRequest request)
+        static public SqliteCommand BuildStoredProcDeleteCommand(tgDataRequest request)
         {
             return null;
         }
 
-        static public void PopulateStoredProcParameters(SqliteCommand cmd, esDataRequest request)
+        static public void PopulateStoredProcParameters(SqliteCommand cmd, tgDataRequest request)
         {
             Dictionary<string, SqliteParameter> types = Cache.GetParameters(request);
 
             SqliteParameter p;
 
-            foreach (esColumnMetadata col in request.Columns)
+            foreach (tgColumnMetadata col in request.Columns)
             {
                 p = types[col.Name];
                 p = CloneParameter(p);
@@ -387,16 +387,16 @@ namespace EntitySpaces.SQLiteProvider
             return param.Clone() as SqliteParameter;
         }
 
-        static public string CreateFullName(esDynamicQuerySerializable query)
+        static public string CreateFullName(tgDynamicQuerySerializable query)
         {
             IDynamicQuerySerializableInternal iQuery = query as IDynamicQuerySerializableInternal;
-            esProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as esProviderSpecificMetadata;
+            tgProviderSpecificMetadata providerMetadata = iQuery.ProviderMetadata as tgProviderSpecificMetadata;
 
             string name = String.Empty;
 
             name += Delimiters.TableOpen;
-            if (query.es.QuerySource != null)
-                name += query.es.QuerySource;
+            if (query.tg.QuerySource != null)
+                name += query.tg.QuerySource;
             else
                 name += providerMetadata.Destination;
             name += Delimiters.TableClose;
@@ -404,13 +404,13 @@ namespace EntitySpaces.SQLiteProvider
             return name;
         }
 
-        static public string CreateFullName(esDataRequest request)
+        static public string CreateFullName(tgDataRequest request)
         {
             string name = String.Empty;
 
             name += Delimiters.TableOpen;
-            if(request.DynamicQuery != null && request.DynamicQuery.es.QuerySource != null)
-                name += request.DynamicQuery.es.QuerySource;
+            if(request.DynamicQuery != null && request.DynamicQuery.tg.QuerySource != null)
+                name += request.DynamicQuery.tg.QuerySource;
             else
                 name += request.QueryText != null ? request.QueryText : request.ProviderMetadata.Destination;
             name += Delimiters.TableClose;
@@ -418,27 +418,27 @@ namespace EntitySpaces.SQLiteProvider
             return name;
         }
 
-        static public string CreateFullName(esProviderSpecificMetadata providerMetadata)
+        static public string CreateFullName(tgProviderSpecificMetadata providerMetadata)
         {
             return Delimiters.TableOpen + providerMetadata.Destination + Delimiters.TableClose;
         }
 
-        static public esConcurrencyException CheckForConcurrencyException(SqliteException ex)
+        static public tgConcurrencyException CheckForConcurrencyException(SqliteException ex)
         {
-            esConcurrencyException ce = null;
+            tgConcurrencyException ce = null;
             return ce;
         }
 
-        static public void AddParameters(SqliteCommand cmd, esDataRequest request)
+        static public void AddParameters(SqliteCommand cmd, tgDataRequest request)
         {
-            if (request.QueryType == esQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
+            if (request.QueryType == tgQueryType.Text && request.QueryText != null && request.QueryText.Contains("{0}"))
             {
                 int i = 0;
                 string token = String.Empty;
                 string sIndex = String.Empty;
                 string param = String.Empty;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     sIndex = i.ToString();
                     token = '{' + sIndex + '}';
@@ -453,23 +453,23 @@ namespace EntitySpaces.SQLiteProvider
             {
                 SqliteParameter param;
 
-                foreach (esParameter esParam in request.Parameters)
+                foreach (tgParameter esParam in request.Parameters)
                 {
                     param = cmd.Parameters.AddWithValue(Delimiters.Param + esParam.Name, esParam.Value);
 
                     switch (esParam.Direction)
                     {
-                        case esParameterDirection.InputOutput:
+                        case tgParameterDirection.InputOutput:
                             param.Direction = ParameterDirection.InputOutput;
                             break;
 
-                        case esParameterDirection.Output:
+                        case tgParameterDirection.Output:
                             param.Direction = ParameterDirection.Output;
                             param.DbType = esParam.DbType;
                             param.Size = esParam.Size;
                             break;
 
-                        case esParameterDirection.ReturnValue:
+                        case tgParameterDirection.ReturnValue:
                             param.Direction = ParameterDirection.ReturnValue;
                             break;
 
@@ -479,17 +479,17 @@ namespace EntitySpaces.SQLiteProvider
             }
         }
 
-        static public void GatherReturnParameters(SqliteCommand cmd, esDataRequest request, esDataResponse response)
+        static public void GatherReturnParameters(SqliteCommand cmd, tgDataRequest request, tgDataResponse response)
         {
             if (cmd.Parameters.Count > 0)
             {
                 if (request.Parameters != null && request.Parameters.Count > 0)
                 {
-                    response.Parameters = new esParameters();
+                    response.Parameters = new tgParameters();
 
-                    foreach (esParameter esParam in request.Parameters)
+                    foreach (tgParameter esParam in request.Parameters)
                     {
-                        if (esParam.Direction != esParameterDirection.Input)
+                        if (esParam.Direction != tgParameterDirection.Input)
                         {
                             response.Parameters.Add(esParam);
                             SqliteParameter p = cmd.Parameters[Delimiters.Param + esParam.Name];
