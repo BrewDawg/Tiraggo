@@ -62,7 +62,7 @@ namespace Tiraggo.SQLiteProvider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     SqliteParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
@@ -81,7 +81,7 @@ namespace Tiraggo.SQLiteProvider
                     props["Timestamp"] = col.Name;
                     props["Source"] = request.ProviderMetadata.Source;
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -207,7 +207,7 @@ namespace Tiraggo.SQLiteProvider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     SqliteParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
@@ -231,7 +231,7 @@ namespace Tiraggo.SQLiteProvider
                     where += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     wcomma = " AND ";
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -329,7 +329,7 @@ namespace Tiraggo.SQLiteProvider
             sql += " WHERE ";
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     SqliteParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
