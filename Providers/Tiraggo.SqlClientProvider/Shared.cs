@@ -127,7 +127,7 @@ namespace Tiraggo.SqlClientProvider
                             needsFetchedAfterSave = true;
                         }
                     }
-                    else if (col.IsEntitySpacesConcurrency)
+                    else if (col.IsTiraggoConcurrency)
                     {
                         p = types[colName];
                         sql += " SET " + p.ParameterName + " = 1; ";
@@ -381,7 +381,7 @@ namespace Tiraggo.SqlClientProvider
                         computed += " " + p.ParameterName + " = " + Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose;
                     }
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     if (packet.OriginalValues != null && packet.OriginalValues.ContainsKey(col.Name))
                     {
@@ -478,13 +478,13 @@ namespace Tiraggo.SqlClientProvider
                     sql += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     comma = " AND ";
                 }
-                else if (col.IsConcurrency || col.IsEntitySpacesConcurrency)
+                else if (col.IsConcurrency || col.IsTiraggoConcurrency)
                 {
                     SqlParameter p = CloneParameter(types[col.Name]);
                     p.Value = packet.OriginalValues[col.Name];
                     cmd.Parameters.Add(p);
 
-                    if (request.DatabaseVersion == "2005" || request.DatabaseVersion == "2008" || col.IsEntitySpacesConcurrency)
+                    if (request.DatabaseVersion == "2005" || request.DatabaseVersion == "2008" || col.IsTiraggoConcurrency)
                         concur += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     else
                         concur += "TSEQUAL(" + Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + "," + p.ParameterName + ")";
@@ -533,7 +533,7 @@ namespace Tiraggo.SqlClientProvider
                         p.Direction = ParameterDirection.Output;
                     }
                 }
-                else if (col.IsComputed || col.IsAutoIncrement || col.IsEntitySpacesConcurrency)
+                else if (col.IsComputed || col.IsAutoIncrement || col.IsTiraggoConcurrency)
                 {
                     SqlParameter p = types[col.Name];
                     p = cmd.Parameters[p.ParameterName];
@@ -590,7 +590,7 @@ namespace Tiraggo.SqlClientProvider
 
             foreach (tgColumnMetadata col in cols)
             {
-                if (col.IsComputed || col.IsEntitySpacesConcurrency)
+                if (col.IsComputed || col.IsTiraggoConcurrency)
                 {
                     SqlParameter p = types[col.Name];
                     p = cmd.Parameters[p.ParameterName];
@@ -639,7 +639,7 @@ namespace Tiraggo.SqlClientProvider
                     p.Value = packet.OriginalValues[col.Name];
                     cmd.Parameters.Add(p);
                 }
-                else if (col.IsConcurrency || col.IsEntitySpacesConcurrency)
+                else if (col.IsConcurrency || col.IsTiraggoConcurrency)
                 {
                     p = types[col.Name];
                     p = CloneParameter(p);

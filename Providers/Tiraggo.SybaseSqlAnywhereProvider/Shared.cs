@@ -63,7 +63,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     SAParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
@@ -82,7 +82,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                     props["Timestamp"] = col.Name;
                     props["Source"] = request.ProviderMetadata.Source;
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -209,7 +209,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     SAParameter p = CloneParameter(types[col.Name]);
                     cmd.Parameters.Add(p);
@@ -233,7 +233,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                     where += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     wcomma = " AND ";
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -340,7 +340,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
             sql += " WHERE ";
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     SAParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
@@ -378,7 +378,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                     p = cmd.Parameters[p.ParameterName];
                     p.Direction = ParameterDirection.InputOutput;
                 }
-                if (col.IsComputed || col.IsAutoIncrement || col.IsEntitySpacesConcurrency)
+                if (col.IsComputed || col.IsAutoIncrement || col.IsTiraggoConcurrency)
                 {
                     SAParameter p = types[col.Name];
                     p = cmd.Parameters[p.ParameterName];
@@ -403,7 +403,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
 
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsComputed || col.IsConcurrency || col.IsEntitySpacesConcurrency)
+                if (col.IsComputed || col.IsConcurrency || col.IsTiraggoConcurrency)
                 {
                     SAParameter p = types[col.Name];
                     p = cmd.Parameters[p.ParameterName];
@@ -435,7 +435,7 @@ namespace Tiraggo.SybaseSqlAnywhereProvider
                     p.SourceVersion = DataRowVersion.Current;
                     cmd.Parameters.Add(p);
                 }
-                else if (col.IsConcurrency || col.IsEntitySpacesConcurrency)
+                else if (col.IsConcurrency || col.IsTiraggoConcurrency)
                 {
                     p = types[col.Name];
                     p = CloneParameter(p);

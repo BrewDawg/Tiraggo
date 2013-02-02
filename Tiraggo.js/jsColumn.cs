@@ -88,7 +88,7 @@ namespace Tiraggo.js
                     c.isInPrimaryKey = esCol.IsInPrimaryKey;
                     c.isAutoIncrement = esCol.IsAutoIncrement;
                     c.isNullable = esCol.IsNullable;
-                    c.isConcurrency = esCol.IsConcurrency || esCol.IsEntitySpacesConcurrency;
+                    c.isConcurrency = esCol.IsConcurrency || esCol.IsTiraggoConcurrency;
                     c.isSortable = true;
                     c.footerValue = "$" + Convert.ToString(footer);
                 }

@@ -63,7 +63,7 @@ namespace Tiraggo.MSAccessProvider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[col.Name]));
 
@@ -81,7 +81,7 @@ namespace Tiraggo.MSAccessProvider
                     props["Timestamp"] = col.Name;
                     props["Source"] = request.ProviderMetadata.Source;
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -207,7 +207,7 @@ namespace Tiraggo.MSAccessProvider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[col.Name]));
 
@@ -230,7 +230,7 @@ namespace Tiraggo.MSAccessProvider
                     where += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     wcomma = " AND ";
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -336,7 +336,7 @@ namespace Tiraggo.MSAccessProvider
             sql += " WHERE ";
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     OleDbParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));

@@ -64,7 +64,7 @@ namespace Tiraggo.Npgsql2Provider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[col.Name]));
 
@@ -107,7 +107,7 @@ namespace Tiraggo.Npgsql2Provider
                         p.Size = (int)col.CharacterMaxLength;
                     }
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[col.Name]));
                     p.Direction = ParameterDirection.Output;
@@ -280,7 +280,7 @@ namespace Tiraggo.Npgsql2Provider
             {
                 bool isModified = packet.ModifiedColumns == null ? false : packet.ModifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[col.Name]));
 
@@ -303,7 +303,7 @@ namespace Tiraggo.Npgsql2Provider
 
                     conncur += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     p = CloneParameter(types[col.Name]);
                     p.Value = packet.OriginalValues[col.Name];
@@ -408,7 +408,7 @@ namespace Tiraggo.Npgsql2Provider
             sql += " WHERE ";
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     NpgsqlParameter p = types[col.Name];
                     p = cmd.Parameters.Add(CloneParameter(p));
@@ -502,7 +502,7 @@ namespace Tiraggo.Npgsql2Provider
                     p.Value = packet.OriginalValues[col.Name];
                     cmd.Parameters.Add(p);
                 }
-                else if (col.IsConcurrency || col.IsEntitySpacesConcurrency)
+                else if (col.IsConcurrency || col.IsTiraggoConcurrency)
                 {
                     p = types[col.Name];
                     p = CloneParameter(p);

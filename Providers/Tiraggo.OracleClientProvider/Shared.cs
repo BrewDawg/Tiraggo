@@ -78,7 +78,7 @@ namespace Tiraggo.OracleClientProvider
                     values += p.ParameterName;
                     comma = ", ";
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     p = CloneParameter(types[col.Name]);
                     p.Direction = ParameterDirection.Output;
@@ -272,7 +272,7 @@ namespace Tiraggo.OracleClientProvider
 
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsEntitySpacesConcurrency)
+                if (col.IsTiraggoConcurrency)
                 {
                     hasConcurrency = true;
                     concurrencyColumn = col.Name;
@@ -323,7 +323,7 @@ namespace Tiraggo.OracleClientProvider
             {
                 tgColumnMetadata col = request.Columns[colName];
 
-                if (col != null && !col.IsInPrimaryKey && !col.IsEntitySpacesConcurrency)
+                if (col != null && !col.IsInPrimaryKey && !col.IsTiraggoConcurrency)
                 {
                     p = cmd.Parameters.Add(CloneParameter(types[colName]));
 
@@ -364,7 +364,7 @@ namespace Tiraggo.OracleClientProvider
                         computed += " " + p.ParameterName + " = " + Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose;
                     }
                 }
-                if (col.IsEntitySpacesConcurrency)
+                if (col.IsTiraggoConcurrency)
                 {
                     sql += ", ";
                     sql += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " +
@@ -424,7 +424,7 @@ namespace Tiraggo.OracleClientProvider
             comma = String.Empty;
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     OracleParameter p = CloneParameter(types[col.Name]);
                     p.Value = packet.OriginalValues[col.Name];
@@ -434,7 +434,7 @@ namespace Tiraggo.OracleClientProvider
                     where += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     comma = " AND ";
 
-                    if (col.IsEntitySpacesConcurrency) hasConcurrency = true;
+                    if (col.IsTiraggoConcurrency) hasConcurrency = true;
                 }
             }
 
@@ -471,7 +471,7 @@ namespace Tiraggo.OracleClientProvider
 
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsComputed || col.IsAutoIncrement || col.IsEntitySpacesConcurrency)
+                if (col.IsComputed || col.IsAutoIncrement || col.IsTiraggoConcurrency)
                 {
                     p = cmd.Parameters["p" + (col.Name).Replace(" ", String.Empty)];
                     p.Direction = ParameterDirection.Output;
@@ -528,7 +528,7 @@ namespace Tiraggo.OracleClientProvider
 
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsComputed || col.IsEntitySpacesConcurrency)
+                if (col.IsComputed || col.IsTiraggoConcurrency)
                 {
                     p = cmd.Parameters["p" + (col.Name).Replace(" ", String.Empty)];
                     p.Direction = ParameterDirection.InputOutput;
@@ -569,7 +569,7 @@ namespace Tiraggo.OracleClientProvider
 
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency)
                 {
                     p = types[col.Name];
                     p = CloneParameter(p);

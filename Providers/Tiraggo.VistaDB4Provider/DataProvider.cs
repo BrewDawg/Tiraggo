@@ -1456,7 +1456,7 @@ namespace Tiraggo.VistaDB4Provider
             foreach (tgColumnMetadata col in request.Columns)
             {
                 if (primaryKeysAndConcurrencyOnly &&
-                    (!col.IsInPrimaryKey && !col.IsConcurrency && !col.IsEntitySpacesConcurrency)) continue;
+                    (!col.IsInPrimaryKey && !col.IsConcurrency && !col.IsTiraggoConcurrency)) continue;
 
                 string columnName = col.Name;
 

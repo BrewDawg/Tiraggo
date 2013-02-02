@@ -210,7 +210,7 @@ namespace Tiraggo.Interfaces
         /// True if this column is used for EntitySpaces Multiprovider concurrency checking model
         /// This column must be an integer type for this to work
         /// </summary>
-        public bool IsEntitySpacesConcurrency;
+        public bool IsTiraggoConcurrency;
 
         /// <summary>
         /// True if this is a transient column

@@ -65,7 +65,7 @@ namespace Tiraggo.VistaDB4Provider
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
@@ -92,7 +92,7 @@ namespace Tiraggo.VistaDB4Provider
                     p.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(p);
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     into += comma + Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose;
                     values += comma + "1";
@@ -233,7 +233,7 @@ namespace Tiraggo.VistaDB4Provider
             {
                 bool isModified = modifiedColumns == null ? false : modifiedColumns.Contains(col.Name);
 
-                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsEntitySpacesConcurrency))
+                if (isModified && (!col.IsAutoIncrement && !col.IsConcurrency && !col.IsTiraggoConcurrency))
                 {
                     p = CloneParameter(types[col.Name]);
                     cmd.Parameters.Add(p);
@@ -260,7 +260,7 @@ namespace Tiraggo.VistaDB4Provider
                     where += Delimiters.ColumnOpen + col.Name + Delimiters.ColumnClose + " = " + p.ParameterName;
                     wcomma = " AND ";
                 }
-                else if (col.IsEntitySpacesConcurrency)
+                else if (col.IsTiraggoConcurrency)
                 {
                     props["EntitySpacesConcurrency"] = col.Name;
 
@@ -357,7 +357,7 @@ namespace Tiraggo.VistaDB4Provider
             sql += " WHERE ";
             foreach (tgColumnMetadata col in request.Columns)
             {
-                if (col.IsInPrimaryKey || col.IsEntitySpacesConcurrency || col.IsConcurrency)
+                if (col.IsInPrimaryKey || col.IsTiraggoConcurrency || col.IsConcurrency)
                 {
                     VistaDBParameter p = types[col.Name];
                     cmd.Parameters.Add(CloneParameter(p));
