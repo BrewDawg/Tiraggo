@@ -33,6 +33,7 @@
     <ConsolePause>False</ConsolePause>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <DefineConstants>MonoTouch</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
