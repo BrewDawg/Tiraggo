@@ -11,7 +11,6 @@
     <RootNamespace>Tiraggo.SQLiteProvider.Android</RootNamespace>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AssemblyName>Tiraggo.SQLiteProvider.Android</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -33,7 +32,6 @@
     <ConsolePause>False</ConsolePause>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <DefineConstants>MonoTouch</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,7 +51,6 @@
     <Compile Include="EmptyClass.cs" />
     <Compile Include="QueryBuilder.cs" />
     <Compile Include="Shared.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tiraggo.Interfaces\Tiraggo.Interfaces.Android.csproj">

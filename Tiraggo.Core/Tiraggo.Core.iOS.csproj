@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
+    <DefineConstants>MonoTouch</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,13 +64,13 @@
     <Compile Include="tgVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tiraggo.Interfaces\Tiraggo.Interfaces.iOS.csproj">
-      <Project>{06056741-EA39-450D-988D-4AD73CB7775D}</Project>
-      <Name>Tiraggo.Interfaces.iOS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.iOS.csproj">
       <Project>{933FCEA6-F944-49FA-859B-C114B71FAA9F}</Project>
       <Name>Tiraggo.DynamicQuery.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tiraggo.Interfaces\Tiraggo.Interfaces.iOS.csproj">
+      <Project>{06056741-EA39-450D-988D-4AD73CB7775D}</Project>
+      <Name>Tiraggo.Interfaces.iOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

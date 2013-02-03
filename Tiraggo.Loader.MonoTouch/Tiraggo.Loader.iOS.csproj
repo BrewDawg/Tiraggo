@@ -48,7 +48,7 @@
       <Project>{06056741-EA39-450D-988D-4AD73CB7775D}</Project>
       <Name>Tiraggo.Interfaces.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Providers\Tiraggo.SQLiteProvider.iOS\Tiraggo.SQLiteProvider.iOS.csproj">
+    <ProjectReference Include="..\Providers\Tiraggo.SQLiteProvider.MonoTouch\Tiraggo.SQLiteProvider.iOS.csproj">
       <Project>{E1C67B0F-8E64-4C11-B13E-1B5DB049C3B5}</Project>
       <Name>Tiraggo.SQLiteProvider.iOS</Name>
     </ProjectReference>
