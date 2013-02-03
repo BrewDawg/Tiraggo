@@ -51,6 +51,7 @@
     <Compile Include="EmptyClass.cs" />
     <Compile Include="QueryBuilder.cs" />
     <Compile Include="Shared.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tiraggo.Interfaces\Tiraggo.Interfaces.Android.csproj">
