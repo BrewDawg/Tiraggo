@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DA85378F-67BC-4DA4-918C-95B2E4F5393E}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tiraggo.Interfaces</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AssemblyName>Tiraggo.Interfaces</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;MonoTouch</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="enums.cs" />
+    <Compile Include="ICommittable.cs" />
+    <Compile Include="IConnectionNameService.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="IDataProviderFactory.cs" />
+    <Compile Include="IMetadata.cs" />
+    <Compile Include="IProviderSpecificMetadata.cs" />
+    <Compile Include="ITraceArguments.cs" />
+    <Compile Include="StandardProviderParameters.cs" />
+    <Compile Include="tgColumnMetadata.cs" />
+    <Compile Include="tgColumnMetadataCollection.cs" />
+    <Compile Include="tgConfigSettings.cs" />
+    <Compile Include="tgConnection.cs" />
+    <Compile Include="tgDataProvider.cs" />
+    <Compile Include="tgDataRequest.cs" />
+    <Compile Include="tgDataResponse.cs" />
+    <Compile Include="tgEntitySavePacket.cs" />
+    <Compile Include="tgParameters.cs" />
+    <Compile Include="tgProviderFactory.cs" />
+    <Compile Include="tgProviderSignature.cs" />
+    <Compile Include="tgProviderSpecificMetadata.cs" />
+    <Compile Include="tgSmartDictionary.cs" />
+    <Compile Include="tgTracePacket.cs" />
+    <Compile Include="tgTransactionScope.cs" />
+    <Compile Include="tgTypeMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DynamicQuery\tgDynamicQuery.cs" />
+    <Compile Include="Exceptions\tgConcurrencyException.cs" />
+    <Compile Include="Exceptions\tgException.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.Android.csproj">
+      <Project>{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}</Project>
+      <Name>Tiraggo.DynamicQuery.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
