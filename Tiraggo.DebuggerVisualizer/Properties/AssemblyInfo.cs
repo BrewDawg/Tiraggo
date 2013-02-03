@@ -35,12 +35,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Tiraggo.DebuggerVisualizer")]
-[assembly: AssemblyDescription("The EntitySpaces Debug Visualizer Class Library")]
+[assembly: AssemblyDescription("The Tiraggo Debug Visualizer Class Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EntitySpaces, LLC")]
-[assembly: AssemblyProduct("EntitySpacesArchitecture")]
-[assembly: AssemblyCopyright("Copyright © EntitySpaces, LLC. 2005 - 2012")]
-[assembly: AssemblyTrademark("EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Tiraggo Architecture")]
+[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -49,7 +49,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4a132be2-1fcc-4526-9723-60f69ce9b83c")]
+[assembly: Guid("59162B5D-3ECE-4CEF-822B-56B4C6C49DFC")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -60,5 +60,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2012.1.0930.0")]
-[assembly: AssemblyFileVersion("2012.1.0930.0")]
+[assembly: AssemblyVersion("2013.1.0203.0")]
+[assembly: AssemblyFileVersion("2013.1.0203.0")]

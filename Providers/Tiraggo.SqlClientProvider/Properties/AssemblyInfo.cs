@@ -39,12 +39,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Tiraggo.SqlClientProvider")]
-[assembly: AssemblyDescription("The EntitySpaces Microsoft SQL Server Provider")]
+[assembly: AssemblyDescription("The Tiraggo Microsoft SQL Server Provider")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EntitySpaces, LLC")]
-[assembly: AssemblyProduct("EntitySpacesArchitecture")]
-[assembly: AssemblyCopyright("Copyright © EntitySpaces, LLC. 2005 - 2012")]
-[assembly: AssemblyTrademark("EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Tiraggo Architecture")]
+[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AllowPartiallyTrustedCallers]
 
@@ -54,7 +54,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("07478916-877f-4b22-bafa-9cd05895b2bc")]
+[assembly: Guid("2A4EFE70-C739-45D3-9377-13EE2181BF31")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -65,5 +65,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2012.1.0930.0")]
-[assembly: AssemblyFileVersion("2012.1.0930.0")]
+[assembly: AssemblyVersion("2013.1.0203.0")]
+[assembly: AssemblyFileVersion("2013.1.0203.0")]

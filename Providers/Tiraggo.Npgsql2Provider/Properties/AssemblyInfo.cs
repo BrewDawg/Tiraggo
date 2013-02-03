@@ -38,12 +38,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Tiraggo.Npgsql2Provider")]
-[assembly: AssemblyDescription("The EntitySpaces PostgreSQL 2.x Driver")]
+[assembly: AssemblyDescription("The Tiraggo PostgreSQL 2.x Driver")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EntitySpaces, LLC")]
-[assembly: AssemblyProduct("EntitySpacesArchitecture")]
-[assembly: AssemblyCopyright("Copyright © EntitySpaces, LLC. 2005 - 2012")]
-[assembly: AssemblyTrademark("EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Tiraggo Architecture")]
+[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -52,7 +52,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ce934d38-2e00-4be5-9b4c-8e3c6806f34b")]
+[assembly: Guid("2CBFD215-9FF9-4C35-9A82-1A61E34500E4")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -63,5 +63,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2012.1.0930.0")]
-[assembly: AssemblyFileVersion("2012.1.0930.0")]
+[assembly: AssemblyVersion("2013.1.0203.0")]
+[assembly: AssemblyFileVersion("2013.1.0203.0")]

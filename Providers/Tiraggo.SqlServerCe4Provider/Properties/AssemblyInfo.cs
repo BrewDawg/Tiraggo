@@ -35,12 +35,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Tiraggo.SqlServerCeProvider")]
-[assembly: AssemblyDescription("The EntitySpaces Microsoft SQL Server Desktop CE 4.x Provider")]
+[assembly: AssemblyDescription("The Tiraggo Microsoft SQL Server Desktop CE 4.x Provider")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EntitySpaces, LLC")]
-[assembly: AssemblyProduct("EntitySpacesArchitecture")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Tiraggo Architecture")]
 [assembly: AssemblyCopyright("Copyright © EntitySpaces, LLC 2005 - 2008")]
-[assembly: AssemblyTrademark("EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC.")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -49,7 +49,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("35e8ff69-d9a3-4c5f-898d-7f5e71d1e18e")]
+[assembly: Guid("BFB0A7AC-BD93-4CFE-B497-F2E1ACA22186")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -60,5 +60,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2012.1.0930.0")]
-[assembly: AssemblyFileVersion("2012.1.0930.0")]
+[assembly: AssemblyVersion("2013.1.0203.0")]
+[assembly: AssemblyFileVersion("2013.1.0203.0")]

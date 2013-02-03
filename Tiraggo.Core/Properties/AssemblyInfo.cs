@@ -41,12 +41,12 @@ using System.Security;
 
 [assembly: AssemblyTitle("Tiraggo.Core")]
 [assembly: AllowPartiallyTrustedCallers]
-[assembly: AssemblyDescription("The EntitySpaces Core Business Class Library")]
+[assembly: AssemblyDescription("The Tiraggo Core Business Class Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EntitySpaces, LLC")]
-[assembly: AssemblyProduct("EntitySpacesArchitecture")]
-[assembly: AssemblyCopyright("Copyright © EntitySpaces, LLC. 2005 - 2012")]
-[assembly: AssemblyTrademark("EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Tiraggo Architecture")]
+[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -55,7 +55,7 @@ using System.Security;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f2f9dd7c-bf95-452d-8c34-c2d39bd078f4")]
+[assembly: Guid("BBB5A16C-97BB-4306-A546-B0DA7E81D2C1")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -66,6 +66,6 @@ using System.Security;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2012.1.0930.0")]
-[assembly: AssemblyFileVersion("2012.1.0930.0")]
+[assembly: AssemblyVersion("2013.1.0203.0")]
+[assembly: AssemblyFileVersion("2013.1.0203.0")]
 
