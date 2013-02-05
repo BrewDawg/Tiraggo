@@ -812,104 +812,104 @@ namespace BusinessObjects
             m_columns = new tgColumnMetadataCollection();
             tgColumnMetadata c;
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.EmployeeID, 1, typeof(System.Int32), tgSystemType.Int32);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.EmployeeID, 0, typeof(System.Int32), tgSystemType.Int32);
             c.PropertyName = EmployeesMetadata.PropertyNames.EmployeeID;
             c.IsInPrimaryKey = true;
             c.IsAutoIncrement = true;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.LastName, 2, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.LastName, 1, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.LastName;
             c.CharacterMaxLength = 20;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.FirstName, 3, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.FirstName, 2, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.FirstName;
             c.CharacterMaxLength = 10;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Title, 4, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Title, 3, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Title;
             c.IsNullable = true;
             c.CharacterMaxLength = 30;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.TitleOfCourtesy, 5, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.TitleOfCourtesy, 4, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.TitleOfCourtesy;
             c.IsNullable = true;
             c.CharacterMaxLength = 25;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.BirthDate, 6, typeof(System.DateTime), tgSystemType.DateTime);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.BirthDate, 5, typeof(System.DateTime), tgSystemType.DateTime);
             c.PropertyName = EmployeesMetadata.PropertyNames.BirthDate;
             c.IsNullable = true;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.HireDate, 7, typeof(System.DateTime), tgSystemType.DateTime);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.HireDate, 6, typeof(System.DateTime), tgSystemType.DateTime);
             c.PropertyName = EmployeesMetadata.PropertyNames.HireDate;
             c.IsNullable = true;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Address, 8, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Address, 7, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Address;
             c.IsNullable = true;
             c.CharacterMaxLength = 60;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.City, 9, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.City, 8, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.City;
             c.IsNullable = true;
             c.CharacterMaxLength = 15;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Region, 10, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Region, 9, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Region;
             c.IsNullable = true;
             c.CharacterMaxLength = 15;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.PostalCode, 11, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.PostalCode, 10, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.PostalCode;
             c.IsNullable = true;
             c.CharacterMaxLength = 10;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Country, 12, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Country, 11, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Country;
             c.IsNullable = true;
             c.CharacterMaxLength = 15;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.HomePhone, 13, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.HomePhone, 12, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.HomePhone;
             c.IsNullable = true;
             c.CharacterMaxLength = 24;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Extension, 14, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Extension, 13, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Extension;
             c.IsNullable = true;
             c.CharacterMaxLength = 4;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Photo, 15, typeof(System.Byte[]), tgSystemType.Byte);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Photo, 14, typeof(System.Byte[]), tgSystemType.Byte);
             c.PropertyName = EmployeesMetadata.PropertyNames.Photo;
             c.IsNullable = true;
             c.CharacterMaxLength = 2147483647;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Notes, 16, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.Notes, 15, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.Notes;
             c.IsNullable = true;
             c.CharacterMaxLength = 1073741823;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.ReportsTo, 17, typeof(System.Int32), tgSystemType.Int32);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.ReportsTo, 16, typeof(System.Int32), tgSystemType.Int32);
             c.PropertyName = EmployeesMetadata.PropertyNames.ReportsTo;
             c.IsNullable = true;
             m_columns.Add(c);
 
-            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.PhotoPath, 18, typeof(System.String), tgSystemType.String);
+            c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.PhotoPath, 17, typeof(System.String), tgSystemType.String);
             c.PropertyName = EmployeesMetadata.PropertyNames.PhotoPath;
             c.IsNullable = true;
             c.CharacterMaxLength = 255;
@@ -1066,5 +1066,3 @@ namespace BusinessObjects
         static private int _tgDefault = RegisterDelegateesDefault();
     }
 }
-
-

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using BusinessObjects;
+using System.Net;
 
 namespace WindowsForms
 {
