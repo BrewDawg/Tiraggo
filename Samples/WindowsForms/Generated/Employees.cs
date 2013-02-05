@@ -1,17 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Linq;
-using System.Data;
 using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 using Tiraggo.Core;
-using Tiraggo.Interfaces;
 using Tiraggo.DynamicQuery;
+using Tiraggo.Interfaces;
 
 namespace BusinessObjects
 {
