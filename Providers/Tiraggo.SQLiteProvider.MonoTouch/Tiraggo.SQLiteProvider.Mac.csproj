@@ -5,23 +5,20 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6F54347F-405C-466C-93C1-5F9C584B6129}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{2645B594-BCA6-4DDD-AD58-AEA06CDAEA2D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Tiraggo.SQLiteProvider.Android</RootNamespace>
-    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AssemblyName>Tiraggo.SQLiteProvider.Android</AssemblyName>
+    <RootNamespace>Tiraggo.SQLiteProvider</RootNamespace>
+    <AssemblyName>Tiraggo.SQLiteProvider</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;MonoTouch</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,20 +27,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <DefineConstants>MonoTouch</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Mono.Android" />
-    <Reference Include="Mono.Data.Sqlite" />
-    <Reference Include="Mono.Security" />
-    <Reference Include="Mono.Data.Tds" />
     <Reference Include="System.Data" />
+    <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Cache.cs" />
     <Compile Include="DataProvider.cs" />
@@ -54,13 +45,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tiraggo.Interfaces\Tiraggo.Interfaces.Android.csproj">
-      <Project>{DA85378F-67BC-4DA4-918C-95B2E4F5393E}</Project>
-      <Name>Tiraggo.Interfaces.Android</Name>
+    <ProjectReference Include="..\..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.Mac.csproj">
+      <Project>{9CB55C57-0A2D-4EFC-963C-E94C1D2A8AD5}</Project>
+      <Name>Tiraggo.DynamicQuery.Mac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.Android.csproj">
-      <Project>{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}</Project>
-      <Name>Tiraggo.DynamicQuery.Android</Name>
+    <ProjectReference Include="..\..\Tiraggo.Interfaces\Tiraggo.Interfaces.Mac.csproj">
+      <Project>{8E1FBD4A-42CC-49B3-A8E4-3557EAC56500}</Project>
+      <Name>Tiraggo.Interfaces.Mac</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CB55C57-0A2D-4EFC-963C-E94C1D2A8AD5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tiraggo.DynamicQuery</RootNamespace>
+    <AssemblyName>Tiraggo.DynamicQuery</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;MonoTouch</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <DefineConstants>MonoTouch</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="enums.cs" />
+    <Compile Include="tgCase.cs" />
+    <Compile Include="tgCasts.cs" />
+    <Compile Include="tgColumnItem.cs" />
+    <Compile Include="tgComparison.cs" />
+    <Compile Include="tgDataContractSerializer.cs" />
+    <Compile Include="tgDynamicQuerySerializable.cs" />
+    <Compile Include="tgExpression.cs" />
+    <Compile Include="tgExpressionOrComparison.cs" />
+    <Compile Include="tgExtraPropertyBinder.cs" />
+    <Compile Include="tgGroupByItem.cs" />
+    <Compile Include="tgJoinItem.cs" />
+    <Compile Include="tgMathmaticalExpression.cs" />
+    <Compile Include="tgOrderByItem.cs" />
+    <Compile Include="tgQueryItem.cs" />
+    <Compile Include="tgQuerySubOperator.cs" />
+    <Compile Include="tgSetOperation.cs" />
+    <Compile Include="IDynamicQuerySerializableInternal.cs" />
+  </ItemGroup>
+</Project>

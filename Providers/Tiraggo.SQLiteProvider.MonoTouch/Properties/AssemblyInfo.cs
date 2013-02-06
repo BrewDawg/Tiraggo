@@ -1,4 +1,4 @@
-﻿/*  New BSD License
+/*  New BSD License
 -------------------------------------------------------------------------------
 Copyright (c) 2006-2012, EntitySpaces, LLC
 All rights reserved.
@@ -27,29 +27,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 */
 
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
+
+[assembly: CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+
 [assembly: AssemblyTitle("Tiraggo.SQLiteProvider")]
-[assembly: AssemblyDescription("The Tiraggo SQLite Data Provider for Mono Touch")]
+[assembly: AllowPartiallyTrustedCallers]
+[assembly: AssemblyDescription("The Tiraggo SQLite Provider for Mono Touch")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tiraggo Architecture")]
-[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013")]
+[assembly: AssemblyCopyright("Copyright � Mike Griffin - 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// to COM componenets.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("490E9FA5-B293-4FB3-B009-A9D751F5BC47")]
+[assembly: Guid("40578029-104a-47ca-a688-eb75a5d98ff9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -58,8 +64,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2013.1.0203.0")]
-[assembly: AssemblyFileVersion("2013.1.0203.0")]
+[assembly: AssemblyVersion("2012.1.0930.0")]
+[assembly: AssemblyFileVersion("2012.1.0930.0")]
+
