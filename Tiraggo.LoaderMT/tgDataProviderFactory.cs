@@ -255,7 +255,6 @@ namespace Tiraggo.LoaderMT
         private IDataProvider msAccessProvider;
         private IDataProvider oracleClientProvider;
         private IDataProvider mySqlClientProvider;
-        private IDataProvider vistaDBProvider;
         private IDataProvider vistaDB4Provider;
         private IDataProvider npgsql2Provider;
         private IDataProvider sybaseProvider;
