@@ -63,7 +63,6 @@
     <Content Include="Scripts\Libs\json2.js" />
     <Content Include="Scripts\tiraggo.XHR.debug.js" />
     <Content Include="Scripts\tiraggo.XHR.js" />
-    <Content Include="TestGrid.aspx" />
     <Content Include="Tiraggo_js\Generated\Employees.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -76,13 +75,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestGrid.aspx.cs">
-      <DependentUpon>TestGrid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestGrid.aspx.designer.cs">
-      <DependentUpon>TestGrid.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Tiraggo\Custom\Employees.cs" />
     <Compile Include="Tiraggo\Custom\EmployeesCollection.cs" />
     <Compile Include="Tiraggo\Custom\EmployeesQuery.cs" />
