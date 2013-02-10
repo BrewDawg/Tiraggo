@@ -37,6 +37,7 @@
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo/Generated/Employees.cs" target="new">Generated</a> and <a href="https://github.com/BrewDawg/Tiraggo/tree/master/Samples/WcfService/Tiraggo/Custom" target="new">Custom</a> Classes</li>
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/TiraggoWcfClass.cs" target="new">WCF Service</a> (returns JSON)</li>
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo_js/Generated/Employees.js" target="new">JavaScript Entities</a></li>
+                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Editing.aspx" target="new">HTML Markup</a> and MVVM View Model</li>
                     </ul>
                 </td>
             </tr>
@@ -61,7 +62,7 @@
                             selectedItem: mySelectedItem,
                             autogenerateColumns: false,
                             sortInfo: sortInfo,
-							enablePaging: false,
+                            enablePaging: false,
                             columnDefs: [
                                 {field: 'EmployeeID', displayName: 'ID', width: 30}, 
                                 {field: 'FirstName', displayName: 'First Name', width: 120}, 
