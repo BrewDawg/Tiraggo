@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{65C59789-8C71-4FEE-96A3-70C85A5A3870}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WcfService</RootNamespace>
+    <AssemblyName>WcfService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Editing.aspx" />
+    <Content Include="Scripts\Knockout\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\Knockout\knockout-2.2.0.min.js" />
+    <Content Include="Scripts\KoGrid\KoGrid.css" />
+    <Content Include="Scripts\KoGrid\koGrid.debug.js" />
+    <Content Include="Scripts\Libs\jquery-1.7.1.js" />
+    <Content Include="Scripts\Libs\json2.js" />
+    <Content Include="Scripts\tiraggo.XHR.debug.js" />
+    <Content Include="Scripts\tiraggo.XHR.js" />
+    <Content Include="TestGrid.aspx" />
+    <Content Include="Tiraggo_js\Generated\Employees.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TestGrid.aspx.cs">
+      <DependentUpon>TestGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestGrid.aspx.designer.cs">
+      <DependentUpon>TestGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tiraggo\Custom\Employees.cs" />
+    <Compile Include="Tiraggo\Custom\EmployeesCollection.cs" />
+    <Compile Include="Tiraggo\Custom\EmployeesQuery.cs" />
+    <Compile Include="Editing.aspx.cs">
+      <DependentUpon>Editing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Editing.aspx.designer.cs">
+      <DependentUpon>Editing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tiraggo\Generated\Employees.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TiraggoWcfClass.cs" />
+    <Content Include="TiraggoWcfClass.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Providers\Tiraggo.SqlClientProvider\Tiraggo.SqlClientProvider40.csproj">
+      <Project>{96219C55-952F-4CCC-BF91-D91CA5EE5D56}</Project>
+      <Name>Tiraggo.SqlClientProvider40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tiraggo.Core\Tiraggo.Core40.csproj">
+      <Project>{81B80C15-74F7-480A-B3C1-D8792785B357}</Project>
+      <Name>Tiraggo.Core40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery40.csproj">
+      <Project>{9AA003D3-6DBB-4C6C-BDC5-F3E1F3BBB0DD}</Project>
+      <Name>Tiraggo.DynamicQuery40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tiraggo.Interfaces\Tiraggo.Interfaces40.csproj">
+      <Project>{B13AC54D-1CEE-4B91-BEAE-98CF0A4AA180}</Project>
+      <Name>Tiraggo.Interfaces40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tiraggo.js\Tiraggo.js40.csproj">
+      <Project>{E4142BA3-5BB3-4EB6-BB1F-FA6742C2A787}</Project>
+      <Name>Tiraggo.js40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tiraggo.Loader\Tiraggo.Loader40.csproj">
+      <Project>{7DFF20D6-C320-4920-AE92-4F096D8DFE61}</Project>
+      <Name>Tiraggo.Loader40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tiraggo_js\Custom\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>7191</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
