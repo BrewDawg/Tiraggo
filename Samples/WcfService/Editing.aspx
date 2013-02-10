@@ -32,14 +32,12 @@
         <table>
             <tr>
                 <td colspan="3">
-                    <h4>
-                        The Editing <a href="http://brewdawg.github.com/Tiraggo.js/" target="new">Tiraggo.js</a> demonstration for the <a href="http://brewdawg.github.com/Tiraggo/" target="new">Tiraggo</a> Architecture. Everything need to build this sample was generated on <a href="https://www.my2ndgeneration.com/" target="new">My2ndGeneration</a><br />
-                        <ul>
-                            <li>The C# Generated and Custom Classes</li>
-                            <li>The WCF Service (returns JSOM)</li>
-                            <li>The JavaScript Entities</li>
-                        </ul>
-                    <h4 />
+                    The Editing <a href="http://brewdawg.github.com/Tiraggo.js/" target="new">Tiraggo.js</a> demonstration for the <a href="http://brewdawg.github.com/Tiraggo/" target="new">Tiraggo</a> Architecture. Everything need to build this sample was generated on <a href="https://www.my2ndgeneration.com/" target="new">My2ndGeneration</a><br />
+                    <ul>
+                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo/Generated/Employees.cs" target="new">Generated</a> and <a href="https://github.com/BrewDawg/Tiraggo/tree/master/Samples/WcfService/Tiraggo/Custom" target="new">Custom</a> Classes</li>
+                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/TiraggoWcfClass.cs" target="new">WCF Service</a> (returns JSON)</li>
+                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo_js/Generated/Employees.js" target="new">JavaScript Entities</a></li>
+                    </ul>
                 </td>
             </tr>
             <tr>
@@ -48,6 +46,7 @@
                     deleted because of foreign key constraints. We are showing all of the low level
                     errors that come back from our service just as an example. In real world scenarios
                     you would not do this, of course.
+                    <hr />
                 </td>
             </tr>
             <tr>
