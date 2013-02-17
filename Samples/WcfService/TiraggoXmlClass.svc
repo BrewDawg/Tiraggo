@@ -1,0 +1,1 @@
+ <%@ ServiceHost Language="C#" Debug="true" Service="TiraggoXmlService.TiraggoXmlClass" CodeBehind="TiraggoXmlClass.svc" %>

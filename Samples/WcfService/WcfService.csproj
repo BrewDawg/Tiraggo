@@ -63,6 +63,8 @@
     <Content Include="Scripts\Libs\json2.js" />
     <Content Include="Scripts\tiraggo.XHR.debug.js" />
     <Content Include="Scripts\tiraggo.XHR.js" />
+    <Content Include="TiraggoWcfClass.svc" />
+    <Content Include="TiraggoXmlClass.svc" />
     <Content Include="Tiraggo_js\Generated\Employees.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -75,6 +77,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITiraggoXmlClass.cs" />
+    <Compile Include="TiraggoWcfClass.svc.cs">
+      <DependentUpon>TiraggoWcfClass.svc</DependentUpon>
+    </Compile>
+    <Compile Include="TiraggoXmlClass.svc.cs">
+      <DependentUpon>TiraggoXmlClass.svc</DependentUpon>
+    </Compile>
     <Compile Include="Tiraggo\Custom\Employees.cs" />
     <Compile Include="Tiraggo\Custom\EmployeesCollection.cs" />
     <Compile Include="Tiraggo\Custom\EmployeesQuery.cs" />
@@ -87,8 +96,6 @@
     </Compile>
     <Compile Include="Tiraggo\Generated\Employees.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TiraggoWcfClass.cs" />
-    <Content Include="TiraggoWcfClass.svc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Providers\Tiraggo.SqlClientProvider\Tiraggo.SqlClientProvider40.csproj">
