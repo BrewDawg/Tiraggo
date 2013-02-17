@@ -35,7 +35,7 @@
                     The Editing <a href="http://brewdawg.github.com/Tiraggo.js/" target="new">Tiraggo.js</a> demonstration for the <a href="http://brewdawg.github.com/Tiraggo/" target="new">Tiraggo</a> Architecture. Everything need to build this sample was generated on <a href="https://www.my2ndgeneration.com/" target="new">My2ndGeneration</a><br />
                     <ul>
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo/Generated/Employees.cs" target="new">Generated</a> and <a href="https://github.com/BrewDawg/Tiraggo/tree/master/Samples/WcfService/Tiraggo/Custom" target="new">Custom</a> Classes</li>
-                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/TiraggoWcfClass.cs" target="new">WCF Service</a> (returns JSON)</li>
+                        <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/TiraggoWcfClass.svc.cs" target="new">WCF Service</a> (returns JSON)</li>
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Tiraggo_js/Generated/Employees.js" target="new">JavaScript Entities</a></li>
                         <li>The <a href="https://github.com/BrewDawg/Tiraggo/blob/master/Samples/WcfService/Editing.aspx" target="new">HTML Markup</a> and MVVM View Model</li>
                     </ul>
