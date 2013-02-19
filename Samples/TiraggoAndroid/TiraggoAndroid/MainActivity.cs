@@ -19,7 +19,6 @@ namespace TiraggoAndroid
 	public class Activity1 : Activity
 	{
 		TiraggoXmlClassClient client = null;
-		private BusinessObjects.EmployeesCollection coll;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -37,7 +36,7 @@ namespace TiraggoAndroid
 
 			button.Click += delegate {
 
-				coll = client.Employees_LoadAll ();
+				BusinessObjects.EmployeesCollection coll = client.Employees_LoadAll ();
 
 				string text = "";
 				foreach(Employees emp in coll)

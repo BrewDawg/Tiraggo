@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TiraggoAndroid\MainActivity.cs">
     <Files>
-      <File FileName="TiraggoAndroid\MainActivity.cs" Line="37" Column="1" />
-      <File FileName="TiraggoAndroid\Resources\values\Strings.xml" Line="1" Column="39" />
-      <File FileName="TiraggoAndroid\Assets\AboutAssets.txt" Line="1" Column="1" />
-      <File FileName="TiraggoAndroid\Resources\Resource.designer.cs" Line="60" Column="30" />
+      <File FileName="TiraggoAndroid\MainActivity.cs" Line="11" Column="27" />
+      <File FileName="TiraggoAndroid\Service References\TiraggoService\Reference.cs" Line="170" Column="98" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
