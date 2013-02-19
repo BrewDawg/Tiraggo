@@ -64,15 +64,9 @@
     <Content Include="Scripts\Libs\json2.js" />
     <Content Include="Scripts\tiraggo.XHR.debug.js" />
     <Content Include="Scripts\tiraggo.XHR.js" />
-    <None Include="Properties\DataSources\BusinessObjects.Employees.datasource" />
-    <None Include="Properties\DataSources\BusinessObjects.EmployeesCollection.datasource" />
     <Content Include="TiraggoWcfClass.svc" />
     <Content Include="TiraggoXmlClass.svc" />
     <Content Include="Tiraggo_js\Generated\Employees.js" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -85,11 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITiraggoXmlClass.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="TiraggoWcfClass.svc.cs">
       <DependentUpon>TiraggoWcfClass.svc</DependentUpon>
     </Compile>
@@ -103,7 +92,6 @@
     <Compile Include="Editing.aspx.designer.cs">
       <DependentUpon>Editing.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Providers\Tiraggo.SqlClientProvider\Tiraggo.SqlClientProvider40.csproj">
@@ -136,6 +124,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Tiraggo\" />
     <Folder Include="Tiraggo_js\Custom\" />
   </ItemGroup>
