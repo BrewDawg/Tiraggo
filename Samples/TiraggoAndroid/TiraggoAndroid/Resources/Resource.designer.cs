@@ -56,6 +56,9 @@ namespace TiraggoAndroid
 			// aapt resource value: 0x7f060000
 			public const int myButton = 2131099648;
 			
+			// aapt resource value: 0x7f060001
+			public const int myTextBox = 2131099649;
+			
 			private Id()
 			{
 			}

@@ -15,17 +15,11 @@ using BusinessObjects;
 
 namespace TiraggoAndroid
 {
-	[Activity (Label = "TiraggoAndroid", MainLauncher = true)]
+	[Activity (Label = "Tiraggo + Android", MainLauncher = true)]
 	public class Activity1 : Activity
 	{
 		TiraggoXmlClassClient client = null;
-		private Employees emp;
-		int count = 1;
-
-		public void Test(int id)
-		{
-			emp = client.Employees_GetByPrimaryKey (id);
-		}
+		private BusinessObjects.EmployeesCollection coll;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -39,15 +33,19 @@ namespace TiraggoAndroid
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button> (Resource.Id.myButton);
+			EditText textbox = FindViewById<EditText> (Resource.Id.myTextBox);
 
 			button.Click += delegate {
-				Test (count);
-				string name = "null";
-				if(emp != null && emp.LastName != null)
+
+				coll = client.Employees_LoadAll ();
+
+				string text = "";
+				foreach(Employees emp in coll)
 				{
-					name = emp.LastName;
+					text += emp.LastName + ", " + emp.FirstName + "\r\n";
 				}
-				button.Text = string.Format ("{0} {1} CLICKS!", count++, name);
+
+				textbox.Text = text;
 			};
 		}
 
