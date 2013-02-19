@@ -78,10 +78,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Employees.cs" />
-    <Compile Include="Custom\EmployeesCollection.cs" />
-    <Compile Include="Custom\EmployeesQuery.cs" />
-    <Compile Include="Generated\Employees.cs" />
+    <Compile Include="Tiraggo\Custom\Employees.cs" />
+    <Compile Include="Tiraggo\Custom\EmployeesCollection.cs" />
+    <Compile Include="Tiraggo\Custom\EmployeesQuery.cs" />
+    <Compile Include="Tiraggo\Generated\Employees.cs" />
     <Compile Include="ITiraggoXmlClass.cs" />
     <Compile Include="TiraggoWcfClass.svc.cs">
       <DependentUpon>TiraggoWcfClass.svc</DependentUpon>
@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Tiraggo\" />
     <Folder Include="Tiraggo_js\Custom\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
