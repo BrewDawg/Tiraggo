@@ -78,6 +78,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\Employees.cs" />
+    <Compile Include="Custom\EmployeesCollection.cs" />
+    <Compile Include="Custom\EmployeesQuery.cs" />
+    <Compile Include="Generated\Employees.cs" />
     <Compile Include="ITiraggoXmlClass.cs" />
     <Compile Include="TiraggoWcfClass.svc.cs">
       <DependentUpon>TiraggoWcfClass.svc</DependentUpon>
@@ -117,10 +121,6 @@
     <ProjectReference Include="..\..\Tiraggo.Loader\Tiraggo.Loader40.csproj">
       <Project>{7DFF20D6-C320-4920-AE92-4F096D8DFE61}</Project>
       <Name>Tiraggo.Loader40</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
-      <Project>{5B94BEA3-F898-427B-9E49-37F29FD020F7}</Project>
-      <Name>BusinessObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
