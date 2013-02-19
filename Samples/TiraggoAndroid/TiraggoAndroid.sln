@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiraggoAndroid", "TiraggoAndroid\TiraggoAndroid.csproj", "{C8087D01-048D-4328-A46F-5997B3DA7336}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Core.Android", "..\..\Tiraggo.Core\Tiraggo.Core.Android.csproj", "{ED80FD16-1EBA-43FE-A390-432B8F039D34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.Interfaces.Android", "..\..\Tiraggo.Interfaces\Tiraggo.Interfaces.Android.csproj", "{DA85378F-67BC-4DA4-918C-95B2E4F5393E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiraggo.DynamicQuery.Android", "..\..\Tiraggo.DynamicQuery\Tiraggo.DynamicQuery.Android.csproj", "{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B66A301-CCF9-42B1-9D51-93CFE4CB583D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8087D01-048D-4328-A46F-5997B3DA7336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8087D01-048D-4328-A46F-5997B3DA7336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8087D01-048D-4328-A46F-5997B3DA7336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8087D01-048D-4328-A46F-5997B3DA7336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA85378F-67BC-4DA4-918C-95B2E4F5393E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA85378F-67BC-4DA4-918C-95B2E4F5393E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA85378F-67BC-4DA4-918C-95B2E4F5393E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA85378F-67BC-4DA4-918C-95B2E4F5393E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED80FD16-1EBA-43FE-A390-432B8F039D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED80FD16-1EBA-43FE-A390-432B8F039D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED80FD16-1EBA-43FE-A390-432B8F039D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED80FD16-1EBA-43FE-A390-432B8F039D34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TiraggoAndroid\TiraggoAndroid.csproj
+	EndGlobalSection
+EndGlobal
