@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="02452f83-082e-4382-99a1-c3458147632b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="BusinessObjects" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://www.tiraggo.com/tiraggo/wcfservice/Tiraggoxmlclass.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TiraggoXmlClass.xsd" MetadataType="Schema" ID="0eb47e93-0d09-4d47-99a8-c83c069c7aaf" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd2" />
+    <MetadataFile FileName="TiraggoXmlClass1.xsd" MetadataType="Schema" ID="8ea79c57-e510-4e60-9aa4-bffbe63e01df" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd3" />
+    <MetadataFile FileName="TiraggoXmlClass2.xsd" MetadataType="Schema" ID="b5aa2239-62c1-42c3-a0c5-4b970685f00b" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd0" />
+    <MetadataFile FileName="TiraggoXmlClass3.xsd" MetadataType="Schema" ID="03d7dcdb-b871-403b-90c2-b50ebd83f8fb" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd1" />
+    <MetadataFile FileName="TiraggoXmlClass.wsdl" MetadataType="Wsdl" ID="7889ecb3-4b75-4a17-a0fd-db70f204bdeb" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?wsdl" />
+    <MetadataFile FileName="TiraggoXmlClass4.xsd" MetadataType="Schema" ID="31a400a5-8c16-4ca4-b188-a0311fb41814" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd4" />
+    <MetadataFile FileName="TiraggoXmlClass5.xsd" MetadataType="Schema" ID="98defe6e-5b46-4ed1-9e55-25f82d05ae51" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?xsd=xsd5" />
+    <MetadataFile FileName="TiraggoXmlClass.disco" MetadataType="Disco" ID="d6ce9d34-c667-41ca-961e-105e849b4919" SourceId="1" SourceUrl="http://www.tiraggo.com/tiraggo/wcfservice/TiraggoXmlClass.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

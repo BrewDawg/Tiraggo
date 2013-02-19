@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ServiceModel.Activation;
-using System.Text.RegularExpressions;
 
 using BusinessObjects;
 
@@ -12,6 +11,10 @@ namespace TiraggoXmlService
 	[AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
 	public partial class TiraggoXmlClass : ITiraggoXmlClass
 	{
+        public TiraggoXmlClass()
+        {
+            Tiraggo.Interfaces.tgProviderFactory.Factory = new Tiraggo.Loader.tgDataProviderFactory();
+        }
 
 		#region IEmployees Members
 

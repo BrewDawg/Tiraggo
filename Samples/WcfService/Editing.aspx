@@ -250,9 +250,13 @@
                     success: function (data, state) {
                         vm.error("");
                         vm.collection.loadAll();
+
+                        if (vm.collection().length > 0) {
+                            vm.mySelectedItem(vm.collection()[0]);
+                        }
                     },
                     error: function (status, responseText, state) {
-                        vm.error(responseText);
+                        vm.error("Ooops !! You can't delete that record, naughty naughty ...");
                     }
                 });
             }
@@ -263,6 +267,8 @@
         // Hit our service ...
         vm.collection.loadAll();
 
-        vm.mySelectedItem(vm.collection()[0]);
+        if (vm.collection().length > 0) {
+            vm.mySelectedItem(vm.collection()[0]);
+        }
     });
 </script>

@@ -52,6 +52,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Tiraggo.Core, Version=2013.1.203.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Editing.aspx" />
@@ -63,9 +64,15 @@
     <Content Include="Scripts\Libs\json2.js" />
     <Content Include="Scripts\tiraggo.XHR.debug.js" />
     <Content Include="Scripts\tiraggo.XHR.js" />
+    <None Include="Properties\DataSources\BusinessObjects.Employees.datasource" />
+    <None Include="Properties\DataSources\BusinessObjects.EmployeesCollection.datasource" />
     <Content Include="TiraggoWcfClass.svc" />
     <Content Include="TiraggoXmlClass.svc" />
     <Content Include="Tiraggo_js\Generated\Employees.js" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -78,15 +85,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITiraggoXmlClass.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="TiraggoWcfClass.svc.cs">
       <DependentUpon>TiraggoWcfClass.svc</DependentUpon>
     </Compile>
     <Compile Include="TiraggoXmlClass.svc.cs">
       <DependentUpon>TiraggoXmlClass.svc</DependentUpon>
     </Compile>
-    <Compile Include="Tiraggo\Custom\Employees.cs" />
-    <Compile Include="Tiraggo\Custom\EmployeesCollection.cs" />
-    <Compile Include="Tiraggo\Custom\EmployeesQuery.cs" />
     <Compile Include="Editing.aspx.cs">
       <DependentUpon>Editing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -94,7 +103,6 @@
     <Compile Include="Editing.aspx.designer.cs">
       <DependentUpon>Editing.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tiraggo\Generated\Employees.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,8 +130,13 @@
       <Project>{7DFF20D6-C320-4920-AE92-4F096D8DFE61}</Project>
       <Name>Tiraggo.Loader40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{5B94BEA3-F898-427B-9E49-37F29FD020F7}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tiraggo\" />
     <Folder Include="Tiraggo_js\Custom\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
