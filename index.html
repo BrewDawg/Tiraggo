@@ -1,48 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <title>Tiraggo by BrewDawg</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Tiraggo</h1>
-        <h2>A C# Cross Platform ORM Architecture (Full Xamarin Mono Touch Support)</h2>
-        <a href="https://github.com/BrewDawg/Tiraggo" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/BrewDawg/Tiraggo">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/BrewDawg/Tiraggo/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/BrewDawg/Tiraggo/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>The Nomadic Architecture</h1>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Tiraggo</h1>
+          <p>A C# Cross Platform ORM Architecture (Full Xamarin Mono Touch Support)</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/BrewDawg">BrewDawg</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="the-nomadic-architecture" class="anchor" href="#the-nomadic-architecture"><span class="octicon octicon-link"></span></a>The Nomadic Architecture</h1>
 
 <p><img src="https://raw.github.com/BrewDawg/Tiraggo/master/images/platforms.png" border="0"></p>
 
 <p>A C# Cross Platform ORM Architecture with full Xamarin Mono Touch Support (<a href="http://xamarin.com/">http://xamarin.com/</a>)
 Copyright © Mike Griffin. All Rights Reserved.</p>
 
-<h2>Platforms Supported</h2>
+<h2>
+<a name="platforms-supported" class="anchor" href="#platforms-supported"><span class="octicon octicon-link"></span></a>Platforms Supported</h2>
 
 <ul>
 <li>Windows - include the standard project files into your solution</li>
 <li>iPad/iPhone - include the .iOS project files into your solution</li>
 <li>Android - include the .Android project files into your solution</li>
 <li>Mac OS X Lion - include the .Mac project files into your solution</li>
-</ul><h2>How To Generate your Business Objects</h2>
+</ul><h2>
+<a name="how-to-generate-your-business-objects" class="anchor" href="#how-to-generate-your-business-objects"><span class="octicon octicon-link"></span></a>How To Generate your Business Objects</h2>
 
 <p><img src="https://raw.github.com/BrewDawg/Tiraggo/master/images/M2Gtrans.png" border="0"></p>
 
@@ -52,15 +65,18 @@ Copyright © Mike Griffin. All Rights Reserved.</p>
 <li>Push your Database Schema (Metadata only) up to the My2ndGeneration cloud.</li>
 <li>Generate the Tiraggo Custom and Generated Classes</li>
 <li>Click on the "Zip" button and download you classes</li>
-</ul><h2>Live Tiraggo/Tiraggo.js/Knockout Application</h2>
+</ul><h2>
+<a name="live-tiraggotiraggojsknockout-application" class="anchor" href="#live-tiraggotiraggojsknockout-application"><span class="octicon octicon-link"></span></a>Live Tiraggo/Tiraggo.js/Knockout Application</h2>
 
 <p><a href="http://www.tiraggo.com/tiraggo/wcfservice/Editing.aspx">Run the Live Application</a></p>
 
-<h2>Tiraggo's Endless Possibilities</h2>
+<h2>
+<a name="tiraggos-endless-possibilities" class="anchor" href="#tiraggos-endless-possibilities"><span class="octicon octicon-link"></span></a>Tiraggo's Endless Possibilities</h2>
 
 <p><img src="https://raw.github.com/BrewDawg/Tiraggo/master/images/Tiraggo_Architecture.png" border="0"></p>
 
-<h2>Databases Supported</h2>
+<h2>
+<a name="databases-supported" class="anchor" href="#databases-supported"><span class="octicon octicon-link"></span></a>Databases Supported</h2>
 
 <ul>
 <li>Microsoft SQL Server</li>
@@ -71,32 +87,19 @@ Copyright © Mike Griffin. All Rights Reserved.</p>
 <li>SQLCipher (SQLite w/256-bit AES encryption of database files)</li>
 <li>PostgreSQL</li>
 <li>Sybase (not yet online but next in the queue)</li>
-</ul><h2>The github Repository</h2>
+</ul><h2>
+<a name="the-github-repository" class="anchor" href="#the-github-repository"><span class="octicon octicon-link"></span></a>The github Repository</h2>
 
 <p><a href="https://github.com/BrewDawg/Tiraggo">Full Source is Available Here</a></p>
 
-<h2>The Tiraggo.js JavaScript Architecture</h2>
+<h2>
+<a name="the-tiraggojs-javascript-architecture" class="anchor" href="#the-tiraggojs-javascript-architecture"><span class="octicon octicon-link"></span></a>The Tiraggo.js JavaScript Architecture</h2>
 
 <p><a href="http://brewdawg.github.com/Tiraggo.js/">Tiraggo.js</a></p>
-        </section>
+      </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/BrewDawg/Tiraggo/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/BrewDawg/Tiraggo/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/BrewDawg/Tiraggo"></a> is maintained by <a href="https://github.com/BrewDawg">BrewDawg</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
