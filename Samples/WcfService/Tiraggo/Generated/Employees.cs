@@ -825,6 +825,7 @@ namespace BusinessObjects
 			c = new tgColumnMetadata(EmployeesMetadata.ColumnNames.EmployeeID, 0, typeof(System.Int32), tgSystemType.Int32);
 			c.PropertyName = EmployeesMetadata.PropertyNames.EmployeeID;
 			c.IsInPrimaryKey = true;
+            c.IsAutoIncrement = true;
 			c.NumericPrecision = 10;
 			m_columns.Add(c);
 
