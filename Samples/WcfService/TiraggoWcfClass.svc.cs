@@ -22,7 +22,7 @@ namespace TiraggoWcfService
 		public TiraggoWcfClass()
 		{
 			tgProviderFactory.Factory = new tgDataProviderFactory();
-            EnsureData();
+			EnsureData();
 		}
 
 		#region Employees Members
@@ -34,16 +34,19 @@ namespace TiraggoWcfService
 
 			try
 			{
+				EmployeesQuery q = new EmployeesQuery();
+				q.Select(q.EmployeeID, q.FirstName, q.LastName);
+
 				EmployeesCollection collection = new EmployeesCollection();
-				collection.LoadAll();
+				collection.Load(q);
 
-                if(collection.Count == 0)
-                {
-                    EnsureData();
+				if(collection.Count == 0)
+				{
+					EnsureData();
 
-                    collection = new EmployeesCollection();
-                    collection.LoadAll();
-                }
+					collection = new EmployeesCollection();
+					collection.LoadAll();
+				}
 
 				response.collection = collection;
 			}
@@ -114,21 +117,21 @@ namespace TiraggoWcfService
 
 		#endregion
 
-        private void EnsureData()
-        {
-            EmployeesQuery q = new EmployeesQuery();
-            q.tg.CountAll = true;
+		private void EnsureData()
+		{
+			EmployeesQuery q = new EmployeesQuery();
+			q.tg.CountAll = true;
 
-            int i = q.ExecuteScalar<int>();
+			int i = q.ExecuteScalar<int>();
 
-            if (i == 0)
-            {
-                Employees emp = new Employees();
-                emp.FirstName = "Mike";
-                emp.LastName = "Griffin";
-                emp.Save();
-            }
-        }
+			if (i == 0)
+			{
+				Employees emp = new Employees();
+				emp.FirstName = "Mike";
+				emp.LastName = "Griffin";
+				emp.Save();
+			}
+		}
 
 	}
 }		
