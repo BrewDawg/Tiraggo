@@ -56,11 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Editing.aspx" />
-    <Content Include="Scripts\Knockout\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\Knockout\knockout-2.2.0.min.js" />
+    <Content Include="Scripts\Knockout\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\Knockout\knockout-3.0.0.js" />
     <Content Include="Scripts\KoGrid\KoGrid.css" />
     <Content Include="Scripts\KoGrid\koGrid.debug.js" />
-    <Content Include="Scripts\Libs\jquery-1.7.1.js" />
+    <Content Include="Scripts\Libs\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Libs\json2.js" />
     <Content Include="Scripts\tiraggo.XHR.debug.js" />
     <Content Include="Scripts\tiraggo.XHR.js" />

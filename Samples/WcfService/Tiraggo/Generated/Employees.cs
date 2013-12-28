@@ -471,8 +471,11 @@ namespace BusinessObjects
         [DataMember(EmitDefaultValue = false)]  
         public Dictionary<string, object> tgExtendedData  
         {  
-            get { return GetExtraColumns(); }  
-            private set { }  
+            get { return GetExtraColumns(); }
+            set 
+            { 
+                this.SetExtraColumns(value); 
+            }  
         } 
 
 		#endregion

@@ -6,10 +6,9 @@
 <head id="head" runat="server">
 
     <title>Tiraggo.js Editing Sample</title>
-
-    <script src="Scripts/Libs/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="Scripts/Libs/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="Scripts/Libs/json2.js" type="text/javascript"></script>
-    <script src="Scripts/Knockout/knockout-2.2.0.debug.js" type="text/javascript"></script>
+    <script src="Scripts/Knockout/knockout-3.0.0.debug.js" type="text/javascript"></script>
     <link href="Scripts/KoGrid/KoGrid.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/KoGrid/koGrid.debug.js" type="text/javascript"></script>
 
@@ -56,7 +55,7 @@
             </tr>
             <tr>
                 <td valign="top" align="left" style="width: 1%;">
-                    <div id="myGrid" style="max-height: 300px; max-width: 710px; border: 1px solid rgb(0, 0, 0);"
+                    <div id="myGrid" style="max-height: 300px; max-width: 730px; border: 1px solid rgb(0, 0, 0);"
                         data-bind="koGrid:{ data: collection, 
                             isMultiSelect: false,
                             selectedItem: mySelectedItem,
@@ -64,7 +63,7 @@
                             sortInfo: sortInfo,
                             enablePaging: false,
                             columnDefs: [
-                                {field: 'EmployeeID', displayName: 'ID', width: 30}, 
+                                {field: 'EmployeeID', displayName: 'ID', width: 50}, 
                                 {field: 'FirstName', displayName: 'First Name', width: 120}, 
                                 {field: 'LastName', displayName: 'Last Name', width: 160},
                                 {field: 'RowState', displayName: 'RowState', width: 90},
@@ -249,14 +248,9 @@
                 vm.collection.save({
                     success: function (data, state) {
                         vm.error("");
-                        vm.collection.loadAll();
-
-                        if (vm.collection().length > 0) {
-                            vm.mySelectedItem(vm.collection()[0]);
-                        }
                     },
                     error: function (status, responseText, state) {
-                        vm.error("Ooops !! You can't delete that record, naughty naughty ...");
+                        vm.error("Ooops !! Something failed ...");
                     }
                 });
             }

@@ -35,7 +35,7 @@ namespace TiraggoWcfService
 			try
 			{
 				EmployeesQuery q = new EmployeesQuery();
-				q.Select(q.EmployeeID, q.FirstName, q.LastName);
+				q.Select(q.EmployeeID, q.FirstName, q.LastName, (q.LastName).As("extra"));
 
 				EmployeesCollection collection = new EmployeesCollection();
 				collection.Load(q);
