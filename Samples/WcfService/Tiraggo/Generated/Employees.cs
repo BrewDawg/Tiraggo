@@ -468,15 +468,20 @@ namespace BusinessObjects
 			}
 		}
 
-		[DataMember(EmitDefaultValue = false)]  
-		public Dictionary<string, object> tgExtendedData  
-		{  
-			get { return GetExtraColumns(); }
-			set 
-			{ 
-				this.SetExtraColumns(value); 
-			}  
-		} 
+        // For Tiraggo.js support and basic serialization of extra properties
+        // brought back via Joins
+        [DataMember(EmitDefaultValue = false)]
+        public Dictionary<string, object> tgExtendedData
+        {
+            get { return GetExtraColumns(); }
+            set
+            {
+                foreach (string key in value.Keys)
+                {
+                    this.SetColumn(key, value[key]);
+                }
+            }
+        }
 
 		#endregion
 
