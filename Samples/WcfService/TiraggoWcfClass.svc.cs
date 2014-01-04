@@ -15,123 +15,123 @@ using BusinessObjects;
 
 namespace TiraggoWcfService
 {
-	[AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-	[ServiceContract()]
-	public partial class TiraggoWcfClass
-	{
-		public TiraggoWcfClass()
-		{
-			tgProviderFactory.Factory = new tgDataProviderFactory();
-			EnsureData();
-		}
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+    [ServiceContract()]
+    public partial class TiraggoWcfClass
+    {
+        public TiraggoWcfClass()
+        {
+            tgProviderFactory.Factory = new tgDataProviderFactory();
+            EnsureData();
+        }
 
-		#region Employees Members
+        #region Employees Members
 
-		[WebInvoke(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]	
-		public jsResponse<EmployeesCollection, Employees> EmployeesCollection_LoadAll()
-		{
-			jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]	
+        public jsResponse<EmployeesCollection, Employees> EmployeesCollection_LoadAll()
+        {
+            jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
 
-			try
-			{
-				EmployeesQuery q = new EmployeesQuery();
-				q.Select(q.EmployeeID, q.FirstName, q.LastName, (q.LastName).As("extra"));
+            try
+            {
+                EmployeesQuery q = new EmployeesQuery();
+                q.Select(q.EmployeeID, q.FirstName, q.LastName);
 
-				EmployeesCollection collection = new EmployeesCollection();
-				collection.Load(q);
+                EmployeesCollection collection = new EmployeesCollection();
+                collection.Load(q);
 
-				if(collection.Count == 0)
-				{
-					EnsureData();
+                if(collection.Count == 0)
+                {
+                    EnsureData();
 
-					collection = new EmployeesCollection();
-					collection.LoadAll();
-				}
+                    collection = new EmployeesCollection();
+                    collection.LoadAll();
+                }
 
-				response.collection = collection;
-			}
-			catch (Exception ex)
-			{
-				response.exception = ex.Message;
-			}
+                response.collection = collection;
+            }
+            catch (Exception ex)
+            {
+                response.exception = ex.Message;
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
-		public jsResponse<EmployeesCollection, Employees> EmployeesCollection_Save(EmployeesCollection collection)
-		{
-			jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        public jsResponse<EmployeesCollection, Employees> EmployeesCollection_Save(EmployeesCollection collection)
+        {
+            jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
 
-			try
-			{
-				collection.Save();
-				response.collection = collection;
-			}
-			catch (Exception ex)
-			{
-				response.exception = ex.Message;
-			}
+            try
+            {
+                collection.Save();
+                response.collection = collection;
+            }
+            catch (Exception ex)
+            {
+                response.exception = ex.Message;
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
-		public jsResponse<EmployeesCollection, Employees> Employees_LoadByPrimaryKey(System.Int32 employeeID)
-		{
-			jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        public jsResponse<EmployeesCollection, Employees> Employees_LoadByPrimaryKey(System.Int32 employeeID)
+        {
+            jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
 
-			try
-			{
-				Employees entity = new Employees();
-				if (entity.LoadByPrimaryKey(employeeID))
-				{
-					response.entity = entity;
-				}
-			}
-			catch (Exception ex)
-			{
-				response.exception = ex.Message;
-			}
+            try
+            {
+                Employees entity = new Employees();
+                if (entity.LoadByPrimaryKey(employeeID))
+                {
+                    response.entity = entity;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.exception = ex.Message;
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
-		public jsResponse<EmployeesCollection, Employees> Employees_Save(Employees entity)
-		{
-			jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        public jsResponse<EmployeesCollection, Employees> Employees_Save(Employees entity)
+        {
+            jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
 
-			try
-			{
-				entity.Save();
-				response.entity = entity;
-			}
-			catch (Exception ex)
-			{
-				response.exception = ex.Message;
-			}
+            try
+            {
+                entity.Save();
+                response.entity = entity;
+            }
+            catch (Exception ex)
+            {
+                response.exception = ex.Message;
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		#endregion
+        #endregion
 
-		private void EnsureData()
-		{
-			EmployeesQuery q = new EmployeesQuery();
-			q.tg.CountAll = true;
+        private void EnsureData()
+        {
+            EmployeesQuery q = new EmployeesQuery();
+            q.tg.CountAll = true;
 
-			int i = q.ExecuteScalar<int>();
+            int i = q.ExecuteScalar<int>();
 
-			if (i == 0)
-			{
-				Employees emp = new Employees();
-				emp.FirstName = "Mike";
-				emp.LastName = "Griffin";
-				emp.Save();
-			}
-		}
+            if (i == 0)
+            {
+                Employees emp = new Employees();
+                emp.FirstName = "Mike";
+                emp.LastName = "Griffin";
+                emp.Save();
+            }
+        }
 
-	}
+    }
 }		

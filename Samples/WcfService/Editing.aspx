@@ -8,7 +8,7 @@
     <title>Tiraggo.js Editing Sample</title>
     <script src="Scripts/Libs/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="Scripts/Libs/json2.js" type="text/javascript"></script>
-    <script src="Scripts/Knockout/knockout-3.0.0.debug.js" type="text/javascript"></script>
+    <script src="Scripts/Knockout/knockout-3.0.0.js" type="text/javascript"></script>
     <link href="Scripts/KoGrid/KoGrid.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/KoGrid/koGrid.debug.js" type="text/javascript"></script>
 
@@ -172,18 +172,18 @@
             </tr>
             <tr valign="top">
                 <td valign="top" align="left" style="width: 1%" rowspan="3">
-                    <div id="myDeleted" style="max-height: 200px; max-width: 710px; border: 1px solid rgb(0,0,0);"
+                    <div id="myDeleted" style="max-height: 200px; max-width: 730px; border: 1px solid rgb(0,0,0);"
                         data-bind="koGrid:{ data: collection.tg.deletedEntities, 
                         isMultiSelect: false,
                         autogenerateColumns: false,
                         sortInfo: sortInfo,
                         columnDefs: [
-                            {field: 'EmployeeID', displayName: 'ID', width: 30}, 
-                            {field: 'FirstName', displayName: 'First Name', width: 120}, 
-                            {field: 'LastName', displayName: 'Last Name', width: 160},
-                            {field: 'RowState', displayName: 'RowState', width: 90},
-                            {field: 'isDirty', displayName: 'isDirty', width: 80},
-                            {field: 'ModifiedColumns', displayName: 'ModifiedColumns', width: 160}
+                            { field: 'EmployeeID', displayName: 'ID', width: 50 },
+                            { field: 'FirstName', displayName: 'First Name', width: 120 },
+                            { field: 'LastName', displayName: 'Last Name', width: 160 },
+                            { field: 'RowState', displayName: 'RowState', width: 90 },
+                            { field: 'isDirty', displayName: 'isDirty', width: 80 },
+                            { field: 'ModifiedColumns', displayName: 'ModifiedColumns', width: 160 }
                         ],
                         displaySelectionCheckbox: true,
                         displayRowIndex: true }">
