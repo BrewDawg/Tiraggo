@@ -150,7 +150,8 @@ namespace Tiraggo.Interfaces
     /// emps.Query.Load();
     /// </code>
     /// </example>
-    [Serializable] 
+    
+    //[Serializable] 
     public class tgDynamicQuery : tgDynamicQuerySerializable
     {
         /// <summary>

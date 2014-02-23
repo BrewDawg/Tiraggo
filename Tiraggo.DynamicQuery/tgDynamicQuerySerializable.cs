@@ -86,8 +86,9 @@ namespace Tiraggo.DynamicQuery
     /// emps.Query.Load();
     /// </code>
     /// </example>
-    [Serializable]
-    [DataContract(Namespace = "tg", IsReference = true)]
+
+    //[Serializable]
+    //[DataContract(Namespace = "tg", IsReference = true)]
     public class tgDynamicQuerySerializable : IDynamicQuerySerializableInternal
     {
         /// <summary>

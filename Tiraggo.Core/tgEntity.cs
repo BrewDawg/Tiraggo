@@ -31,6 +31,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -4442,7 +4443,7 @@ namespace Tiraggo.Core
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            this.m_modifiedColumns = tempModifiedColumns;
+            this.m_modifiedColumns = tempModifiedColumns.ToList();
             tempModifiedColumns = null;
 
             this.rowState = tempRowState;
@@ -4467,15 +4468,15 @@ namespace Tiraggo.Core
 
         [XmlIgnore]
         [DataMember(Name = "ModifiedColumns", EmitDefaultValue=false)]
-        private List<string> TempModifiedColumns
+        private string[] TempModifiedColumns
         {
-            get { return m_modifiedColumns; }
+            get { return null;  } // m_modifiedColumns; }
             set { tempModifiedColumns = value; }
         }
 
         [NonSerialized]
         [IgnoreDataMember]
-        private List<string> tempModifiedColumns;
+        private string[] tempModifiedColumns;
 
         #endregion
 
@@ -4485,5 +4486,16 @@ namespace Tiraggo.Core
         static public event ModifiedByEventHandler ModifiedByEventHandler;
 
         #endregion
+    }
+
+    [Serializable]
+    [XmlType(IncludeInSchema = false)]
+    [DataContract]
+    public class tgKeyValuePair
+    {
+        [DataMember]
+        public string Key { get; set; }
+        [DataMember]
+        public object Value { get; set;}
     }
 }

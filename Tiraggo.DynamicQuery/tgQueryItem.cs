@@ -5652,10 +5652,11 @@ namespace Tiraggo.DynamicQuery
         /// Required due to operator overloading. Use 'Equal' not 'Equals'
         /// for DynamicQueries.
         /// </summary>
+        [Obsolete("Use 'Equal' not 'Equals'")]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object o)
         {
-            throw new NotImplementedException("Use 'Equal' not 'Equals'");
+            return false;
         }
 
         /// <summary>
