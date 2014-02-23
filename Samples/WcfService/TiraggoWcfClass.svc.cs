@@ -27,7 +27,7 @@ namespace TiraggoWcfService
 
         #region Employees Members
 
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]	
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, Method="GET", BodyStyle = WebMessageBodyStyle.Bare)]	
         public jsResponse<EmployeesCollection, Employees> EmployeesCollection_LoadAll()
         {
             jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
@@ -58,7 +58,7 @@ namespace TiraggoWcfService
             return response;
         }
 
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, Method="POST", RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         public jsResponse<EmployeesCollection, Employees> EmployeesCollection_Save(EmployeesCollection collection)
         {
             jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
@@ -76,7 +76,7 @@ namespace TiraggoWcfService
             return response;
         }
 
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, Method = "POST", RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         public jsResponse<EmployeesCollection, Employees> Employees_LoadByPrimaryKey(System.Int32 employeeID)
         {
             jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
@@ -97,7 +97,7 @@ namespace TiraggoWcfService
             return response;
         }
 
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json, Method = "POST", RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         public jsResponse<EmployeesCollection, Employees> Employees_Save(Employees entity)
         {
             jsResponse<EmployeesCollection, Employees> response = new jsResponse<EmployeesCollection, Employees>();
