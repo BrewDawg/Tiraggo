@@ -4443,8 +4443,11 @@ namespace Tiraggo.Core
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            this.m_modifiedColumns = tempModifiedColumns.ToList();
-            tempModifiedColumns = null;
+            if (tempModifiedColumns != null)
+            {
+                this.m_modifiedColumns = tempModifiedColumns.ToList();
+                tempModifiedColumns = null;
+            }
 
             this.rowState = tempRowState;
 
@@ -4470,7 +4473,7 @@ namespace Tiraggo.Core
         [DataMember(Name = "ModifiedColumns", EmitDefaultValue=false)]
         private string[] TempModifiedColumns
         {
-            get { return null;  } // m_modifiedColumns; }
+            get { return tempModifiedColumns; }
             set { tempModifiedColumns = value; }
         }
 
