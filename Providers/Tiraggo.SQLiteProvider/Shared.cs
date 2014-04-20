@@ -117,7 +117,8 @@ namespace Tiraggo.SQLiteProvider
             }
 
             #region Special Columns
-            if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
+            if (cols.DateAdded != null && cols.DateAdded.IsServerSide &&
+                cols.FindByColumnName(cols.DateAdded.ColumnName) != null)
             {
                 into += comma + Delimiters.ColumnOpen + cols.DateAdded.ColumnName + Delimiters.ColumnClose;
                 values += comma + request.ProviderMetadata["DateAdded.ServerSideText"];
@@ -127,7 +128,8 @@ namespace Tiraggo.SQLiteProvider
                 defaultComma = ",";
             }
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 into += comma + Delimiters.ColumnOpen + cols.DateModified.ColumnName + Delimiters.ColumnClose;
                 values += comma + request.ProviderMetadata["DateModified.ServerSideText"];
@@ -137,7 +139,8 @@ namespace Tiraggo.SQLiteProvider
                 defaultComma = ",";
             }
 
-            if (cols.AddedBy != null && cols.AddedBy.IsServerSide)
+            if (cols.AddedBy != null && cols.AddedBy.IsServerSide &&
+                cols.FindByColumnName(cols.AddedBy.ColumnName) != null)
             {
                 into += comma + Delimiters.ColumnOpen + cols.AddedBy.ColumnName + Delimiters.ColumnClose;
                 values += comma + request.ProviderMetadata["AddedBy.ServerSideText"];
@@ -147,7 +150,8 @@ namespace Tiraggo.SQLiteProvider
                 defaultComma = ",";
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 into += comma + Delimiters.ColumnOpen + cols.ModifiedBy.ColumnName + Delimiters.ColumnClose;
                 values += comma + request.ProviderMetadata["ModifiedBy.ServerSideText"];
@@ -279,7 +283,8 @@ namespace Tiraggo.SQLiteProvider
             }
 
             #region Special Columns
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 sql += scomma;
                 sql += Delimiters.ColumnOpen + cols.DateModified.ColumnName + Delimiters.ColumnClose + " = " + request.ProviderMetadata["DateModified.ServerSideText"];
@@ -289,7 +294,8 @@ namespace Tiraggo.SQLiteProvider
                 defaultsComma = ",";
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 sql += scomma;
                 sql += Delimiters.ColumnOpen + cols.ModifiedBy.ColumnName + Delimiters.ColumnClose + " = " + request.ProviderMetadata["ModifiedBy.ServerSideText"];
