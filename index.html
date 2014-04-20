@@ -112,10 +112,941 @@ Mikes <a href="http://www.tiraggo.com">Personal Site</a><br></p>
 
 <p><a href="https://github.com/BrewDawg/Tiraggo">Full Source is Available Here</a></p>
 
-<h2>
-<a name="the-tiraggojs-javascript-architecture" class="anchor" href="#the-tiraggojs-javascript-architecture"><span class="octicon octicon-link"></span></a>The Tiraggo.js JavaScript Architecture</h2>
+<h1>
+<a name="the-syntax" class="anchor" href="#the-syntax"><span class="octicon octicon-link"></span></a>The Syntax</h1>
 
-<p><a href="http://www.tiraggo.com/tiraggojs/index.html#GettingStartedHome">Tiraggo.js</a></p>
+<p>What developer doesn't have a good grasp of the T-SQL syntax? The goal behind the Tiraggo API is to mimic the T-SQL syntax. This has two advantages, your learning curve is minimal and the SQL spit out is very clean.</p>
+
+<h2>
+<a name="a-simple-sample-with-an-innerjoin" class="anchor" href="#a-simple-sample-with-an-innerjoin"><span class="octicon octicon-link"></span></a>A Simple Sample with an InnerJoin</h2>
+
+<p>The sample below demonstrates a self join on the Employees table which is looking for all employees with an 'a' in their last name who have people reporting to them. Kind of silly but it shows off the syntax.</p>
+
+<p>Full Intellisense Support</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e"</span><span class="p">);</span>
+<span class="n">EmployeeQuery</span> <span class="n">q1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e1"</span><span class="p">);</span>
+
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">)</span>  <span class="c1">// To bind to combobox</span>
+    <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%a%"</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">InnerJoin</span><span class="p">(</span><span class="n">q1</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span> <span class="p">==</span> <span class="n">q1</span><span class="p">.</span><span class="n">ReportsTo</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+
+<span class="n">EmployeesCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span>  <span class="n">EmployeesCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="n">Empoyees</span> <span class="n">emp</span> <span class="k">in</span> <span class="n">coll</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// do something</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Yep, you can actually select only the columns you desire and the SQL is extremely lean. Tiraggo.EF only requires a single .NET assembly and no config settings.</p>
+
+<p>NOTE: <b>InnerJoin</b> is used above, also supported are <b>RightJoin</b>, <b>LeftJoin</b>, <b>CrossJoin</b>, and <b>FullJoin</b>.</p>
+
+<p>Results from the Query Above</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span>
+   <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">],</span>
+   <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span>  
+<span class="k">FROM</span>
+   <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> <span class="n">e</span> 
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> <span class="n">e1</span> 
+   <span class="k">ON</span> <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="o">=</span> <span class="n">e1</span><span class="p">.[</span><span class="n">ReportsTo</span><span class="p">]</span> 
+<span class="k">WHERE</span>
+   <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span> <span class="k">LIKE</span> <span class="o">@</span><span class="n">LastName1</span> 
+<span class="k">ORDER</span> <span class="k">BY</span>
+   <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span> <span class="k">DESC</span>
+</pre></div>
+
+<p>Compare that SQL to the SQL generated by a Entity Framework query which does the same thing and you'll be shocked.</p>
+
+<h2>
+<a name="supported-operators" class="anchor" href="#supported-operators"><span class="octicon octicon-link"></span></a>Supported Operators</h2>
+
+<p>Use the native language syntax, it works as you expect it would.</p>
+
+<ul>
+<li>+</li>
+<li>-</li>
+<li>*</li>
+<li>/</li>
+<li>%</li>
+<li>&gt;</li>
+<li>&lt;</li>
+<li>&lt;=</li>
+<li>&gt;=</li>
+<li>==</li>
+<li>!= </li>
+<li>&amp;&amp; = SQL 'AND' in VB use "And"</li>
+<li>|| = SQL 'OR' in VB use "Or"</li>
+</ul><h2>
+<a name="sub-operators" class="anchor" href="#sub-operators"><span class="octicon octicon-link"></span></a>Sub Operators</h2>
+
+<ul>
+<li>ToUpper - Convert to lower case</li>
+<li>ToLower - Left trim any leading spaces</li>
+<li>LTrim - Left trim any trailing spaces</li>
+<li>RTrim - - Right trim any trailing spaces</li>
+<li>Trim - Trim both leading and trailing spaces</li>
+<li>SubString - Return a sub-string </li>
+<li>Coalesce - Return the first non null evaluating expression</li>
+<li>Date - Returns only the date of a datetime type</li>
+<li>DatePart - Returns the value of part of a datetime value.</li>
+<li>Length - Return the length</li>
+<li>Round - Rounds the numeric-expression to the desired places after the decimal point.</li>
+<li>Avg - Average</li>
+<li>Count - Count operator</li>
+<li>Max - Maximum Value</li>
+<li>Min - Minimum Value</li>
+<li>StdDev - Standard Deviation</li>
+<li>Var - Variance</li>
+<li>Sum - Summation</li>
+<li>Cast - SQL Cast</li>
+</ul><h2>
+<a name="more-samples" class="anchor" href="#more-samples"><span class="octicon octicon-link"></span></a>More Samples</h2>
+
+<h3>
+<a name="select-top" class="anchor" href="#select-top"><span class="octicon octicon-link"></span></a>Select Top</h3>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeesQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">Top</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span> <span class="c1">// TOP</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span> <span class="p">==</span> <span class="m">1</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span> <span class="p">!=</span> <span class="s">"googy"</span><span class="p">));</span>
+
+<span class="c1">// Use the single entity since we expect only 1 record</span>
+<span class="n">Employees</span> <span class="n">emp</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Employees</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">emp</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Result:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span>  <span class="n">TOP</span> <span class="mi">1</span> <span class="o">*</span> 
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> 
+<span class="k">WHERE</span> <span class="p">([</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="o">=</span> <span class="o">@</span><span class="n">EmployeeID1</span> <span class="k">AND</span> <span class="p">[</span><span class="n">LastName</span><span class="p">]</span> <span class="o">&lt;&gt;</span> <span class="o">@</span><span class="n">LastName2</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="selectallexcept" class="anchor" href="#selectallexcept"><span class="octicon octicon-link"></span></a>SelectAllExcept</h3>
+
+<p>SelectAllExcept() is not really a SubQuery, just a convenient enhancement that allows you to select all except one or more listed columns.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">();</span>
+<span class="c1">// We don't want to bring back the huge photo</span>
+<span class="n">q</span><span class="p">.</span><span class="n">SelectAllExcept</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">Photo</span><span class="p">);</span>
+
+<span class="n">EmployeeCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">],[</span><span class="n">LastName</span><span class="p">],[</span><span class="n">FirstName</span><span class="p">],[</span><span class="n">Supervisor</span><span class="p">],[</span><span class="n">Age</span><span class="p">]</span>
+  <span class="c1">-- not [Photo]</span>
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span>
+</pre></div>
+
+<h3>
+<a name="getting-the-count" class="anchor" href="#getting-the-count"><span class="octicon octicon-link"></span></a>Getting the Count</h3>
+
+<div class="highlight highlight-csharp"><pre><span class="n">ErrorLogQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ErrorLogQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%a"</span><span class="p">));</span>
+<span class="n">q</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">CountAll</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+<span class="kt">long</span> <span class="n">count</span> <span class="p">=</span> <span class="n">q</span><span class="p">.</span><span class="n">ExecuteScalar</span><span class="p">&lt;</span><span class="kt">long</span><span class="p">&gt;();</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'Count'</span> 
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">ErrorLog</span><span class="p">]</span> 
+<span class="k">WHERE</span> <span class="p">[</span><span class="n">Message</span><span class="p">]</span> <span class="k">LIKE</span> <span class="o">@</span><span class="n">Message1</span>
+</pre></div>
+
+<h3>
+<a name="paging" class="anchor" href="#paging"><span class="octicon octicon-link"></span></a>Paging</h3>
+
+<p><b>Using PageSize and PageNumber</b>. </p>
+
+<p>This is the traditional way of paging and works on all versions of SQL Server. You always need an OrderBy when sorting.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">ErrorLogQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ErrorLogQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">ErrorLogId</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Method</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">DateOccurred</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">PageNumber</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+<span class="n">q</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">PageSize</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
+
+<span class="n">ErrorLogCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ErrorLogCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">WITH</span> <span class="p">[</span><span class="n">withStatement</span><span class="p">]</span> <span class="k">AS</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="p">[</span><span class="n">errorlogid</span><span class="p">],</span> 
+        <span class="p">[</span><span class="k">method</span><span class="p">],</span> 
+        <span class="p">[</span><span class="n">message</span><span class="p">],</span> 
+        <span class="n">Row_number</span><span class="p">()</span> <span class="n">OVER</span>
+        <span class="p">(</span> 
+            <span class="k">ORDER</span> <span class="k">BY</span> <span class="p">[</span><span class="n">dateoccurred</span><span class="p">]</span> <span class="k">DESC</span>
+        <span class="p">)</span> <span class="k">AS</span> <span class="n">ESRN</span> 
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">errorlog</span><span class="p">]</span>
+<span class="p">)</span> 
+<span class="k">SELECT</span> <span class="o">*</span> 
+<span class="k">FROM</span> <span class="p">[</span><span class="n">withStatement</span><span class="p">]</span> 
+<span class="k">WHERE</span> <span class="n">esrn</span> <span class="k">BETWEEN</span> <span class="mi">21</span> <span class="k">AND</span> <span class="mi">40</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">esrn</span> <span class="k">ASC</span> 
+</pre></div>
+
+<p><b>Using Skip and Take for paging</b>. </p>
+
+<p>Skip and Take Require Microsoft SQL 2012 at a minimum and is a much nicer syntax.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">ErrorLogQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ErrorLogQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">ErrorLogId</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Method</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">DateOccurred</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Skip</span><span class="p">(</span><span class="m">40</span><span class="p">).</span><span class="n">Take</span><span class="p">(</span><span class="m">20</span><span class="p">);</span>
+
+<span class="n">ErrorLogCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ErrorLogCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="p">[</span><span class="n">ErrorLogId</span><span class="p">],[</span><span class="k">Method</span><span class="p">],[</span><span class="n">Message</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">ErrorLog</span><span class="p">]</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="p">[</span><span class="n">DateOccurred</span><span class="p">]</span> <span class="k">DESC</span> 
+<span class="k">OFFSET</span> <span class="mi">40</span> <span class="k">ROWS</span> 
+<span class="k">FETCH</span> <span class="k">NEXT</span> <span class="mi">20</span> <span class="k">ROWS</span> <span class="k">ONLY</span>
+</pre></div>
+
+<h3>
+<a name="with-nolock" class="anchor" href="#with-nolock"><span class="octicon octicon-link"></span></a>With NoLock</h3>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">OrderItemQuery</span> <span class="n">oiq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">CustID</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span><span class="p">,</span> <span class="s">"&lt;sub.OrderTotal&gt;"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">From</span>
+    <span class="p">(</span>
+        <span class="n">oiq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">UnitPrice</span> <span class="p">*</span> <span class="n">oiq</span><span class="p">.</span><span class="n">Quantity</span><span class="p">).</span><span class="n">Sum</span><span class="p">().</span><span class="n">As</span><span class="p">(</span><span class="s">"OrderTotal"</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span>
+    <span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"sub"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">InnerJoin</span><span class="p">(</span><span class="n">oq</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">WithNoLock</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Notice that even though many query objects are being used you only need to set WithNoLock to true for the parent or main query object. The SQL generated is as follows:</p>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">],</span><span class="n">sub</span><span class="p">.</span><span class="n">OrderTotal</span>  
+<span class="k">FROM</span> 
+<span class="p">(</span>
+   <span class="k">SELECT</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span>
+    <span class="k">SUM</span><span class="p">((</span><span class="n">oi</span><span class="p">.[</span><span class="n">UnitPrice</span><span class="p">]</span><span class="o">*</span><span class="n">oi</span><span class="p">.[</span><span class="n">Quantity</span><span class="p">]))</span> <span class="k">AS</span> <span class="s1">'OrderTotal'</span>  
+   <span class="k">FROM</span> <span class="p">[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">NOLOCK</span><span class="p">)</span> 
+   <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">AS</span> <span class="n">sub</span> 
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">NOLOCK</span><span class="p">)</span> 
+<span class="k">ON</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> 
+</pre></div>
+
+<h3>
+<a name="full-expressions-in-orderby-and-groupby" class="anchor" href="#full-expressions-in-orderby-and-groupby"><span class="octicon octicon-link"></span></a>Full Expressions in OrderBy and GroupBy</h3>
+
+<p>This query doesn’t really make sense, but we wanted to show you what will be possible in the next release.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeesQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesQuery</span><span class="p">();</span> 
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">).</span><span class="n">ToLower</span><span class="p">());</span> 
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">).</span><span class="n">ToLower</span><span class="p">().</span><span class="n">Descending</span><span class="p">);</span> 
+<span class="n">q</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">).</span><span class="n">ToLower</span><span class="p">());</span>
+
+<span class="n">EmployeesCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="k">SUBSTRING</span><span class="p">(</span><span class="k">LOWER</span><span class="p">([</span><span class="n">LastName</span><span class="p">]),</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="k">AS</span> <span class="s1">'LastName'</span> 
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="k">SUBSTRING</span><span class="p">(</span><span class="k">LOWER</span><span class="p">([</span><span class="n">LastName</span><span class="p">]),</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">SUBSTRING</span><span class="p">(</span><span class="k">LOWER</span><span class="p">([</span><span class="n">LastName</span><span class="p">]),</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="k">DESC</span>
+</pre></div>
+
+<h3>
+<a name="select-subquery" class="anchor" href="#select-subquery"><span class="octicon octicon-link"></span></a>Select SubQuery</h3>
+
+<p>A SubQuery in a Select clause must return a single value.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderQuery</span> <span class="n">orders</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">OrderItemQuery</span> <span class="n">details</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="n">orders</span><span class="p">.</span><span class="n">Select</span>
+<span class="p">(</span>
+    <span class="n">orders</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span>
+    <span class="n">orders</span><span class="p">.</span><span class="n">OrderDate</span><span class="p">,</span>
+    <span class="n">details</span><span class="p">.</span><span class="n">Select</span>
+    <span class="p">(</span>
+        <span class="n">details</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">.</span><span class="n">Max</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">orders</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">details</span><span class="p">.</span><span class="n">OrderID</span><span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"MaxUnitPrice"</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">orders</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">],</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">oi</span><span class="p">.[</span><span class="n">UnitPrice</span><span class="p">])</span> <span class="k">AS</span> <span class="s1">'UnitPrice'</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> 
+    <span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="o">=</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">AS</span> <span class="n">MaxUnitPrice</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span>
+</pre></div>
+
+<p>This is the same as the query above, but returns all columns in the Order table, instead of just OrderID and OrderDate. Notice that the Select clause contains orders, not orders.<em>. The SQL produced will use the supplied alias o.</em>.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderQuery</span> <span class="n">orders</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">OrderItemQuery</span> <span class="n">details</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="n">orders</span><span class="p">.</span><span class="n">Select</span>
+<span class="p">(</span>
+    <span class="n">orders</span><span class="p">,</span> <span class="c1">// this means orders.*</span>
+    <span class="n">details</span><span class="p">.</span><span class="n">Select</span>
+    <span class="p">(</span>
+        <span class="n">details</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">.</span><span class="n">Max</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">orders</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">details</span><span class="p">.</span><span class="n">OrderID</span><span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"MaxUnitPrice"</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">orders</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.</span><span class="o">*</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">oi</span><span class="p">.[</span><span class="n">UnitPrice</span><span class="p">])</span> <span class="k">AS</span> <span class="s1">'UnitPrice'</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> 
+    <span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="o">=</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">AS</span> <span class="n">MaxUnitPrice</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">ForeignKeyTest</span><span class="p">].[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span>
+</pre></div>
+
+<h3>
+<a name="from-subquery" class="anchor" href="#from-subquery"><span class="octicon octicon-link"></span></a>From SubQuery</h3>
+
+<p>An aggregate requires a GROUP BY for each column in the SELECT that is not an aggregate. Sometimes you wish to include columns in your result set that you do not wish to group by. One way to accomplish this is by using a SubQuery in the From clause that contains the aggregate the way you want it grouped. The outer query contains the results of the aggregate, plus any additional columns.</p>
+
+<p>If you use a SubQuery in a From clause, you must give the From clause its own alias (shown below as "sub"). In the outer query, to refer to an aliased element in the From SubQuery, use the inline raw SQL technique to qualify the aggregate's alias with the From clause alias, i.e., "".</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">OrderItemQuery</span> <span class="n">oiq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">CustID</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span><span class="p">,</span> <span class="s">"&lt;sub.OrderTotal&gt;"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">From</span>
+<span class="p">(</span>
+    <span class="n">oiq</span><span class="p">.</span><span class="n">Select</span>
+    <span class="p">(</span>
+        <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">UnitPrice</span> <span class="p">*</span> <span class="n">oiq</span><span class="p">.</span><span class="n">Quantity</span><span class="p">).</span><span class="n">Sum</span><span class="p">().</span><span class="n">As</span><span class="p">(</span><span class="s">"OrderTotal"</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">)</span>
+<span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"sub"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">InnerJoin</span><span class="p">(</span><span class="n">oq</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">],</span><span class="n">sub</span><span class="p">.</span><span class="n">OrderTotal</span>  
+<span class="k">FROM</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span>
+    <span class="k">SUM</span><span class="p">((</span><span class="n">oi</span><span class="p">.[</span><span class="n">UnitPrice</span><span class="p">]</span><span class="o">*</span><span class="n">oi</span><span class="p">.[</span><span class="n">Quantity</span><span class="p">]))</span> <span class="k">AS</span> <span class="s1">'OrderTotal'</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> 
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">AS</span> <span class="n">sub</span> 
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> <span class="k">ON</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+</pre></div>
+
+<h3>
+<a name="where-subquery" class="anchor" href="#where-subquery"><span class="octicon octicon-link"></span></a>Where SubQuery</h3>
+
+<p>In and NotIn are two of the most common operators used in a Where SubQuery. The following produces a result set containing Territories that an Employee is not associated with.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// SubQuery of Territories that Employee 1 is assigned to.</span>
+<span class="n">EmployeeTerritoryQuery</span> <span class="n">etq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeTerritoryQuery</span><span class="p">(</span><span class="s">"et"</span><span class="p">);</span>
+<span class="n">etq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">etq</span><span class="p">.</span><span class="n">TerrID</span><span class="p">);</span>
+<span class="n">etq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">etq</span><span class="p">.</span><span class="n">EmpID</span> <span class="p">==</span> <span class="m">1</span><span class="p">);</span>
+
+<span class="c1">// Territories that Employee 1 is not assigned to.</span>
+<span class="n">TerritoryQuery</span> <span class="n">tq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TerritoryQuery</span><span class="p">(</span><span class="s">"t"</span><span class="p">);</span>
+<span class="n">tq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">tq</span><span class="p">.</span><span class="n">Description</span><span class="p">);</span>
+<span class="n">tq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">tq</span><span class="p">.</span><span class="n">TerritoryID</span><span class="p">.</span><span class="n">NotIn</span><span class="p">(</span><span class="n">etq</span><span class="p">));</span>
+
+<span class="n">TerritoryCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TerritoryCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">tq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">t</span><span class="p">.[</span><span class="n">Description</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Territory</span><span class="p">]</span> <span class="n">t</span> 
+<span class="k">WHERE</span> <span class="n">t</span><span class="p">.[</span><span class="n">TerritoryID</span><span class="p">]</span> <span class="k">NOT</span> <span class="k">IN</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="n">et</span><span class="p">.[</span><span class="n">TerrID</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">.[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">EmployeeTerritory</span><span class="p">]</span> <span class="n">et</span> 
+    <span class="k">WHERE</span> <span class="n">et</span><span class="p">.[</span><span class="n">EmpID</span><span class="p">]</span> <span class="o">=</span> <span class="o">@</span><span class="n">EmpID1</span>
+<span class="p">)</span> 
+</pre></div>
+
+<p>Exists evaluates to true, if the SubQuery returns a result set.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// SubQuery of Employees with a null Supervisor column.</span>
+<span class="n">EmployeeQuery</span> <span class="n">sq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"s"</span><span class="p">);</span>
+<span class="n">sq</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">Distinct</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">sq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">sq</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">);</span>
+<span class="n">sq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">sq</span><span class="p">.</span><span class="n">Supervisor</span><span class="p">.</span><span class="n">IsNull</span><span class="p">());</span>
+
+<span class="c1">// If even one employee has a null supervisor,</span>
+<span class="c1">// i.e., the above query has a result set,</span>
+<span class="c1">// then run a list of all employees.</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e"</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">,</span> <span class="n">eq</span><span class="p">.</span><span class="n">Supervisor</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">sq</span><span class="p">));</span>
+
+<span class="n">EmployeeCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">eq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">],</span><span class="n">e</span><span class="p">.[</span><span class="n">Supervisor</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> <span class="n">e</span> 
+<span class="k">WHERE</span> <span class="k">EXISTS</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">s</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> <span class="n">s</span> 
+    <span class="k">WHERE</span> <span class="n">s</span><span class="p">.[</span><span class="n">Supervisor</span><span class="p">]</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="joinqueryonsubquery" class="anchor" href="#joinqueryonsubquery"><span class="octicon octicon-link"></span></a>Join(query).On(SubQuery)</h3>
+
+<p>SubQueries cannot be used directly within a Join(SubQuery) clause, but they can be used within a Join(query).On(SubQuery) clause.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Query for the Join</span>
+<span class="n">OrderItemQuery</span> <span class="n">oiq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="c1">// SubQuery of OrderItems with a discount</span>
+<span class="n">OrderItemQuery</span> <span class="n">oisq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"ois"</span><span class="p">);</span>
+<span class="n">oisq</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">Distinct</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">oisq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oisq</span><span class="p">.</span><span class="n">Discount</span><span class="p">);</span>
+<span class="n">oisq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oisq</span><span class="p">.</span><span class="n">Discount</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">);</span>
+
+<span class="c1">// Orders with discounted items</span>
+<span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span> <span class="n">oiq</span><span class="p">.</span><span class="n">Discount</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">InnerJoin</span><span class="p">(</span><span class="n">oiq</span><span class="p">).</span>
+    <span class="n">On</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">&amp;&amp;</span> <span class="n">oiq</span><span class="p">.</span><span class="n">Discount</span><span class="p">.</span><span class="n">In</span><span class="p">(</span><span class="n">oisq</span><span class="p">));</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>   
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">oi</span><span class="p">.[</span><span class="n">Discount</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> 
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> 
+<span class="k">ON</span> <span class="p">(</span><span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="o">=</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span> <span class="k">AND</span> <span class="n">oi</span><span class="p">.[</span><span class="n">Discount</span><span class="p">]</span> <span class="k">IN</span>  
+<span class="p">(</span>
+    <span class="k">SELECT</span>  <span class="k">DISTINCT</span> <span class="n">ois</span><span class="p">.[</span><span class="n">Discount</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">ois</span> 
+    <span class="k">WHERE</span> <span class="n">ois</span><span class="p">.[</span><span class="n">Discount</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">@</span><span class="n">Discount1</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="correlated-subquery" class="anchor" href="#correlated-subquery"><span class="octicon octicon-link"></span></a>Correlated SubQuery</h3>
+
+<p>A correlated SubQuery is where the inner query relies on an element of the outer query. The inner select cannot run on its own. Below, the inner pq query uses the outer query's oiq.ProductID in the Where() clause.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderItemQuery</span> <span class="n">oiq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+<span class="n">ProductQuery</span> <span class="n">pq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ProductQuery</span><span class="p">(</span><span class="s">"p"</span><span class="p">);</span>
+
+<span class="n">oiq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span>
+    <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">*</span> <span class="n">oiq</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">).</span><span class="n">Sum</span><span class="p">().</span><span class="n">As</span><span class="p">(</span><span class="s">"Total"</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="n">oiq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">ProductID</span>
+    <span class="p">.</span><span class="n">In</span><span class="p">(</span>
+        <span class="n">pq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">pq</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">ProductID</span> <span class="p">==</span> <span class="n">pq</span><span class="p">.</span><span class="n">ProductID</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+<span class="n">oiq</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">);</span>
+
+<span class="n">OrderItemCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oiq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>   
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="k">SUM</span><span class="p">((</span><span class="n">oi</span><span class="p">.[</span><span class="n">Quantity</span><span class="p">]</span><span class="o">*</span><span class="n">oi</span><span class="p">.[</span><span class="n">UnitPrice</span><span class="p">]))</span> <span class="k">AS</span> <span class="s1">'Total'</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">OrderItem</span><span class="p">]</span> <span class="n">oi</span> 
+<span class="k">WHERE</span> <span class="n">oi</span><span class="p">.[</span><span class="n">ProductID</span><span class="p">]</span> <span class="k">IN</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="n">p</span><span class="p">.[</span><span class="n">ProductID</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Product</span><span class="p">]</span> <span class="n">p</span> 
+    <span class="k">WHERE</span> <span class="n">oi</span><span class="p">.[</span><span class="n">ProductID</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">.[</span><span class="n">ProductID</span><span class="p">]</span>
+<span class="p">)</span>  
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">oi</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">]</span>
+</pre></div>
+
+<h3>
+<a name="nested-subquery" class="anchor" href="#nested-subquery"><span class="octicon octicon-link"></span></a>Nested SubQuery</h3>
+
+<p>Tiraggo supports nesting of SubQueries. Each database vendor has their own limits on just how deep the nesting can go. Tiraggo supports two different syntax approaches to nested SubQueries.</p>
+
+<p>Traditional SQL-style syntax is most useful if you already have a query designed using standard SQL, and are just converting it to a DynamicQuery.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">CustomerQuery</span> <span class="n">cq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CustomerQuery</span><span class="p">(</span><span class="s">"c"</span><span class="p">);</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e"</span><span class="p">);</span>
+
+<span class="c1">// OrderID and CustID for customers who ordered on the same date</span>
+<span class="c1">// a customer was added, and have a manager whose </span>
+<span class="c1">// last name starts with 'S'.</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span>
+    <span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span>
+    <span class="n">oq</span><span class="p">.</span><span class="n">CustID</span>
+<span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span>
+    <span class="p">.</span><span class="n">In</span><span class="p">(</span>
+        <span class="n">cq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">DateAdded</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">Manager</span><span class="p">.</span><span class="n">In</span><span class="p">(</span>
+            <span class="n">eq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"S%"</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>   
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> 
+<span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">]</span> <span class="k">IN</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">c</span><span class="p">.[</span><span class="n">DateAdded</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Customer</span><span class="p">]</span> <span class="k">c</span> 
+    <span class="k">WHERE</span> <span class="k">c</span><span class="p">.[</span><span class="n">Manager</span><span class="p">]</span> <span class="k">IN</span> 
+    <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">]</span>  
+        <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> <span class="n">e</span> 
+        <span class="k">WHERE</span> <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span> <span class="k">LIKE</span> <span class="o">@</span><span class="n">LastName1</span>
+    <span class="p">)</span> 
+<span class="p">)</span>
+</pre></div>
+
+<p>Nesting by query instance name can be easier to understand and construct, if you are starting from scratch, and have no pre-existing SQL to go by. The trick is to start with the inner-most SubQuery and work your way out. The query below produces the same results as the traditional SQL-style query above. The instance names are color coded to emphasize how they are nested.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Employees whose LastName begins with 'S'.</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e"</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"S%"</span><span class="p">));</span>
+
+<span class="c1">// DateAdded for Customers whose Managers are in the</span>
+<span class="c1">// EmployeeQuery above.</span>
+<span class="n">CustomerQuery</span> <span class="n">cq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CustomerQuery</span><span class="p">(</span><span class="s">"c"</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">DateAdded</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">Manager</span><span class="p">.</span><span class="n">In</span><span class="p">(</span><span class="n">eq</span><span class="p">));</span>
+
+<span class="c1">// OrderID and CustID where the OrderDate is in the</span>
+<span class="c1">// CustomerQuery above.</span>
+<span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">CustID</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span><span class="p">.</span><span class="n">In</span><span class="p">(</span><span class="n">cq</span><span class="p">));</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> 
+<span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">]</span> <span class="k">IN</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">c</span><span class="p">.[</span><span class="n">DateAdded</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Customer</span><span class="p">]</span> <span class="k">c</span> 
+    <span class="k">WHERE</span> <span class="k">c</span><span class="p">.[</span><span class="n">Manager</span><span class="p">]</span> <span class="k">IN</span> 
+    <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">]</span>  
+        <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> <span class="n">e</span> 
+        <span class="k">WHERE</span> <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span> <span class="k">LIKE</span> <span class="o">@</span><span class="n">LastName1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="any-all-and-some" class="anchor" href="#any-all-and-some"><span class="octicon octicon-link"></span></a>Any, All, and Some</h3>
+
+<p>ANY, ALL, and SOME are SubQuery qualifiers. They precede the SubQuery they apply to. For most databases, ANY and SOME are synonymous. Usually, if you use an operator (&gt;, &gt;=, =, &lt;, &lt;=) in a Where clause against a SubQuery, then the SubQuery must return a single value. By applying a qualifier to the SubQuery, you can use operators against SubQueries that return multiple results.</p>
+
+<p>Notice, below, that the ALL qualifier is set to true for the SubQuery with "cq.tg.All = true;".</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// DateAdded for Customers whose Manager  = 3</span>
+<span class="n">CustomerQuery</span> <span class="n">cq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CustomerQuery</span><span class="p">(</span><span class="s">"c"</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">All</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">DateAdded</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">Manager</span> <span class="p">==</span> <span class="m">3</span><span class="p">);</span>
+
+<span class="c1">// OrderID and CustID where the OrderDate is </span>
+<span class="c1">// less than all of the dates in the CustomerQuery above.</span>
+<span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">CustID</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span> <span class="p">&lt;</span> <span class="n">cq</span><span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> 
+<span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">]</span> <span class="o">&lt;</span> <span class="k">ALL</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">c</span><span class="p">.[</span><span class="n">DateAdded</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">ForeignKeyTest</span><span class="p">].[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Customer</span><span class="p">]</span> <span class="k">c</span> 
+    <span class="k">WHERE</span> <span class="k">c</span><span class="p">.[</span><span class="n">Manager</span><span class="p">]</span> <span class="o">=</span> <span class="o">@</span><span class="n">Manager1</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>Below, is a nested SubQuery. The ANY qualifier is set to true for the middle SubQuery with "cq.tg.Any = true;".</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Employees whose LastName begins with 'S'.</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"e"</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">);</span>
+<span class="n">eq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"S%"</span><span class="p">));</span>
+
+<span class="c1">// DateAdded for Customers whose Managers are in the</span>
+<span class="c1">// EmployeeQuery above.</span>
+<span class="n">CustomerQuery</span> <span class="n">cq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CustomerQuery</span><span class="p">(</span><span class="s">"c"</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">tg</span><span class="p">.</span><span class="n">Any</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">DateAdded</span><span class="p">);</span>
+<span class="n">cq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">cq</span><span class="p">.</span><span class="n">Manager</span><span class="p">.</span><span class="n">In</span><span class="p">(</span><span class="n">eq</span><span class="p">));</span>
+
+<span class="c1">// OrderID and CustID where the OrderDate is </span>
+<span class="c1">// less than any one of the dates in the CustomerQuery above.</span>
+<span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">CustID</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderDate</span> <span class="p">&lt;</span> <span class="n">cq</span><span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderID</span><span class="p">],</span><span class="n">o</span><span class="p">.[</span><span class="n">CustID</span><span class="p">]</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="k">Order</span><span class="p">]</span> <span class="n">o</span> 
+<span class="k">WHERE</span> <span class="n">o</span><span class="p">.[</span><span class="n">OrderDate</span><span class="p">]</span> <span class="o">&lt;</span> <span class="k">ANY</span> 
+<span class="p">(</span>
+    <span class="k">SELECT</span> <span class="k">c</span><span class="p">.[</span><span class="n">DateAdded</span><span class="p">]</span>  
+    <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Customer</span><span class="p">]</span> <span class="k">c</span> 
+    <span class="k">WHERE</span> <span class="k">c</span><span class="p">.[</span><span class="n">Manager</span><span class="p">]</span> <span class="k">IN</span> 
+    <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="n">e</span><span class="p">.[</span><span class="n">EmployeeID</span><span class="p">]</span>  
+        <span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> <span class="n">e</span> 
+        <span class="k">WHERE</span> <span class="n">e</span><span class="p">.[</span><span class="n">LastName</span><span class="p">]</span> <span class="k">LIKE</span> <span class="o">@</span><span class="n">LastName1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="casewhenthenend-syntax" class="anchor" href="#casewhenthenend-syntax"><span class="octicon octicon-link"></span></a>Case().When().Then().End() Syntax</h3>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeesQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">FirstName</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span> <span class="p">==</span> <span class="m">2</span><span class="p">);</span>
+
+<span class="n">OrderDetailsQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderDetailsQuery</span><span class="p">();</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span>
+<span class="p">(</span>
+  <span class="n">oq</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">.</span><span class="n">Case</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="s">"yay"</span><span class="p">).</span><span class="n">Then</span><span class="p">(</span><span class="s">"wow"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">q</span><span class="p">)).</span><span class="n">Then</span><span class="p">(</span><span class="s">"Exists!!"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">&gt;=</span> <span class="m">50</span><span class="p">).</span><span class="n">Then</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span>  <span class="p">/</span> <span class="m">50</span> <span class="p">/</span> <span class="m">50</span> <span class="p">==</span> <span class="m">0</span><span class="p">).</span><span class="n">Then</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">UnitPrice</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">&gt;=</span> <span class="m">50</span> <span class="p">&amp;&amp;</span> <span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">&lt;</span> <span class="m">250</span><span class="p">).</span><span class="n">Then</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">&gt;=</span> <span class="m">250</span> <span class="p">&amp;&amp;</span> 
+            <span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span> <span class="p">&lt;</span> <span class="m">1000</span><span class="p">).</span><span class="n">Then</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">UnitPrice</span> <span class="p">*</span> <span class="p">.</span><span class="m">80</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Else</span><span class="p">(</span><span class="s">"Huh?"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">End</span><span class="p">()</span>
+<span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span><span class="p">.</span><span class="n">Sum</span><span class="p">()</span> <span class="p">&gt;=</span> <span class="m">50</span> <span class="p">&amp;&amp;</span> <span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span><span class="p">.</span><span class="n">Avg</span><span class="p">()</span> <span class="p">&lt;</span> <span class="m">250</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">.</span><span class="n">Descending</span><span class="p">,</span> <span class="n">oq</span><span class="p">.</span><span class="n">Quantity</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+
+<span class="n">OrderDetailsCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderDetailsCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">OrderDetails</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> 
+  <span class="k">CASE</span> <span class="n">UnitPrice</span>  
+    <span class="k">WHEN</span> <span class="s1">'yay'</span> <span class="k">THEN</span> <span class="s1">'wow'</span> 
+    <span class="k">WHEN</span>  <span class="k">EXISTS</span> 
+    <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">],[</span><span class="n">FirstName</span><span class="p">]</span>  
+        <span class="k">FROM</span> <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> 
+        <span class="k">WHERE</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="o">=</span> <span class="o">@</span><span class="n">EmployeeID1</span>
+    <span class="p">)</span> <span class="k">THEN</span> <span class="s1">'Exists!!'</span> 
+    <span class="k">WHEN</span> <span class="p">[</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">@</span><span class="n">Quantity2</span> <span class="k">THEN</span> <span class="p">[</span><span class="n">UnitPrice</span><span class="p">]</span> 
+    <span class="k">WHEN</span> <span class="p">(([</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span> <span class="o">=</span> <span class="o">@</span><span class="n">Expr3</span> <span class="k">THEN</span> <span class="p">[</span><span class="n">UnitPrice</span><span class="p">]</span> 
+    <span class="k">WHEN</span> <span class="p">([</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">@</span><span class="n">Quantity4</span> <span class="k">AND</span> <span class="p">[</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">@</span><span class="n">Quantity5</span><span class="p">)</span> <span class="k">THEN</span> <span class="mi">1</span> 
+    <span class="k">WHEN</span> <span class="p">([</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">@</span><span class="n">Quantity6</span> <span class="k">AND</span> <span class="p">[</span><span class="n">Quantity</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">@</span><span class="n">Quantity7</span><span class="p">)</span> <span class="k">THEN</span> 
+         <span class="p">([</span><span class="n">UnitPrice</span><span class="p">]</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">)</span> 
+    <span class="k">ELSE</span> <span class="s1">'Huh?'</span>  
+    <span class="k">END</span>    
+<span class="k">FROM</span> <span class="p">[</span><span class="k">Order</span> <span class="n">Details</span><span class="p">]</span> 
+<span class="k">WHERE</span> <span class="p">(</span><span class="k">SUM</span><span class="p">([</span><span class="n">Quantity</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="o">@</span><span class="n">Quantity8</span> <span class="k">AND</span> <span class="k">AVG</span><span class="p">([</span><span class="n">Quantity</span><span class="p">])</span> <span class="o">&lt;</span> <span class="o">@</span><span class="n">Quantity9</span><span class="p">)</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="p">[</span><span class="n">OrderID</span><span class="p">]</span> <span class="k">DESC</span><span class="p">,[</span><span class="n">Quantity</span><span class="p">]</span> <span class="k">DESC</span>
+</pre></div>
+
+<p>Another Case/When Query</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">();</span>
+
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span>
+<span class="p">(</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">LastName</span>
+        <span class="p">.</span><span class="n">Case</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">When</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">LastName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%a%"</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">Then</span><span class="p">(</span><span class="s">"Last Name Contains an A"</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Else</span><span class="p">(</span><span class="s">"Last Name Doesnt Contain an A"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">End</span><span class="p">().</span><span class="n">As</span><span class="p">(</span><span class="s">"SpecialLastName"</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="n">EmployeeCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="having-clause" class="anchor" href="#having-clause"><span class="octicon octicon-link"></span></a>Having Clause</h3>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">Age</span><span class="p">.</span><span class="n">Sum</span><span class="p">().</span><span class="n">As</span><span class="p">(</span><span class="s">"TotalAge"</span><span class="p">));</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">.</span><span class="n">IsNotNull</span><span class="p">());</span>
+<span class="n">q</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Having</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">Age</span><span class="p">.</span><span class="n">Sum</span><span class="p">()</span> <span class="p">&gt;</span> <span class="m">5</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span><span class="p">.</span><span class="n">Descending</span><span class="p">);</span>
+
+<span class="n">EmployeeCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="k">AS</span> <span class="s1">'EmployeeID'</span><span class="p">,</span><span class="k">SUM</span><span class="p">([</span><span class="n">Age</span><span class="p">])</span> <span class="k">AS</span> <span class="s1">'TotalAge'</span> 
+<span class="k">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">Employee</span><span class="p">]</span> 
+<span class="k">WHERE</span><span class="p">[</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">]</span> 
+<span class="k">HAVING</span> <span class="k">SUM</span><span class="p">([</span><span class="n">Age</span><span class="p">])</span> <span class="o">&gt;</span> <span class="o">@</span><span class="n">Age2</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="p">[</span><span class="n">EmployeeID</span><span class="p">]</span> <span class="k">DESC</span>
+</pre></div>
+
+<h3>
+<a name="union-intersect-and-except" class="anchor" href="#union-intersect-and-except"><span class="octicon octicon-link"></span></a>Union, Intersect, and Except</h3>
+
+<p>These might be kind of silly but they demonstrate syntax.</p>
+
+<p>Union</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">eq1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq1"</span><span class="p">);</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq2"</span><span class="p">);</span>
+
+<span class="c1">// This leaves out the record with Age 30</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq1</span><span class="p">.</span><span class="n">Age</span> <span class="p">&lt;</span> <span class="m">30</span><span class="p">);</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Union</span><span class="p">(</span><span class="n">eq2</span><span class="p">);</span>
+<span class="n">eq2</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq2</span><span class="p">.</span><span class="n">Age</span> <span class="p">&gt;</span> <span class="m">30</span><span class="p">);</span>
+</pre></div>
+
+<p>Intersect</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">eq1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq1"</span><span class="p">);</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq2"</span><span class="p">);</span>
+
+<span class="c1">// This leaves out the record with Age 30</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq1</span><span class="p">.</span><span class="n">FirstName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%n%"</span><span class="p">));</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Intersect</span><span class="p">(</span><span class="n">eq2</span><span class="p">);</span>
+<span class="n">eq2</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq2</span><span class="p">.</span><span class="n">FirstName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%a%"</span><span class="p">));</span>
+</pre></div>
+
+<p>Except</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeeQuery</span> <span class="n">eq1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq1"</span><span class="p">);</span>
+<span class="n">EmployeeQuery</span> <span class="n">eq2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeQuery</span><span class="p">(</span><span class="s">"eq2"</span><span class="p">);</span>
+
+<span class="c1">// This leaves out the record with Age 30</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq1</span><span class="p">.</span><span class="n">FirstName</span><span class="p">.</span><span class="n">Like</span><span class="p">(</span><span class="s">"%J%"</span><span class="p">));</span>
+<span class="n">eq1</span><span class="p">.</span><span class="n">Except</span><span class="p">(</span><span class="n">eq2</span><span class="p">);</span>
+<span class="n">eq2</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">eq2</span><span class="p">.</span><span class="n">FirstName</span> <span class="p">==</span> <span class="s">"Jim"</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="raw-sql-injection-everywhere" class="anchor" href="#raw-sql-injection-everywhere"><span class="octicon octicon-link"></span></a>Raw SQL Injection Everywhere</h3>
+
+<p>There may be times when you need to access some SQL feature that is not supported by the DynamicQuery API. But, now having used and fallen in love with DynamicQuery, the last thing you want to do is stop and go write a stored procedure or create a view. We have always supported the raw injection feature in our Select statement, but it will soon be available almost everywhere. The way it works is you pass in raw SQL in the form of a string surrounded by &lt; &gt; angle brackets. That indicates that you want the raw SQL passed directly to the database engine “as is”.</p>
+
+<p>Here is an example query. You would never write a query like this in reality. Tiraggo supports this simple query without having to use &lt; &gt; angle brackets. This is just to show all of the places that can accept the raw SQL injection technique:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeesQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="s">"&lt;FirstName&gt;"</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">HireDate</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="s">"&lt;EmployeeID = 1&gt;"</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="s">"&lt;FirstName&gt;"</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">HireDate</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="s">"&lt;FirstName ASC&gt;"</span><span class="p">);</span> 
+
+<span class="n">EmployeeCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeeCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>The SQL Generated is as follows (and works)</p>
+
+<p>Results:</p>
+
+<div class="highlight highlight-sql"><pre><span class="k">SELECT</span> <span class="n">FirstName</span><span class="p">,[</span><span class="n">HireDate</span><span class="p">]</span> <span class="k">AS</span> <span class="s1">'HireDate'</span>  
+<span class="k">FROM</span> <span class="p">[</span><span class="n">Employees</span><span class="p">]</span> <span class="k">WHERE</span> <span class="p">(</span><span class="n">EmployeeID</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">FirstName</span><span class="p">,[</span><span class="n">HireDate</span><span class="p">]</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">FirstName</span> <span class="k">ASC</span>
+</pre></div>
+
+<p>Of course, you could easily write the above query without injection, but you get the idea. The escape hatch will be available to you almost everywhere ….</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">EmployeesQuery</span> <span class="n">q</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EmployeesQuery</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">FirstName</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">EmployeeID</span> <span class="p">==</span> <span class="m">1</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">FirstName</span><span class="p">.</span><span class="n">Ascending</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">GroupBy</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span> <span class="n">q</span><span class="p">.</span><span class="n">HireDate</span><span class="p">);</span>
+</pre></div>
+
+<p>Using the raw SQL injection techniques above will allow you to invoke SQL functions that we don’t support, including database vender specific SQL, and so on. Hopefully, you will almost never have to resort to writing a custom load method to invoke a stored procedure or an entirely hand written SQL statement. Of course, you can use our native API everywhere and just inject the raw SQL on the GroupBy for instance. You can mix and match to get the desired SQL.</p>
+
+<h2>
+<a name="some-final-thoughts" class="anchor" href="#some-final-thoughts"><span class="octicon octicon-link"></span></a>Some Final Thoughts</h2>
+
+<p>The examples given above were designed to demonstrate (and test) usage in a variety of settings. They are not necessarily the simplest, or most efficient, way to achieve the desired result set. Think of them as an API usage guide, not as design guidelines. Most SubQueries can be re-written as Joins, and most Joins can be re-written as SubQueries. If, while coding, you are having trouble conceptualizing one approach, then try the other.</p>
+
+<p>Technically, a JOIN's ON clause can take almost any where_condition, and Tiraggo supports many of these, including SubQueries. But, I agree with most authorities on the subject, that the ON clause should be reserved for the conditions that relate the two tables. All other conditional statements should be placed in a WHERE clause. Typically, the ON clause only contains a column from each table and a comparison operator.</p>
+
+<p>For example, take the Join(query).On(SubQuery) example above. The much simpler query below returns the same result set. Its Where() clause not only simplifies the On() clause, but eliminates the SubQuery completely.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Query for the Join</span>
+<span class="n">OrderItemQuery</span> <span class="n">oiq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderItemQuery</span><span class="p">(</span><span class="s">"oi"</span><span class="p">);</span>
+
+<span class="c1">// Orders with discounted items</span>
+<span class="n">OrderQuery</span> <span class="n">oq</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderQuery</span><span class="p">(</span><span class="s">"o"</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">,</span> <span class="n">oiq</span><span class="p">.</span><span class="n">Discount</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">InnerJoin</span><span class="p">(</span><span class="n">oiq</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="n">oq</span><span class="p">.</span><span class="n">OrderID</span> <span class="p">==</span> <span class="n">oiq</span><span class="p">.</span><span class="n">OrderID</span><span class="p">);</span>
+<span class="n">oq</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">oiq</span><span class="p">.</span><span class="n">Discount</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">);</span>
+
+<span class="n">OrderCollection</span> <span class="n">coll</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderCollection</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">coll</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">oq</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Then we loaded at least one record</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="the-rest-of-the-tiraggo-suite" class="anchor" href="#the-rest-of-the-tiraggo-suite"><span class="octicon octicon-link"></span></a>The rest of the Tiraggo Suite</h2>
+
+<p><a href="http://brewdawg.github.io/Tiraggo.js/">Tiraggo.js</a> - A JavaScript ORM to Compliment the Main Tiraggo Architecture</p>
       </section>
 
     </div>
