@@ -160,7 +160,8 @@ namespace Tiraggo.Npgsql2Provider
             }
 
             #region Special Column Logic
-            if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
+            if (cols.DateAdded != null && cols.DateAdded.IsServerSide &&
+                cols.FindByColumnName(cols.DateAdded.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateAdded.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -174,7 +175,8 @@ namespace Tiraggo.Npgsql2Provider
                 defaultComma = ",";
             }
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateModified.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -188,7 +190,8 @@ namespace Tiraggo.Npgsql2Provider
                 defaultComma = ",";
             }
 
-            if (cols.AddedBy != null && cols.AddedBy.IsServerSide)
+            if (cols.AddedBy != null && cols.AddedBy.IsServerSide &&
+                cols.FindByColumnName(cols.AddedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.AddedBy.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -209,7 +212,8 @@ namespace Tiraggo.Npgsql2Provider
                 }
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.ModifiedBy.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -344,7 +348,8 @@ namespace Tiraggo.Npgsql2Provider
             }
 
             #region Special Column Logic
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateModified.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -357,7 +362,8 @@ namespace Tiraggo.Npgsql2Provider
                 defaultsComma = ",";
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.ModifiedBy.ColumnName]);
                 p.Direction = ParameterDirection.Output;
