@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<configuration>
+
+  <configSections>
+    <sectionGroup name="Tiraggo" type="Tiraggo.Interfaces.tgConfigSettings, Tiraggo.Core">
+      <section name="connectionInfo" 
+               type="Tiraggo.Interfaces.tgConfigSettings, Tiraggo.Interfaces" 
+               allowLocation="true" 
+               allowDefinition="Everywhere" 
+               restartOnExternalChanges="true"/>
+    </sectionGroup>
+  </configSections>
+
+  <Tiraggo>
+    <connectionInfo default="SQL">
+      <connections>
+	  
+        <add name="SQL" 
+             providerMetadataKey="tgDefault" 
+             sqlAccessType="DynamicSQL" 
+             provider="Tiraggo.Npgsql2Provider" 
+             providerClass="DataProvider" 
+             connectionString="Server=127.0.0.1;Port=5432;User Id=postgres;Password=MyPassword;Database=Northwind;" />	  
+
+      </connections>
+    </connectionInfo>
+  </Tiraggo>
+  
+</configuration>
