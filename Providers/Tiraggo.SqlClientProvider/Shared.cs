@@ -177,7 +177,8 @@ namespace Tiraggo.SqlClientProvider
             tgColumnMetadataCollection cols = request.Columns;
 
             #region Special Column Logic
-            if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
+            if (cols.DateAdded != null && cols.DateAdded.IsServerSide &&
+                cols.FindByColumnName(cols.DateAdded.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateAdded.ColumnName]);
                 sql += " SET " + p.ParameterName + " = " + request.ProviderMetadata["DateAdded.ServerSideText"] + ";";
@@ -187,7 +188,8 @@ namespace Tiraggo.SqlClientProvider
                 cmd.Parameters.Add(p);
             }
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateModified.ColumnName]);
                 sql += " SET " + p.ParameterName + " = " + request.ProviderMetadata["DateModified.ServerSideText"] + ";";
@@ -197,7 +199,8 @@ namespace Tiraggo.SqlClientProvider
                 cmd.Parameters.Add(p);
             }
 
-            if (cols.AddedBy != null && cols.AddedBy.IsServerSide)
+            if (cols.AddedBy != null && cols.AddedBy.IsServerSide &&
+                cols.FindByColumnName(cols.AddedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.AddedBy.ColumnName]);
                 p.Size = (int)cols.FindByColumnName(cols.AddedBy.ColumnName).CharacterMaxLength;
@@ -209,7 +212,8 @@ namespace Tiraggo.SqlClientProvider
                 cmd.Parameters.Add(p);
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.ModifiedBy.ColumnName]);
                 p.Size = (int)cols.FindByColumnName(cols.ModifiedBy.ColumnName).CharacterMaxLength;
@@ -403,7 +407,8 @@ namespace Tiraggo.SqlClientProvider
 
             tgColumnMetadataCollection cols = request.Columns;
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.DateModified.ColumnName]);
                 p.Direction = ParameterDirection.Output;
@@ -416,7 +421,8 @@ namespace Tiraggo.SqlClientProvider
                 set += " SET " + p.ParameterName + " = " + request.ProviderMetadata["DateModified.ServerSideText"] + ";";
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 p = CloneParameter(types[cols.ModifiedBy.ColumnName]);
                 p.Size = (int)cols.FindByColumnName(cols.ModifiedBy.ColumnName).CharacterMaxLength;
@@ -541,21 +547,24 @@ namespace Tiraggo.SqlClientProvider
                 }
             }
 
-            if (cols.DateAdded != null && cols.DateAdded.IsServerSide)
+            if (cols.DateAdded != null && cols.DateAdded.IsServerSide &&
+                cols.FindByColumnName(cols.DateAdded.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.DateAdded.ColumnName].ParameterName];
                 p = cmd.Parameters[p.ParameterName];
                 p.Direction = ParameterDirection.Output;
             }
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.DateModified.ColumnName].ParameterName];
                 p = cmd.Parameters[p.ParameterName];
                 p.Direction = ParameterDirection.Output;
             }
 
-            if (cols.AddedBy != null && cols.AddedBy.IsServerSide)
+            if (cols.AddedBy != null && cols.AddedBy.IsServerSide &&
+                cols.FindByColumnName(cols.AddedBy.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.AddedBy.ColumnName].ParameterName];
                 p.Size = (int)cols.FindByColumnName(cols.AddedBy.ColumnName).CharacterMaxLength;
@@ -563,7 +572,8 @@ namespace Tiraggo.SqlClientProvider
                 p.Direction = ParameterDirection.Output;
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.ModifiedBy.ColumnName].ParameterName];
                 p.Size = (int)cols.FindByColumnName(cols.ModifiedBy.ColumnName).CharacterMaxLength;
@@ -598,7 +608,8 @@ namespace Tiraggo.SqlClientProvider
                 }
             }
 
-            if (cols.DateModified != null && cols.DateModified.IsServerSide)
+            if (cols.DateModified != null && cols.DateModified.IsServerSide &&
+                cols.FindByColumnName(cols.DateModified.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.DateModified.ColumnName].ParameterName];
                 p = cmd.Parameters[p.ParameterName];
@@ -606,7 +617,8 @@ namespace Tiraggo.SqlClientProvider
                 p.Direction = ParameterDirection.Output;
             }
 
-            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide)
+            if (cols.ModifiedBy != null && cols.ModifiedBy.IsServerSide &&
+                cols.FindByColumnName(cols.ModifiedBy.ColumnName) != null)
             {
                 SqlParameter p = cmd.Parameters[types[cols.ModifiedBy.ColumnName].ParameterName];
                 p.Size = (int)cols.FindByColumnName(cols.ModifiedBy.ColumnName).CharacterMaxLength;
