@@ -272,6 +272,24 @@ namespace Tiraggo.Core
 
         #region IEntityCollection Members
 
+        /// <summary>
+        /// Used only to override the IConnectionNameService API when in use
+        /// </summary>
+        /// <param name="connectionName">The Name of the connection</param>
+        /// <returns>The newly created tgConnection Connection</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public tgConnection ConnectionServiceOverride(string connectionName)
+        {
+            if (this.connection == null)
+            {
+                this.connection = new tgConnection();
+
+                this.connection.Name = connectionName;
+            }
+
+            return this.connection;
+        }
+
         tgConnection IEntityCollection.Connection
         {
             get

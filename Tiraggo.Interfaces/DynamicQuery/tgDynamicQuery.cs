@@ -33,6 +33,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using Tiraggo.DynamicQuery;
+using System.ComponentModel;
 
 namespace Tiraggo.Interfaces
 {
@@ -827,6 +828,24 @@ namespace Tiraggo.Interfaces
                 {
                     return this.dynamicQuery.connection != null;
                 }
+            }
+
+            /// <summary>
+            /// Used only to override the IConnectionNameService API when in use
+            /// </summary>
+            /// <param name="connectionName">The Name of the connection</param>
+            /// <returns>The newly created tgConnection Connection</returns>
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public tgConnection ConnectionServiceOverride(string connectionName)
+            {
+                if (this.dynamicQuery.connection == null)
+                {
+                    this.dynamicQuery.connection = new tgConnection();
+
+                    this.dynamicQuery.connection.Name = connectionName;
+                }
+
+                return this.dynamicQuery.connection;
             }
 
             /// <summary>
