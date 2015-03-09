@@ -42,7 +42,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tiraggo Architecture")]
-[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013, 2014")]
+[assembly: AssemblyCopyright("Copyright © Mike Griffin - 2013 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
