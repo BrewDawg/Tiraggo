@@ -32,6 +32,7 @@ using System.Data;
 
 using Tiraggo.Interfaces;
 using Tiraggo.DynamicQuery;
+using System.ComponentModel;
 
 namespace Tiraggo.Core
 {
@@ -55,6 +56,17 @@ namespace Tiraggo.Core
             {
                 return coll.tg;
             }
+        }
+
+                /// <summary>
+        /// Used only to override the IConnectionNameService API when in use
+        /// </summary>
+        /// <param name="connectionName">The Name of the connection</param>
+        /// <returns>The newly created tgConnection Connection</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public tgConnection ConnectionServiceOverride(string connectionName)
+        {
+            return coll.ConnectionServiceOverride(connectionName);
         }
 
         public string Source = "esUtility";
